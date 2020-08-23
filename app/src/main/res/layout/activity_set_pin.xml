@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:gravity="center"
+    tools:context=".shopKeeperPanel.SetPinActivity">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:padding="5dp"
+        android:src="@drawable/logo"/>
+
+    <TextView
+        android:id="@+id/txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/ethnocentric"
+        android:textSize="20sp"
+        android:text="Please, Enter new pin"
+        android:textAlignment="center"
+        android:textColor="#0026FF" />
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="#0026FF"
+        android:layout_below="@id/txt"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/relative1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="25dp">
+
+        <EditText
+            android:id="@+id/new_pin"
+            android:layout_marginTop="15dp"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:inputType="numberPassword"
+            android:hint="New Pin Number"
+            android:drawableLeft="@drawable/ic_input_lock"
+            android:drawablePadding="10dp"
+            android:background="@drawable/edittext_design"
+            android:textSize="20sp"
+            android:fontFamily="@font/robotolightitalic"
+            android:textColorHint="#000000"
+            />
+
+        <ImageView
+            android:id="@+id/show_pin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_visibility_off"
+            android:layout_alignParentRight="true"
+            android:paddingRight="40dp"
+            android:paddingTop="10dp"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:textSize="20sp"
+        android:textColor="#fff"
+        android:id="@+id/forget_set_pin_btn"
+        android:padding="15dp"
+        android:layout_margin="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons_blue"
+        android:fontFamily="@font/ethnocentric"
+        android:text="Set new pin"
+        android:textAllCaps="false"
+        android:elevation="0dp" />
+
+</LinearLayout>

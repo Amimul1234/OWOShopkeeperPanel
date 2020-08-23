@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".shopKeeperPanel.Contact_us">
+
+    <ImageView
+        android:id="@+id/l"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/backgroundless"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/l"
+        android:text="OWO support"
+        android:textSize="20sp"
+        android:fontFamily="@font/ethnocentric"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"/>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/submit_complain"
+        app:layout_constraintTop_toBottomOf="@id/ll"
+        tools:layout_editor_absoluteX="10dp">
+
+        <TextView
+            android:id="@+id/lll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:text="Please enter the subject :" />
+
+        <EditText
+            android:id="@+id/complain_subject"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/lll"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_design"
+            android:maxLines="5"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/llll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/complain_subject"
+            android:layout_marginTop="15dp"
+            android:text="Complain Details :" />
+
+        <EditText
+            android:id="@+id/complain_details"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_below="@id/llll"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_design"
+            android:gravity="start"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+
+    <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
+        android:id="@+id/loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:alliance_animDuration="500"
+        app:alliance_distanceMultiplier="4"
+        app:alliance_dotsRadius="20dp"
+        app:alliance_firstDotsColor="@color/red"
+        app:alliance_secondDotsColor="@color/green"
+        app:alliance_strokeWidth="8dp"
+        app:alliance_thirdDotsColor="@color/blue"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
+
+
+    <Button
+        android:id="@+id/submit_complain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons_blue"
+        android:text="Submit Complain"
+        android:padding="15dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/ethnocentric"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
