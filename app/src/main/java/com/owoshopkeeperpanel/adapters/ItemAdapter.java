@@ -109,20 +109,26 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
             return Products_shower;
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder{
+    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView txtProductName, txtProductPrice, txtProduct_discounted_price;
         public ImageView imageView;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-            imageView=(ImageView)itemView.findViewById(R.id.product_image);
-            txtProductName=(TextView)itemView.findViewById(R.id.product_name);
-            txtProductPrice=(TextView)itemView.findViewById(R.id.product_price);
+            imageView = (ImageView)itemView.findViewById(R.id.product_image);
+            txtProductName = (TextView)itemView.findViewById(R.id.product_name);
+            txtProductPrice = (TextView)itemView.findViewById(R.id.product_price);
 
             txtProduct_discounted_price = itemView.findViewById(R.id.product_discounted_price);
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            Products products = getItem(getAdapterPosition());
+
+        }
     }
 
     public class BannerFlipper extends RecyclerView.ViewHolder {

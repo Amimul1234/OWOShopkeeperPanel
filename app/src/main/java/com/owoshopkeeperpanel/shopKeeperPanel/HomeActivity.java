@@ -52,10 +52,8 @@ import io.paperdb.Paper;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
     private List<String> images = new ArrayList<String>();
     private ItemAdapter adapter;
-    private DatabaseReference OffersRef;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -126,11 +124,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        OffersRef = FirebaseDatabase.getInstance().getReference().child("Offers");
+        DatabaseReference offersRef = FirebaseDatabase.getInstance().getReference().child("Offers");
 
         //Getting offers class from firebase
 
-        OffersRef.addValueEventListener(new ValueEventListener() {
+        offersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -187,7 +185,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new GridLayoutManager(this, 2);//Configuring recyclerview to receive two layout manager
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);//Configuring recyclerview to receive two layout manager
         ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
