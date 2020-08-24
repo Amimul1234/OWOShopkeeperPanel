@@ -233,7 +233,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         int id=item.getItemId();
         if(id==R.id.nav_shop)
         {
-
+            Intent intent=new Intent(HomeActivity.this, MyShopActivity.class);
+            startActivity(intent);
         }
         else if(id==R.id.nav_order)
         {
