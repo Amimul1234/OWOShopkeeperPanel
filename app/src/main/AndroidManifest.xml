@@ -15,7 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".shopKeeperPanel.Contact_us"></activity>
+        <activity android:name=".shopKeeperPanel.MyProductsActivity"></activity>
+        <activity android:name=".shopKeeperPanel.StoreSettingsActivity" />
+        <activity android:name=".shopKeeperPanel.MyShopActivity" />
+        <activity android:name=".shopKeeperPanel.Contact_us" />
         <activity android:name=".shopKeeperPanel.SetPinActivity" />
         <activity android:name=".shopKeeperPanel.ForgetVerifyPhoneActivity" />
         <activity android:name=".shopKeeperPanel.ForgetPinOtpActivity" />
