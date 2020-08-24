@@ -76,7 +76,15 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, Products> {
                     public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {
 
                         if(response.body() != null){
-                            callback.onResult(response.body().products, params.key+1);
+                            if(params.key < 12)
+                            {
+                                Log.d("loadAfter", String.valueOf(params.key));
+                                callback.onResult(response.body().products, params.key+1);
+                            }
+                            else
+                            {
+                                callback.onResult(response.body().products, null);
+                            }
                         }
 
                     }

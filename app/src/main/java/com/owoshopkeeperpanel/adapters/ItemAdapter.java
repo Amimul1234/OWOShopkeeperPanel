@@ -1,7 +1,9 @@
 package com.owoshopkeeperpanel.adapters;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,12 +99,13 @@ public class ItemAdapter extends PagedListAdapter<Products, ItemAdapter.ItemView
 
             Toast.makeText(mCtx, "Hello", Toast.LENGTH_SHORT).show();
 
-/*
+            /*
             Intent intent = new Intent(mCtx, UpdateProductActivity.class);
             intent.putExtra("Products", products);
             mCtx.startActivity(intent);
 
- */
+             */
+
         }
     }
     

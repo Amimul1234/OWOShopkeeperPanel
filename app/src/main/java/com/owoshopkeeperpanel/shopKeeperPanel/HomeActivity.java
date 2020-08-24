@@ -206,7 +206,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 showOnRecyclerView();
             }
         });
-
     }
 
     private void showOnRecyclerView() {

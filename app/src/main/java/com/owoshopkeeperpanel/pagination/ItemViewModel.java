@@ -21,7 +21,7 @@ public class ItemViewModel extends ViewModel {
 
         PagedList.Config config =
                 (new PagedList.Config.Builder())
-                        .setPageSize(30)                          //setPageSize() is a mandatory for paging list.
+                        .setPageSize(30)
                         .setEnablePlaceholders(false)
                         .build();
 
