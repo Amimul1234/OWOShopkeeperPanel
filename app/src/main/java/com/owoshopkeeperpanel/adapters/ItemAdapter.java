@@ -1,9 +1,6 @@
 package com.owoshopkeeperpanel.adapters;
 
-
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
@@ -21,46 +19,70 @@ import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Model.Products;
 
-public class ItemAdapter extends PagedListAdapter<Products, ItemAdapter.ItemViewHolder>{
+import java.util.ArrayList;
+import java.util.List;
+
+public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHolder>{
 
     private Context mCtx;
+    public static final int View_Flipper = 1;
+    public static final int Products_shower = 2;
+    private List<String> images = new ArrayList<String>();
 
-
-    public ItemAdapter(Context mCtx) {
+    public ItemAdapter(Context mCtx, List<String> images) {
         super(DIFF_CALLBACK);
         this.mCtx = mCtx;
+        this.images.addAll(images);
     }
 
     @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mCtx).inflate(R.layout.product_availability_sample, parent, false);
-        return new ItemViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if(viewType == View_Flipper)
+        {
+            View view = LayoutInflater.from(mCtx).inflate(R.layout.banner_slider, parent, false);
+            return new BannerFlipper(view);
+        }
+        else
+        {
+            View view = LayoutInflater.from(mCtx).inflate(R.layout.product_availability_sample, parent, false);
+            return new ItemViewHolder(view);
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        Products item = getItem(position);
+        if(getItemViewType(position) == Products_shower)
+        {
+            ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
-        if (item != null) {
+            Products item = getItem(position);
 
-            Glide.with(mCtx).load(item.getProduct_image()).into(holder.imageView);
+            if (item != null) {
 
-            holder.txtProductName.setText(item.getProduct_name());
+                Glide.with(mCtx).load(item.getProduct_image()).into(itemViewHolder.imageView);
 
-            holder.txtProductPrice.setText("৳ "+item.getProduct_price());
-            holder.txtProductPrice.setPaintFlags(holder.txtProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            holder.txtProductPrice.setVisibility(View.VISIBLE);
+                itemViewHolder.txtProductName.setText(item.getProduct_name());
 
-            double discounted_price = Double.parseDouble(item.getProduct_price()) - Double.parseDouble(item.getProduct_discount());
+                itemViewHolder.txtProductPrice.setText("৳ "+item.getProduct_price());
+                itemViewHolder.txtProductPrice.setPaintFlags(itemViewHolder.txtProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                itemViewHolder.txtProductPrice.setVisibility(View.VISIBLE);
 
-            holder.txtProduct_discounted_price.setText("৳ "+ String.valueOf(discounted_price));
+                double discounted_price = Double.parseDouble(item.getProduct_price()) - Double.parseDouble(item.getProduct_discount());
 
-        } else {
-            Toast.makeText(mCtx, "Item is null", Toast.LENGTH_LONG).show();
+                itemViewHolder.txtProduct_discounted_price.setText("৳ "+ String.valueOf(discounted_price));
+
+            } else {
+                Toast.makeText(mCtx, "Item is null", Toast.LENGTH_LONG).show();
+            }
         }
-
+        else
+        {
+            BannerFlipper bannerFlipper = (BannerFlipper) holder;
+            fliptheView(bannerFlipper.bannerFlipper);
+        }
     }
 
     private static DiffUtil.ItemCallback<Products> DIFF_CALLBACK =
@@ -76,7 +98,18 @@ public class ItemAdapter extends PagedListAdapter<Products, ItemAdapter.ItemView
                 }
             };
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+    @Override
+    public int getItemViewType(int position) {
+        if(position == 0)
+        {
+            return View_Flipper;
+        }
+        else
+            return Products_shower;
+    }
+
+    public class ItemViewHolder extends RecyclerView.ViewHolder{
 
         public TextView txtProductName, txtProductPrice, txtProduct_discounted_price;
         public ImageView imageView;
@@ -88,25 +121,51 @@ public class ItemAdapter extends PagedListAdapter<Products, ItemAdapter.ItemView
             txtProductPrice=(TextView)itemView.findViewById(R.id.product_price);
 
             txtProduct_discounted_price = itemView.findViewById(R.id.product_discounted_price);
-
-            itemView.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View v) {
-            int position = getAdapterPosition();
-            Products products = getItem(position);
+    }
 
-            Toast.makeText(mCtx, "Hello", Toast.LENGTH_SHORT).show();
+    public class BannerFlipper extends RecyclerView.ViewHolder {
 
-            /*
-            Intent intent = new Intent(mCtx, UpdateProductActivity.class);
-            intent.putExtra("Products", products);
-            mCtx.startActivity(intent);
+        public ViewFlipper bannerFlipper;
 
-             */
+        public BannerFlipper(@NonNull View itemView) {
+            super(itemView);
 
+            bannerFlipper = itemView.findViewById(R.id.view_flipper_offer);
         }
     }
-    
+
+    private void fliptheView(ViewFlipper banner) {
+
+        int size = images.size();
+
+        for(int i=0; i<size; i++)
+        {
+            flipperImage(images.get(i), banner);
+        }
+
+    }
+
+    public void flipperImage(String image, ViewFlipper viewFlipper)
+    {
+        ImageView imageView=new ImageView(mCtx);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        Glide.with(mCtx).load(image).into(imageView);
+        viewFlipper.addView(imageView);
+        viewFlipper.setFlipInterval(4000);
+        viewFlipper.setAutoStart(true);
+        viewFlipper.startFlipping();
+
+        viewFlipper.setInAnimation(mCtx, R.anim.slide_in_right);
+        viewFlipper.setOutAnimation(mCtx, R.anim.slide_out_left);
+    }
+
+    public void updateItems(List<String> newList) {    //this method is for handling async image responses
+        images.clear();
+        images.addAll(newList);
+        notifyDataSetChanged();
+    }
+
+
 }

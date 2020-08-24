@@ -28,7 +28,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Model.Offers;
 import com.owoshopkeeperpanel.Model.Products;
@@ -53,11 +52,10 @@ import io.paperdb.Paper;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView recyclerView;
-    private ViewFlipper viewFlipper;
-    private DatabaseReference OffersRef;
     private RecyclerView.LayoutManager layoutManager;
     private List<String> images = new ArrayList<String>();
     private ItemAdapter adapter;
+    private DatabaseReference OffersRef;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -131,6 +129,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         OffersRef = FirebaseDatabase.getInstance().getReference().child("Offers");
 
         //Getting offers class from firebase
+
         OffersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -142,7 +141,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         Offers offers = dataSnapshot1.getValue(Offers.class);
                         images.add(offers.getImage());
                     }
-                    fliptheView();
+                    adapter.updateItems(images);
                 }
                 else
                 {
@@ -165,38 +164,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 getProducts();
             }
         });
-
-        viewFlipper=findViewById(R.id.view_flipper_offer);
-
     }
 
-    private void fliptheView() {
-        int size = images.size();
 
-        for(int i=0; i<size; i++)
-        {
-            flipperImage(images.get(i));
-        }
-
-    }
-
-    public void flipperImage(String image)
-    {
-        ImageView imageView=new ImageView(this);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        Glide.with(HomeActivity.this).load(image).into(imageView);
-        viewFlipper.addView(imageView);
-        viewFlipper.setFlipInterval(4000);
-        viewFlipper.setAutoStart(true);
-        viewFlipper.startFlipping();
-
-        viewFlipper.setInAnimation(this, R.anim.slide_in_right);
-        viewFlipper.setOutAnimation(this, R.anim.slide_out_left);
-    }
 
 
     public void getProducts() {
-        adapter = new ItemAdapter(this);
+
+        adapter = new ItemAdapter(this, images);
         ItemViewModel itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
 
         itemViewModel.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
@@ -209,8 +184,24 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showOnRecyclerView() {
+
         recyclerView.setHasFixedSize(true);
-        layoutManager = new GridLayoutManager(this, 2);
+
+        layoutManager = new GridLayoutManager(this, 2);//Configuring recyclerview to receive two layout manager
+        ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                switch (adapter.getItemViewType(position)) {
+                    case ItemAdapter.View_Flipper:
+                        return 2;
+                    case ItemAdapter.Products_shower:
+                        return 1;
+                    default:
+                        return 1;
+                }
+            }
+        });
+
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -232,7 +223,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id=item.getItemId();
+        int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
     }
