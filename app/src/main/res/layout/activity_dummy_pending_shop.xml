@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".shopKeeperPanel.DummyPendingShopActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/scroller"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="2dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create A New Shop"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scroll"
+        android:layout_below="@+id/scroller"
+        android:scrollbars="none"
         >
 
         <LinearLayout
@@ -22,125 +41,152 @@
                 android:id="@+id/shop_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/home3"
+                android:src="@drawable/create_shop"
                 android:scaleType="fitXY"
-                android:layout_margin="10dp"
                 />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="(Click Image to Upload Shop Image)"
+                android:maxLines="1"
+                android:textAlignment="center"/>
+
+
+            <ImageView
+                android:id="@+id/shop_owner_nid"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:src="@drawable/nid"
+                android:scaleType="fitXY"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="(Click Image to Upload NID Front)"
+                android:textAlignment="center"
+                android:layout_marginTop="5dp"
+                android:maxLines="1"/>
+
+
+            <ImageView
+                android:id="@+id/shop_trade_licence"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:src="@drawable/trade_license"
+                android:scaleType="fitXY"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="(Click Image to Upload Trade License)"
+                android:textAlignment="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:maxLines="1"/>
 
             <EditText
                 android:id="@+id/shop_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Shop Name:"
                 android:inputType="textMultiLine"
-                android:padding="20dp"
+                android:padding="18dp"
                 android:background="@drawable/edittext_design"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:layout_margin="10dp"
-                />
+                android:textSize="15sp"
+                android:layout_margin="5dp"
+                android:hint="Shop Name"/>
 
             <EditText
                 android:id="@+id/shop_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Shop Address"
-                android:textColorHint="@color/colorPrimary"
                 android:inputType="textMultiLine"
-                android:padding="20dp"
+                android:padding="18dp"
                 android:background="@drawable/edittext_design"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:layout_margin="10dp"
+                android:textSize="15sp"
+                android:layout_margin="5dp"
                 />
 
-            <TextView
+            <Button
                 android:id="@+id/select_place"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Map Address (Mandatory)"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp"
-                android:padding="20dp"
-                android:background="@drawable/edittext_design"
+                android:layout_margin="5dp"
+                android:padding="15dp"
+                android:text="Validate Address"
+                android:maxLines="1"
+                android:background="@drawable/buttons_blue"
+                android:textColor="@color/white"
                 android:drawableEnd="@drawable/ic_baseline_place_24"
-                android:layout_marginTop="10dp"
-                android:layout_margin="10dp"/>
-
-
-            <EditText
-                android:id="@+id/shop_service_mobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Service Mobile"
-                android:textColorHint="@color/colorPrimary"
-                android:inputType="number"
-                android:padding="20dp"
-                android:background="@drawable/edittext_design"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:layout_margin="10dp"
+                android:drawableTint="@color/white"
+                android:textStyle="bold"
+                android:textSize="18sp"
                 />
 
             <EditText
                 android:id="@+id/shop_owner_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Shop-owner Name:"
+                android:hint="Shop Owner Name:"
                 android:inputType="textMultiLine"
-                android:padding="20dp"
+                android:padding="18dp"
                 android:background="@drawable/edittext_design"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:layout_margin="10dp"
+                android:textSize="15sp"
+                android:layout_margin="5dp"
+                />
+
+            <EditText
+                android:id="@+id/shop_service_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Service Mobile"
+                android:inputType="numberDecimal"
+                android:padding="18dp"
+                android:background="@drawable/edittext_design"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp"
+                android:layout_margin="5dp"
+                android:maxLength="11"
                 />
 
             <EditText
                 android:id="@+id/shop_owner_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:background="@drawable/edittext_design"
-                android:inputType="textMultiLine"
-                android:padding="20dp"
-                android:text="Shop-owner Mobile:"
+                android:hint="Shop Owner Mobile"
+                android:inputType="numberDecimal"
+                android:padding="18dp"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp" />
+                android:textSize="15sp"
+                android:maxLength="11"/>
 
-            <ImageView
-                android:id="@+id/shop_owner_nid"
+            <Button
+                android:id="@+id/create_shop_btn"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:src="@drawable/home3"
-                android:scaleType="fitXY"
-                android:layout_margin="10dp"
-                />
-
-            <ImageView
-                android:id="@+id/shop_trade_licence"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:src="@drawable/home3"
-                android:scaleType="fitXY"
-                android:layout_marginBottom="85dp"
+                android:layout_height="wrap_content"
+                android:text="Create Shop"
+                android:fontFamily="@font/ethnocentric"
+                android:textColor="@android:color/white"
+                android:background="@drawable/buttons_blue"
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 />
 
         </LinearLayout>
-
     </ScrollView>
-
-    <Button
-        android:id="@+id/create_shop_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create Shop"
-        android:fontFamily="@font/ethnocentric"
-        android:textColor="@android:color/white"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/buttons_blue"
-        android:textSize="20sp"
-        android:padding="10dp"
-        android:layout_margin="15dp"
-        />
 
 </RelativeLayout>
