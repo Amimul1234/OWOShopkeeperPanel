@@ -1,6 +1,7 @@
 package com.owoshopkeeperpanel.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.shopKeeperPanel.ProductDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,6 +130,9 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
         public void onClick(View v) {
             Products products = getItem(getAdapterPosition());
 
+            Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
+            intent.putExtra("Products", products);
+            mCtx.startActivity(intent);
         }
     }
 

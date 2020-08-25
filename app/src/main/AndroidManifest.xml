@@ -15,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".shopKeeperPanel.MyProductsActivity"></activity>
+        <activity android:name=".shopKeeperPanel.CartActivity"></activity>
+        <activity android:name=".shopKeeperPanel.SplashScreenActivity" />
+        <activity android:name=".shopKeeperPanel.MyProductsActivity" />
         <activity android:name=".shopKeeperPanel.StoreSettingsActivity" />
         <activity android:name=".shopKeeperPanel.MyShopActivity" />
         <activity android:name=".shopKeeperPanel.Contact_us" />
@@ -30,9 +32,9 @@
         <activity android:name=".shopKeeperPanel.VerifyPhoneActivity" />
         <activity android:name=".shopKeeperPanel.RegisterWithOTPActivity" />
         <activity android:name=".shopKeeperPanel.RegisterFrontActivity" />
-        <activity android:name=".shopKeeperPanel.HomeActivity" />
+        <activity android:name=".shopKeeperPanel.ProductDetailsActivity" />
         <activity android:name=".shopKeeperPanel.DummyPendingShopActivity" />
-        <activity android:name=".shopKeeperPanel.SplashScreenActivity">
+        <activity android:name=".shopKeeperPanel.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
