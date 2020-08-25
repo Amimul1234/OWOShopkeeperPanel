@@ -16,7 +16,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".shopKeeperPanel.CartActivity"></activity>
-        <activity android:name=".shopKeeperPanel.SplashScreenActivity" />
+        <activity android:name=".shopKeeperPanel.SplashScreenActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
         <activity android:name=".shopKeeperPanel.MyProductsActivity" />
         <activity android:name=".shopKeeperPanel.StoreSettingsActivity" />
         <activity android:name=".shopKeeperPanel.MyShopActivity" />
@@ -35,11 +44,7 @@
         <activity android:name=".shopKeeperPanel.ProductDetailsActivity" />
         <activity android:name=".shopKeeperPanel.DummyPendingShopActivity" />
         <activity android:name=".shopKeeperPanel.HomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

@@ -63,7 +63,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productPrice.setText(products.getProduct_price());
         productDiscount.setText(products.getProduct_discount());
         productQuantity.setText(products.getProduct_quantity());
-        productPriceWithDiscount.setText(Integer.parseInt(products.getProduct_price())-Integer.parseInt(products.getProduct_discount()));
+        int price_with_discount = Integer.parseInt(products.getProduct_price())-Integer.parseInt(products.getProduct_discount());
+        productPriceWithDiscount.setText(String.valueOf(price_with_discount));
 
         totalPriceBtn.setOnClickListener(new View.OnClickListener() {
             @Override

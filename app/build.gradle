@@ -81,4 +81,6 @@ dependencies {
     implementation "com.airbnb.android:lottie:3.4.1"
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
 
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+
 }

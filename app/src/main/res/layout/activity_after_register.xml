@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".shopKeeperPanel.AfterRegisterActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/aftersignup"
-        android:padding="10dp"
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/create_shop_animation"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:src="@drawable/create_shop_animation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
+
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/ethnocentric"
         android:padding="15dp"
-        android:layout_marginTop="15dp"
-        android:text="Your shop isn't registered to this app. Please register your shop ."
+        android:text="Please register your shop with us."
         android:textAlignment="center"
         android:textColor="#2E66F4"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/create_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_shop_animation" />
 
     <Button
         android:id="@+id/create_btn"
@@ -34,10 +44,10 @@
         android:text="Create Shop"
         android:fontFamily="@font/ethnocentric"
         android:background="@drawable/buttons_blue"
-        android:padding="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="15dp"
         />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
