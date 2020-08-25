@@ -24,7 +24,7 @@
             app:title="Product Name"
             app:scrimAnimationDuration="10"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/colorPrimary"
+            app:contentScrim="@color/blue"
             app:expandedTitleMarginBottom="15dp"
             app:expandedTitleMarginEnd="20dp"
             app:expandedTitleMarginStart="25dp"
@@ -53,7 +53,7 @@
 
                 <ImageView
                     android:id="@+id/back_to_home"
-                    android:background="#0026FF"
+                    android:background="@drawable/round_back_ground"
                     android:focusable="true"
                     android:clickable="true"
                     android:padding="5dp"
