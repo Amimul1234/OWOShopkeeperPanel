@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".shopKeeperPanel.CartActivity"></activity>
+        <activity android:name=".shopKeeperPanel.CartActivity"/>
         <activity android:name=".shopKeeperPanel.SplashScreenActivity">
 
             <intent-filter>
@@ -46,9 +46,15 @@
         <activity android:name=".shopKeeperPanel.HomeActivity">
 
         </activity>
-        <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
+
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/maps_api_key"/>
+
     </application>
 
 </manifest>

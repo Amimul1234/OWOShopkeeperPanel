@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,9 +50,9 @@ public class LocationFromMap extends AppCompatActivity
     private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean locationPermissionGranted;
+    private Button validate_address;
 
     private Location lastKnownLocation;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +63,40 @@ public class LocationFromMap extends AppCompatActivity
         Places.initialize(getApplicationContext(), getString(R.string.maps_api_key));
         placesClient = Places.createClient(this);
 
+        validate_address = findViewById(R.id.validate_address);
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
         mapFragment.getMapAsync(this);
+
+
+        validate_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(lastKnownLocation == null)
+                {
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+                }
+                else
+                {
+                    LatLng latLng1 = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng1, DEFAULT_ZOOM));
+
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("picked_point", latLng1);
+                    setResult(Activity.RESULT_OK,returnIntent);
+                    finish();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -125,12 +154,6 @@ public class LocationFromMap extends AppCompatActivity
                                 LatLng latLng1 = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
 
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng1, DEFAULT_ZOOM));
-
-                                Intent returnIntent = new Intent();
-                                returnIntent.putExtra("latitude", lastKnownLocation.getLatitude());
-                                returnIntent.putExtra("longitude", lastKnownLocation.getLongitude());
-                                setResult(Activity.RESULT_OK,returnIntent);
-                                finish();
 
                             }
                         }

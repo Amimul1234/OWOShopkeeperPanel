@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".shopKeeperPanel.DummyPendingShopActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -28,7 +29,6 @@
         android:layout_height="match_parent"
         android:id="@+id/scroll"
         android:layout_below="@+id/scroller"
-        android:scrollbars="none"
         >
 
         <LinearLayout
@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:src="@drawable/create_shop"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 />
 
             <TextView
@@ -53,43 +53,6 @@
                 android:maxLines="1"
                 android:textAlignment="center"/>
 
-
-            <ImageView
-                android:id="@+id/shop_owner_nid"
-                android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:src="@drawable/nid"
-                android:scaleType="fitXY"
-                android:layout_marginTop="20dp"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="(Click Image to Upload NID Front)"
-                android:textAlignment="center"
-                android:layout_marginTop="5dp"
-                android:maxLines="1"/>
-
-
-            <ImageView
-                android:id="@+id/shop_trade_licence"
-                android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:src="@drawable/trade_license"
-                android:scaleType="fitXY"
-                android:layout_marginTop="20dp"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="(Click Image to Upload Trade License)"
-                android:textAlignment="center"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="20dp"
-                android:maxLines="1"/>
-
             <EditText
                 android:id="@+id/shop_name"
                 android:layout_width="match_parent"
@@ -99,7 +62,11 @@
                 android:background="@drawable/edittext_design"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp"
-                android:layout_margin="5dp"
+                android:drawableEnd="@drawable/nav_cart"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
                 android:hint="Shop Name"/>
 
             <EditText
@@ -113,6 +80,8 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp"
                 android:layout_margin="5dp"
+                android:drawableEnd="@drawable/ic_baseline_place_24"
+                android:drawableTint="@color/black"
                 />
 
             <Button
@@ -131,17 +100,103 @@
                 android:textSize="18sp"
                 />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Please Select A Category:"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"
+                android:textSize="18sp"
+                android:layout_marginStart="5dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="(Max 3 Can Be Selected)"
+                android:layout_marginStart="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:padding="5dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    >
+
+                    <CheckBox
+                        android:id="@+id/category_1_check_box"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <Spinner
+                        android:id="@+id/category_1"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/productCategory"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    >
+
+                    <CheckBox
+                        android:id="@+id/category_2_check_box"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <Spinner
+                        android:id="@+id/category_2"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/productCategory"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    >
+
+                    <CheckBox
+                        android:id="@+id/category_3_check_box"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <Spinner
+                        android:id="@+id/category_3"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/productCategory"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+
             <EditText
                 android:id="@+id/shop_owner_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Shop Owner Name:"
+                android:hint="Shop Owner Name"
                 android:inputType="textMultiLine"
                 android:padding="18dp"
                 android:background="@drawable/edittext_design"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp"
                 android:layout_margin="5dp"
+                android:drawableEnd="@drawable/ic_person_black_24dp"
                 />
 
             <EditText
@@ -156,6 +211,7 @@
                 android:textSize="15sp"
                 android:layout_margin="5dp"
                 android:maxLength="11"
+                android:drawableEnd="@drawable/phone"
                 />
 
             <EditText
@@ -169,7 +225,54 @@
                 android:padding="18dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp"
-                android:maxLength="11"/>
+                android:maxLength="11"
+                android:drawableEnd="@drawable/phone"/>
+
+            <ImageView
+                android:id="@+id/shop_owner_nid"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:src="@drawable/nid"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="(Click Image to Upload NID Front)"
+                android:textAlignment="center"
+                android:layout_marginTop="5dp"
+                android:maxLines="1"/>
+
+
+            <ImageView
+                android:id="@+id/shop_trade_licence"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:src="@drawable/trade_license"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="(Click Image to Upload Trade License)"
+                android:textAlignment="center"
+                android:layout_marginTop="5dp"
+                android:maxLines="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="(Optional)"
+                android:textAlignment="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/black"
+                android:maxLines="1"/>
+
 
             <Button
                 android:id="@+id/create_shop_btn"
@@ -185,8 +288,22 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 />
-
         </LinearLayout>
     </ScrollView>
+
+
+    <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
+        android:id="@+id/alliance_loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:alliance_animDuration="500"
+        app:alliance_distanceMultiplier="4"
+        app:alliance_dotsRadius="20dp"
+        app:alliance_firstDotsColor="@color/red"
+        app:alliance_secondDotsColor="@color/green"
+        app:alliance_strokeWidth="8dp"
+        app:alliance_thirdDotsColor="@color/blue"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

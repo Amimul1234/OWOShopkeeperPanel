@@ -30,6 +30,7 @@
             app:expandedTitleMarginStart="25dp"
             app:expandedTitleMarginTop="0dp"
             app:expandedTitleGravity="bottom"
+            app:maxLines="2"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyleBlack"
             app:collapsedTitleTextAppearance="@style/CollapsingToolbarLayoutCollapsedTextStyle"
             >

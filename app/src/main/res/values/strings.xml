@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">OWOShopkeeperPanel</string>
 
-    <string name="maps_api_key">AIzaSyBOwbWr9F55eVhebZtVMhuWHNG4a52FM84</string>
+    <string name="maps_api_key">AIzaSyDX6YQ4dRErpb5muuAg0vtBHIK9o20iDns</string>
     <string name="title_activity_location_from_map">Map</string>
 
     <string name="title_activity_home">HomeActivity</string>
@@ -18,6 +18,64 @@
 
     <string name="complain">Issue a complain</string>
     <string name="call">Call us now</string>
+
+
+    <string-array name="productCategory">
+        <item>Bags and Luggage</item>
+        <item>Beauty and Bodycare</item>
+        <item>Books and Stationery</item>
+        <item>Construction Materials</item>
+        <item>Decoration Materials</item>
+        <item>Digital Goods</item>
+        <item>Electric and Parts</item>
+        <item>Electronics and Appliance</item>
+        <item>Event and Media</item>
+        <item>Fashion For Men</item>
+        <item>Fashion For Women</item>
+        <item>Furniture</item>
+        <item>Glasses</item>
+        <item>Grocery</item>
+        <item>Handmade</item>
+        <item>Harvesting and Agriculture</item>
+        <item>Health Care and Pharmacy</item>
+        <item>Home and Living</item>
+        <item>Home Appliance</item>
+        <item>Home Garden</item>
+        <item>Hotel Booking</item>
+        <item>Jewellery</item>
+        <item>Kitchen and Dining</item>
+        <item>Leather Goods</item>
+        <item>LP Gas</item>
+        <item>Machineries</item>
+        <item>Mother, Kids and Toys</item>
+        <item>Paints</item>
+        <item>Pet and Poultry Supplies</item>
+        <item>Plastic made Products</item>
+        <item>Property</item>
+        <item>Service</item>
+        <item>Shoes</item>
+        <item>Sports</item>
+        <item>Vehicles and Parts</item>
+        <item>Watch and Clock</item>
+        <item>Fruits and Vegetables</item>
+        <item>Meat and Fish</item>
+        <item>Cooking</item>
+        <item>Beverages</item>
+        <item>Office Products</item>
+    </string-array>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <string name="mobile_description">Cell phone redirects here. For the film, see Cell Phone (film).
         Handphone redirects here. For the film, see Handphone (film).
