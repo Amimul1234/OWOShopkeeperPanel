@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="(Click Image to Upload Shop Image)"
+                android:text="(Click to Upload Shop Image)"
                 android:maxLines="1"
                 android:textAlignment="center"/>
 
@@ -240,7 +240,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="(Click Image to Upload NID Front)"
+                android:text="(Click to Upload NID Front)"
                 android:textAlignment="center"
                 android:layout_marginTop="5dp"
                 android:maxLines="1"/>
@@ -258,7 +258,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="(Click Image to Upload Trade License)"
+                android:text="(Click to Upload Trade License)"
                 android:textAlignment="center"
                 android:layout_marginTop="5dp"
                 android:maxLines="1"/>

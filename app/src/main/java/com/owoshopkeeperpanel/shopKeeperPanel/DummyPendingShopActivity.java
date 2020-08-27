@@ -56,7 +56,6 @@ public class DummyPendingShopActivity extends AppCompatActivity {
     private PendingShop pendingShop = new PendingShop();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -194,8 +193,13 @@ public class DummyPendingShopActivity extends AppCompatActivity {
         if (requestCode == PICK_MAP_POINT_REQUEST) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
+
                 LatLng latLng = (LatLng) data.getParcelableExtra("picked_point");
-                Toast.makeText(this, "Point Chosen: " + latLng.latitude + " " + latLng.longitude, Toast.LENGTH_LONG).show();
+
+            }
+            else
+            {
+                Toast.makeText(this, "Please try again", Toast.LENGTH_SHORT).show();
             }
         }
 

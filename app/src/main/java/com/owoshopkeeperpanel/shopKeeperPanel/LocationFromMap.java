@@ -70,7 +70,9 @@ public class LocationFromMap extends AppCompatActivity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
 
         validate_address.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +81,7 @@ public class LocationFromMap extends AppCompatActivity
 
                 if(lastKnownLocation == null)
                 {
+                    Toast.makeText(LocationFromMap.this, "Please turn location services on settings...", Toast.LENGTH_SHORT).show();
                     Intent intent = getIntent();
                     finish();
                     startActivity(intent);
@@ -150,11 +153,8 @@ public class LocationFromMap extends AppCompatActivity
                             lastKnownLocation = task.getResult();
 
                             if (lastKnownLocation != null) {
-
                                 LatLng latLng1 = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng1, DEFAULT_ZOOM));
-
                             }
                         }
 
@@ -175,7 +175,6 @@ public class LocationFromMap extends AppCompatActivity
     }
 
     private void getLocationPermission() {
-
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -195,11 +194,12 @@ public class LocationFromMap extends AppCompatActivity
 
         switch (requestCode) {
             case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     locationPermissionGranted = true;
                 }
+                else
+                    Toast.makeText(LocationFromMap.this, "Please grant Location permission", Toast.LENGTH_SHORT).show();
             }
         }
         updateLocationUI();
