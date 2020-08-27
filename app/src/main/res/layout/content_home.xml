@@ -9,6 +9,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_home">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_for_products"
         android:layout_width="match_parent"

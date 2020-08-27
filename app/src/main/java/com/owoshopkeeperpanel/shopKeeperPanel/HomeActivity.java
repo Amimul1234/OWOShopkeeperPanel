@@ -5,9 +5,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -33,6 +38,7 @@ import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Model.Offers;
 import com.owoshopkeeperpanel.Model.Products;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
+import com.owoshopkeeperpanel.Utilities.PxUtil;
 import com.owoshopkeeperpanel.adapters.ItemAdapter;
 import com.owoshopkeeperpanel.pagination.ItemViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -75,6 +81,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         FloatingActionButton fab = findViewById(R.id.fab);
         ImageView contact_us = findViewById(R.id.contact_us);
 
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,6 +118,47 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+
+                View view = LayoutInflater.from(HomeActivity.this).inflate(R.layout.care_toast, null);
+
+                Button call_us_now = view.findViewById(R.id.call_us_now);
+                Button issue_a_complain = view.findViewById(R.id.issue_a_complain);
+
+                builder.setView(view);
+
+                final AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                alertDialog.getWindow().setLayout(1000, 1000);
+
+                call_us_now.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_DIAL); //calling activity
+                        intent.setData(Uri.parse("tel:+8801612201602"));
+                        startActivity(intent);
+                        alertDialog.cancel();
+
+                    }
+                });
+
+                issue_a_complain.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(HomeActivity.this, Contact_us.class);
+                        intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getPhone());
+                        startActivity(intent);
+                        alertDialog.cancel();
+                    }
+                });
+
+
+
+
+
+
+
+                /*
                 new AlertDialog.Builder(HomeActivity.this)
                         .setTitle("Contact us")
                         .setMessage("You want to call us or issue a complain? ")
@@ -131,6 +179,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         })
                         .setIcon(R.drawable.care)
                         .show();
+
+                 */
             }
         });
 
