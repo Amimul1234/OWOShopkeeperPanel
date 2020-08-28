@@ -22,6 +22,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -37,7 +39,6 @@ public class ShopRegistrationRequest extends AppCompatActivity {
     private ImageView shopImage,ownerNID,ownerTradeLicence;
     private Button createShopButton, select_place;
     private EditText shopName, shopServiceMobile, ownerName, ownerMobile, shopAddress;
-    private double latitude, longitude;
 
     private Uri shopImageUri = null, shopKeeperNidUri = null, tradeLicenseUri = null;
 
@@ -52,6 +53,10 @@ public class ShopRegistrationRequest extends AppCompatActivity {
     static final int PICK_MAP_POINT_REQUEST = 999;
 
     private PendingShop pendingShop = new PendingShop();
+
+    private LatLng latlang;
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
     @Override
@@ -178,8 +183,69 @@ public class ShopRegistrationRequest extends AppCompatActivity {
             ownerMobile.setError("Please provide owner mobile number");
             ownerMobile.requestFocus();
         }
+        else if(!check_box_1.isChecked() && !check_box_2.isChecked() && !check_box_3.isChecked())
+        {
+            Toast.makeText(ShopRegistrationRequest.this, "Please select at least one category", Toast.LENGTH_SHORT).show();
+            check_box_1.setError("At least one category selection is required");
+            check_box_1.requestFocus();
+        }
+        else if(latlang == null)
+        {
+            Toast.makeText(ShopRegistrationRequest.this, "Please validate your address", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            WriteInDataBase();
+        }
 
+    }
 
+    private void WriteInDataBase() {
+
+        String shop_name, shop_address, shop_owner_name, service_mobile, shop_owner_mobile;
+
+        shop_name = shopName.getText().toString();
+        shop_address = shopAddress.getText().toString();
+        shop_owner_name = ownerName.getText().toString();
+        service_mobile = shopServiceMobile.getText().toString();
+        shop_owner_mobile = ownerMobile.getText().toString();
+
+        pendingShop.setShop_name(shop_name);
+        pendingShop.setShop_address(shop_address);
+        pendingShop.setShop_owner_name(shop_owner_name);
+        pendingShop.setShop_service_mobile(service_mobile);
+        pendingShop.setShop_owner_mobile(shop_owner_mobile);
+        pendingShop.setLatLng(latlang);
+
+        if(check_box_1.isChecked())
+        {
+            pendingShop.addAccess(category_1.getSelectedItem().toString());
+        }
+        if(check_box_2.isChecked())
+        {
+            pendingShop.addAccess(category_2.getSelectedItem().toString());
+        }
+        if(check_box_3.isChecked())
+        {
+            pendingShop.addAccess(category_3.getSelectedItem().toString());
+        }
+
+        final DatabaseReference myRef = database.getReference().child("PendingShopRequest");
+
+        myRef.setValue(pendingShop).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(ShopRegistrationRequest.this, "Requested for shop creation", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ShopRegistrationRequest.this, AfterShopRegisterRequest.class);
+                startActivity(intent);
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(ShopRegistrationRequest.this, "Can not create shop, Please try again", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -189,10 +255,10 @@ public class ShopRegistrationRequest extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_MAP_POINT_REQUEST) {
-            // Make sure the request was successful
+            // Making sure the request was successful
             if (resultCode == RESULT_OK) {
 
-                LatLng latLng = (LatLng) data.getParcelableExtra("picked_point");
+                latlang = (LatLng) data.getParcelableExtra("picked_point");
 
             }
             else
@@ -391,17 +457,5 @@ public class ShopRegistrationRequest extends AppCompatActivity {
             Toast.makeText(this, "Try again...", Toast.LENGTH_SHORT).show();
         }
     }
-
-/*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        super.onActivityResult(requestCode, resultCode, data);
-
-
-    }
-
- */
-
 
 }

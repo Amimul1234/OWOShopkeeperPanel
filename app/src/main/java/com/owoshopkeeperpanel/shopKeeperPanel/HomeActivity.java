@@ -128,7 +128,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                 final AlertDialog alertDialog = builder.create();
                 alertDialog.show();
-                alertDialog.getWindow().setLayout(1000, 1000);
+                alertDialog.getWindow().setLayout(950, 800);
 
                 call_us_now.setOnClickListener(new View.OnClickListener() {
                     @Override
