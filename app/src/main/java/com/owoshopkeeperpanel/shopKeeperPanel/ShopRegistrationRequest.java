@@ -28,6 +28,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.owoshopkeeperpanel.Model.PendingShop;
+import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -230,7 +231,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
             pendingShop.addAccess(category_3.getSelectedItem().toString());
         }
 
-        final DatabaseReference myRef = database.getReference().child("PendingShopRequest");
+        final DatabaseReference myRef = database.getReference().child("PendingShopRequest").child(Prevalent.currentOnlineUser.getPhone());
 
         myRef.setValue(pendingShop).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
