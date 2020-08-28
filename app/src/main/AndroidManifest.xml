@@ -41,7 +41,7 @@
         <activity android:name=".shopKeeperPanel.RegisterWithOTPActivity" />
         <activity android:name=".shopKeeperPanel.RegisterFrontActivity" />
         <activity android:name=".shopKeeperPanel.ProductDetailsActivity" />
-        <activity android:name=".shopKeeperPanel.DummyPendingShopActivity" />
+        <activity android:name=".shopKeeperPanel.ShopRegistrationRequest" />
         <activity android:name=".shopKeeperPanel.HomeActivity">
 
         </activity>

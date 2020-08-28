@@ -38,7 +38,6 @@ import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Model.Offers;
 import com.owoshopkeeperpanel.Model.Products;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
-import com.owoshopkeeperpanel.Utilities.PxUtil;
 import com.owoshopkeeperpanel.adapters.ItemAdapter;
 import com.owoshopkeeperpanel.pagination.ItemViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
