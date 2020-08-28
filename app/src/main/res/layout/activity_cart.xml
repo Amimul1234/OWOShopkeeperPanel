@@ -1,9 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".shopKeeperPanel.CartActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topbar1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:background="#0026FF"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp">
+
+        <ImageView
+            android:id="@+id/back_arrow_from_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/back_arrow_from_cart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Shopping Cart"
+            android:fontFamily="@font/ethnocentric"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_marginStart="10dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_below="@id/topbar1"
+        android:background="#B2BEB2"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cart_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tag4"
+        android:layout_below="@id/view1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <RelativeLayout
+        android:id="@+id/tag4"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/total_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total :"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:textSize="23sp"
+            android:textColor="@color/blue"
+            />
+        <TextView
+            android:id="@+id/cart_total_amount"
+            android:layout_toRightOf="@+id/total_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="৳18000"
+            android:textSize="20sp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/cart_vouchar"
+            android:layout_below="@+id/total_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do you have a vouchar ?"
+            android:textSize="18sp"
+            android:layout_margin="10dp"
+            android:textColor="@android:color/holo_red_dark"
+            />
+
+        <TextView
+            android:id="@+id/cart_sub_total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/cart_vouchar"
+            android:text="৳18000"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/total_txt2"
+            android:layout_toLeftOf="@+id/cart_sub_total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cart_vouchar"
+            android:text="Sub Total :"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/place_order_btn"
+            android:layout_below="@+id/total_txt2"
+            android:text="Place order"
+            android:textSize="17sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/ethnocentric"
+            android:background="@drawable/buttons_blue"
+            android:layout_margin="13dp"
+            android:padding="10dp"
+            />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

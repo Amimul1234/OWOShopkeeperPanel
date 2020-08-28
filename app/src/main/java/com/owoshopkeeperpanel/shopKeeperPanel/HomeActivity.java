@@ -85,8 +85,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent=new Intent(HomeActivity.this,CartActivity.class);
-                startActivity(intent);*/
+                Intent intent=new Intent(HomeActivity.this,CartActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -300,8 +300,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         else if(id==R.id.nav_cart)
         {
-            /*Intent intent=new Intent(HomeActivity.this,CartActivity.class);
-            startActivity(intent);*/
+            Intent intent=new Intent(HomeActivity.this,CartActivity.class);
+            startActivity(intent);
         }
         else if(id==R.id.nav_wishlist)
         {
