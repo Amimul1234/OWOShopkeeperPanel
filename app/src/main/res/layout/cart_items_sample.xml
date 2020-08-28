@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    app:cardElevation="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="6"
+        android:padding="10dp"
+        >
+
+        <ImageView
+            android:id="@+id/cart_item_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/delete"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:id="@+id/cart_product_image"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:src="@drawable/sample_product"
+            android:contentDescription="Product Thumbnail"/>
+
+        <LinearLayout
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/cart_product_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Samsung A53 new Smartphone"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cart_product_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="৳ 18000 × 1"
+                android:textColor="#918F8F"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="31dp"
+                >
+
+                <TextView
+                    android:id="@+id/cart_product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="৳18000"
+                    android:textColor="#F14813"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textAlignment="textStart"
+                    tools:ignore="RtlCompat" />
+
+                <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                    android:id="@+id/cart_item_change_btn"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    app:initialNumber="1"
+                    app:backgroundDrawable="@drawable/buttons_blue"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
