@@ -34,6 +34,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Model.Offers;
 import com.owoshopkeeperpanel.Model.Products;
@@ -47,7 +48,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +111,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         CircleImageView profileImageView=headerView.findViewById(R.id.user_profile_image);
 
         userNameTextView.setText(Prevalent.currentOnlineUser.getName());
-        Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+        Glide.with(HomeActivity.this).load(Prevalent.currentOnlineUser.getImage()).into(profileImageView);
 
         contact_us.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,35 +151,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
 
-
-
-
-
-
-
-                /*
-                new AlertDialog.Builder(HomeActivity.this)
-                        .setTitle("Contact us")
-                        .setMessage("You want to call us or issue a complain? ")
-                        .setPositiveButton(R.string.complain, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(HomeActivity.this, Contact_us.class);
-                                intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getPhone());
-                                startActivity(intent);
-                            }
-                        })
-                        .setNegativeButton(R.string.call, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Intent.ACTION_DIAL); //calling activity
-                                intent.setData(Uri.parse("tel:+8801612201602"));
-                                startActivity(intent);
-                            }
-                        })
-                        .setIcon(R.drawable.care)
-                        .show();
-
-                 */
             }
         });
 
