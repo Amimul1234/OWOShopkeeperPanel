@@ -88,6 +88,7 @@ public class CartActivity extends AppCompatActivity {
 
         final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
 
+
         FirebaseRecyclerOptions<Cart> options =
                 new FirebaseRecyclerOptions.Builder<Cart>()
                         .setQuery(cartListRef.child("Shopkeeper View")
@@ -108,7 +109,7 @@ public class CartActivity extends AppCompatActivity {
 
                 holder.txtProductName.setText(model.getProduct_name());
                 holder.txtProductQuantity.setText("৳ "+model.getProduct_price()+" X "+model.getNeeded_quantity());
-                int one_product_total_price = Integer.parseInt(model.getTotal_price());
+                int one_product_total_price = Integer.parseInt("500");
                 holder.txtProductPrice.setText("৳ "+String.valueOf(one_product_total_price));
                 holder.numberButton.setNumber(model.getNeeded_quantity());
                 totalPrice += one_product_total_price;
@@ -137,7 +138,7 @@ public class CartActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if(task.isSuccessful())
                                                 {
-                                                    totalPrice = totalPrice-(Integer.parseInt(model.getTotal_price()));
+                                                    totalPrice = totalPrice-(Integer.parseInt("700"));
                                                     totalAmount.setText(String.valueOf(totalPrice));
                                                     Toast.makeText(getApplicationContext(), "Item removed from cart", Toast.LENGTH_SHORT).show();
                                                 }

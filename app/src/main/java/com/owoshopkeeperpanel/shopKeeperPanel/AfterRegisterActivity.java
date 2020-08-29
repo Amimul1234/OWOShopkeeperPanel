@@ -22,7 +22,7 @@ public class AfterRegisterActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(AfterRegisterActivity.this, ShopRegistrationRequest.class);
+                Intent intent=new Intent(AfterRegisterActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });

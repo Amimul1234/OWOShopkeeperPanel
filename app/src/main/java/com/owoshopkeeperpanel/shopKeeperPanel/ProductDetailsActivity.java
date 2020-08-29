@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.bumptech.glide.Glide;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.owoshopkeeperpanel.Model.Cart;
 import com.owoshopkeeperpanel.Model.Products;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
@@ -34,9 +36,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private Button addToCartBtn;
     private ImageView back_to_home,productImage;
     private CollapsingToolbarLayout collapsingToolbarLayout;
-    private int totalPrice=0;
-
-    //DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Products");
+    private AllianceLoader allianceLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +54,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productDescription=findViewById(R.id.product_description_details);
         productPriceWithDiscount=findViewById(R.id.product_price_with_discount_details);
         addToCartBtn=findViewById(R.id.add_to_cart_button);
+
+        allianceLoader = findViewById(R.id.loader);
 
         back_to_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +80,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //here will be code for cartlist node
+                allianceLoader.setVisibility(View.VISIBLE);
                 addingToCartList();
             }
         });
@@ -99,20 +102,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
         final DatabaseReference cartList = FirebaseDatabase.getInstance().getReference().child("Cart List");
         final com.owoshopkeeperpanel.Model.Products products = (Products) getIntent().getSerializableExtra("Products");
 
-        final HashMap<String, Object> cartMap = new HashMap<>();
-        totalPrice=Integer.parseInt(numberButton.getNumber())*Integer.parseInt(productPriceWithDiscount.getText().toString());
+        Cart cart = new Cart(products.getProduct_id(), products.getProduct_image(), products.getProduct_name(), productPriceWithDiscount.getText().toString(),
+                numberButton.getNumber(), saveCurrentDate, saveCurrentTime);
 
-        cartMap.put("product_id", products.getProduct_id());
-        cartMap.put("product_name", products.getProduct_name());
-        cartMap.put("product_price", productPriceWithDiscount.getText().toString());//it is single price
-        cartMap.put("total_price", totalPrice);
-        cartMap.put("product_image", products.getProduct_image());
-        cartMap.put("date", saveCurrentDate);
-        cartMap.put("time", saveCurrentTime);
-        cartMap.put("needed_quantity", numberButton.getNumber());
-
-        cartList.child("Shopkeeper View").child(Prevalent.currentOnlineUser.getPhone()).child("Products").child(String.valueOf(products.getProduct_id()))
-                .updateChildren(cartMap)
+        cartList.child(Prevalent.currentOnlineUser.getPhone()).child(String.valueOf(products.getProduct_id()))
+                .setValue(cart)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -120,13 +114,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
                         if(task.isSuccessful())
                         {
                             Toast.makeText(getApplicationContext(), "Added to cart", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                            allianceLoader.setVisibility(View.GONE);
+                            finish();
                         }
                         else
                         {
-                            Toast.makeText(ProductDetailsActivity.this, "Plaease check your network connection", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProductDetailsActivity.this, "Please check your network connection", Toast.LENGTH_SHORT).show();
+                            allianceLoader.setVisibility(View.GONE);
                         }
 
                     }

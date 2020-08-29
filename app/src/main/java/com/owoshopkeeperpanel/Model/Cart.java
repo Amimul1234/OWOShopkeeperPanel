@@ -5,17 +5,16 @@ import java.io.Serializable;
 public class Cart implements Serializable {
 
     private int product_id;
-    private String product_image, product_name, product_price, total_price, needed_quantity, date, time;
+    private String product_image, product_name, product_price, needed_quantity, date, time;
 
     public Cart() {
     }
 
-    public Cart(int product_id, String product_image, String product_name, String product_price, String total_price, String needed_quantity, String date, String time) {
+    public Cart(int product_id, String product_image, String product_name, String product_price, String needed_quantity, String date, String time) {
         this.product_id = product_id;
         this.product_image = product_image;
         this.product_name = product_name;
         this.product_price = product_price;
-        this.total_price = total_price;
         this.needed_quantity = needed_quantity;
         this.date = date;
         this.time = time;
@@ -51,14 +50,6 @@ public class Cart implements Serializable {
 
     public void setProduct_name(String product_name) {
         this.product_name = product_name;
-    }
-
-    public String getTotal_price() {
-        return total_price;
-    }
-
-    public void setTotal_price(String total_price) {
-        this.total_price = total_price;
     }
 
     public String getNeeded_quantity() {

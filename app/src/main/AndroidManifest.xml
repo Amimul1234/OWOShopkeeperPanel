@@ -15,18 +15,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
         <activity android:name=".shopKeeperPanel.AfterShopRegisterRequest">
+        </activity>
+
+        <activity android:name=".shopKeeperPanel.CartActivity" />
+        <activity android:name=".shopKeeperPanel.SplashScreenActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
-        </activity>
-        <activity android:name=".shopKeeperPanel.CartActivity" />
-        <activity android:name=".shopKeeperPanel.SplashScreenActivity">
 
         </activity>
         <activity android:name=".shopKeeperPanel.MyProductsActivity" />
