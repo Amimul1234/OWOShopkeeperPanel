@@ -198,10 +198,9 @@
                     android:textStyle="bold"/>
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="20dp"
                 >
 
@@ -213,6 +212,8 @@
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
                     android:layout_margin="10dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
                     android:textSize="20sp"/>
 
                 <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
@@ -223,8 +224,11 @@
                     app:initialNumber="1"
                     android:elevation="5dp"
                     app:backGroundColor="#0026FF"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
                     />
-            </LinearLayout>
+
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -265,7 +269,7 @@
                     android:layout_marginBottom="45dp"
                     android:background="@drawable/buttons_blue"
                     android:text="Add to cart"
-                    android:fontFamily="@font/ethnocentric"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     />

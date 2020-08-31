@@ -6,20 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".shopKeeperPanel.CartActivity">
 
-    <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
-        android:id="@+id/loader"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:alliance_animDuration="500"
-        app:alliance_distanceMultiplier="4"
-        app:alliance_dotsRadius="20dp"
-        app:alliance_firstDotsColor="@color/red"
-        app:alliance_secondDotsColor="@color/green"
-        app:alliance_strokeWidth="8dp"
-        app:alliance_thirdDotsColor="@color/blue"
-        android:layout_centerInParent="true"/>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topbar1"
         android:layout_width="match_parent"
@@ -148,6 +134,20 @@
 
     </RelativeLayout>
 
+
+    <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
+        android:id="@+id/loader"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:alliance_animDuration="500"
+        app:alliance_distanceMultiplier="4"
+        app:alliance_dotsRadius="20dp"
+        app:alliance_firstDotsColor="@color/red"
+        app:alliance_secondDotsColor="@color/green"
+        app:alliance_strokeWidth="8dp"
+        app:alliance_thirdDotsColor="@color/blue"
+        android:layout_centerInParent="true"/>
 
 
 </RelativeLayout>

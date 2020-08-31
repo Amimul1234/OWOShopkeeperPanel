@@ -20,9 +20,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.bumptech.glide.Glide;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +35,7 @@ import com.owoshopkeeperpanel.Interface.ItemClickListener;
 import com.owoshopkeeperpanel.Model.Cart;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.shopKeeperPanel.CartActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +102,7 @@ public class CartListAdapter extends ArrayAdapter<Cart> {
             Glide.with(context).load(cart.getProduct_image()).into(cart_product_image);
 
             cart_product_name.setText(cart.getProduct_name());
-            cart_product_quantity.setText(cart.getProduct_price()+" × "+cart.getNeeded_quantity());
+            cart_product_quantity.setText("৳ "+cart.getProduct_price()+" × "+cart.getNeeded_quantity());
             double product_total_price = Double.parseDouble(cart.getProduct_price()) * Double.parseDouble(cart.getNeeded_quantity());
             cart_product_price.setText("৳ "+String.valueOf(product_total_price));
             cart_item_change_button.setNumber(cart.getNeeded_quantity());
@@ -110,13 +113,47 @@ public class CartListAdapter extends ArrayAdapter<Cart> {
                     onDeleteItem(position);
                 }
             });
+
+            cart_item_change_button.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
+                @Override
+                public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
+                    changeQuantity(position, oldValue, newValue);
+                }
+            });
         }
+
+    }
+
+    private void changeQuantity(int position, int oldValue, int newValue) {
+        CartActivity.loaderVisible();
+        Cart cart = cartList.get(position);
+        cartList.get(position).setNeeded_quantity(String.valueOf(newValue));
+
+        final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
+
+        cart.setNeeded_quantity(String.valueOf(newValue));
+
+        cartListRef.child(Prevalent.currentOnlineUser.getPhone())
+                .child(String.valueOf(cart.getProduct_id()))
+                .setValue(cart).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    CartActivity.loaderGone();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
 
     private void onDeleteItem(int position) {
-
         Cart cart = cartList.get(position);
 
         final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
@@ -129,6 +166,7 @@ public class CartListAdapter extends ArrayAdapter<Cart> {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
+                        CartActivity.loaderVisible();
                         cartListRef.child(Prevalent.currentOnlineUser.getPhone())
                                 .child(String.valueOf(cart.getProduct_id()))
                                 .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -136,6 +174,7 @@ public class CartListAdapter extends ArrayAdapter<Cart> {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful())
                                 {
+                                    CartActivity.loaderGone();
                                     Toast.makeText(context, "Item Removed", Toast.LENGTH_LONG).show();
                                 }
                             }
