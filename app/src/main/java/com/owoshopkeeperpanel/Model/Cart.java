@@ -10,7 +10,7 @@ public class Cart implements Serializable {
     public Cart() {
     }
 
-    public Cart(int product_id, String product_image, String product_name, String product_price, String needed_quantity, String date, String time) {
+    public Cart(int product_id, String product_image, String product_name, String product_price, String needed_quantity, String date, String time, String product_category) {
         this.product_id = product_id;
         this.product_image = product_image;
         this.product_name = product_name;

@@ -2,9 +2,8 @@ package com.owoshopkeeperpanel.shopKeeperPanel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,16 +26,17 @@ import com.owoshopkeeperpanel.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 
 public class ProductDetailsActivity extends AppCompatActivity {
 
     private ElegantNumberButton numberButton;
     private TextView productPrice,productDiscount,productQuantity,productDescription,productPriceWithDiscount;
     private Button addToCartBtn;
-    private ImageView back_to_home,productImage;
+    private ImageView back_to_home,productImage, add_product_to_wishList;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private AllianceLoader allianceLoader;
+
+    int wishState = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productDiscount=findViewById(R.id.product_discount_details);
         productQuantity=findViewById(R.id.product_quantity_details);
         productDescription=findViewById(R.id.product_description_details);
+        add_product_to_wishList = findViewById(R.id.add_to_wishList);
         productPriceWithDiscount=findViewById(R.id.product_price_with_discount_details);
         addToCartBtn=findViewById(R.id.add_to_cart_button);
 
@@ -84,6 +85,24 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 addingToCartList();
             }
         });
+
+        add_product_to_wishList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(wishState == 0)
+                {
+                    add_product_to_wishList.setColorFilter(ContextCompat.getColor(ProductDetailsActivity.this, R.color.red), android.graphics.PorterDuff.Mode.SRC_IN);
+                    wishState = 1;
+                }
+                else
+                {
+                    add_product_to_wishList.setColorFilter(ContextCompat.getColor(ProductDetailsActivity.this, R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
+                    wishState = 0;
+                }
+            }
+        });
+
+
     }
 
     private void addingToCartList() {
@@ -103,7 +122,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         final com.owoshopkeeperpanel.Model.Products products = (Products) getIntent().getSerializableExtra("Products");
 
         Cart cart = new Cart(products.getProduct_id(), products.getProduct_image(), products.getProduct_name(), productPriceWithDiscount.getText().toString(),
-                numberButton.getNumber(), saveCurrentDate, saveCurrentTime);
+                numberButton.getNumber(), saveCurrentDate, saveCurrentTime, products.getProduct_category());
 
         cartList.child(Prevalent.currentOnlineUser.getPhone()).child(String.valueOf(products.getProduct_id()))
                 .setValue(cart)

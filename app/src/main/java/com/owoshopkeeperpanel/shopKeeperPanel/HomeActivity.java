@@ -279,13 +279,47 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         else if(id==R.id.nav_contact)
         {
+            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
 
+            View view = LayoutInflater.from(HomeActivity.this).inflate(R.layout.care_toast, null);
+
+            Button call_us_now = view.findViewById(R.id.call_us_now);
+            Button issue_a_complain = view.findViewById(R.id.issue_a_complain);
+
+            builder.setView(view);
+
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+            alertDialog.getWindow().setLayout(950, 800);
+
+            call_us_now.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL); //calling activity
+                    intent.setData(Uri.parse("tel:+8801612201602"));
+                    startActivity(intent);
+                    alertDialog.cancel();
+
+                }
+            });
+
+            issue_a_complain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeActivity.this, Contact_us.class);
+                    intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getPhone());
+                    startActivity(intent);
+                    alertDialog.cancel();
+                }
+            });
         }
+
         else if(id==R.id.nav_settings)
         {
             Intent intent=new Intent(HomeActivity.this, SettingsActivity.class);
             startActivity(intent);
         }
+
         else if(id==R.id.nav_logout)
         {
             Paper.book().destroy();

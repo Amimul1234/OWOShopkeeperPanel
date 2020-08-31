@@ -35,7 +35,6 @@
             app:collapsedTitleTextAppearance="@style/CollapsingToolbarLayoutCollapsedTextStyle"
             >
 
-
             <ImageView
                 android:id="@+id/product_image_details"
                 android:layout_width="300dp"
@@ -62,6 +61,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:src="@drawable/ic_baseline_arrow_back_24" />
+
+                <ImageView
+                    android:id="@+id/add_to_wishList"
+                    android:background="@drawable/round_back_ground"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_baseline_favorite_24" />
 
             </androidx.appcompat.widget.Toolbar>
 

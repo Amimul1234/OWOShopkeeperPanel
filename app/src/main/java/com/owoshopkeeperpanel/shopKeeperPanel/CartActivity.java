@@ -34,14 +34,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.owoshopkeeperpanel.Model.Cart;
+import com.owoshopkeeperpanel.Model.Products;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
-import com.owoshopkeeperpanel.ViewHolder.CartViewHolder;
 import com.owoshopkeeperpanel.adapters.CartListAdapter;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
 
@@ -123,6 +121,16 @@ public class CartActivity extends AppCompatActivity {
                 cartListAdapter = new CartListAdapter(CartActivity.this, cartList);
                 listView.setAdapter(cartListAdapter);
                 totalAmount.setText("৳ "+String.valueOf(totalPrice));
+
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Cart cart = cartList.get(position);
+                        //Have to handle click on the list item with retrofit
+                    }
+                });
+
             }
 
             @Override
