@@ -12,48 +12,91 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseListOptions;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.owoshopkeeperpanel.Model.Cart;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.ViewHolder.CartViewHolder;
+import com.owoshopkeeperpanel.adapters.CartListAdapter;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
+    private ListView listView;
     private RecyclerView.LayoutManager layoutManager;
     private Button place_order_button;
     private TextView totalAmount,subTotalAmount,vouchartxt;
-    private int totalPrice=0;
+    private double totalPrice=0;
     private ImageView back_from_cart;
+
+    private ArrayList<Cart> cartList = new ArrayList<>();
+    private CartListAdapter cartListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        recyclerView = findViewById(R.id.cart_list);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        listView = findViewById(R.id.cart_list);
 
         place_order_button=(Button)findViewById(R.id.place_order_btn);
         vouchartxt=(TextView)findViewById(R.id.cart_vouchar);
         totalAmount=(TextView)findViewById(R.id.cart_total_amount);
         subTotalAmount=(TextView)findViewById(R.id.cart_sub_total_amount);
         back_from_cart=(ImageView)findViewById(R.id.back_arrow_from_cart);
+
+
+        final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
+
+
+        cartListRef.child(Prevalent.currentOnlineUser.getPhone()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    cartList.clear();
+                    totalPrice = 0.0;//This two line is for handling data change
+                    for(DataSnapshot dataSnapshot1 : snapshot.getChildren())
+                    {
+                        Cart dummyCart = dataSnapshot1.getValue(Cart.class);
+                        cartList.add(dummyCart);
+                        totalPrice += Double.parseDouble(dummyCart.getProduct_price()) * Double.parseDouble(dummyCart.getNeeded_quantity());
+                    }
+                    cartListAdapter = new CartListAdapter(CartActivity.this, cartList);
+                    listView.setAdapter(cartListAdapter);
+                    totalAmount.setText("৳ "+String.valueOf(totalPrice));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(CartActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         back_from_cart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,21 +123,15 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
 
-
-        FirebaseRecyclerOptions<Cart> options =
-                new FirebaseRecyclerOptions.Builder<Cart>()
-                        .setQuery(cartListRef.child("Shopkeeper View")
-                                .child(Prevalent.currentOnlineUser.getPhone()).child("Products"), Cart.class).build();
-
-
+        /*
         FirebaseRecyclerAdapter<Cart, CartViewHolder> adapter
                 = new FirebaseRecyclerAdapter<Cart, CartViewHolder>(options) {
 
@@ -211,7 +248,8 @@ public class CartActivity extends AppCompatActivity {
             }
         };
 
-        recyclerView.setAdapter(adapter);
-        adapter.startListening();
+         */
+        //recyclerView.setAdapter(adapter);
+        //adapter.startListening();
     }
 }
