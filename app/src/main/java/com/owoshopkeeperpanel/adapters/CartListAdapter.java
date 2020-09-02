@@ -2,6 +2,7 @@ package com.owoshopkeeperpanel.adapters;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.owoshopkeeperpanel.Model.Cart;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.shopKeeperPanel.BridgeofCartAndProduct;
 import com.owoshopkeeperpanel.shopKeeperPanel.CartActivity;
 
 import java.util.List;
@@ -54,6 +56,17 @@ public class CartListAdapter extends ArrayAdapter<Cart> {
         }
         holder.setPosition(position);
         holder.bindViews();
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, BridgeofCartAndProduct.class);
+                intent.putExtra("id", String.valueOf(cartList.get(position).getProduct_id()));
+                context.startActivity(intent);
+            }
+        });
+
+
         return convertView;
     }
 
@@ -68,7 +81,6 @@ public class CartListAdapter extends ArrayAdapter<Cart> {
         int position;
 
         public ViewHolder(View view) {
-
             delete = view.findViewById(R.id.cart_item_delete);
             cart_product_image = view.findViewById(R.id.cart_product_image);
             cart_product_name = view.findViewById(R.id.cart_product_name);

@@ -15,19 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".shopKeeperPanel.AfterShopRegisterRequest">
-        </activity>
-
+        <activity android:name=".shopKeeperPanel.BridgeofCartAndProduct"></activity>
+        <activity android:name=".shopKeeperPanel.AfterShopRegisterRequest"></activity>
         <activity android:name=".shopKeeperPanel.CartActivity" />
         <activity android:name=".shopKeeperPanel.SplashScreenActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".shopKeeperPanel.MyProductsActivity" />
         <activity android:name=".shopKeeperPanel.StoreSettingsActivity" />
@@ -46,7 +42,7 @@
         <activity android:name=".shopKeeperPanel.RegisterFrontActivity" />
         <activity android:name=".shopKeeperPanel.ProductDetailsActivity" />
         <activity android:name=".shopKeeperPanel.ShopRegistrationRequest" />
-        <activity android:name=".shopKeeperPanel.HomeActivity"></activity>
+        <activity android:name=".shopKeeperPanel.HomeActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

@@ -2,6 +2,7 @@ package com.owoshopkeeperpanel.Network;
 
 
 import com.owoshopkeeperpanel.Response.OwoApiResponse;
+import com.owoshopkeeperpanel.Response.SingleProductResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -22,8 +23,8 @@ public interface Api {
     );
 
     @GET("getProductById")
-    Call<OwoApiResponse> getProductById(
-            @Query("product_name") int product_id
+    Call<SingleProductResponse> getProductById(
+            @Query("product_id") int product_id
     );
 
 }

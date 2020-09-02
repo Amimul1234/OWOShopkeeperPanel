@@ -130,50 +130,6 @@ public class CartActivity extends AppCompatActivity {
                 cartListAdapter = new CartListAdapter(CartActivity.this, cartList);
                 listView.setAdapter(cartListAdapter);
                 totalAmount.setText("৳ "+String.valueOf(totalPrice));
-
-
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(CartActivity.this, "clicked", Toast.LENGTH_SHORT).show();
-                        Cart cart = cartList.get(position);
-                        ProgressDialog loadingbar = new ProgressDialog(CartActivity.this);
-                        loadingbar.setTitle(cart.getProduct_name());
-                        loadingbar.setMessage("Fetching product");
-                        loadingbar.setCanceledOnTouchOutside(false);
-                        loadingbar.show();
-                        int product_id = cart.getProduct_id();
-
-
-                        Call<OwoApiResponse> call = RetrofitClient.getInstance().getApi().getProductById(product_id);
-
-                        call.enqueue(new Callback<OwoApiResponse>() {
-                            @Override
-                            public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {
-                                if(!response.body().error)
-                                {
-                                    List<Products> productsList = response.body().products;
-                                    Products clicked_products = productsList.get(0);
-                                    clicked_products.setProduct_quantity(cart.getNeeded_quantity());
-                                    loadingbar.dismiss();
-                                    Intent intent = new Intent(CartActivity.this, ProductDetailsActivity.class);
-                                    intent.putExtra("Products", clicked_products);
-                                    startActivity(intent);
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<OwoApiResponse> call, Throwable t) {
-                                Toast.makeText(CartActivity.this, "Please check your network connection", Toast.LENGTH_SHORT).show();
-                                loadingbar.dismiss();
-                            }
-                        });
-
-
-                        //Have to handle click on the list item with retrofit
-                    }
-                });
-
             }
 
             @Override
