@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,11 +36,18 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.owoshopkeeperpanel.Model.Cart;
 import com.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.Network.RetrofitClient;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.Response.OwoApiResponse;
 import com.owoshopkeeperpanel.adapters.CartListAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity {
 
@@ -117,6 +125,7 @@ public class CartActivity extends AppCompatActivity {
                     cartList.add(dummyCart);
                     totalPrice += Double.parseDouble(dummyCart.getProduct_price()) * Double.parseDouble(dummyCart.getNeeded_quantity());
                 }
+
                 loaderGone();
                 cartListAdapter = new CartListAdapter(CartActivity.this, cartList);
                 listView.setAdapter(cartListAdapter);
@@ -126,7 +135,41 @@ public class CartActivity extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Toast.makeText(CartActivity.this, "clicked", Toast.LENGTH_SHORT).show();
                         Cart cart = cartList.get(position);
+                        ProgressDialog loadingbar = new ProgressDialog(CartActivity.this);
+                        loadingbar.setTitle(cart.getProduct_name());
+                        loadingbar.setMessage("Fetching product");
+                        loadingbar.setCanceledOnTouchOutside(false);
+                        loadingbar.show();
+                        int product_id = cart.getProduct_id();
+
+
+                        Call<OwoApiResponse> call = RetrofitClient.getInstance().getApi().getProductById(product_id);
+
+                        call.enqueue(new Callback<OwoApiResponse>() {
+                            @Override
+                            public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {
+                                if(!response.body().error)
+                                {
+                                    List<Products> productsList = response.body().products;
+                                    Products clicked_products = productsList.get(0);
+                                    clicked_products.setProduct_quantity(cart.getNeeded_quantity());
+                                    loadingbar.dismiss();
+                                    Intent intent = new Intent(CartActivity.this, ProductDetailsActivity.class);
+                                    intent.putExtra("Products", clicked_products);
+                                    startActivity(intent);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<OwoApiResponse> call, Throwable t) {
+                                Toast.makeText(CartActivity.this, "Please check your network connection", Toast.LENGTH_SHORT).show();
+                                loadingbar.dismiss();
+                            }
+                        });
+
+
                         //Have to handle click on the list item with retrofit
                     }
                 });

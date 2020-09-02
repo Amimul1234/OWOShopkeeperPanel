@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "http://learningabc.tech/OwoDokan/public/";//Should be changed with server
+    private static final String BASE_URL = "http://learningabc.tech/OwoDokan/public/";
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
 
