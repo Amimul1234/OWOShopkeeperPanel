@@ -17,6 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="enterAlways|scroll"
             android:background="@color/white">
             
             <ImageView
@@ -41,13 +42,16 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:paddingStart="15dp"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             android:text="Search Products"
             android:textColor="@color/quantum_grey600"
             android:textAlignment="textStart"
             android:drawableStart="@drawable/ic_baseline_search_24"
             android:drawableTint="@color/black"
-            android:drawablePadding="15dp"
+            android:drawablePadding="10dp"
             android:background="@drawable/searchbuttondesign"/>
 
     </com.google.android.material.appbar.AppBarLayout>

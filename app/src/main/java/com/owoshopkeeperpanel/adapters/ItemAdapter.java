@@ -76,6 +76,15 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
 
                 itemViewHolder.txtProduct_discounted_price.setText("৳ "+ String.valueOf(discounted_price));
 
+
+                double percentage = (Double.parseDouble(item.getProduct_discount()) / item.getProduct_price()) * 100.00;
+
+                int val = (int) percentage;
+
+                itemViewHolder.discounted_percent.setText(String.valueOf(val) + " % ");
+
+
+
             } else {
                 Toast.makeText(mCtx, "Item is null", Toast.LENGTH_LONG).show();
             }
@@ -113,7 +122,7 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtProductName, txtProductPrice, txtProduct_discounted_price;
+        public TextView txtProductName, txtProductPrice, txtProduct_discounted_price, discounted_percent;
         public ImageView imageView;
 
         public ItemViewHolder(View itemView) {
@@ -121,7 +130,7 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
             imageView = (ImageView)itemView.findViewById(R.id.product_image);
             txtProductName = (TextView)itemView.findViewById(R.id.product_name);
             txtProductPrice = (TextView)itemView.findViewById(R.id.product_price);
-
+            discounted_percent = itemView.findViewById(R.id.discount_percentage);
             txtProduct_discounted_price = itemView.findViewById(R.id.product_discounted_price);
             itemView.setOnClickListener(this);
         }

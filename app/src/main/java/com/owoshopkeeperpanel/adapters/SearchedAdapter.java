@@ -45,6 +45,12 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Produc
         holder.product_price.setText(String.valueOf(products.getProduct_price()));
         holder.product_discounted_price.setText(String.valueOf(products.getProduct_price()-Double.parseDouble(products.getProduct_discount())));
 
+        double percentage = (Double.parseDouble(products.getProduct_discount()) / products.getProduct_price()) * 100.00;
+
+        int val = (int) percentage;
+
+        holder.discount_percentage.setText(String.valueOf(val) + " % ");
+
         Glide.with(mCtx).load(products.getProduct_image()).into(holder.product_image);
 
     }
@@ -57,7 +63,7 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Produc
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView product_image;
-        private TextView product_name, product_price, product_discounted_price;
+        private TextView product_name, product_price, product_discounted_price, discount_percentage;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +72,7 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Produc
             product_name = itemView.findViewById(R.id.product_name);
             product_price = itemView.findViewById(R.id.product_price);
             product_discounted_price = itemView.findViewById(R.id.product_discounted_price);
+            discount_percentage = itemView.findViewById(R.id.discount_percentage);
             product_price.setPaintFlags(product_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
             itemView.setOnClickListener(new View.OnClickListener() {
