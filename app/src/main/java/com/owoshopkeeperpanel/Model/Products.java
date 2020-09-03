@@ -5,14 +5,15 @@ import java.io.Serializable;
 public class Products implements Serializable {
 
     private int product_id;
-    private String product_image, product_name, product_category, product_price, product_discount,
+    private double product_price;
+    private String product_image, product_name, product_category, product_discount,
             product_quantity, product_description, product_date, product_time;
 
     public Products() {
     }
 
     public Products(int product_id, String product_image, String product_name,
-                    String product_category, String product_price, String product_discount,
+                    String product_category, double product_price, String product_discount,
                     String product_quantity, String product_description, String product_date, String product_time) {
 
         this.product_id = product_id;
@@ -59,11 +60,11 @@ public class Products implements Serializable {
         this.product_category = product_category;
     }
 
-    public String getProduct_price() {
+    public double getProduct_price() {
         return product_price;
     }
 
-    public void setProduct_price(String product_price) {
+    public void setProduct_price(double product_price) {
         this.product_price = product_price;
     }
 

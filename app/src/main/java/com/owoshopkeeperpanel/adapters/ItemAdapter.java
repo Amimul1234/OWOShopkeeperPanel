@@ -72,7 +72,7 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
                 itemViewHolder.txtProductPrice.setPaintFlags(itemViewHolder.txtProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 itemViewHolder.txtProductPrice.setVisibility(View.VISIBLE);
 
-                double discounted_price = Double.parseDouble(item.getProduct_price()) - Double.parseDouble(item.getProduct_discount());
+                double discounted_price = item.getProduct_price() - Double.parseDouble(item.getProduct_discount());
 
                 itemViewHolder.txtProduct_discounted_price.setText("৳ "+ String.valueOf(discounted_price));
 

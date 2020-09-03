@@ -2,6 +2,7 @@ package com.owoshopkeeperpanel.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,8 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Produc
         Products products = productsList.get(position);
 
         holder.product_name.setText(products.getProduct_name());
-        holder.product_price.setText(products.getProduct_price());
+        holder.product_price.setText(String.valueOf(products.getProduct_price()));
+        holder.product_discounted_price.setText(String.valueOf(products.getProduct_price()-Double.parseDouble(products.getProduct_discount())));
 
         Glide.with(mCtx).load(products.getProduct_image()).into(holder.product_image);
 
@@ -55,7 +57,7 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Produc
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView product_image;
-        private TextView product_name, product_price;
+        private TextView product_name, product_price, product_discounted_price;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +65,8 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Produc
             product_image = itemView.findViewById(R.id.product_image);
             product_name = itemView.findViewById(R.id.product_name);
             product_price = itemView.findViewById(R.id.product_price);
+            product_discounted_price = itemView.findViewById(R.id.product_discounted_price);
+            product_price.setPaintFlags(product_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

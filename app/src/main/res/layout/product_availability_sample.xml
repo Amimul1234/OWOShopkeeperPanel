@@ -46,8 +46,7 @@
             android:textAlignment="textStart"
             android:layout_marginTop="10dp"
             android:textSize="15sp"
-            android:textColor="@color/quantum_grey"
-            android:visibility="gone"/>
+            android:textColor="@color/quantum_grey"/>
 
         <TextView
             android:id="@+id/product_discounted_price"

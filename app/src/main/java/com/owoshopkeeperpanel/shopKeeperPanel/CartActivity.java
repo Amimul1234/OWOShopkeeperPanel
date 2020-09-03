@@ -10,10 +10,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,33 +18,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
-import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
-import com.firebase.ui.database.FirebaseListAdapter;
-import com.firebase.ui.database.FirebaseListOptions;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.owoshopkeeperpanel.Model.Cart;
-import com.owoshopkeeperpanel.Model.Products;
-import com.owoshopkeeperpanel.Network.RetrofitClient;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
-import com.owoshopkeeperpanel.Response.OwoApiResponse;
 import com.owoshopkeeperpanel.adapters.CartListAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity {
 
@@ -123,7 +104,7 @@ public class CartActivity extends AppCompatActivity {
                 {
                     Cart dummyCart = dataSnapshot1.getValue(Cart.class);
                     cartList.add(dummyCart);
-                    totalPrice += Double.parseDouble(dummyCart.getProduct_price()) * Double.parseDouble(dummyCart.getNeeded_quantity());
+                    totalPrice += dummyCart.getProduct_price() * Double.parseDouble(dummyCart.getNeeded_quantity());
                 }
 
                 loaderGone();

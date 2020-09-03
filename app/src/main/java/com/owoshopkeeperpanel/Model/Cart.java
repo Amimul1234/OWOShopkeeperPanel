@@ -5,12 +5,13 @@ import java.io.Serializable;
 public class Cart implements Serializable {
 
     private int product_id;
-    private String product_image, product_name, product_price, needed_quantity, date, time;
+    private double product_price;
+    private String product_image, product_name, needed_quantity, date, time;
 
     public Cart() {
     }
 
-    public Cart(int product_id, String product_image, String product_name, String product_price, String needed_quantity, String date, String time, String product_category) {
+    public Cart(int product_id, String product_image, String product_name, double product_price, String needed_quantity, String date, String time, String product_category) {
         this.product_id = product_id;
         this.product_image = product_image;
         this.product_name = product_name;
@@ -28,11 +29,11 @@ public class Cart implements Serializable {
         this.product_id = product_id;
     }
 
-    public String getProduct_price() {
+    public double getProduct_price() {
         return product_price;
     }
 
-    public void setProduct_price(String product_price) {
+    public void setProduct_price(double product_price) {
         this.product_price = product_price;
     }
 

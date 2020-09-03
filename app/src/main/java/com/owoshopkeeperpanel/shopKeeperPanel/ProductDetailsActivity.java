@@ -71,10 +71,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
         Glide.with(this).load(products.getProduct_image()).into(productImage);
         collapsingToolbarLayout.setTitle(products.getProduct_name());
         productDescription.setText(products.getProduct_description());
-        productPrice.setText(products.getProduct_price());
+        productPrice.setText(String.valueOf(products.getProduct_price()));
         productDiscount.setText(products.getProduct_discount());
         productQuantity.setText(products.getProduct_quantity());
-        int price_with_discount = Integer.parseInt(products.getProduct_price())-Integer.parseInt(products.getProduct_discount());
+        double price_with_discount = products.getProduct_price() - Double.parseDouble(products.getProduct_discount());
         productPriceWithDiscount.setText(String.valueOf(price_with_discount));
 
         addToCartBtn.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +121,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         final DatabaseReference cartList = FirebaseDatabase.getInstance().getReference().child("Cart List");
         final com.owoshopkeeperpanel.Model.Products products = (Products) getIntent().getSerializableExtra("Products");
 
-        Cart cart = new Cart(products.getProduct_id(), products.getProduct_image(), products.getProduct_name(), productPriceWithDiscount.getText().toString(),
+        Cart cart = new Cart(products.getProduct_id(), products.getProduct_image(), products.getProduct_name(), Double.parseDouble(productPriceWithDiscount.getText().toString()),
                 numberButton.getNumber(), saveCurrentDate, saveCurrentTime, products.getProduct_category());
 
         cartList.child(Prevalent.currentOnlineUser.getPhone()).child(String.valueOf(products.getProduct_id()))

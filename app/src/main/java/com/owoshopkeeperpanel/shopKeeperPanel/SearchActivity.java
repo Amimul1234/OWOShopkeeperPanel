@@ -75,7 +75,7 @@ public class SearchActivity extends AppCompatActivity {
                 builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String strName = arrayAdapter.getItem(which);
+                        String category_name = arrayAdapter.getItem(which);
 
                     }
                 });
@@ -93,7 +93,7 @@ public class SearchActivity extends AppCompatActivity {
                 final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.select_dialog_singlechoice);
 
                 arrayAdapter.add("Price Low to High");
-                arrayAdapter.add("Pri");
+                arrayAdapter.add("Price High to Low");
 
                 builderSingle.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override

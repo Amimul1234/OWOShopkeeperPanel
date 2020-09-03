@@ -102,7 +102,7 @@ public class CartListAdapter extends ArrayAdapter<Cart> {
 
             cart_product_name.setText(cart.getProduct_name());
             cart_product_quantity.setText("৳ "+cart.getProduct_price()+" × "+cart.getNeeded_quantity());
-            double product_total_price = Double.parseDouble(cart.getProduct_price()) * Double.parseDouble(cart.getNeeded_quantity());
+            double product_total_price = cart.getProduct_price() * Double.parseDouble(cart.getNeeded_quantity());
             cart_product_price.setText("৳ "+String.valueOf(product_total_price));
             cart_item_change_button.setNumber(cart.getNeeded_quantity());
 
