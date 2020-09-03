@@ -15,8 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".shopKeeperPanel.BridgeofCartAndProduct"></activity>
-        <activity android:name=".shopKeeperPanel.AfterShopRegisterRequest"></activity>
+        <activity android:name=".shopKeeperPanel.SearchActivity"></activity>
+        <activity android:name=".shopKeeperPanel.BridgeofCartAndProduct" />
+        <activity android:name=".shopKeeperPanel.AfterShopRegisterRequest" />
         <activity android:name=".shopKeeperPanel.CartActivity" />
         <activity android:name=".shopKeeperPanel.SplashScreenActivity">
             <intent-filter>
