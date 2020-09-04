@@ -15,10 +15,15 @@ import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.bumptech.glide.Glide;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.owoshopkeeperpanel.Model.Cart;
 import com.owoshopkeeperpanel.Model.Products;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
@@ -36,7 +41,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private AllianceLoader allianceLoader;
 
-    int wishState = 0;
+    int clickState = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +85,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //here will be code for cartlist node
                 allianceLoader.setVisibility(View.VISIBLE);
                 addingToCartList();
             }
@@ -89,15 +93,26 @@ public class ProductDetailsActivity extends AppCompatActivity {
         add_product_to_wishList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(wishState == 0)
+                if(clickState == 0)
                 {
+                    allianceLoader.setVisibility(View.VISIBLE);
                     add_product_to_wishList.setColorFilter(ContextCompat.getColor(ProductDetailsActivity.this, R.color.red), android.graphics.PorterDuff.Mode.SRC_IN);
-                    wishState = 1;
-                }
-                else
-                {
-                    add_product_to_wishList.setColorFilter(ContextCompat.getColor(ProductDetailsActivity.this, R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
-                    wishState = 0;
+                    final DatabaseReference wishListRef = FirebaseDatabase.getInstance().getReference();
+                    wishListRef.child("Wish List").child(Prevalent.currentOnlineUser.getPhone()).child(String.valueOf(products.getProduct_id())).setValue(products).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(ProductDetailsActivity.this, "Added to wish list", Toast.LENGTH_SHORT).show();
+                            allianceLoader.setVisibility(View.GONE);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ProductDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            allianceLoader.setVisibility(View.GONE);
+                        }
+                    });
+
+                    clickState++;
                 }
             }
         });
