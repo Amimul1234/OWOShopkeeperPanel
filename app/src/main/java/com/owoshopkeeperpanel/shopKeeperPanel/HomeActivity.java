@@ -276,7 +276,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         else if(id==R.id.nav_wishlist)
         {
-
+            Intent intent = new Intent(HomeActivity.this, WishList.class);
+            startActivity(intent);
         }
         else if(id==R.id.nav_contact)
         {

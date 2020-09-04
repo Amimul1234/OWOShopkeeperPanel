@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), AfterRegisterActivity.class);
                         Prevalent.currentOnlineUser = users;
                         startActivity(intent);
+                        finish();
                     }
 
                     else
