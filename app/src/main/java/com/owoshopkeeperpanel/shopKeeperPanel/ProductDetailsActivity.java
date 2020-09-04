@@ -93,7 +93,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         add_product_to_wishList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(clickState == 0)
+                if(clickState%2 == 0)
                 {
                     allianceLoader.setVisibility(View.VISIBLE);
                     add_product_to_wishList.setColorFilter(ContextCompat.getColor(ProductDetailsActivity.this, R.color.red), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -112,6 +112,26 @@ public class ProductDetailsActivity extends AppCompatActivity {
                         }
                     });
 
+                    clickState++;
+                }
+                else
+                {
+                    allianceLoader.setVisibility(View.VISIBLE);
+                    add_product_to_wishList.setColorFilter(ContextCompat.getColor(ProductDetailsActivity.this, R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
+                    final DatabaseReference wishListRef = FirebaseDatabase.getInstance().getReference();
+                    wishListRef.child("Wish List").child(Prevalent.currentOnlineUser.getPhone()).child(String.valueOf(products.getProduct_id())).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(ProductDetailsActivity.this, "Removed from wish list", Toast.LENGTH_SHORT).show();
+                            allianceLoader.setVisibility(View.GONE);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ProductDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            allianceLoader.setVisibility(View.GONE);
+                        }
+                    });
                     clickState++;
                 }
             }
