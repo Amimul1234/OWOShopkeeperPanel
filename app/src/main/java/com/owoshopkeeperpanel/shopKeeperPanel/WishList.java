@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -37,16 +38,19 @@ import com.owoshopkeeperpanel.ViewHolder.wishListItemHolder;
 
 public class WishList extends AppCompatActivity {
 
-    private ImageView backArrow;
+    private ImageView backArrow, empty_image;
+    private TextView empty_text;
     private RecyclerView wishList;
     private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish_list);
+
         backArrow = findViewById(R.id.back_arrow_from_wish_list);
+        empty_image = findViewById(R.id.empty_image);
+        empty_text = findViewById(R.id.empty_text);
 
         wishList = findViewById(R.id.wishList);
         wishList.setHasFixedSize(true);
@@ -98,7 +102,7 @@ public class WishList extends AppCompatActivity {
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface arg0, int arg1) {
-                                        cartListRef.child(Prevalent.currentOnlineUser.getPhone())
+                                        cartListRef.child("Wish List").child(Prevalent.currentOnlineUser.getPhone())
                                                 .child(String.valueOf(model.getProduct_id()))
                                                 .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
@@ -132,14 +136,6 @@ public class WishList extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-
-                holder.delete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
-
             }
 
             @NonNull
@@ -148,6 +144,15 @@ public class WishList extends AppCompatActivity {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.wish_list_item, parent, false);
                 wishListItemHolder holder = new wishListItemHolder(view);
                 return holder;
+            }
+
+            @Override
+            public void onDataChanged() {
+                if(getItemCount() == 0)
+                {
+                    empty_image.setVisibility(View.VISIBLE);
+                    empty_text.setVisibility(View.VISIBLE);
+                }
             }
         };
         wishList.setAdapter(adapter);

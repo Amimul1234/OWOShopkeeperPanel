@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -81,6 +82,15 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productQuantity.setText(products.getProduct_quantity());
         double price_with_discount = products.getProduct_price() - Double.parseDouble(products.getProduct_discount());
         productPriceWithDiscount.setText(String.valueOf(price_with_discount));
+
+        productImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductDetailsActivity.this, ZoomProductImage.class);
+                intent.putExtra("image", products.getProduct_image());
+                startActivity(intent);
+            }
+        });
 
         addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override

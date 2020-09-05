@@ -51,5 +51,27 @@
         android:layout_below="@id/topbar1"/>
 
 
+    <ImageView
+        android:id="@+id/empty_image"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:src="@drawable/empty"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        />
+    
+    <TextView
+        android:id="@+id/empty_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You Have not added anything to wish list"
+        android:textAlignment="center"
+        android:layout_below="@+id/empty_image"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/blue"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:textSize="15sp"/>
+
 
 </RelativeLayout>

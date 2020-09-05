@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".shopKeeperPanel.WishList"></activity>
+        <activity android:name=".shopKeeperPanel.ZoomProductImage"></activity>
+        <activity android:name=".shopKeeperPanel.WishList" />
         <activity android:name=".shopKeeperPanel.SearchActivity" />
         <activity android:name=".shopKeeperPanel.BridgeofCartAndProduct" />
         <activity android:name=".shopKeeperPanel.AfterShopRegisterRequest" />
