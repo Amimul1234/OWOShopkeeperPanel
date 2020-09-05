@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,10 +36,11 @@ public class CartActivity extends AppCompatActivity {
     private ListView listView;
     private RecyclerView.LayoutManager layoutManager;
     private Button place_order_button;
-    private TextView totalAmount,subTotalAmount,vouchartxt;
+    private TextView totalAmount, subTotalAmount, vouchartxt, empty_text;
     private double totalPrice=0;
-    private ImageView back_from_cart;
+    private ImageView back_from_cart, empty_image;
     private static AllianceLoader loader;
+    private RelativeLayout tag4;
 
     private ArrayList<Cart> cartList = new ArrayList<>();
     private CartListAdapter cartListAdapter;
@@ -55,6 +57,10 @@ public class CartActivity extends AppCompatActivity {
         totalAmount=(TextView)findViewById(R.id.cart_total_amount);
         subTotalAmount=(TextView)findViewById(R.id.cart_sub_total_amount);
         back_from_cart=(ImageView)findViewById(R.id.back_arrow_from_cart);
+        empty_image = findViewById(R.id.empty_image);
+        empty_text = findViewById(R.id.empty_text);
+        tag4 = findViewById(R.id.tag4);
+
         loader = findViewById(R.id.loader);
 
         loaderVisible();
@@ -100,17 +106,32 @@ public class CartActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 cartList.clear();
                 totalPrice = 0.0;//This two line is for handling data change
-                for(DataSnapshot dataSnapshot1 : snapshot.getChildren())
+                tag4.setVisibility(View.VISIBLE);
+                if(snapshot.exists())
                 {
-                    Cart dummyCart = dataSnapshot1.getValue(Cart.class);
-                    cartList.add(dummyCart);
-                    totalPrice += dummyCart.getProduct_price() * Double.parseDouble(dummyCart.getNeeded_quantity());
+                    for(DataSnapshot dataSnapshot1 : snapshot.getChildren())
+                    {
+                        Cart dummyCart = dataSnapshot1.getValue(Cart.class);
+                        cartList.add(dummyCart);
+                        totalPrice += dummyCart.getProduct_price() * Double.parseDouble(dummyCart.getNeeded_quantity());
+                    }
+
+                    loaderGone();
+                    cartListAdapter = new CartListAdapter(CartActivity.this, cartList);
+                    listView.setAdapter(cartListAdapter);
+                    totalAmount.setText("৳ "+String.valueOf(totalPrice));
                 }
 
-                loaderGone();
-                cartListAdapter = new CartListAdapter(CartActivity.this, cartList);
-                listView.setAdapter(cartListAdapter);
-                totalAmount.setText("৳ "+String.valueOf(totalPrice));
+                else
+                {
+                    empty_image.setVisibility(View.VISIBLE);
+                    empty_text.setVisibility(View.VISIBLE);
+                    cartList.clear();
+                    totalPrice = 0.0;
+                    tag4.setVisibility(View.INVISIBLE);
+                    loaderGone();
+                }
+
             }
 
             @Override

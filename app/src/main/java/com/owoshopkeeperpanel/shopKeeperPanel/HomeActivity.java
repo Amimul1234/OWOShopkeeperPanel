@@ -245,7 +245,32 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             drawer.closeDrawer(GravityCompat.START);
         else
         {
-            super.onBackPressed();
+            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+
+            View view = LayoutInflater.from(HomeActivity.this).inflate(R.layout.custom_exit_alert_dialog, null);
+
+            Button yes = view.findViewById(R.id.leave);
+            Button no = view.findViewById(R.id.not_leave);
+
+            builder.setView(view);
+
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+            yes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    finish();
+                }
+            });
+
+            no.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.cancel();
+                }
+            });
         }
     }
 
