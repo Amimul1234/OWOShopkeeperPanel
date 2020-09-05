@@ -170,15 +170,15 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
     public void flipperImage(String image, ViewFlipper viewFlipper)
     {
         ImageView imageView=new ImageView(mCtx);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         Glide.with(mCtx).load(image).into(imageView);
         viewFlipper.addView(imageView);
-        viewFlipper.setFlipInterval(4000);
+        viewFlipper.setFlipInterval(6000);
         viewFlipper.setAutoStart(true);
         viewFlipper.startFlipping();
 
         viewFlipper.setInAnimation(mCtx, R.anim.slide_in_right);
-        viewFlipper.setOutAnimation(mCtx, R.anim.slide_out_left);
     }
 
     public void updateItems(List<String> newList) {    //this method is for handling async image responses

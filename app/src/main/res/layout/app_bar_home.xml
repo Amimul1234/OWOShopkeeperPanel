@@ -11,7 +11,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:background="@color/white"
+        app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -28,9 +29,9 @@
 
             <ImageView
                 android:id="@+id/contact_us"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/care"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/contact_us"
                 android:layout_marginEnd="15dp"
                 android:layout_gravity="end"/>
 
