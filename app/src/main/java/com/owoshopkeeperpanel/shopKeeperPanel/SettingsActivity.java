@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,7 +31,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.owoshopkeeperpanel.R;
-import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
@@ -55,11 +55,11 @@ public class SettingsActivity extends AppCompatActivity {
 
         storageProfilePictureRef= FirebaseStorage.getInstance().getReference().child("Shopkeeper");
 
-        profileImageView=(CircleImageView)findViewById(R.id.settings_profile_image);
-        fullNameEditText=(EditText)findViewById(R.id.settings_full_name);
-        userPhoneEditText=(EditText)findViewById(R.id.settings_phone_number);
-        closeTextBtn=(TextView)findViewById(R.id.close_settings_btn);
-        saveTextButton=(TextView)findViewById(R.id.update_account_settings_btn);
+        profileImageView = (CircleImageView)findViewById(R.id.settings_profile_image);
+        fullNameEditText = (EditText)findViewById(R.id.settings_full_name);
+        userPhoneEditText = (EditText)findViewById(R.id.settings_phone_number);
+        closeTextBtn = (TextView)findViewById(R.id.close_settings_btn);
+        saveTextButton = (TextView)findViewById(R.id.update_account_settings_btn);
 
         userInfoDisplay(profileImageView,fullNameEditText,userPhoneEditText);
 
@@ -87,7 +87,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 CharSequence options[]=new CharSequence[]{"Yes","No"};
-                AlertDialog.Builder builder=new AlertDialog.Builder(getApplicationContext());
+                AlertDialog.Builder builder=new AlertDialog.Builder(SettingsActivity.this);
                 builder.setTitle("Do you want to change profile picture?");
                 builder.setItems(options, new DialogInterface.OnClickListener() {
                     @Override
@@ -223,7 +223,7 @@ public class SettingsActivity extends AppCompatActivity {
                     String name=datasnapshot.child("name").getValue().toString();
                     String phone=datasnapshot.child("phone").getValue().toString();
 
-                    Picasso.get().load(image).into(profileImageView);
+                    Glide.with(SettingsActivity.this).load(image).into(profileImageView);
                     fullNameEditText.setText(name);
                     userPhoneEditText.setText(phone);
                 }

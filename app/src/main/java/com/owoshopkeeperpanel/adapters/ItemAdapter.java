@@ -156,6 +156,9 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
         }
     }
 
+
+
+
     private void fliptheView(ViewFlipper banner) {
 
         int size = images.size();
@@ -179,6 +182,7 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
         viewFlipper.startFlipping();
 
         viewFlipper.setInAnimation(mCtx, R.anim.slide_in_right);
+        viewFlipper.setOutAnimation(mCtx, R.anim.slide_out_left);
     }
 
     public void updateItems(List<String> newList) {    //this method is for handling async image responses

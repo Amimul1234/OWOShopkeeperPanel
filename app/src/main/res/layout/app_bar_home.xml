@@ -29,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/contact_us"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/contact_us"
                 android:layout_marginEnd="15dp"
                 android:layout_gravity="end"/>

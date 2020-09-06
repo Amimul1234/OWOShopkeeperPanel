@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this, RegisterWithOTPActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,RegisterWithOTPActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -161,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(getApplicationContext(), AfterRegisterActivity.class);
                         Prevalent.currentOnlineUser = users;
+                        loadingbar.dismiss();
                         startActivity(intent);
                         finish();
                     }
