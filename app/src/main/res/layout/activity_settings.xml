@@ -266,6 +266,7 @@
             app:cardCornerRadius="5dp">
 
             <RelativeLayout
+                android:id="@+id/change_pin_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
@@ -277,7 +278,6 @@
                     android:src="@drawable/pin_number"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"/>
-
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".shopKeeperPanel.ChangePin">
+
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue"
+        >
+
+        <ImageView
+            android:id="@+id/back_to_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_24"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Pin"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginStart="20dp"/>
+
+    </Toolbar>
+
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingTop="20dp"
+        app:srcCompat="@drawable/change_pin"
+        app:tint="#aaa"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="150dp"/>
+
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@drawable/edit_text_black"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+        <EditText
+            android:id="@+id/currentPin"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp"
+            android:paddingLeft="15dp"
+            android:background="@null"
+            android:inputType="numberPassword"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_input_lock"
+            android:hint="Current Pin"
+            android:paddingBottom="15dp"
+            android:textColorHint="#666"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/show_current_pin"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:paddingRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_visibility_off"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@drawable/edit_text_black"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+    <EditText
+        android:id="@+id/newPinUpdate"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp"
+        android:paddingLeft="15dp"
+        android:background="@null"
+        android:inputType="numberPassword"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@drawable/ic_input_lock"
+        android:hint="New Pin"
+        android:paddingBottom="15dp"
+        android:textColorHint="#666"
+        android:textSize="16sp"/>
+
+    <ImageView
+        android:id="@+id/show_new_pin"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:paddingRight="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_visibility_off"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@drawable/edit_text_black"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+        <EditText
+            android:id="@+id/newPinConfirmation"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp"
+            android:paddingLeft="15dp"
+            android:background="@null"
+            android:inputType="numberPassword"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_input_lock"
+            android:hint="Confirm New Pin"
+            android:paddingBottom="15dp"
+            android:textColorHint="#666"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/show_new_pin_confirm"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:paddingRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_visibility_off"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/change"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@drawable/buttons_blue"
+        android:layout_marginTop="25dp"
+        android:textSize="16sp"
+        android:stateListAnimator="@null"
+        android:elevation="0dp"
+        android:textAllCaps="false"
+        android:text="Change Pin"
+        android:padding="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textColor="#fff"/>
+
+</LinearLayout>

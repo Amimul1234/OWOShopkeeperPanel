@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,7 @@ public class SettingsActivity extends AppCompatActivity{
     private ImageView back_to_home;
     private TextView user_name, user_mobile, user_information_update;
     private CollapsingToolbarLayout collapsingToolbarLayout;
+    private RelativeLayout change_pin_layout;
 
     private User_shopkeeper user_shopkeeper = new User_shopkeeper();
 
@@ -83,6 +85,7 @@ public class SettingsActivity extends AppCompatActivity{
         profile_pic_card = findViewById(R.id.profile_pic_card);
         pin_change_card = findViewById(R.id.pin_change_card);
         collapsingToolbarLayout = findViewById(R.id.settings_full_name_toolbar);
+        change_pin_layout = findViewById(R.id.change_pin_layout);
 
         userInfoDisplay();
 
@@ -90,6 +93,15 @@ public class SettingsActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsActivity.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        change_pin_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, ChangePin.class);
                 startActivity(intent);
                 finish();
             }
@@ -122,8 +134,6 @@ public class SettingsActivity extends AppCompatActivity{
                 builder.show();
             }
         });
-
-
 
         user_information_update.setOnClickListener(new View.OnClickListener() {
             @Override
