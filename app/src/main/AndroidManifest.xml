@@ -14,45 +14,100 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true"
         android:usesCleartextTraffic="true">
-        <activity android:name=".shopKeeperPanel.ZoomProductImage"></activity>
-        <activity android:name=".shopKeeperPanel.WishList" />
-        <activity android:name=".shopKeeperPanel.SearchActivity" />
-        <activity android:name=".shopKeeperPanel.BridgeofCartAndProduct" />
-        <activity android:name=".shopKeeperPanel.AfterShopRegisterRequest" />
-        <activity android:name=".shopKeeperPanel.CartActivity" />
-        <activity android:name=".shopKeeperPanel.SplashScreenActivity">
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/maps_api_key" />
+
+
+        <activity android:name=".shopKeeperPanel.ZoomProductImage"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.WishList"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.SearchActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.BridgeofCartAndProduct"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.AfterShopRegisterRequest"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.CartActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.SplashScreenActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".shopKeeperPanel.MyProductsActivity" />
-        <activity android:name=".shopKeeperPanel.StoreSettingsActivity" />
-        <activity android:name=".shopKeeperPanel.MyShopActivity" />
-        <activity android:name=".shopKeeperPanel.Contact_us" />
-        <activity android:name=".shopKeeperPanel.SetPinActivity" />
-        <activity android:name=".shopKeeperPanel.ForgetVerifyPhoneActivity" />
-        <activity android:name=".shopKeeperPanel.ForgetPinOtpActivity" />
-        <activity android:name=".shopKeeperPanel.SettingsActivity" />
-        <activity android:name=".shopKeeperPanel.LocationFromMap" />
-        <activity android:name=".shopKeeperPanel.AfterRegisterActivity" />
-        <activity android:name=".shopKeeperPanel.TermsConditionsActivity" />
-        <activity android:name=".shopKeeperPanel.MainActivity" />
-        <activity android:name=".shopKeeperPanel.VerifyPhoneActivity" />
-        <activity android:name=".shopKeeperPanel.RegisterWithOTPActivity" />
-        <activity android:name=".shopKeeperPanel.RegisterFrontActivity" />
-        <activity android:name=".shopKeeperPanel.ProductDetailsActivity" />
-        <activity android:name=".shopKeeperPanel.ShopRegistrationRequest" />
-        <activity android:name=".shopKeeperPanel.HomeActivity" />
+
+        <activity android:name=".shopKeeperPanel.MyProductsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.StoreSettingsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.MyShopActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.Contact_us"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.SetPinActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.ForgetVerifyPhoneActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.ForgetPinOtpActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.SettingsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.LocationFromMap"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.AfterRegisterActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.TermsConditionsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.MainActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.VerifyPhoneActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.RegisterWithOTPActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.RegisterFrontActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.ProductDetailsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.ShopRegistrationRequest"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.HomeActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/maps_api_key" />
     </application>
 
 </manifest>

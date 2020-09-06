@@ -5,19 +5,31 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.owoshopkeeperpanel.Model.User_shopkeeper;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,22 +43,28 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.sheetHandeler.User_Info_Update_Bottom_Sheet;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity{
 
-    private CircleImageView profileImageView;
-    private EditText fullNameEditText,userPhoneEditText;
-    private TextView closeTextBtn,saveTextButton;
     private Uri imageUri;
     private String myUrl="";
-    private StorageReference storageProfilePictureRef;
-    private String checker="";
     private StorageTask uploadTask;
+    private StorageReference storageProfilePictureRef;
+
+    private CardView profile_pic_card, pin_change_card;
+    private CircleImageView profileImageView, profileImageSmall;
+    private ImageView back_to_home;
+    private TextView user_name, user_mobile, user_information_update;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+
+    private User_shopkeeper user_shopkeeper = new User_shopkeeper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,47 +74,41 @@ public class SettingsActivity extends AppCompatActivity {
         storageProfilePictureRef= FirebaseStorage.getInstance().getReference().child("Shopkeeper");
 
         profileImageView = (CircleImageView)findViewById(R.id.settings_profile_image);
-        fullNameEditText = (EditText)findViewById(R.id.settings_full_name);
-        userPhoneEditText = (EditText)findViewById(R.id.settings_phone_number);
-        closeTextBtn = (TextView)findViewById(R.id.close_settings_btn);
-        saveTextButton = (TextView)findViewById(R.id.update_account_settings_btn);
+        profileImageSmall = findViewById(R.id.settings_profile_image_small);
+        back_to_home = findViewById(R.id.back_to_home);
+        user_name = findViewById(R.id.user_information_name);
+        user_mobile = findViewById(R.id.user_information_mobile);
+        user_information_update = findViewById(R.id.edit_user_information);
 
-        userInfoDisplay(profileImageView,fullNameEditText,userPhoneEditText);
+        profile_pic_card = findViewById(R.id.profile_pic_card);
+        pin_change_card = findViewById(R.id.pin_change_card);
+        collapsingToolbarLayout = findViewById(R.id.settings_full_name_toolbar);
 
-        closeTextBtn.setOnClickListener(new View.OnClickListener() {
+        userInfoDisplay();
+
+        back_to_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, HomeActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
 
-        saveTextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checker.equals("clicked"))
-                {
-                    userInfoSaved();
-                }
-                else {
-                    updateOnlyUserInfo();
-                }
-            }
-        });
-
-        profileImageView.setOnClickListener(new View.OnClickListener() {
+        profile_pic_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CharSequence options[]=new CharSequence[]{"Yes","No"};
                 AlertDialog.Builder builder=new AlertDialog.Builder(SettingsActivity.this);
-                builder.setTitle("Do you want to change profile picture?");
+                builder.setTitle("Do you want to update profile picture?");
                 builder.setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
                         if (i==0)
                         {
-                            checker="clicked";
                             CropImage.activity(imageUri)
                                     .setAspectRatio(1,1)
+                                    .setCropShape(CropImageView.CropShape.OVAL)
                                     .start(SettingsActivity.this);
 
                         }
@@ -111,19 +123,82 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+
+
+        user_information_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                User_Info_Update_Bottom_Sheet bottomSheet = new User_Info_Update_Bottom_Sheet(getApplicationContext(), user_shopkeeper.getName(), user_shopkeeper.getPhone());
+                bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
+            }
+        });
     }
 
-    private void updateOnlyUserInfo() {
-        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("Shopkeeper");
 
-        HashMap<String,Object> userMap=new HashMap<>();
-        userMap.put("name",fullNameEditText.getText().toString());
-        userMap.put("phone",userPhoneEditText.getText().toString());
-        ref.child(Prevalent.currentOnlineUser.getPhone()).updateChildren(userMap);
+    private void uploadImage() {
 
-        startActivity(new Intent(SettingsActivity.this,HomeActivity.class));
-        Toast.makeText(SettingsActivity.this, "Profile information updated successfully", Toast.LENGTH_SHORT).show();
-        finish();
+        final ProgressDialog progressDialog=new ProgressDialog(this);
+
+        progressDialog.setTitle("Update Profile");
+        progressDialog.setMessage("Please wait while we are updating profile picture");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+
+        if (imageUri!=null)
+        {
+            final StorageReference fileRef=storageProfilePictureRef.child(Prevalent.currentOnlineUser.getPhone() + ".jpg");
+
+            StorageReference profile_pic = FirebaseStorage.getInstance().getReferenceFromUrl(user_shopkeeper.getImage());
+
+            profile_pic.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+
+                    uploadTask = fileRef.putFile(imageUri);
+
+                    uploadTask.continueWithTask(new Continuation() {
+                        @Override
+                        public Object then(@NonNull Task task) throws Exception {
+                            if (!task.isSuccessful())
+                            {
+                                throw task.getException();
+                            }
+                            return fileRef.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful())
+                            {
+                                Uri downloadUrl=task.getResult();
+                                myUrl=downloadUrl.toString();
+                                DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("Shopkeeper");
+                                user_shopkeeper.setImage(myUrl);
+                                Prevalent.currentOnlineUser.setImage(myUrl); //Setting the prevalent user image
+                                ref.child(Prevalent.currentOnlineUser.getPhone()).setValue(user_shopkeeper);
+                                progressDialog.dismiss();
+                                Toast.makeText(SettingsActivity.this, "Profile information updated successfully", Toast.LENGTH_SHORT).show();
+                                userInfoDisplay();
+                            }
+                            else {
+                                progressDialog.dismiss();
+                                Toast.makeText(SettingsActivity.this, "Error Uploading Photo", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(SettingsActivity.this, "Please Try Again", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+        else {
+            Toast.makeText(this, "Image not selected.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -134,7 +209,8 @@ public class SettingsActivity extends AppCompatActivity {
             CropImage.ActivityResult result=CropImage.getActivityResult(data);
             imageUri=result.getUri();
             profileImageView.setImageURI(imageUri);
-
+            profileImageSmall.setImageURI(imageUri);
+            uploadImage();
         }
         else {
             Toast.makeText(this, "Error, Try again.", Toast.LENGTH_SHORT).show();
@@ -143,95 +219,27 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    private void userInfoSaved() {
-        if (TextUtils.isEmpty(fullNameEditText.getText().toString()))
-        {
-            Toast.makeText(this, "Name is mandatory", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(userPhoneEditText.getText().toString()))
-        {
-            Toast.makeText(this, "Phone number is mandatory", Toast.LENGTH_SHORT).show();
-        }
-        else if (checker.equals("clicked"))
-        {
-            uploadImage();
-        }
-    }
+    private void userInfoDisplay() {
 
-    private void uploadImage() {
-        final ProgressDialog progressDialog=new ProgressDialog(this);
-        progressDialog.setTitle("Update Profile");
-        progressDialog.setMessage("Please wait, we are updating your account information");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        if (imageUri!=null)
-        {
-            final StorageReference fileRef=storageProfilePictureRef
-                    .child(Prevalent.currentOnlineUser.getPhone() + ".jpg");
-            uploadTask=fileRef.putFile(imageUri);
-            uploadTask.continueWithTask(new Continuation() {
-                @Override
-                public Object then(@NonNull Task task) throws Exception {
-                    if (!task.isSuccessful())
-                    {
-                        throw task.getException();
-                    }
-                    return fileRef.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful())
-                    {
-                        Uri downloadUrl=task.getResult();
-                        myUrl=downloadUrl.toString();
-                        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("Shopkeeper");
-                        HashMap<String,Object> userMap=new HashMap<>();
-                        userMap.put("name",fullNameEditText.getText().toString());
-                        userMap.put("phone",userPhoneEditText.getText().toString());
-                        userMap.put("image",myUrl);
-
-                        ref.child(Prevalent.currentOnlineUser.getPhone()).updateChildren(userMap);
-
-                        progressDialog.dismiss();
-                        startActivity(new Intent(SettingsActivity.this,HomeActivity.class));
-                        Toast.makeText(SettingsActivity.this, "Profile information updated successfully", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                    else {
-                        progressDialog.dismiss();
-                        Toast.makeText(SettingsActivity.this, "Error.", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-            });
-
-        }
-        else {
-            Toast.makeText(this, "Image is not selected.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void userInfoDisplay(final CircleImageView profileImageView, final EditText fullNameEditText, final EditText userPhoneEditText) {
         DatabaseReference UsersRef= FirebaseDatabase.getInstance().getReference().child("Shopkeeper").child(Prevalent.currentOnlineUser.getPhone());
+
         UsersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                 if (datasnapshot.exists())
                 {
-                    String image=datasnapshot.child("image").getValue().toString();
-                    String name=datasnapshot.child("name").getValue().toString();
-                    String phone=datasnapshot.child("phone").getValue().toString();
-
-                    Glide.with(SettingsActivity.this).load(image).into(profileImageView);
-                    fullNameEditText.setText(name);
-                    userPhoneEditText.setText(phone);
+                    user_shopkeeper =  datasnapshot.getValue(User_shopkeeper.class);
+                    Glide.with(getApplicationContext()).load(user_shopkeeper.getImage()).into(profileImageView);
+                    Glide.with(getApplicationContext()).load(user_shopkeeper.getImage()).into(profileImageSmall);
+                    collapsingToolbarLayout.setTitle(user_shopkeeper.getName());
+                    user_name.setText(user_shopkeeper.getName());
+                    user_mobile.setText(user_shopkeeper.getPhone());
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(SettingsActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/white"
     tools:context=".shopKeeperPanel.SettingsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -28,7 +27,7 @@
             app:expandedTitleMarginBottom="20dp"
             app:expandedTitleGravity="bottom|center"
             app:collapsedTitleGravity="start"
-            app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyleBlack"
+            app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyleWhite"
             app:collapsedTitleTextAppearance="@style/CollapsingToolbarLayoutCollapsedTextStyle"
             >
 
@@ -68,13 +67,18 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         android:background="#E4EAEF"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         >
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
         <TextView
             android:id="@+id/pic_change_text"
             android:layout_width="match_parent"
@@ -86,13 +90,14 @@
             android:layout_marginStart="5dp"/>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/profile_pic_card"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_below="@+id/pic_change_text"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginTop="15dp"
-            android:id="@+id/profile_pic_card"
+            app:cardUseCompatPadding="true"
             app:cardCornerRadius="5dp">
 
             <RelativeLayout
@@ -102,8 +107,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/settings_profile_image_small"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
                     app:civ_border_width="2dp"
                     app:civ_border_color="@color/black"
                     android:layout_centerVertical="true"
@@ -130,25 +135,49 @@
 
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/user_information_tag"
+        <RelativeLayout
+            android:id="@+id/linear_dummy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="User Information"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            android:layout_below="@+id/profile_pic_card"
+            android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_marginStart="5dp"/>
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_below="@+id/profile_pic_card"
+            >
+
+            <TextView
+                android:id="@+id/user_information_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change User Information"
+                android:textSize="15sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/edit_user_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit"
+                android:textColor="@color/blue"
+                android:textSize="15sp"
+                android:drawableStart="@drawable/ic_baseline_create_24"
+                android:drawableTint="@color/blue"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/user_information_card"
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            android:layout_below="@+id/user_information_tag"
+            android:layout_below="@+id/linear_dummy"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginTop="15dp"
+            app:cardUseCompatPadding="true"
             app:cardCornerRadius="5dp">
 
             <LinearLayout
@@ -158,6 +187,7 @@
                 android:orientation="vertical"
                 >
                 <LinearLayout
+                    android:id="@+id/user_name_change_layout"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -180,7 +210,13 @@
                         android:ellipsize="end"/>
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey"/>
+
                 <LinearLayout
+                    android:id="@+id/user_mobile_number_change_layout"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -210,7 +246,7 @@
             android:id="@+id/pin_change_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pin Change"
+            android:text="Change Pin"
             android:textSize="15sp"
             android:textColor="@color/black"
             android:layout_below="@+id/user_information_card"
@@ -226,6 +262,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginTop="15dp"
+            app:cardUseCompatPadding="true"
             app:cardCornerRadius="5dp">
 
             <RelativeLayout
@@ -259,72 +296,8 @@
                     android:layout_centerVertical="true"/>
 
             </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!--
-        <EditText
-            android:id="@+id/settings_phone_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phone Number..."
-            android:inputType="number"
-            android:textColor="@color/colorPrimaryDark"
-            android:background="@drawable/edittext_design"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="35dp"
-            android:padding="18dp"
-            />
-
-        <EditText
-            android:id="@+id/settings_full_name"
-            android:layout_below="@+id/settings_phone_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Full Name..."
-            android:inputType="text"
-            android:textColor="@color/colorPrimaryDark"
-            android:background="@drawable/edittext_design"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp"
-            android:padding="18dp"
-            />
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/close_settings_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Close"
-                android:fontFamily="@font/ethnocentric"
-                android:textColor="@android:color/white"
-                android:textSize="17sp"
-                android:layout_alignParentStart="true"
-                />
-            <TextView
-                android:id="@+id/update_account_settings_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Update"
-                android:fontFamily="@font/ethnocentric"
-                android:textColor="@android:color/white"
-                android:textSize="17sp"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentEnd="true"
-                />
-
+            </androidx.cardview.widget.CardView>
         </RelativeLayout>
-
-        -->
-
-    </RelativeLayout>
-
-
-
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

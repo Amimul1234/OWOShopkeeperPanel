@@ -112,7 +112,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         CircleImageView profileImageView=headerView.findViewById(R.id.user_profile_image);
 
         userNameTextView.setText(Prevalent.currentOnlineUser.getName());
-        Glide.with(HomeActivity.this).load(Prevalent.currentOnlineUser.getImage()).into(profileImageView);
+
+        Glide.with(getApplicationContext()).load(Prevalent.currentOnlineUser.getImage()).into(profileImageView);
 
         contact_us.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -345,6 +346,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         {
             Intent intent=new Intent(HomeActivity.this, SettingsActivity.class);
             startActivity(intent);
+            finish();
         }
 
         else if(id==R.id.nav_logout)

@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:625966490788:android:ba53af7339ddbd7a41b231",
+        "mobilesdk_app_id": "1:625966490788:android:af191b9e95ad27be41b231",
         "android_client_info": {
-          "package_name": "com.example.owoshop"
+          "package_name": "com.example.owosemiadmin"
         }
       },
       "oauth_client": [
@@ -22,6 +22,9 @@
       "api_key": [
         {
           "current_key": "AIzaSyCZBdIoPyNMVS5ypmY5RRh9dt0mb2aBkLA"
+        },
+        {
+          "current_key": "AIzaSyDX6YQ4dRErpb5muuAg0vtBHIK9o20iDns"
         }
       ],
       "services": {
@@ -37,7 +40,47 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:625966490788:android:c137a3d016185f5d41b231",
+        "mobilesdk_app_id": "1:625966490788:android:ba53af7339ddbd7a41b231",
+        "android_client_info": {
+          "package_name": "com.example.owoshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625966490788-bvv237is1ssnkpi1r0scp3m4h5mko0gd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.owoshop",
+            "certificate_hash": "cccbf9ab479a5210aeccdff5103df8c2b86ad4a5"
+          }
+        },
+        {
+          "client_id": "625966490788-ihpcfss6guiah2r3vv914oea9ch6diu8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZBdIoPyNMVS5ypmY5RRh9dt0mb2aBkLA"
+        },
+        {
+          "current_key": "AIzaSyDX6YQ4dRErpb5muuAg0vtBHIK9o20iDns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625966490788-ihpcfss6guiah2r3vv914oea9ch6diu8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625966490788:android:c6dd66553c4730f141b231",
         "android_client_info": {
           "package_name": "com.owoshopkeeperpanel"
         }
@@ -51,6 +94,9 @@
       "api_key": [
         {
           "current_key": "AIzaSyCZBdIoPyNMVS5ypmY5RRh9dt0mb2aBkLA"
+        },
+        {
+          "current_key": "AIzaSyDX6YQ4dRErpb5muuAg0vtBHIK9o20iDns"
         }
       ],
       "services": {

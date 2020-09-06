@@ -87,7 +87,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     app:initialNumber="1"
-                    app:backgroundDrawable="@drawable/buttons_blue"/>
+                    app:backGroundColor="@color/blue"/>
 
             </RelativeLayout>
 
