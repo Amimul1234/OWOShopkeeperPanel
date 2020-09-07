@@ -23,11 +23,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:fontFamily="@font/ethnocentric"
         android:gravity="center"
         android:text="New Account"
-        android:textColor="#0026FF"
-        android:textSize="20sp"
+        android:textColor="@color/blue"
+        android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo" />
 
@@ -42,12 +42,12 @@
         android:layout_marginRight="10dp"
         android:inputType="text"
         android:hint="Name"
+        android:textColorHint="#666"
         android:drawableLeft="@drawable/ic_person_black_24dp"
+        android:drawableTint="#666"
         android:drawablePadding="10dp"
-        android:background="@drawable/edittext_design"
+        android:background="@drawable/edit_text_black"
         android:textSize="20sp"
-        android:fontFamily="@font/robotolightitalic"
-        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt1"
         />
@@ -59,14 +59,15 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/edittext_design"
-        android:drawableLeft="@drawable/phone"
+        android:background="@drawable/edit_text_black"
+        android:drawableStart="@drawable/phone"
         android:drawablePadding="10dp"
         android:hint="Mobile Number"
         android:inputType="numberDecimal"
         android:maxLength="11"
         android:padding="18dp"
         android:textColorHint="#666"
+        android:drawableTint="#666"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_shopkeeper_name" />
@@ -82,15 +83,34 @@
         android:layout_marginRight="25dp"
         android:layout_marginBottom="25dp"
         android:background="@drawable/buttons_blue"
-        android:elevation="0dp"
-        android:fontFamily="@font/ethnocentric"
         android:padding="15dp"
         android:text="Sign Up"
+        android:textStyle="bold"
         android:textAllCaps="false"
         android:textColor="#fff"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+
+    <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
+        android:id="@+id/loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:alliance_animDuration="500"
+        app:alliance_distanceMultiplier="4"
+        app:alliance_dotsRadius="15dp"
+        app:alliance_firstDotsColor="@color/red"
+        app:alliance_secondDotsColor="@color/green"
+        app:alliance_strokeWidth="8dp"
+        app:alliance_thirdDotsColor="@color/blue"
+        app:layout_constraintTop_toBottomOf="@+id/shopkeeper_register_mobile"
+        app:layout_constraintBottom_toTopOf="@+id/send_otp_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

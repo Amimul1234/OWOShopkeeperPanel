@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    android:gravity="center"
     tools:context=".shopKeeperPanel.ForgetVerifyPhoneActivity">
 
     <ImageView
@@ -14,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:padding="5dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/logo"/>
 
     <TextView
@@ -21,20 +21,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/ethnocentric"
-        android:textSize="18sp"
-        android:text="Please, Enter the verification code"
+        android:textSize="22sp"
+        android:text="Please, Enter verification code"
         android:textAlignment="center"
-        android:textColor="#0026FF" />
+        android:textColor="#0026FF"
+        android:layout_gravity="center"/>
 
     <ProgressBar
         android:id="@+id/progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminateTint="#0026FF"
-        android:layout_below="@id/txt"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone" />
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 
     <EditText
         android:textSize="20sp"
@@ -47,9 +47,9 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-        android:hint="Enter Code :"
+        android:hint="Enter Code"
         android:drawableLeft="@drawable/ic_baseline_email_24"
-        android:background="@drawable/edittext_design"
+        android:background="@drawable/edit_text_black"
         android:drawablePadding="10dp"
         android:inputType="number"/>
 
@@ -58,11 +58,12 @@
         android:textColor="#fff"
         android:id="@+id/forget_continue_btn"
         android:padding="15dp"
-        android:layout_margin="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/buttons_blue"
-        android:fontFamily="@font/ethnocentric"
         android:text="Continue"
         android:textAllCaps="false"
         android:elevation="0dp" />

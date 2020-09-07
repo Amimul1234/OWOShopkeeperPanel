@@ -91,8 +91,8 @@
                 android:layout_height="wrap_content"
                 android:text="Remember Me"
                 android:textSize="16sp"
-                android:textColor="@android:color/holo_blue_dark"
-                android:layout_marginLeft="10dp"
+                android:textColor="@color/blue"
+                android:layout_marginStart="10dp"
                 android:textStyle="bold"
                 />
 

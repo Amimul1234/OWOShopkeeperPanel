@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.owoshopkeeperpanel.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +25,7 @@ public class RegisterWithOTPActivity extends AppCompatActivity {
 
     private EditText merchant_name, regMobile;
     private Button sendOTP;
+    private AllianceLoader loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +40,7 @@ public class RegisterWithOTPActivity extends AppCompatActivity {
         merchant_name = findViewById(R.id.new_shopkeeper_name);
         sendOTP = (Button)findViewById(R.id.send_otp_btn);
 
-
-        final ProgressDialog progressDialog = new ProgressDialog(RegisterWithOTPActivity.this);
-        progressDialog.setMessage("Please wait while we are checking your credentials");
-        progressDialog.setCanceledOnTouchOutside(false);
+        loader = findViewById(R.id.loader);
 
 
         sendOTP.setOnClickListener(new View.OnClickListener() {
@@ -63,11 +62,13 @@ public class RegisterWithOTPActivity extends AppCompatActivity {
                     return;
                 }
 
+
+
                 DatabaseReference shopkeeperRef = FirebaseDatabase.getInstance().getReference();
                 final Query query = shopkeeperRef.child("Shopkeeper").orderByKey().equalTo(number);
                 final String name  = merchant_name.getText().toString();
 
-                progressDialog.show();
+                loader.setVisibility(View.VISIBLE);
 
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -75,7 +76,8 @@ public class RegisterWithOTPActivity extends AppCompatActivity {
                         if(snapshot.exists())
                         {
                             Toast.makeText(RegisterWithOTPActivity.this, "This number is already registered, please log in", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
+                            loader.setVisibility(View.GONE);
+
                         }
                         else
                         {
@@ -87,13 +89,14 @@ public class RegisterWithOTPActivity extends AppCompatActivity {
                             intent.putExtra("name", name);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
+                            finish();
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Toast.makeText(RegisterWithOTPActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
+                        loader.setVisibility(View.GONE);
                     }
                 });
 

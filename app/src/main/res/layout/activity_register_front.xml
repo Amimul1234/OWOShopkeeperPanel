@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:theme="@style/AppTheme.AppBarOverlay"
-        android:background="@color/colorPrimary"
+        android:background="@color/blue"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -23,7 +23,7 @@
             app:titleEnabled="true"
             app:scrimAnimationDuration="10"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/colorPrimary"
+            app:contentScrim="@color/blue"
             app:expandedTitleMarginBottom="15dp"
             app:expandedTitleMarginEnd="20dp"
             app:expandedTitleMarginStart="25dp"
@@ -56,7 +56,7 @@
                     android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tint="@color/black"
+                    app:tint="@color/white"
                     android:src="@drawable/ic_baseline_arrow_back_24" />
 
             </androidx.appcompat.widget.Toolbar>
@@ -84,7 +84,7 @@
                 <EditText
                     android:id="@+id/new_shopkeeper_pin"
                     android:layout_marginTop="15dp"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp"
@@ -93,10 +93,8 @@
                     android:hint="Pin Number"
                     android:drawableLeft="@drawable/ic_input_lock"
                     android:drawablePadding="10dp"
-                    android:background="@drawable/edittext_design"
+                    android:background="@drawable/edit_text_black"
                     android:textSize="20sp"
-                    android:fontFamily="@font/robotolightitalic"
-                    android:textColorHint="#000000"
                     />
 
                 <ImageView
@@ -121,18 +119,16 @@
                 <EditText
                     android:id="@+id/new_shopkeeper_confirm_pin"
                     android:layout_marginTop="15dp"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp"
                     android:layout_marginRight="18dp"
                     android:hint="Confirm Pin"
                     android:inputType="numberPassword"
-                    android:background="@drawable/edittext_design"
+                    android:background="@drawable/edit_text_black"
                     android:textSize="20sp"
-                    android:fontFamily="@font/robotolightitalic"
-                    android:textColorHint="#000000"
-                    android:drawableLeft="@drawable/ic_input_lock"
+                    android:drawableStart="@drawable/ic_input_lock"
                     android:drawablePadding="10dp"
                     />
 
@@ -172,7 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Terms and Conditions"
-                    android:textColor="@android:color/holo_blue_dark"
+                    android:textColor="@color/blue"
                     android:textSize="16sp"
                     android:layout_toRightOf="@+id/terms"
                     android:textStyle="bold"
@@ -186,7 +182,8 @@
 
             <Button
                 android:textSize="20sp"
-                android:textColor="#fff"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 android:id="@+id/create_account_btn"
                 android:padding="15dp"
                 android:layout_margin="15dp"
@@ -195,9 +192,7 @@
                 android:background="@drawable/buttons_blue"
                 android:layout_alignParentBottom="true"
                 android:text="Create Account"
-                android:layout_below="@id/relative3"
-                android:fontFamily="@font/ethnocentric"
-                android:elevation="0dp" />
+                android:layout_below="@id/relative3" />
 
         </RelativeLayout>
 

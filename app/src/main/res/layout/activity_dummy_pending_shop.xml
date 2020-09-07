@@ -60,10 +60,12 @@
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:padding="18dp"
-                android:background="@drawable/edittext_design"
+                android:background="@drawable/edit_text_black"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:drawableEnd="@drawable/nav_cart"
+                android:drawableStart="@drawable/nav_cart"
+                android:drawablePadding="8dp"
+                android:drawableTint="#555555"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
@@ -77,12 +79,13 @@
                 android:hint="Shop Address"
                 android:inputType="textMultiLine"
                 android:padding="18dp"
-                android:background="@drawable/edittext_design"
+                android:background="@drawable/edit_text_black"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:layout_margin="5dp"
-                android:drawableEnd="@drawable/ic_baseline_place_24"
-                android:drawableTint="@color/black"
+                android:drawableStart="@drawable/ic_baseline_place_24"
+                android:drawablePadding="8dp"
+                android:drawableTint="#555555"
                 />
 
             <Button
@@ -193,11 +196,13 @@
                 android:hint="Shop Owner Name"
                 android:inputType="textMultiLine"
                 android:padding="18dp"
-                android:background="@drawable/edittext_design"
+                android:background="@drawable/edit_text_black"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:layout_margin="5dp"
-                android:drawableEnd="@drawable/ic_person_black_24dp"
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:drawablePadding="8dp"
+                android:drawableTint="#555555"
                 />
 
             <EditText
@@ -207,12 +212,14 @@
                 android:hint="Service Mobile"
                 android:inputType="numberDecimal"
                 android:padding="18dp"
-                android:background="@drawable/edittext_design"
+                android:background="@drawable/edit_text_black"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:layout_margin="5dp"
                 android:maxLength="11"
-                android:drawableEnd="@drawable/phone"
+                android:drawableStart="@drawable/phone"
+                android:drawablePadding="8dp"
+                android:drawableTint="#555555"
                 />
 
             <EditText
@@ -220,14 +227,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/edittext_design"
+                android:background="@drawable/edit_text_black"
                 android:hint="Shop Owner Mobile"
                 android:inputType="numberDecimal"
                 android:padding="18dp"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:maxLength="11"
-                android:drawableEnd="@drawable/phone"/>
+                android:drawableStart="@drawable/phone"
+                android:drawablePadding="8dp"
+                android:drawableTint="#555555"/>
 
             <ImageView
                 android:id="@+id/shop_owner_nid"

@@ -21,9 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/ethnocentric"
-        android:textSize="18sp"
-        android:text="Please, Enter the verification code"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:text="Please, Enter verification code"
         android:textAlignment="center"
         android:textColor="#0026FF" />
 
@@ -32,9 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminateTint="#0026FF"
-        android:layout_below="@id/txt"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone" />
+        android:layout_marginTop="25dp"/>
 
     <EditText
         android:textSize="20sp"
@@ -47,24 +45,24 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-        android:hint="Enter Code :"
-        android:drawableLeft="@drawable/ic_baseline_email_24"
-        android:background="@drawable/edittext_design"
+        android:hint="Enter Code"
+        android:drawableStart="@drawable/ic_baseline_email_24"
+        android:background="@drawable/edit_text_black"
         android:drawablePadding="10dp"
         android:inputType="number"/>
 
     <Button
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textColor="#fff"
         android:id="@+id/continue_btn"
-        android:padding="15dp"
-        android:layout_margin="25dp"
+        android:padding="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/buttons_blue"
-        android:fontFamily="@font/ethnocentric"
         android:text="Continue"
-        android:textAllCaps="false"
-        android:elevation="0dp" />
+        android:textAllCaps="false"/>
 
 </LinearLayout>
