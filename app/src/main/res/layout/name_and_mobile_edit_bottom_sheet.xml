@@ -37,14 +37,15 @@
         android:text="Mobile Number"
         android:layout_marginTop="15dp"/>
 
-    <EditText
+    <TextView
         android:id="@+id/user_mobile_number"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
-        android:inputType="numberDecimal"
-        android:maxLength="11"
-        android:padding="5dp"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
         android:background="@drawable/edit_text_black"/>
 
     <Button

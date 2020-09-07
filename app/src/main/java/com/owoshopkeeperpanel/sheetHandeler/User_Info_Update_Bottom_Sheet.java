@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -46,7 +47,7 @@ public class User_Info_Update_Bottom_Sheet extends BottomSheetDialogFragment {
         View v = inflater.inflate(R.layout.name_and_mobile_edit_bottom_sheet, container, false);
 
         EditText name = v.findViewById(R.id.user_name);
-        EditText phone = v.findViewById(R.id.user_mobile_number);
+        TextView phone = v.findViewById(R.id.user_mobile_number);
 
         name.setText(user_name);
         phone.setText(user_mobile_number);
@@ -56,6 +57,7 @@ public class User_Info_Update_Bottom_Sheet extends BottomSheetDialogFragment {
         update_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String name_checking = name.getText().toString();
                 String number_checking = phone.getText().toString();
 
@@ -63,11 +65,6 @@ public class User_Info_Update_Bottom_Sheet extends BottomSheetDialogFragment {
                 {
                     name.setError("Name can not be empty");
                     name.requestFocus();
-                }
-                else if(number_checking.isEmpty() || number_checking.length()<11)
-                {
-                    phone.setError("Please provide correct mobile number");
-                    phone.requestFocus();
                 }
                 else
                 {
