@@ -66,6 +66,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:backgroundTint="@color/blue"
-        app:srcCompat="@drawable/ic_baseline_shopping_cart_24" />
+        app:borderWidth="0dp"
+        app:srcCompat="@drawable/ic_baseline_shopping_cart_24"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
