@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
-
 import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
@@ -21,43 +19,24 @@ import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Model.Products;
 import com.owoshopkeeperpanel.shopKeeperPanel.ProductDetailsActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHolder>{
 
     private Context mCtx;
-    public static final int View_Flipper = 1;
-    public static final int Products_shower = 2;
-    private List<String> images = new ArrayList<String>();
 
-    public ItemAdapter(Context mCtx, List<String> images) {
+    public ItemAdapter(Context mCtx) {
         super(DIFF_CALLBACK);
         this.mCtx = mCtx;
-        this.images.addAll(images);
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(viewType == View_Flipper)
-        {
-            View view = LayoutInflater.from(mCtx).inflate(R.layout.banner_slider, parent, false);
-            return new BannerFlipper(view);
-        }
-        else
-        {
-            View view = LayoutInflater.from(mCtx).inflate(R.layout.product_availability_sample, parent, false);
-            return new ItemViewHolder(view);
-        }
-
+        View view = LayoutInflater.from(mCtx).inflate(R.layout.product_availability_sample, parent, false);
+        return new ItemViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-        if(getItemViewType(position) == Products_shower)
-        {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
             Products item = getItem(position);
@@ -80,7 +59,6 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
                 double percentage = (Double.parseDouble(item.getProduct_discount()) / item.getProduct_price()) * 100.00;
 
                 int val = (int) percentage;
-
                 itemViewHolder.discounted_percent.setText(String.valueOf(val) + " % ");
 
 
@@ -88,12 +66,7 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
             } else {
                 Toast.makeText(mCtx, "Item is null", Toast.LENGTH_LONG).show();
             }
-        }
-        else
-        {
-            BannerFlipper bannerFlipper = (BannerFlipper) holder;
-            fliptheView(bannerFlipper.bannerFlipper);
-        }
+
     }
 
     private static DiffUtil.ItemCallback<Products> DIFF_CALLBACK =
@@ -108,17 +81,6 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
                     return true;
                 }
             };
-
-
-    @Override
-    public int getItemViewType(int position) {
-        if(position == 0)
-        {
-            return View_Flipper;
-        }
-        else
-            return Products_shower;
-    }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -144,52 +106,5 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
             mCtx.startActivity(intent);
         }
     }
-
-    public class BannerFlipper extends RecyclerView.ViewHolder {
-
-        public ViewFlipper bannerFlipper;
-
-        public BannerFlipper(@NonNull View itemView) {
-            super(itemView);
-
-            bannerFlipper = itemView.findViewById(R.id.view_flipper_offer);
-        }
-    }
-
-
-
-
-    private void fliptheView(ViewFlipper banner) {
-
-        int size = images.size();
-
-        for(int i=0; i<size; i++)
-        {
-            flipperImage(images.get(i), banner);
-        }
-
-    }
-
-    public void flipperImage(String image, ViewFlipper viewFlipper)
-    {
-        ImageView imageView=new ImageView(mCtx);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        Glide.with(mCtx).load(image).into(imageView);
-        viewFlipper.addView(imageView);
-        viewFlipper.setFlipInterval(6000);
-        viewFlipper.setAutoStart(true);
-        viewFlipper.startFlipping();
-
-        viewFlipper.setInAnimation(mCtx, R.anim.slide_in_right);
-        viewFlipper.setOutAnimation(mCtx, R.anim.slide_out_left);
-    }
-
-    public void updateItems(List<String> newList) {    //this method is for handling async image responses
-        images.clear();
-        images.addAll(newList);
-        notifyDataSetChanged();
-    }
-
 
 }

@@ -31,6 +31,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.MergeAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -39,6 +40,8 @@ import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Model.Offers;
 import com.owoshopkeeperpanel.Model.Products;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
+import com.owoshopkeeperpanel.adapters.CategoryAdapter;
+import com.owoshopkeeperpanel.adapters.ImageFlipperAdapter;
 import com.owoshopkeeperpanel.adapters.ItemAdapter;
 import com.owoshopkeeperpanel.pagination.ItemViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -60,6 +63,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView recyclerView;
     private List<String> images = new ArrayList<String>();
     private ItemAdapter adapter;
+    private ImageFlipperAdapter imageFlipperAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private AppCompatButton searchBar;
 
@@ -171,7 +175,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         Offers offers = dataSnapshot1.getValue(Offers.class);
                         images.add(offers.getImage());
                     }
-                    adapter.updateItems(images);
+                    imageFlipperAdapter.updateItems(images);
                 }
                 else
                 {
@@ -201,7 +205,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     public void getProducts() {
 
-        adapter = new ItemAdapter(this, images);
+        adapter = new ItemAdapter(this);
+        imageFlipperAdapter = new ImageFlipperAdapter(this, images);
         ItemViewModel itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
 
         itemViewModel.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
@@ -217,23 +222,30 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         recyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);//Configuring recyclerview to receive two layout manager
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
         ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                switch (adapter.getItemViewType(position)) {
-                    case ItemAdapter.View_Flipper:
-                        return 2;
-                    case ItemAdapter.Products_shower:
-                        return 1;
-                    default:
-                        return 1;
+
+                if(position == 0)
+                {
+                    return 6;
+                }
+                else if(position >= 1 && position<=41)
+                {
+                    return 2;
+                }
+                else
+                {
+                    return 3;
                 }
             }
         });
 
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(getApplicationContext());// For showing categories
+        MergeAdapter mergeAdapter = new MergeAdapter(imageFlipperAdapter, categoryAdapter, adapter);
+        recyclerView.setAdapter(mergeAdapter);
         adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
     }
