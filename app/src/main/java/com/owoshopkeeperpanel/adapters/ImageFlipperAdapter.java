@@ -1,6 +1,8 @@
 package com.owoshopkeeperpanel.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +53,18 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             bannerFlipper = itemView.findViewById(R.id.view_flipper_offer);
+
+
+            DisplayMetrics displaymetrics = new DisplayMetrics(); //Resizing things dynamically
+            ((Activity) mCtx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+
+            int devicewidth = displaymetrics.widthPixels;
+
+            int deviceheight = devicewidth / 2;
+
+            bannerFlipper.getLayoutParams().width = devicewidth;
+
+            bannerFlipper.getLayoutParams().height = deviceheight;
         }
     }
 

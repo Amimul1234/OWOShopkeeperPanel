@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="5dp"
+    app:cardElevation="0dp"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="10dp">
 
@@ -26,8 +26,8 @@
 
         <TextView
             android:id="@+id/product_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
             android:text="Product Name"
             android:textAlignment="textStart"
             android:maxLines="1"
@@ -40,7 +40,7 @@
         <TextView
             android:id="@+id/product_price"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:text="Product Price"
             android:textAlignment="textStart"
             android:layout_marginTop="10dp"
@@ -50,7 +50,7 @@
         <TextView
             android:id="@+id/product_discounted_price"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:text="Discount"
             android:textAlignment="textStart"
             android:textSize="15sp"

@@ -1,8 +1,10 @@
 package com.owoshopkeeperpanel.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,6 +96,20 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
             txtProductPrice = (TextView)itemView.findViewById(R.id.product_price);
             discounted_percent = itemView.findViewById(R.id.discount_percentage);
             txtProduct_discounted_price = itemView.findViewById(R.id.product_discounted_price);
+
+            DisplayMetrics displaymetrics = new DisplayMetrics(); //Setting things dynamically
+            ((Activity) mCtx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+            //if you need three fix imageview in width
+            int devicewidth = displaymetrics.widthPixels / 2;
+
+            //if you need 4-5-6 anything fix imageview in height
+            int deviceheight = displaymetrics.heightPixels / 3;
+
+            itemView.getLayoutParams().width = devicewidth;
+
+            //if you need same height as width you can set devicewidth in holder.image_view.getLayoutParams().height
+            itemView.getLayoutParams().height = deviceheight;
+
             itemView.setOnClickListener(this);
         }
 

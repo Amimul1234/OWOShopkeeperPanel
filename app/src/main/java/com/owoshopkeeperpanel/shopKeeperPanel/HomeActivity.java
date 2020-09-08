@@ -243,7 +243,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
 
         recyclerView.setLayoutManager(layoutManager);
-        CategoryAdapter categoryAdapter = new CategoryAdapter(getApplicationContext());// For showing categories
+        CategoryAdapter categoryAdapter = new CategoryAdapter(HomeActivity.this);// For showing categories
         MergeAdapter mergeAdapter = new MergeAdapter(imageFlipperAdapter, categoryAdapter, adapter);
         recyclerView.setAdapter(mergeAdapter);
         adapter.notifyDataSetChanged();
