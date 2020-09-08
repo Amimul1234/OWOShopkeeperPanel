@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".shopKeeperPanel.ChangePin"></activity>
+        <activity android:name=".shopKeeperPanel.CategoryWiseProduct"></activity>
+        <activity android:name=".shopKeeperPanel.ChangePin" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
