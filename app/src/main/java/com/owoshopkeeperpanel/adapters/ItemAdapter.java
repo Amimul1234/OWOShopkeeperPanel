@@ -99,16 +99,11 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
 
             DisplayMetrics displaymetrics = new DisplayMetrics(); //Setting things dynamically
             ((Activity) mCtx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-            //if you need three fix imageview in width
-            int devicewidth = displaymetrics.widthPixels / 2;
 
-            //if you need 4-5-6 anything fix imageview in height
+            int devicewidth = displaymetrics.widthPixels / 2;
             int deviceheight = displaymetrics.heightPixels / 3;
 
             itemView.getLayoutParams().width = devicewidth;
-
-            //if you need same height as width you can set devicewidth in holder.image_view.getLayoutParams().height
-            itemView.getLayoutParams().height = deviceheight;
 
             itemView.setOnClickListener(this);
         }

@@ -39,6 +39,10 @@ public class BridgeofCartAndProduct extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+                else
+                {
+                    Toast.makeText(BridgeofCartAndProduct.this, "Server error", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
