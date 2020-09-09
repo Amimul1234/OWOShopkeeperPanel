@@ -115,8 +115,7 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
 
         @Override
         public void onClick(View v) {
-            Products products = getItem(getAdapterPosition());
-
+            Products products = getItem(getBindingAdapterPosition());
             Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
             intent.putExtra("Products", products);
             mCtx.startActivity(intent);

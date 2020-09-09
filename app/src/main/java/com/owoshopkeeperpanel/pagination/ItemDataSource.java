@@ -20,7 +20,7 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, Products> {
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Products> callback) {
 
-        RetrofitClient.getInstance()
+        RetrofitClient.getInstance()//Calling the getProductApi
                 .getApi()
                 .getAnswers(FIRST_PAGE)
                 .enqueue(new Callback<OwoApiResponse>() {

@@ -27,4 +27,11 @@ public interface Api {
             @Query("product_id") int product_id
     );
 
+    @GET("getProductByCategory")
+    Call<OwoApiResponse> getProductsByCategory(
+            @Query("page") int page,
+            @Query("product_category") String product_category
+    );
+
+
 }

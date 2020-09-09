@@ -185,7 +185,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefreshLayout.setColorSchemeResources(R.color.blue);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
