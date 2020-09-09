@@ -59,10 +59,12 @@
 
 
     <RelativeLayout
-        android:layout_width="80dp"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:background="@drawable/discount_percentage"
         android:layout_gravity="end"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="2dp"
         >
 
         <TextView

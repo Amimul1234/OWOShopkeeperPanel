@@ -31,13 +31,19 @@ public class BridgeofCartAndProduct extends AppCompatActivity {
         call.enqueue(new Callback<SingleProductResponse>() {
             @Override
             public void onResponse(Call<SingleProductResponse> call, Response<SingleProductResponse> response) {
-                if(!response.body().error)
-                {
-                    Products clicked_products = response.body().products;
-                    Intent intent = new Intent(BridgeofCartAndProduct.this, ProductDetailsActivity.class);
-                    intent.putExtra("Products", clicked_products);
-                    startActivity(intent);
-                    finish();
+                if (response.body() != null) {
+                    if(!response.body().error)
+                    {
+                        Products clicked_products = response.body().products;
+                        Intent intent = new Intent(BridgeofCartAndProduct.this, ProductDetailsActivity.class);
+                        intent.putExtra("Products", clicked_products);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else
+                    {
+                        Toast.makeText(BridgeofCartAndProduct.this, "Server error", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else
                 {
