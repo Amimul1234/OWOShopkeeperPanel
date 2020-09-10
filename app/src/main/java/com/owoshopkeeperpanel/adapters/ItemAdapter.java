@@ -103,7 +103,7 @@ public class ItemAdapter extends PagedListAdapter<Products, RecyclerView.ViewHol
             int devicewidth = displaymetrics.widthPixels / 2;
             int deviceheight = displaymetrics.heightPixels / 3;
 
-            itemView.getLayoutParams().width = devicewidth;
+            itemView.getLayoutParams().width = devicewidth - 15;
 
             itemView.setOnClickListener(this);
         }

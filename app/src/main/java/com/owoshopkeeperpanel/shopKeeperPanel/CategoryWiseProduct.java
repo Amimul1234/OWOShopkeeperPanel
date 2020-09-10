@@ -13,16 +13,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.owoshopkeeperpanel.Model.Products;
 import com.owoshopkeeperpanel.R;
-import com.owoshopkeeperpanel.adapters.ImageFlipperAdapter;
-import com.owoshopkeeperpanel.adapters.ItemAdapter;
 import com.owoshopkeeperpanel.adapters.ItemAdapterCategory;
-import com.owoshopkeeperpanel.pagination.ItemViewModel;
 import com.owoshopkeeperpanel.pagination.ItemViewModelCategory;
 
 public class CategoryWiseProduct extends AppCompatActivity {
@@ -52,6 +50,15 @@ public class CategoryWiseProduct extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        search_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CategoryWiseProduct.this, SearchActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

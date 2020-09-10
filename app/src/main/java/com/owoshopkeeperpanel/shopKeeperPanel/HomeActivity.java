@@ -37,6 +37,7 @@ import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.adapters.CategoryAdapter;
 import com.owoshopkeeperpanel.adapters.ImageFlipperAdapter;
 import com.owoshopkeeperpanel.adapters.ItemAdapter;
+import com.owoshopkeeperpanel.adapters.Product_tag;
 import com.owoshopkeeperpanel.pagination.ItemViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -229,6 +230,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 {
                     return 2;
                 }
+                else if(position == 42)
+                    return 6;
                 else
                 {
                     return 3;
@@ -237,8 +240,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
 
         recyclerView.setLayoutManager(layoutManager);
+        Product_tag product_tag = new Product_tag(getApplicationContext());
         CategoryAdapter categoryAdapter = new CategoryAdapter(HomeActivity.this);// For showing categories
-        ConcatAdapter concatAdapter = new ConcatAdapter(imageFlipperAdapter, categoryAdapter, adapter);
+        ConcatAdapter concatAdapter = new ConcatAdapter(imageFlipperAdapter, categoryAdapter, product_tag, adapter);
         recyclerView.setAdapter(concatAdapter);
         adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);

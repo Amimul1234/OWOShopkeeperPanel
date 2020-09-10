@@ -22,6 +22,11 @@ public interface Api {
             @Query("product_name") String product_name
     );
 
+    @GET("searchProductDesc")
+    Call<OwoApiResponse> searchProductDesc(
+            @Query("product_name") String product_name
+    );
+
     @GET("getProductById")
     Call<SingleProductResponse> getProductById(
             @Query("product_id") int product_id
