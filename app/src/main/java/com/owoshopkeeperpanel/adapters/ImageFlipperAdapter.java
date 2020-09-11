@@ -2,11 +2,13 @@ package com.owoshopkeeperpanel.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.shopKeeperPanel.HomeActivity;
+import com.owoshopkeeperpanel.shopKeeperPanel.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +53,13 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public ViewFlipper bannerFlipper;
+        public ImageView search_in_category;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             bannerFlipper = itemView.findViewById(R.id.view_flipper_offer);
 
+            search_in_category = itemView.findViewById(R.id.search_in_category);
 
             DisplayMetrics displaymetrics = new DisplayMetrics(); //Resizing things dynamically
             ((Activity) mCtx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -65,6 +71,19 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
             bannerFlipper.getLayoutParams().width = devicewidth;
 
             bannerFlipper.getLayoutParams().height = deviceheight;
+
+
+            search_in_category.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Should implement search among category
+                    /*
+                    Intent intent = new Intent(mCtx, SearchActivity.class);
+                    mCtx.startActivity(intent);
+
+                     */
+                }
+            });
         }
     }
 

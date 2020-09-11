@@ -1,22 +1,16 @@
 package com.owoshopkeeperpanel.shopKeeperPanel;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -30,8 +24,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.paging.PagedList;
+import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.MergeAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -43,6 +37,7 @@ import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.adapters.CategoryAdapter;
 import com.owoshopkeeperpanel.adapters.ImageFlipperAdapter;
 import com.owoshopkeeperpanel.adapters.ItemAdapter;
+import com.owoshopkeeperpanel.adapters.Product_tag;
 import com.owoshopkeeperpanel.pagination.ItemViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -191,7 +186,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefreshLayout.setColorSchemeResources(R.color.blue);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -235,6 +230,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 {
                     return 2;
                 }
+                else if(position == 42)
+                    return 6;
                 else
                 {
                     return 3;
@@ -243,9 +240,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
 
         recyclerView.setLayoutManager(layoutManager);
+        Product_tag product_tag = new Product_tag(getApplicationContext());
         CategoryAdapter categoryAdapter = new CategoryAdapter(HomeActivity.this);// For showing categories
-        MergeAdapter mergeAdapter = new MergeAdapter(imageFlipperAdapter, categoryAdapter, adapter);
-        recyclerView.setAdapter(mergeAdapter);
+        ConcatAdapter concatAdapter = new ConcatAdapter(imageFlipperAdapter, categoryAdapter, product_tag, adapter);
+        recyclerView.setAdapter(concatAdapter);
         adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
     }

@@ -2,19 +2,19 @@ package com.owoshopkeeperpanel.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.shopKeeperPanel.CategoryWiseProduct;
 
 public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewHolder>{
 
@@ -38,7 +38,6 @@ public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewH
     @NonNull
     @Override
     public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         View view = inflater.inflate(R.layout.add_product_sample, parent,false);
         return new ViewHolder(view);
@@ -46,10 +45,8 @@ public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
-
         holder.imageView.setImageResource(icons[position]);
         holder.textView.setText(category_names[position]);
-
     }
 
     @Override
@@ -82,7 +79,10 @@ public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewH
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mCtx, "Clicked", Toast.LENGTH_SHORT).show();
+                    int position = getBindingAdapterPosition();
+                    Intent intent = new Intent(mCtx, CategoryWiseProduct.class);
+                    intent.putExtra("category", category_names[position]);
+                    mCtx.startActivity(intent);
                 }
             });
         }

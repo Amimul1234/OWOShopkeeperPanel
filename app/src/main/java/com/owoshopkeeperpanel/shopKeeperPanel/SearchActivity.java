@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -35,6 +36,8 @@ public class SearchActivity extends AppCompatActivity {
     private List<Products> productsList;
     private SearchedAdapter adapter;
     private AllianceLoader loader;
+    private String category;
+    private int search_state = 0;
 
     private Button filter_product, sort_product;
 
@@ -57,59 +60,66 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder builderSingle = new AlertDialog.Builder(SearchActivity.this);
-                builderSingle.setIcon(R.drawable.ic_baseline_category_24);
-                builderSingle.setTitle("Categories:-");
+                AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
+                builder.setTitle("Choose a category");
+                builder.setIcon(R.drawable.filter);
 
-                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.select_dialog_singlechoice);
+                String[] categories = getResources().getStringArray(R.array.productCategory);
 
-                arrayAdapter.addAll(getResources().getStringArray(R.array.productCategory));
 
-                builderSingle.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setSingleChoiceItems(categories, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        category = categories[which];
                     }
                 });
 
-                builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String category_name = arrayAdapter.getItem(which);
-
+                        Intent intent = new Intent(getApplicationContext(), CategoryWiseProduct.class);
+                        intent.putExtra("category", category);
+                        startActivity(intent);
                     }
                 });
-                builderSingle.show();
+                builder.setNegativeButton("Cancel", null);
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
             }
         });
 
         sort_product.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builderSingle = new AlertDialog.Builder(SearchActivity.this);
-                builderSingle.setIcon(R.drawable.sort);
-                builderSingle.setTitle("Sort By:-");
+                AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
+                builder.setTitle("Sort Product");
+                builder.setIcon(R.drawable.sort);
 
-                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.select_dialog_singlechoice);
+                String[] categories = {"Price Low to High", "Price High to Low"};
 
-                arrayAdapter.add("Price Low to High");
-                arrayAdapter.add("Price High to Low");
-
-                builderSingle.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setSingleChoiceItems(categories, search_state, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        search_state = which;
+                    }
+                });
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String query = search_product.getQuery().toString();
+                        getItem(query);
                         dialog.dismiss();
                     }
                 });
 
-                builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String strName = arrayAdapter.getItem(which);
+                builder.setNegativeButton("Cancel", null);
 
-                    }
-                });
-                builderSingle.show();
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
@@ -135,7 +145,16 @@ public class SearchActivity extends AppCompatActivity {
 
         loader.setVisibility(View.VISIBLE);
 
-        Call<OwoApiResponse> call = RetrofitClient.getInstance().getApi().searchProduct(query);
+        Call<OwoApiResponse> call;
+
+        if(search_state == 0)
+        {
+            call = RetrofitClient.getInstance().getApi().searchProduct(query);
+        }
+        else
+        {
+            call = RetrofitClient.getInstance().getApi().searchProductDesc(query);
+        }
 
         call.enqueue(new Callback<OwoApiResponse>() {
             @Override
@@ -158,5 +177,10 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(SearchActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
