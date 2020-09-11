@@ -27,6 +27,11 @@
         <activity
             android:name=".shopKeeperPanel.ZoomProductImage"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".shopKeeperPanel.AddVoucharActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".shopKeeperPanel.WishList"
             android:screenOrientation="portrait" />
