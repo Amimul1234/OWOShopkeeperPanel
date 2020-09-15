@@ -39,7 +39,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
 
     private ImageView shopImage,ownerNID,ownerTradeLicence;
     private Button createShopButton, select_place;
-    private EditText shopName, shopServiceMobile, ownerName, ownerMobile, shopAddress;
+    private EditText shopName, shopServiceMobile, ownerName, shopAddress;
 
     private Uri shopImageUri = null, shopKeeperNidUri = null, tradeLicenseUri = null;
 
@@ -75,7 +75,6 @@ public class ShopRegistrationRequest extends AppCompatActivity {
         shopName = findViewById(R.id.shop_name);
         shopServiceMobile = (EditText)findViewById(R.id.shop_service_mobile);
         ownerName = (EditText)findViewById(R.id.shop_owner_name);
-        ownerMobile = (EditText)findViewById(R.id.shop_owner_mobile);
         shopAddress = findViewById(R.id.shop_address);
         select_place = findViewById(R.id.select_place);
 
@@ -149,7 +148,6 @@ public class ShopRegistrationRequest extends AppCompatActivity {
         shop_address = shopAddress.getText().toString();
         shop_owner_name = ownerName.getText().toString();
         service_mobile = shopServiceMobile.getText().toString();
-        shop_owner_mobile = ownerMobile.getText().toString();
 
         if(shopImageUri == null)
         {
@@ -179,11 +177,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
             shopServiceMobile.setError("Please provide service mobile number");
             shopServiceMobile.requestFocus();
         }
-        else if(shop_owner_mobile.isEmpty())
-        {
-            ownerMobile.setError("Please provide owner mobile number");
-            ownerMobile.requestFocus();
-        }
+
         else if(!check_box_1.isChecked() && !check_box_2.isChecked() && !check_box_3.isChecked())
         {
             Toast.makeText(ShopRegistrationRequest.this, "Please select at least one category", Toast.LENGTH_SHORT).show();
@@ -209,13 +203,12 @@ public class ShopRegistrationRequest extends AppCompatActivity {
         shop_address = shopAddress.getText().toString();
         shop_owner_name = ownerName.getText().toString();
         service_mobile = shopServiceMobile.getText().toString();
-        shop_owner_mobile = ownerMobile.getText().toString();
 
         pendingShop.setShop_name(shop_name);
         pendingShop.setShop_address(shop_address);
         pendingShop.setShop_owner_name(shop_owner_name);
         pendingShop.setShop_service_mobile(service_mobile);
-        pendingShop.setShop_owner_mobile(shop_owner_mobile);
+        pendingShop.setShop_owner_mobile(Prevalent.currentOnlineUser.getPhone());
         pendingShop.setLatLng(latlang);
 
         if(check_box_1.isChecked())
@@ -231,6 +224,8 @@ public class ShopRegistrationRequest extends AppCompatActivity {
             pendingShop.addAccess(category_3.getSelectedItem().toString());
         }
 
+        allianceLoader.setVisibility(View.VISIBLE);
+
         final DatabaseReference myRef = database.getReference().child("PendingShopRequest").child(Prevalent.currentOnlineUser.getPhone());
 
         myRef.setValue(pendingShop).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -245,6 +240,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(ShopRegistrationRequest.this, "Can not create shop, Please try again", Toast.LENGTH_SHORT).show();
+                allianceLoader.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -421,7 +417,6 @@ public class ShopRegistrationRequest extends AppCompatActivity {
                         String message=e.toString();
                         Toast.makeText(ShopRegistrationRequest.this, "Error : "+message, Toast.LENGTH_SHORT).show();
                         allianceLoader.setVisibility(View.GONE);
-
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override

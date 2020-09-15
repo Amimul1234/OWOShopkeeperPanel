@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.DisplayMetrics;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.shopKeeperPanel.CategoryWiseProduct;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewHolder>{
 
     private Context mCtx;
     private String[] category_names;
+    private List<Pair<String, Integer>> permitted = new ArrayList<Pair<String, Integer>>();
 
     private int icons[] = {R.drawable.icon1, R.drawable.icon2, R.drawable.icon3, R.drawable.icon4, R.drawable.icon5, R.drawable.icon6,
             R.drawable.icon7, R.drawable.icon8, R.drawable.icon9, R.drawable.icon10, R.drawable.icon11, R.drawable.icon12,
@@ -31,6 +38,22 @@ public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewH
     public CategoryAdapter(Context mCtx) {
         this.mCtx = mCtx;
         category_names = mCtx.getResources().getStringArray(R.array.productCategory);
+
+        int size = category_names.length;
+
+        int prevalent_size = Prevalent.category_to_display.size();
+
+        for(int i=0; i<prevalent_size; i++)
+        {
+            for(int j=0; j<size; j++)
+            {
+                if(Prevalent.category_to_display.get(i).equals(category_names[j]))
+                {
+                    Pair<String, Integer> item = new Pair<>(category_names[j], icons[j]);
+                    permitted.add(item);
+                }
+            }
+        }
     }
 
     @NonNull
@@ -43,13 +66,13 @@ public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
-        holder.imageView.setImageResource(icons[position]);
-        holder.textView.setText(category_names[position]);
+        holder.imageView.setImageResource(permitted.get(position).second);
+        holder.textView.setText(permitted.get(position).first);
     }
 
     @Override
     public int getItemCount() {
-        return icons.length;
+        return permitted.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -79,7 +102,7 @@ public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewH
                 public void onClick(View v) {
                     int position = getBindingAdapterPosition();
                     Intent intent = new Intent(mCtx, CategoryWiseProduct.class);
-                    intent.putExtra("category", category_names[position]);
+                    intent.putExtra("category", permitted.get(position).first);
                     mCtx.startActivity(intent);
                 }
             });

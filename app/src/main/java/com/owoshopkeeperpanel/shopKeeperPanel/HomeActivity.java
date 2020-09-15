@@ -226,16 +226,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 {
                     return 6;
                 }
-                else if(position >= 1 && position<=41)
+                else if(position >= 1 && position <= Prevalent.category_to_display.size())
                 {
                     return 2;
                 }
-                else if(position == 42)
-                    return 6;
-                else
+                else if(position == Prevalent.category_to_display.size()+1)
                 {
-                    return 3;
+                    return 6;
                 }
+                else
+                    return 3;
             }
         });
 

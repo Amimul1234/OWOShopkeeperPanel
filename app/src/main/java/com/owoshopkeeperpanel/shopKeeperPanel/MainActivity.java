@@ -29,6 +29,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.paperdb.Paper;
 
@@ -138,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
     private void AllowAccessToAccount(final String phone, final String pin) {
 
         final DatabaseReference RootRef;
+
         RootRef = FirebaseDatabase.getInstance().getReference();
 
         Query query = RootRef.child("Shopkeeper").orderByKey().equalTo(phone);
@@ -159,13 +162,69 @@ public class MainActivity extends AppCompatActivity {
                             Paper.book().write(Prevalent.UserPinKey, pin);
                         }
 
-                        Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
+                        Query query = RootRef.child("permittedShopKeeper").orderByKey().equalTo(phone); //Checking if the shop already permitted or not
 
-                        Intent intent = new Intent(getApplicationContext(), AfterRegisterActivity.class);
-                        Prevalent.currentOnlineUser = users;
-                        loadingbar.dismiss();
-                        startActivity(intent);
-                        finish();
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                if (snapshot.exists())
+                                {
+                                    List<String> permitted = new ArrayList<>();
+
+                                    permitted = (List<String>) snapshot.child(phone).getValue();
+
+                                    Prevalent.category_to_display = permitted;
+
+                                    Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
+
+                                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                    Prevalent.currentOnlineUser = users;
+                                    loadingbar.dismiss();
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                else
+                                {
+                                    Query query = RootRef.child("PendingShopRequest").orderByKey().equalTo(phone);
+
+                                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if(snapshot.exists())
+                                            {
+                                                Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(getApplicationContext(), AfterShopRegisterRequest.class);
+                                                Prevalent.currentOnlineUser = users;
+                                                loadingbar.dismiss();
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(getApplicationContext(), AfterRegisterActivity.class);
+                                                Prevalent.currentOnlineUser = users;
+                                                loadingbar.dismiss();
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            Toast.makeText(MainActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(MainActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+                                loadingbar.dismiss();
+                            }
+                        });
                     }
 
                     else

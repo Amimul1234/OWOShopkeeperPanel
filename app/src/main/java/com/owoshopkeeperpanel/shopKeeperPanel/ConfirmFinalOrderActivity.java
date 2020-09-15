@@ -81,9 +81,9 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
     }
 
     private void UpdateValue() {
-        //Checking for last order made by the customer
 
         final DatabaseReference orderNumber = FirebaseDatabase.getInstance().getReference();
+
         Query query = orderNumber.child("Orders").child(Prevalent.currentOnlineUser.getPhone()).orderByKey().limitToLast(1);//Checking for the last order
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {

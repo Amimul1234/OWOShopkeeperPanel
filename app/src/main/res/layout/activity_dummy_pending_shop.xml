@@ -222,22 +222,6 @@
                 android:drawableTint="#555555"
                 />
 
-            <EditText
-                android:id="@+id/shop_owner_mobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/edit_text_black"
-                android:hint="Shop Owner Mobile"
-                android:inputType="numberDecimal"
-                android:padding="18dp"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:maxLength="11"
-                android:drawableStart="@drawable/phone"
-                android:drawablePadding="8dp"
-                android:drawableTint="#555555"/>
-
             <ImageView
                 android:id="@+id/shop_owner_nid"
                 android:layout_width="match_parent"
