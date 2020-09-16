@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Full Name"
+        android:text="@string/full_name"
         android:textSize="16dp"
         android:layout_marginBottom="10dp"/>
 
@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mobile Number"
+        android:text="@string/mobile_number"
         android:layout_marginTop="15dp"/>
 
     <TextView
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/buttons_blue"
         android:layout_marginTop="15dp"
-        android:text="Update Information"
+        android:text="@string/update_information"
         android:textColor="@color/white"
         android:padding="15dp"
         android:textSize="18sp"/>

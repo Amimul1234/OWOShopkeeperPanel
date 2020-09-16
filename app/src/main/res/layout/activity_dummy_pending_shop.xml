@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create A New Shop"
+            android:text="@string/create_a_new_shop"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"/>
@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="(Click to Upload Shop Image)"
+                android:text="@string/click_to_upload_shop_image"
                 android:maxLines="1"
                 android:textAlignment="center"/>
 
@@ -70,13 +70,13 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
-                android:hint="Shop Name"/>
+                android:hint="@string/shop_name"/>
 
             <EditText
                 android:id="@+id/shop_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Shop Address"
+                android:hint="@string/shop_address"
                 android:inputType="textMultiLine"
                 android:padding="18dp"
                 android:background="@drawable/edit_text_black"
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:padding="15dp"
-                android:text="Validate Address"
+                android:text="@string/validate_address"
                 android:maxLines="1"
                 android:background="@drawable/buttons_blue"
                 android:textColor="@color/white"
@@ -107,7 +107,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Please Select A Category:"
+                android:text="@string/please_select_a_category"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginTop="15dp"
@@ -117,7 +117,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="(Max 3 Can Be Selected)"
+                android:text="@string/max_3_can_be_selected"
                 android:layout_marginStart="5dp"/>
 
             <LinearLayout
@@ -193,7 +193,7 @@
                 android:id="@+id/shop_owner_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Shop Owner Name"
+                android:hint="@string/shop_owner_name"
                 android:inputType="textMultiLine"
                 android:padding="18dp"
                 android:background="@drawable/edit_text_black"
@@ -209,7 +209,7 @@
                 android:id="@+id/shop_service_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Service Mobile"
+                android:hint="@string/service_mobile"
                 android:inputType="numberDecimal"
                 android:padding="18dp"
                 android:background="@drawable/edit_text_black"
@@ -234,7 +234,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="(Click to Upload NID Front)"
+                android:text="@string/click_to_upload_nid_front"
                 android:textAlignment="center"
                 android:layout_marginTop="5dp"
                 android:maxLines="1"/>
@@ -252,7 +252,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="(Click to Upload Trade License)"
+                android:text="@string/click_to_upload_trade_license"
                 android:textAlignment="center"
                 android:layout_marginTop="5dp"
                 android:maxLines="1"/>
@@ -260,7 +260,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="(Optional)"
+                android:text="@string/optional"
                 android:textAlignment="center"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="20dp"
@@ -272,7 +272,7 @@
                 android:id="@+id/create_shop_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Create Shop"
+                android:text="@string/create_shop"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:background="@drawable/buttons_blue"

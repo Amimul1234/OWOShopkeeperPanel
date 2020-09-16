@@ -25,7 +25,7 @@
         android:background="@drawable/buttons_blue"
         android:padding="10dp"
         android:layout_margin="20dp"
-        android:text="Validate  Location"
+        android:text="@string/validate_location"
         android:textColor="@color/white"
         android:textStyle="bold" />
 

@@ -106,7 +106,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Actual Price: "
+                    android:text="@string/actual_price"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="20dp"
                     android:textSize="20sp"
@@ -137,7 +137,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Discount: "
+                    android:text="@string/discount"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="20dp"
                     android:textSize="20sp"
@@ -163,7 +163,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Price(with discount): "
+                    android:text="@string/price_with_discount"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="20dp"
                     android:textSize="20sp"
@@ -190,7 +190,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Available Quantity : "
+                    android:text="@string/available_quantity"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="20dp"
                     android:textSize="20sp"
@@ -217,7 +217,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Quantity: "
+                    android:text="@string/quantity"
                     android:textAlignment="center"
                     android:textStyle="bold"
                     android:textColor="@color/blue"
@@ -278,7 +278,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="45dp"
                     android:background="@drawable/buttons_blue"
-                    android:text="Add to cart"
+                    android:text="@string/add_to_cart"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"

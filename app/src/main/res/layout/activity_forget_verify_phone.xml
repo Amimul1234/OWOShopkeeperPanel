@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textSize="22sp"
-        android:text="Please, Enter verification code"
+        android:text="@string/please_enter_verification_code"
         android:textAlignment="center"
         android:textColor="#0026FF"
         android:layout_gravity="center"/>
@@ -47,7 +47,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-        android:hint="Enter Code"
+        android:hint="@string/enter_code"
         android:drawableLeft="@drawable/ic_baseline_email_24"
         android:background="@drawable/edit_text_black"
         android:drawablePadding="10dp"
@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/buttons_blue"
-        android:text="Continue"
+        android:text="@string/continueI"
         android:textAllCaps="false"
         android:elevation="0dp" />
 

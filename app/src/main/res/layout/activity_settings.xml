@@ -83,7 +83,7 @@
             android:id="@+id/pic_change_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Change your picture"
+            android:text="@string/change_your_picture"
             android:textSize="15sp"
             android:textColor="@color/black"
             android:layout_marginTop="10dp"
@@ -118,7 +118,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Profile Picture"
+                    android:text="@string/profile_picture"
                     android:layout_centerVertical="true"
                     android:textSize="15sp"
                     android:layout_toEndOf="@+id/settings_profile_image_small"
@@ -150,7 +150,7 @@
                 android:id="@+id/user_information_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Change User Information"
+                android:text="@string/change_user_information"
                 android:textSize="15sp"
                 android:textColor="@color/black"/>
 
@@ -158,7 +158,7 @@
                 android:id="@+id/edit_user_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"
+                android:text="@string/edit"
                 android:textColor="@color/blue"
                 android:textSize="15sp"
                 android:drawableStart="@drawable/ic_baseline_create_24"
@@ -204,7 +204,7 @@
                         android:id="@+id/user_information_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="User Name"
+                        android:text="@string/user_name"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:ellipsize="end"/>
@@ -246,7 +246,7 @@
             android:id="@+id/pin_change_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Change Pin"
+            android:text="@string/change_pin"
             android:textSize="15sp"
             android:textColor="@color/black"
             android:layout_below="@+id/user_information_card"
@@ -282,7 +282,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Change Your Pin Number"
+                    android:text="@string/change_your_pin_number"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/pin_image"
                     android:textSize="15sp"
