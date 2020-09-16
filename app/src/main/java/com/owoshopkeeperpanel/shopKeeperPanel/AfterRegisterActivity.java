@@ -24,6 +24,7 @@ public class AfterRegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(AfterRegisterActivity.this, ShopRegistrationRequest.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

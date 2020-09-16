@@ -197,7 +197,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
 
     private void WriteInDataBase() {
 
-        String shop_name, shop_address, shop_owner_name, service_mobile, shop_owner_mobile;
+        String shop_name, shop_address, shop_owner_name, service_mobile;
 
         shop_name = shopName.getText().toString();
         shop_address = shopAddress.getText().toString();
@@ -223,6 +223,8 @@ public class ShopRegistrationRequest extends AppCompatActivity {
         {
             pendingShop.addAccess(category_3.getSelectedItem().toString());
         }
+
+        pendingShop.duplicateListProtection();
 
         allianceLoader.setVisibility(View.VISIBLE);
 
@@ -252,7 +254,6 @@ public class ShopRegistrationRequest extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_MAP_POINT_REQUEST) {
-            // Making sure the request was successful
             if (resultCode == RESULT_OK) {
 
                 latlang = (LatLng) data.getParcelableExtra("picked_point");

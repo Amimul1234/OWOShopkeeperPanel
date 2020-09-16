@@ -3,7 +3,9 @@ package com.owoshopkeeperpanel.Model;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PendingShop {
 
@@ -11,6 +13,8 @@ public class PendingShop {
             shop_image_uri, shop_keeper_nid_front_uri, trade_license_uri;
 
     private LatLng latLng;
+
+    private Set<String> duplicate_protection = new HashSet<>();
 
     private List<String> haveAccess = new ArrayList<>();
 
@@ -46,6 +50,19 @@ public class PendingShop {
 
     public void setHaveAccess(List<String> haveAccess) {
         this.haveAccess = haveAccess;
+    }
+
+    public void duplicateListProtection()
+    {
+        int size = haveAccess.size();
+
+        for(int i=0; i<size; i++)
+        {
+            duplicate_protection.add(haveAccess.get(i));
+        }
+
+        haveAccess.clear();
+        haveAccess.addAll(duplicate_protection);
     }
 
     public LatLng getLatLng() {
