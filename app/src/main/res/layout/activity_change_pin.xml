@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change Pin"
+            android:text="@string/change_pin"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/white"
@@ -65,7 +65,7 @@
             android:inputType="numberPassword"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/ic_input_lock"
-            android:hint="Current Pin"
+            android:hint="@string/current_pin"
             android:paddingBottom="15dp"
             android:textColorHint="#666"
             android:textSize="16sp"/>
@@ -101,7 +101,7 @@
         android:inputType="numberPassword"
         android:drawablePadding="10dp"
         android:drawableLeft="@drawable/ic_input_lock"
-        android:hint="New Pin"
+        android:hint="@string/new_pin"
         android:paddingBottom="15dp"
         android:textColorHint="#666"
         android:textSize="16sp"/>
@@ -137,7 +137,7 @@
             android:inputType="numberPassword"
             android:drawablePadding="10dp"
             android:drawableLeft="@drawable/ic_input_lock"
-            android:hint="Confirm New Pin"
+            android:hint="@string/confirm_new_pin"
             android:paddingBottom="15dp"
             android:textColorHint="#666"
             android:textSize="16sp"/>
@@ -162,7 +162,7 @@
         android:stateListAnimator="@null"
         android:elevation="0dp"
         android:textAllCaps="false"
-        android:text="Change Pin"
+        android:text="@string/change_pin"
         android:padding="15dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"

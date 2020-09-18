@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/l"
-        android:text="OWO support"
+        android:text="@string/owo_support"
         android:textSize="20sp"
         android:fontFamily="@font/ethnocentric"
         android:textColor="@color/black"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="20dp"
-            android:text="Please enter the subject :" />
+            android:text="@string/please_enter_the_subject" />
 
         <EditText
             android:id="@+id/complain_subject"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/complain_subject"
             android:layout_marginTop="15dp"
-            android:text="Complain Details :" />
+            android:text="@string/complain_details" />
 
         <EditText
             android:id="@+id/complain_details"
@@ -103,7 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/buttons_blue"
-        android:text="Submit Complain"
+        android:text="@string/submit_complain"
         android:padding="15dp"
         android:textColor="@color/white"
         android:fontFamily="@font/ethnocentric"

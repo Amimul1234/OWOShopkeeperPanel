@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Please Wait For Approval"
+        android:text="@string/please_wait_for_approval"
         android:textSize="25sp"
         android:textStyle="bold"
         android:textColor="@color/blue"
@@ -29,7 +29,7 @@
         android:id="@+id/regards"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Regards, OWO Team"
+        android:text="@string/regards_owo_team"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/blue"

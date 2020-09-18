@@ -23,7 +23,7 @@
         android:layout_marginTop="30dp"
         android:fontFamily="@font/ethnocentric"
         android:textSize="20sp"
-        android:text="Please, Enter new pin"
+        android:text="@string/please_enter_new_pin"
         android:textAlignment="center"
         android:textColor="#0026FF" />
 
@@ -52,7 +52,7 @@
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
             android:inputType="numberPassword"
-            android:hint="New Pin Number"
+            android:hint="@string/new_pin_number"
             android:drawableLeft="@drawable/ic_input_lock"
             android:drawablePadding="10dp"
             android:background="@drawable/edittext_design"
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/buttons_blue"
         android:fontFamily="@font/ethnocentric"
-        android:text="Set new pin"
+        android:text="@string/set_new_pin"
         android:textAllCaps="false"
         android:elevation="0dp" />
 
