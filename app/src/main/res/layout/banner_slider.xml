@@ -46,16 +46,6 @@
                 android:textSize="18sp"
                 android:textColor="@color/black"
                 />
-
-            <ImageView
-                android:id="@+id/search_in_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_search_24"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="15dp"/>
-
         </RelativeLayout>
 
         <View

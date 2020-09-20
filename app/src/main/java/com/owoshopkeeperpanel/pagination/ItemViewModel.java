@@ -14,9 +14,9 @@ public class ItemViewModel extends ViewModel {
     public LiveData<PagedList<Products>> itemPagedList;
     LiveData<PageKeyedDataSource<Integer, Products>> liveDataSource;
 
-    public ItemViewModel() {
+    public ItemViewModel(String[] categories) {
 
-        ItemDataSourceFactory itemDataSourceFactory = new ItemDataSourceFactory();
+        ItemDataSourceFactory itemDataSourceFactory = new ItemDataSourceFactory(categories);
         liveDataSource = itemDataSourceFactory.getItemLiveDataSource();
 
         PagedList.Config config =

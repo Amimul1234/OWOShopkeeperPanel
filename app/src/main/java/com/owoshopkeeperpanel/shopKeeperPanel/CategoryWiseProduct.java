@@ -13,13 +13,11 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.owoshopkeeperpanel.Model.Products;
 import com.owoshopkeeperpanel.Model.Sub_categories;
-import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.adapters.ItemAdapterCategory;
 import com.owoshopkeeperpanel.adapters.Product_tag;
@@ -108,11 +105,6 @@ public class CategoryWiseProduct extends AppCompatActivity {
                     }
                 });
 
-
-
-
-
-
         getProducts();
 
         swipeRefreshLayout.setColorSchemeResources(R.color.blue);
@@ -143,6 +135,7 @@ public class CategoryWiseProduct extends AppCompatActivity {
     }
 
     private void showOnRecyclerView() {
+
         recyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
@@ -154,22 +147,20 @@ public class CategoryWiseProduct extends AppCompatActivity {
                 {
                     return 6;
                 }
+                else if(position>=1 && position<=sub_category_size)
+                    return 2;
+                else if(position == sub_category_size+1)
+                    return 6;
                 else
-                {
-                    if(position <= sub_category_size)
-                    {
-                        return 2;
-                    }
-                    else
-                        return 3;
-                }
+                    return 3;
             }
         });
 
         recyclerView.setLayoutManager(layoutManager);
         subCategoryAdapter = new SubCategoryAdapter(this, sub_category_names, icons);
         SubCategoryTag subCategoryTag = new SubCategoryTag(this);
-        ConcatAdapter concatAdapter = new ConcatAdapter(subCategoryTag, subCategoryAdapter, adapter);
+        Product_tag product_tag = new Product_tag(this);
+        ConcatAdapter concatAdapter = new ConcatAdapter(subCategoryTag, subCategoryAdapter, product_tag, adapter);
         recyclerView.setAdapter(concatAdapter);
         adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);

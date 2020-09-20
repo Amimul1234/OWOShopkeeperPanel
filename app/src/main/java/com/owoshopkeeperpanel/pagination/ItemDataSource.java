@@ -17,13 +17,18 @@ import retrofit2.Response;
 public class ItemDataSource extends PageKeyedDataSource<Integer, Products> {
 
     private static final int FIRST_PAGE = 0;
+    private String[] categories;
+
+    public ItemDataSource(String[] categories) {
+        this.categories = categories;
+    }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Products> callback) {
 
         RetrofitClient.getInstance()//Calling the getProductApi
                 .getApi()
-                .getAnswers(FIRST_PAGE)
+                .getProducts(FIRST_PAGE, categories)
                 .enqueue(new Callback<OwoApiResponse>() {
                     @Override
                     public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {
@@ -47,7 +52,7 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, Products> {
 
         RetrofitClient.getInstance()
                 .getApi()
-                .getAnswers(params.key)
+                .getProducts(params.key, categories)
                 .enqueue(new Callback<OwoApiResponse>() {
                     @Override
                     public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {
@@ -71,7 +76,7 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, Products> {
 
         RetrofitClient.getInstance()
                 .getApi()
-                .getAnswers(params.key)
+                .getProducts(params.key, categories)
                 .enqueue(new Callback<OwoApiResponse>() {
                     @Override
                     public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {

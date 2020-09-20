@@ -11,9 +11,10 @@ import retrofit2.http.Query;
 
 public interface Api {
 
-    @GET("allProducts")
-    Call<OwoApiResponse> getAnswers(
-            @Query("page") int page
+    @GET("getProductByCategories")
+    Call<OwoApiResponse> getProducts(
+            @Query("page") int page,
+            @Query("product_category[]") String[] categories
     );
 
 

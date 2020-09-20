@@ -22,6 +22,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.ConcatAdapter;
@@ -46,8 +48,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.owoshopkeeperpanel.pagination.ItemViewModelCategory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -159,7 +163,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         //Getting offers class from firebase
 
-        offersRef.addValueEventListener(new ValueEventListener() {
+        offersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -202,7 +206,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         adapter = new ItemAdapter(this);
         imageFlipperAdapter = new ImageFlipperAdapter(this, images);
-        ItemViewModel itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
+
+        int size = Prevalent.category_to_display.size();
+
+        String[] categories = new String[size];
+
+        for(int i=0; i<size; i++)
+        {
+            categories[i] = Prevalent.category_to_display.get(i);
+        }
+
+        ItemViewModel itemViewModel = ViewModelProviders.of(this, new ViewModelProvider.Factory() {
+            @NonNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+                return (T)new ItemViewModel (categories);//Provide here required arguments
+            }
+        }).get(ItemViewModel.class);
 
         itemViewModel.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
             @Override
