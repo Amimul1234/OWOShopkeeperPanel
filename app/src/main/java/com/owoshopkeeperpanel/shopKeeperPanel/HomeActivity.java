@@ -1,10 +1,19 @@
 package com.owoshopkeeperpanel.shopKeeperPanel;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.LocaleList;
+import android.text.SpannableString;
+import android.text.style.TextAppearanceSpan;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +27,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.os.ConfigurationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -53,6 +63,7 @@ import com.owoshopkeeperpanel.pagination.ItemViewModelCategory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
@@ -316,6 +327,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id=item.getItemId();
+
         if(id==R.id.nav_shop)
         {
             Intent intent=new Intent(HomeActivity.this, MyShopActivity.class);
@@ -379,6 +391,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             finish();
         }
 
+        else if(id == R.id.nav_change_language)
+        {
+            if(Prevalent.locale%2 == 0)
+            {
+                Locale locale = new Locale("bn");
+                Prevalent.locale++;
+                setLocale(locale);
+            }
+            else
+            {
+                Locale locale = new Locale("en");
+                Prevalent.locale++;
+                setLocale(locale);
+            }
+
+        }
+
+
+
         else if(id==R.id.nav_logout)
         {
             Paper.book().destroy();
@@ -393,6 +424,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-
-
+    public void setLocale(Locale languageToLoad) {
+        Locale locale = languageToLoad;
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+        finish();
+        startActivity(getIntent());
+    }
 }

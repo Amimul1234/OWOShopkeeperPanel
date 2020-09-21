@@ -1,6 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+    <string name="app_name">OWOShopkeeperPanel</string>
+
+    <string name="maps_api_key">AIzaSyDX6YQ4dRErpb5muuAg0vtBHIK9o20iDns</string>
+    <string name="title_activity_location_from_map">Map</string>
+
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="complain">Issue a complain</string>
+    <string name="call">Call us now</string>
+
+    <string name="mobile_description">সেল ফোন এখানে পুনর্নির্দেশ করে। চলচ্চিত্রের জন্য, সেল ফোন (ফিল্ম) দেখুন।
+        হ্যান্ডফোন এখানে পুনর্নির্দেশ করে। চলচ্চিত্রের জন্য, হেডফোন (ফিল্ম) দেখুন।
+        আধুনিক মোবাইল ফোনের জন্য, স্মার্টফোন দেখুন।
+
+        একটি প্রাথমিক স্মার্টফোনে মোবাইল ফোন বিবর্তন
+        একটি মোবাইল ফোন, সেলুলার ফোন, সেল ফোন, সেলফোন
+        বা হ্যান্ড ফোন, কখনও কখনও কেবল মোবাইলের জন্য সংক্ষিপ্ত করে দেওয়া,
+        সেল বা জাস্ট ফোন, একটি পোর্টেবল টেলিফোন যা পারে
+        একটি রেডিও ফ্রিকোয়েন্সি লিঙ্কের মাধ্যমে কল করুন এবং গ্রহণ করুন
+        যখন ব্যবহারকারী টেলিফোন পরিষেবা অঞ্চলে চলেছেন।
+        রেডিও ফ্রিকোয়েন্সি লিঙ্কটি একটি সংযোগ স্থাপন করে
+        একটি মোবাইল ফোন অপারেটরের সিস্টেম স্যুইচিং,
+        যা পাবলিক সুইচড টেলিফোনে অ্যাক্সেস সরবরাহ করে
+        নেটওয়ার্ক (পিএসটিএন)। আধুনিক মোবাইল টেলিফোন পরিষেবাগুলি ক
+        সেলুলার নেটওয়ার্ক আর্কিটেকচার এবং, তাই মোবাইল টেলিফোন
+        উত্তর আমেরিকাতে সেলুলার টেলিফোন বা সেল ফোন বলা হয়।
+        টেলিফোনির পাশাপাশি ডিজিটাল মোবাইল ফোন (2 জি) সমর্থন করে a
+        পাঠ্য বার্তাপ্রেরণ, এমএমএস, ইমেল হিসাবে অন্যান্য পরিষেবা বিভিন্ন
+        , ইন্টারনেট অ্যাক্সেস, স্বল্প-পরিসীমা বেতার যোগাযোগ (ইনফ্রারেড, ব্লুটুথ)
+        , ব্যবসায়িক অ্যাপ্লিকেশন, ভিডিও গেম এবং ডিজিটাল ফটোগ্রাফি।
+        কেবলমাত্র সেই ক্ষমতাগুলি সরবরাহ করে এমন মোবাইল ফোনগুলি বৈশিষ্ট্য ফোন হিসাবে পরিচিত;
+        যে মোবাইল ফোনগুলি প্রচুর পরিমাণে উন্নত কম্পিউটিংয়ের ক্ষমতা দেয় তাদের স্মার্টফোন হিসাবে উল্লেখ করা হয়।
+
+        ধাতব-অক্সাইড-সেমিকন্ডাক্টর (এমওএস) বৃহত আকারের ইন্টিগ্রেশন (এলএসআই) প্রযুক্তির বিকাশ,
+        তথ্য তত্ত্ব এবং সেলুলার নেটওয়ার্কিং সাশ্রয়ী মূল্যের মোবাইল বিকাশের দিকে পরিচালিত করে
+        যোগাযোগ
+    </string>
+
+
+
+    <string-array name="productCategory">
+        <item>Bags and Luggage</item>
+        <item>Beauty and Bodycare</item>
+        <item>Books and Stationery</item>
+        <item>Construction Materials</item>
+        <item>Decoration Materials</item>
+        <item>Digital Goods</item>
+        <item>Electric and Parts</item>
+        <item>Electronics and Appliance</item>
+        <item>Event and Media</item>
+        <item>Fashion For Men</item>
+        <item>Fashion For Women</item>
+        <item>Furniture</item>
+        <item>Glasses</item>
+        <item>Grocery</item>
+        <item>Handmade</item>
+        <item>Harvesting and Agriculture</item>
+        <item>Health Care and Pharmacy</item>
+        <item>Home and Living</item>
+        <item>Home Appliance</item>
+        <item>Home Garden</item>
+        <item>Hotel Booking</item>
+        <item>Jewellery</item>
+        <item>Kitchen and Dining</item>
+        <item>Leather Goods</item>
+        <item>LP Gas</item>
+        <item>Machinery</item>
+        <item>Mother, Kids and Toys</item>
+        <item>Paints</item>
+        <item>Pet and Poultry Supplies</item>
+        <item>Plastic made Products</item>
+        <item>Property</item>
+        <item>Service</item>
+        <item>Shoes</item>
+        <item>Sports</item>
+        <item>Vehicles and Parts</item>
+        <item>Watch and Clock</item>
+        <item>Fruits and Vegetables</item>
+        <item>Meat and Fish</item>
+        <item>Cooking</item>
+        <item>Beverages</item>
+        <item>Office Products</item>
+    </string-array>
+
+
+
+
     <string name="mobile_number">মোবাইল নম্বর</string>
     <string name="pin_number">পিন নম্বর</string>
     <string name="remember_me">আমাকে মনে রাখো</string>
