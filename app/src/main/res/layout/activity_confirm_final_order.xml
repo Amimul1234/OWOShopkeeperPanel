@@ -18,63 +18,61 @@
         android:textStyle="bold"
         />
 
-    <EditText
-        android:id="@+id/shipment_name"
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/tag1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Mobile Number"
         android:layout_below="@+id/txt"
         android:layout_marginTop="60dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:hint="@string/name"
-        android:background="@drawable/edittext_design"
-        android:padding="12dp"
         android:textSize="20sp"
-        android:layout_marginBottom="15dp"
-        />
+        android:textStyle="bold"
+        android:layout_marginBottom="15dp"/>
 
 
     <EditText
         android:id="@+id/shipment_phone_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/shipment_name"
+        android:layout_below="@+id/tag1"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="@string/mobile_number"
-        android:background="@drawable/edittext_design"
+        android:background="@drawable/edit_text_black"
         android:padding="12dp"
+        android:inputType="phone"
+        android:maxLength="11"
         android:textSize="20sp"
         android:layout_marginBottom="15dp"
         />
 
+    <TextView
+        android:id="@+id/tag2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delivery Location"
+        android:layout_below="@+id/shipment_phone_number"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="15dp"/>
 
     <EditText
-        android:id="@+id/shipment_address"
+        android:id="@+id/delivery_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/shipment_phone_number"
+        android:layout_below="@+id/tag2"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="@string/delivery_location"
-        android:background="@drawable/edittext_design"
-        android:padding="12dp"
-        android:textSize="20sp"
-        android:layout_marginBottom="15dp"
-        />
-
-    <EditText
-        android:id="@+id/shipment_city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/shipment_address"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:hint="@string/city_name"
-        android:background="@drawable/edittext_design"
+        android:background="@drawable/edit_text_black"
         android:padding="12dp"
         android:textSize="20sp"
         android:layout_marginBottom="15dp"
@@ -92,8 +90,22 @@
         android:background="@drawable/buttons_blue"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
-        android:fontFamily="@font/ethnocentric"
+        android:textStyle="bold"
         android:padding="8dp"
         />
+
+    <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
+        android:id="@+id/loader"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:alliance_animDuration="500"
+        app:alliance_distanceMultiplier="4"
+        app:alliance_dotsRadius="20dp"
+        app:alliance_firstDotsColor="@color/red"
+        app:alliance_secondDotsColor="@color/green"
+        app:alliance_strokeWidth="8dp"
+        app:alliance_thirdDotsColor="@color/blue"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

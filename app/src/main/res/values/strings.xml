@@ -109,7 +109,7 @@
     <string name="shopping_cart">Shopping Cart</string>
     <string name="total">Total :</string>
     <string name="_00">৳00</string>
-    <string name="do_you_have_a_vouchar">Do you have a vouchar ?</string>
+    <string name="do_you_have_a_vouchar">Do you have a coupon?</string>
     <string name="sub_total">Sub Total :</string>
     <string name="place_order">Place order</string>
     <string name="you_have_not_added_anything_to_cart">You have not added anything to cart</string>

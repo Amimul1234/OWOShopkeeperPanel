@@ -1,60 +1,72 @@
 package com.owoshopkeeperpanel.shopKeeperPanel;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.owoshopkeeperpanel.Model.PendingShop;
+import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.adapters.MyShopTopPortion;
+
+import java.util.HashMap;
 
 public class MyShopActivity extends AppCompatActivity {
 
-    private ImageView storeSettingsImage,shopImage;
-    private TextView shopName,shopAddress,shopkeeperName,shopkeeperPhone,tradeLicence;
-    private Button myOrders,myProducts;
+    private RecyclerView my_shop_recyclerview;
+    private MyShopTopPortion myShopTopPortion;
+    private HashMap<String, String> datas = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_shop);
 
-        storeSettingsImage=(ImageView)findViewById(R.id.store_settings_img);
-        shopImage=(ImageView)findViewById(R.id.myshop_image);
-        shopName=(TextView)findViewById(R.id.myshop_name);
-        shopAddress=(TextView)findViewById(R.id.myshopkeeper_address);
-        shopkeeperName=(TextView)findViewById(R.id.myshopkeeper_name);
-        shopkeeperPhone=(TextView)findViewById(R.id.myshopkeeper_number);
-        tradeLicence=(TextView)findViewById(R.id.myshopkeeper_licence);
-        myOrders=(Button)findViewById(R.id.myorders_button);
-        myProducts=(Button)findViewById(R.id.myproducts_button);
+        my_shop_recyclerview = findViewById(R.id.myshop_recyclerview);
+        my_shop_recyclerview.setHasFixedSize(true);
+        fetchFromDatabase();
+        my_shop_recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        myShopTopPortion = new MyShopTopPortion(MyShopActivity.this, datas);
+        my_shop_recyclerview.setAdapter(myShopTopPortion);
+    }
 
-        //here will be code for setting text to these textviews (it will be fetched from shop node)
+    private void fetchFromDatabase() {
 
-        storeSettingsImage.setOnClickListener(new View.OnClickListener() {
+        //Loading shop related data to myShop
+
+        final DatabaseReference RootRef;
+        RootRef = FirebaseDatabase.getInstance().getReference();
+        Query query = RootRef.child("approvedShops").child(Prevalent.currentOnlineUser.getPhone());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MyShopActivity.this,StoreSettingsActivity.class);
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    datas.put("shop_image", snapshot.child("shop_image_uri").getValue(String.class));
+                    datas.put("shop_address", snapshot.child("shop_address").getValue(String.class));
+                    datas.put("shop_name", snapshot.child("shop_name").getValue(String.class));
+                    datas.put("shop_service_mobile", snapshot.child("shop_service_mobile").getValue(String.class));
+                    myShopTopPortion.notifyDataSetChanged();
+                }
             }
-        });
 
-        myProducts.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MyShopActivity.this,MyProductsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        myOrders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //i will do it later
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MyShopActivity.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
 }

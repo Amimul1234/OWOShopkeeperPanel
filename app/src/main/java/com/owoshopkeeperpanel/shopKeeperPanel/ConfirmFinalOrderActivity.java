@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -19,18 +20,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.owoshopkeeperpanel.Model.Cart;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
-    private EditText nameEditText, phoneEditText, addressEditText, cityEditText;
+    private EditText phoneEditText, delivery_address;
     private Button confirmOrderButton;
     private String totalAmount = "";
+    private AllianceLoader loader;
+    private ArrayList<Cart> carts;
     int ORDER_NUMBER = 0;
     String p = "";
 
@@ -40,51 +46,55 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_confirm_final_order);
 
         totalAmount = getIntent().getStringExtra("Total Price");
+        carts = (ArrayList<Cart>) getIntent().getSerializableExtra("products_id");
+
+        int size = carts.size();
+
+        List<Integer> product_ids = new ArrayList<>();
+
+        for(int i=0; i<size; i++)
+        {
+            product_ids.add(carts.get(i).getProduct_id());
+        }
 
         confirmOrderButton = findViewById(R.id.confirm_final_order_btn);
-        nameEditText = findViewById(R.id.shipment_name);
         phoneEditText = findViewById(R.id.shipment_phone_number);
-        addressEditText = findViewById(R.id.shipment_address);
-        cityEditText = findViewById(R.id.shipment_city);
+        delivery_address = findViewById(R.id.delivery_address);
+
+        loader = findViewById(R.id.loader);
+
+        phoneEditText.setText(Prevalent.currentOnlineUser.getPhone());
 
         confirmOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckValue();
+                CheckValue(product_ids);
             }
         });
     }
 
-    private void CheckValue() {
+    private void CheckValue(List<Integer> product_ids) {
 
-        if(TextUtils.isEmpty(nameEditText.getText().toString()))
+        if(TextUtils.isEmpty(phoneEditText.getText().toString()))
         {
-            Toast.makeText(getApplicationContext(), "Please enter your full name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter your mobile name", Toast.LENGTH_SHORT).show();
         }
-        else if(TextUtils.isEmpty(phoneEditText.getText().toString()))
+        else if(TextUtils.isEmpty(delivery_address.getText().toString()))
         {
-            Toast.makeText(this, "Please enter your full name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "PLease enter the delivery address", Toast.LENGTH_SHORT).show();
         }
-        else if(TextUtils.isEmpty(addressEditText.getText().toString()))
-        {
-            Toast.makeText(this, "Please enter your Delivery location", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(cityEditText.getText().toString()))
-        {
-            Toast.makeText(this, "Please enter your city name", Toast.LENGTH_SHORT).show();
-        }
-
         else
         {
-            UpdateValue();
+            loader.setVisibility(View.VISIBLE);
+            UpdateValue(product_ids);
         }
     }
 
-    private void UpdateValue() {
+    private void UpdateValue(List<Integer> product_ids) {
 
         final DatabaseReference orderNumber = FirebaseDatabase.getInstance().getReference();
 
-        Query query = orderNumber.child("Orders").child(Prevalent.currentOnlineUser.getPhone()).orderByKey().limitToLast(1);//Checking for the last order
+        Query query = orderNumber.child("Shop Keeper Orders").child(Prevalent.currentOnlineUser.getPhone()).orderByKey().limitToLast(1);//Checking for the last order
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -99,13 +109,8 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
                     }
 
                     ORDER_NUMBER = Integer.parseInt(p) + 1;
-                    ConfirmOrder();
                 }
-                else
-                {
-                    ConfirmOrder();
-                }
-
+                ConfirmOrder(product_ids);
             }
 
             @Override
@@ -115,8 +120,9 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         });
     }
 
-    private void ConfirmOrder() {
-        final DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders")
+    private void ConfirmOrder(List<Integer> product_ids) {
+
+        final DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference().child("Shop Keeper Orders")
                 .child(Prevalent.currentOnlineUser.getPhone()).child(String.valueOf(ORDER_NUMBER));//Creating new Unique node
 
 
@@ -135,13 +141,13 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
         orderMap.put("order_number", String.valueOf(ORDER_NUMBER));
         orderMap.put("totalAmount", String.valueOf(totalAmount));
-        orderMap.put("name", nameEditText.getText().toString());
-        orderMap.put("phone", phoneEditText.getText().toString());
-        orderMap.put("address", addressEditText.getText().toString());
-        orderMap.put("city", cityEditText.getText().toString());
+        orderMap.put("name", Prevalent.currentOnlineUser.getName());
+        orderMap.put("receiver_phone", phoneEditText.getText().toString());
+        orderMap.put("delivery_address", delivery_address.getText().toString());
         orderMap.put("date", saveCurrentDate);
         orderMap.put("time", saveCurrentTime);
         orderMap.put("state", "Not Shipped");
+        orderMap.put("product_ids", product_ids);
 
         ordersRef.updateChildren(orderMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -163,11 +169,13 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
                                         Intent intent = new Intent(ConfirmFinalOrderActivity.this, HomeActivity.class);
                                         startActivity(intent);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        loader.setVisibility(View.INVISIBLE);
                                         finish();
                                     }
                                     else
                                     {
                                         Toast.makeText(ConfirmFinalOrderActivity.this, "Please check your network connection", Toast.LENGTH_SHORT).show();
+                                        loader.setVisibility(View.INVISIBLE);
                                     }
                                 }
                             });

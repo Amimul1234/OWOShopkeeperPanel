@@ -17,8 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".shopKeeperPanel.CategoryWiseProduct"></activity>
-        <activity android:name=".shopKeeperPanel.ChangePin" />
+
+        <activity android:name=".shopKeeperPanel.CategoryWiseProduct"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".shopKeeperPanel.ChangePin"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".shopKeeperPanel.CartActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -26,10 +34,6 @@
 
         <activity
             android:name=".shopKeeperPanel.ZoomProductImage"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".shopKeeperPanel.AddVoucharActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -45,8 +49,9 @@
             android:name=".shopKeeperPanel.AfterShopRegisterRequest"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.CartActivity"
+            android:name=".shopKeeperPanel.ConfirmFinalOrderActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".shopKeeperPanel.SplashScreenActivity"
             android:screenOrientation="portrait">

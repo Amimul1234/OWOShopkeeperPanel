@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,9 +26,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.owoshopkeeperpanel.Model.Cart;
+import com.owoshopkeeperpanel.Model.Qupon;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.adapters.CartListAdapter;
+import com.owoshopkeeperpanel.sheetHandeler.CouponSheet;
+import com.owoshopkeeperpanel.sheetHandeler.User_Info_Update_Bottom_Sheet;
 
 import java.util.ArrayList;
 
@@ -77,6 +81,7 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ConfirmFinalOrderActivity.class);
                 intent.putExtra("Total Price", String.valueOf(totalPrice));
+                intent.putExtra("products_id", cartList);
                 startActivity(intent);
                 finish();
 
@@ -86,20 +91,17 @@ public class CartActivity extends AppCompatActivity {
         vouchartxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(CartActivity.this,AddVoucharActivity.class);
-                startActivity(intent);
+                CouponSheet bottomSheet = new CouponSheet(getApplicationContext());
+                bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
             }
         });
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-
         final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
-
 
         cartListRef.child(Prevalent.currentOnlineUser.getPhone()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -149,4 +151,5 @@ public class CartActivity extends AppCompatActivity {
     {
         loader.setVisibility(View.GONE);
     }
+
 }

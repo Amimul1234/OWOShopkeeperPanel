@@ -4,144 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".shopKeeperPanel.MyShopActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/myshop_name"
-        android:text="@string/shop_name"
-        android:fontFamily="@font/ethnocentric"
-        android:textColor="#0026FF"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="22sp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="15dp"
-        />
-
-    <ImageView
-        android:id="@+id/store_settings_img"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:src="@drawable/settings3"
-        android:padding="2dp"
-        android:layout_alignParentRight="true"
-        />
-
-    <ImageView
-        android:id="@+id/myshop_image"
-        android:layout_below="@+id/myshop_name"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/topbar1"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:src="@drawable/home3"
-        android:scaleType="fitXY"
-        android:padding="5dp"
-        android:layout_marginTop="5dp"
-        />
+        android:layout_height="?attr/actionBarSize">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/myshopkeeper_name"
-        android:layout_below="@+id/myshop_image"
-        android:text="Abdur Rahim"
-        android:fontFamily="@font/ethnocentric"
-        android:textColor="#0026FF"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:layout_marginTop="35dp"
-        />
+        <ImageView
+            android:id="@+id/back_to_home"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:tint="@color/black"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/myshopkeeper_number"
-        android:layout_below="@+id/myshopkeeper_name"
-        android:text="01612201600"
-        android:fontFamily="@font/ethnocentric"
-        android:textColor="#0026FF"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:layout_marginTop="5dp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/myshopkeeper_address"
-        android:layout_below="@+id/myshopkeeper_number"
-        android:text="Sathmatha, Bogura"
-        android:fontFamily="@font/ethnocentric"
-        android:textColor="#0026FF"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:layout_marginTop="5dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/t1"
-        android:layout_below="@+id/myshopkeeper_address"
-        android:text="@string/trade_licence"
-        android:fontFamily="@font/ethnocentric"
-        android:textColor="#0026FF"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/myshopkeeper_licence"
-        android:layout_below="@+id/myshopkeeper_address"
-        android:layout_toRightOf="@+id/t1"
-        android:text="9101536110708"
-        android:layout_alignParentRight="true"
-        android:fontFamily="@font/ethnocentric"
-        android:textColor="#0026FF"
-        android:textSize="16sp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Shop"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+    </androidx.appcompat.widget.Toolbar>
 
-    <Button
-        android:id="@+id/myproducts_button"
+    <View
+        android:id="@+id/view1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/my_products"
-        android:fontFamily="@font/ethnocentric"
-        android:background="@drawable/buttons_blue"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="25dp"
-        />
+        android:layout_height="2dp"
+        android:background="@color/grey"
+        android:layout_below="@id/topbar1"/>
 
-    <Button
-        android:id="@+id/myorders_button"
-        android:layout_above="@+id/myproducts_button"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/myshop_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/my_orders"
-        android:fontFamily="@font/ethnocentric"
-        android:background="@drawable/buttons_blue"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="15dp"
-        />
+        android:layout_height="match_parent"
+        android:layout_below="@id/view1"/>
 
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/topbar1">
+
+    </ScrollView>
 
 </RelativeLayout>
