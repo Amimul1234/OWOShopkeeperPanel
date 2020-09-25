@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.owoshopkeeperpanel.Model.Products;
 import com.owoshopkeeperpanel.Network.RetrofitClient;
+import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Response.OwoApiResponse;
 import com.owoshopkeeperpanel.adapters.SearchedAdapter;
@@ -64,7 +65,12 @@ public class SearchActivity extends AppCompatActivity {
                 builder.setTitle("Choose a category");
                 builder.setIcon(R.drawable.filter);
 
-                String[] categories = getResources().getStringArray(R.array.productCategory);
+                int size = Prevalent.category_to_display.size();
+
+                String[] categories = new String[size];
+
+                for(int i=0; i<size; i++)
+                    categories[i] = Prevalent.category_to_display.get(i);
 
 
                 builder.setSingleChoiceItems(categories, 0, new DialogInterface.OnClickListener() {
