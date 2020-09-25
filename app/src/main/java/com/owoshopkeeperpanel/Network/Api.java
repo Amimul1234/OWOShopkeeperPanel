@@ -17,6 +17,11 @@ public interface Api {
             @Query("product_category[]") String[] categories
     );
 
+    @GET("getProductBySubCategory")
+    Call<OwoApiResponse> getProductsBySubCategory(
+            @Query("page") int page,
+            @Query("product_sub_category") String categories
+    );
 
     @GET("searchProduct")
     Call<OwoApiResponse> searchProduct(

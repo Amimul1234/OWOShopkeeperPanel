@@ -2,6 +2,7 @@ package com.owoshopkeeperpanel.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.shopKeeperPanel.SubCategoryWiseProduct;
+
 import java.util.List;
 
 public class SubCategoryAdapter extends  RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>{
@@ -71,13 +74,11 @@ public class SubCategoryAdapter extends  RecyclerView.Adapter<SubCategoryAdapter
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /*
+                    //Here we are gonna implement sub category wise product
                     int position = getBindingAdapterPosition();
-                    Intent intent = new Intent(mCtx, CategoryWiseProduct.class);
-                    intent.putExtra("category", permitted.get(position).first);
+                    Intent intent = new Intent(mCtx, SubCategoryWiseProduct.class);
+                    intent.putExtra("sub_category", category_names.get(position));
                     mCtx.startActivity(intent);
-
-                     */
                 }
             });
         }
