@@ -1,11 +1,20 @@
 package com.owoshopkeeperpanel.shopKeeperPanel;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.paging.PagedList;
+import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,12 +26,19 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
+import com.owoshopkeeperpanel.Model.PendingShop;
 import com.owoshopkeeperpanel.Model.Products;
 import com.owoshopkeeperpanel.Network.RetrofitClient;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Response.OwoApiResponse;
+import com.owoshopkeeperpanel.adapters.CategoryAdapter;
+import com.owoshopkeeperpanel.adapters.ImageFlipperAdapter;
+import com.owoshopkeeperpanel.adapters.ItemAdapter;
+import com.owoshopkeeperpanel.adapters.Product_tag;
 import com.owoshopkeeperpanel.adapters.SearchedAdapter;
+import com.owoshopkeeperpanel.pagination.ItemViewModel;
+import com.owoshopkeeperpanel.pagination.ItemViewModelSearch;
 
 import java.util.List;
 
@@ -34,10 +50,9 @@ public class SearchActivity extends AppCompatActivity {
 
     private SearchView search_product;
     private RecyclerView recyclerView;
-    private List<Products> productsList;
-    private SearchedAdapter adapter;
     private AllianceLoader loader;
-    private String category;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private SearchedAdapter adapter;
     private int search_state = 0;
 
     private Button filter_product, sort_product;
@@ -51,48 +66,73 @@ public class SearchActivity extends AppCompatActivity {
         search_product.setIconifiedByDefault(false);
         search_product.requestFocus();
 
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.blue);
         recyclerView = findViewById(R.id.searched_items);
         filter_product = findViewById(R.id.filter_product);
         sort_product = findViewById(R.id.sort_product);
         loader = findViewById(R.id.loader);
 
+        adapter = new SearchedAdapter(this);
 
-        filter_product.setOnClickListener(new View.OnClickListener() {
+        int size = Prevalent.category_to_display.size();
+
+        String[] categories = new String[size];
+
+        for(int i=0; i<size; i++)
+        {
+            categories[i] = Prevalent.category_to_display.get(i);
+        }
+
+        getItem("", categories);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getItem("", categories);
+            }
+        });
+
+        filter_product.setOnClickListener(new View.OnClickListener() { //Must work with filtering
             @Override
             public void onClick(View v) {
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
-                builder.setTitle("Choose a category");
+                builder.setTitle("Choose categories");
                 builder.setIcon(R.drawable.filter);
 
                 int size = Prevalent.category_to_display.size();
-
                 String[] categories = new String[size];
 
                 for(int i=0; i<size; i++)
+                {
                     categories[i] = Prevalent.category_to_display.get(i);
+                }
 
+                boolean[] checkedItems = new boolean[size];
 
-                builder.setSingleChoiceItems(categories, 0, new DialogInterface.OnClickListener() {
+                for(int i=0; i<size; i++)
+                    checkedItems[i] = true;
+
+                String[] filtered_categories = new String[size];
+
+                builder.setMultiChoiceItems(categories, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        category = categories[which];
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
                     }
                 });
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getApplicationContext(), CategoryWiseProduct.class);
-                        intent.putExtra("category", category);
-                        startActivity(intent);
+                        String[] abcd  = {Prevalent.category_to_display.get(2)};
+                        finish();
                     }
                 });
-                builder.setNegativeButton("Cancel", null);
 
+                builder.setNegativeButton("Cancel", null);
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
             }
         });
 
@@ -117,7 +157,7 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String query = search_product.getQuery().toString();
-                        getItem(query);
+                        getItem(query, categories);
                         dialog.dismiss();
                     }
                 });
@@ -129,12 +169,10 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-
-
         search_product.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                getItem(query);
+                getItem(query, categories);
                 return true;
             }
 
@@ -145,41 +183,47 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    private void getItem(String query) {
-
-        recyclerView.setLayoutManager(new GridLayoutManager(SearchActivity.this, 2));
-
-        loader.setVisibility(View.VISIBLE);
-
-        Call<OwoApiResponse> call;
-
-        if(search_state == 0)
-        {
-            call = RetrofitClient.getInstance().getApi().searchProduct(query);
-        }
-        else
-        {
-            call = RetrofitClient.getInstance().getApi().searchProductDesc(query);
-        }
-
-        call.enqueue(new Callback<OwoApiResponse>() {
+    private void getItem(String query, String[] categories) {
+        ItemViewModelSearch itemViewModelSearch = ViewModelProviders.of(this, new ViewModelProvider.Factory() {
+            @NonNull
             @Override
-            public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {
-                if(!response.body().error)
-                {
-                    loader.setVisibility(View.GONE);
-                    productsList = response.body().products;
-                    adapter = new SearchedAdapter(SearchActivity.this, productsList);
-                    recyclerView.setAdapter(adapter);
-                }
+            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+                return (T)new ItemViewModelSearch (categories, query);//Provide here required arguments
             }
+        }).get(ItemViewModelSearch.class);
 
+
+        itemViewModelSearch.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
             @Override
-            public void onFailure(Call<OwoApiResponse> call, Throwable t) {
-                Toast.makeText(SearchActivity.this, "Please check internet connection", Toast.LENGTH_SHORT).show();
-                loader.setVisibility(View.GONE);
+            public void onChanged(@Nullable PagedList<Products> items) {
+                adapter.submitList(items);
+                showOnRecyclerView();
             }
         });
+    }
+
+
+    private void showOnRecyclerView() {
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+        ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+
+                if(position == 0)
+                {
+                    return 2;
+                }
+                else
+                    return 1;
+            }
+        });
+        recyclerView.setLayoutManager(layoutManager);
+        Product_tag product_tag = new Product_tag(getApplicationContext());
+        ConcatAdapter concatAdapter = new ConcatAdapter(product_tag, adapter);
+        recyclerView.setAdapter(concatAdapter);
+        concatAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
 

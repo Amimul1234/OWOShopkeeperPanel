@@ -62,17 +62,24 @@
         android:background="@color/grey"/>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/searched_items"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/line1"
         android:layout_marginTop="3dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searched_items"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
