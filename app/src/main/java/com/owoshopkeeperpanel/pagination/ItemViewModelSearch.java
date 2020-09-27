@@ -12,7 +12,7 @@ import com.owoshopkeeperpanel.Model.Products;
 public class ItemViewModelSearch extends ViewModel {
 
     public LiveData<PagedList<Products>> itemPagedList;
-    LiveData<PageKeyedDataSource<Integer, Products>> liveDataSource;
+    private LiveData<PageKeyedDataSource<Integer, Products>> liveDataSource;
 
     public ItemViewModelSearch(String[] categories, String searchedProduct) {
 
@@ -25,6 +25,12 @@ public class ItemViewModelSearch extends ViewModel {
                         .setEnablePlaceholders(false)
                         .build();
 
+
         itemPagedList = (new LivePagedListBuilder(itemDataSourceFactoryForSearch, config)).build();
     }
+
+    public void clear(){
+        liveDataSource.getValue().invalidate();
+    }
+
 }

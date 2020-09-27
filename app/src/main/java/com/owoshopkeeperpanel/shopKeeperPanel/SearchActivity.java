@@ -55,6 +55,8 @@ public class SearchActivity extends AppCompatActivity {
     private SearchedAdapter adapter;
     private int search_state = 0;
 
+    private ItemViewModelSearch itemViewModelSearch;
+
     private Button filter_product, sort_product;
 
     @Override
@@ -89,7 +91,9 @@ public class SearchActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getItem("", categories);
+                itemViewModelSearch.clear();
+                adapter.notifyDataSetChanged();
+                //getItem("", categories);
             }
         });
 
@@ -126,7 +130,7 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String[] abcd  = {Prevalent.category_to_display.get(2)};
-                        finish();
+                        getItem("", abcd);
                     }
                 });
 
@@ -183,15 +187,14 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    private void getItem(String query, String[] categories) {
-        ItemViewModelSearch itemViewModelSearch = ViewModelProviders.of(this, new ViewModelProvider.Factory() {
+    private void getItem(String query, String[] category) {
+        itemViewModelSearch = ViewModelProviders.of(this, new ViewModelProvider.Factory() {
             @NonNull
             @Override
             public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                return (T)new ItemViewModelSearch (categories, query);//Provide here required arguments
+                return (T)new ItemViewModelSearch (category, query);//Provide here required arguments
             }
         }).get(ItemViewModelSearch.class);
-
 
         itemViewModelSearch.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
             @Override

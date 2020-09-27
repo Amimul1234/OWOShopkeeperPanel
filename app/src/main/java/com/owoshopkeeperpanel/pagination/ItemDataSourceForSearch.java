@@ -102,7 +102,5 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, Produc
 
                     }
                 });
-
-
     }
 }
