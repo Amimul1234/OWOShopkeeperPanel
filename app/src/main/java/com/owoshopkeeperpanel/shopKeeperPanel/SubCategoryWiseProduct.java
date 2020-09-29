@@ -45,6 +45,9 @@ public class SubCategoryWiseProduct extends AppCompatActivity {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ItemAdapterSubCategory adapter;
     static public String category = null;
+
+    private ItemViewModelSubCategory itemViewModelSubCategory;
+
     int sub_category_size = 0;
 
     @Override
@@ -83,19 +86,15 @@ public class SubCategoryWiseProduct extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                itemViewModelSubCategory.clear();
                 getProducts();
             }
         });
     }
 
     public void getProducts() {
-        ItemViewModelSubCategory itemViewModelSubCategory = ViewModelProviders.of(this, new ViewModelProvider.Factory() {
-            @NonNull
-            @Override
-            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                return (T)new ItemViewModelSubCategory(category);
-            }
-        }).get(ItemViewModelSubCategory.class);
+
+        itemViewModelSubCategory = new ItemViewModelSubCategory(category);
 
         itemViewModelSubCategory.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
             @Override

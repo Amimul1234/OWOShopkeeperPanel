@@ -46,6 +46,8 @@ public class CategoryWiseProduct extends AppCompatActivity {
     private List<String> icons = new ArrayList<>();
     static public String category = null;
 
+    private ItemViewModelCategory itemViewModelCategory;
+
     int sub_category_size = 0;
 
     private SubCategoryAdapter subCategoryAdapter;
@@ -111,19 +113,15 @@ public class CategoryWiseProduct extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                itemViewModelCategory.clear();
                 getProducts();
             }
         });
     }
 
     public void getProducts() {
-        ItemViewModelCategory itemViewModelCategory = ViewModelProviders.of(this, new ViewModelProvider.Factory() {
-            @NonNull
-            @Override
-            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                return (T)new ItemViewModelCategory (category);
-            }
-        }).get(ItemViewModelCategory.class);
+
+        itemViewModelCategory = new ItemViewModelCategory(category);
 
         itemViewModelCategory.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
             @Override

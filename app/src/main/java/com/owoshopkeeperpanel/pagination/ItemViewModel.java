@@ -27,4 +27,9 @@ public class ItemViewModel extends ViewModel {
 
         itemPagedList = (new LivePagedListBuilder(itemDataSourceFactory, config)).build();
     }
+
+    public void clear(){
+        liveDataSource.getValue().invalidate();
+    }
+
 }

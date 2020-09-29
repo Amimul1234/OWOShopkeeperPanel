@@ -76,6 +76,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private ImageFlipperAdapter imageFlipperAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private AppCompatButton searchBar;
+    private ItemViewModel itemViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,8 +174,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         DatabaseReference offersRef = FirebaseDatabase.getInstance().getReference().child("Offers");
 
-        //Getting offers class from firebase
-
         offersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -206,6 +205,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                itemViewModel.clear();
                 getProducts();
             }
         });
@@ -228,13 +228,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             categories[i] = Prevalent.category_to_display.get(i);
         }
 
-        ItemViewModel itemViewModel = ViewModelProviders.of(this, new ViewModelProvider.Factory() {
-            @NonNull
-            @Override
-            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                return (T)new ItemViewModel (categories);//Provide here required arguments
-            }
-        }).get(ItemViewModel.class);
+        itemViewModel = new ItemViewModel(categories);
 
         itemViewModel.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
             @Override
