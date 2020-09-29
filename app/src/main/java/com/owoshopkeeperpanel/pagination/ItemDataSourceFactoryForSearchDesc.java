@@ -20,9 +20,9 @@ public class ItemDataSourceFactoryForSearchDesc extends DataSource.Factory {
 
     @Override
     public DataSource create() {
-        ItemDataSourceForSearch itemDataSourceCategory = new ItemDataSourceForSearch(categories, searchedProduct);
-        itemLiveDataSource.postValue(itemDataSourceCategory);
-        return itemDataSourceCategory;
+        ItemDataSourceForSearchDesc itemDataSourceCategoryDesc = new ItemDataSourceForSearchDesc(categories, searchedProduct);
+        itemLiveDataSource.postValue(itemDataSourceCategoryDesc);
+        return itemDataSourceCategoryDesc;
     }
 
     public MutableLiveData<PageKeyedDataSource<Integer, Products>> getItemLiveDataSource() {

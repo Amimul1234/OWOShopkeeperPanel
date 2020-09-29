@@ -162,8 +162,30 @@ public class SearchActivity extends AppCompatActivity {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String query = search_product.getQuery().toString();
-                        getItem(query, categories);
+
+                        if(filtered_categories.isEmpty())
+                        {
+                            int p = Prevalent.category_to_display.size();
+
+                            String[] searching_on = new String[p];
+
+                            for(int i=0; i<p; i++)
+                                searching_on[i] = Prevalent.category_to_display.get(i);
+
+                            getItem(query, searching_on);
+                        }
+
+                        else
+                        {
+                            int p = filtered_categories.size();
+
+                            String[] searching_on = new String[p];
+
+                            for(int i=0; i<p; i++)
+                                searching_on[i] = filtered_categories.get(i);
+
+                            getItem(query, searching_on);
+                        }
                         dialog.dismiss();
                     }
                 });
@@ -250,7 +272,9 @@ public class SearchActivity extends AppCompatActivity {
     private void getItem(String query, String[] category) {
         if(search_state == 0)
         {
+
             itemViewModelSearch = new ItemViewModelSearch(category, query);//Refreshing the model for new filtration
+
             itemViewModelSearch.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
                 @Override
                 public void onChanged(@Nullable PagedList<Products> items) {
@@ -258,11 +282,13 @@ public class SearchActivity extends AppCompatActivity {
                     showOnRecyclerView();
                 }
             });
+
         }
 
         else
         {
             itemViewModelSearchDesc = new ItemViewModelSearchDesc(category, query);
+
             itemViewModelSearchDesc.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
                 @Override
                 public void onChanged(@Nullable PagedList<Products> items) {

@@ -16,8 +16,8 @@ public class ItemViewModelSearchDesc extends ViewModel {
 
     public ItemViewModelSearchDesc(String[] categories, String searchedProduct) {
 
-        ItemDataSourceFactoryForSearch itemDataSourceFactoryForSearch = new ItemDataSourceFactoryForSearch(categories, searchedProduct);
-        liveDataSource = itemDataSourceFactoryForSearch.getItemLiveDataSource();
+        ItemDataSourceFactoryForSearchDesc itemDataSourceFactoryForSearchDesc = new ItemDataSourceFactoryForSearchDesc(categories, searchedProduct);
+        liveDataSource = itemDataSourceFactoryForSearchDesc.getItemLiveDataSource();
 
         PagedList.Config config =
                 (new PagedList.Config.Builder())
@@ -26,7 +26,7 @@ public class ItemViewModelSearchDesc extends ViewModel {
                         .build();
 
 
-        itemPagedList = (new LivePagedListBuilder(itemDataSourceFactoryForSearch, config)).build();
+        itemPagedList = (new LivePagedListBuilder(itemDataSourceFactoryForSearchDesc, config)).build();
     }
 
     public void clear(){
