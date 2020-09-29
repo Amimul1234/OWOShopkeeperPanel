@@ -181,6 +181,8 @@
     <string name="set_new_pin">Set new pin</string>
     <string name="filter">Filter</string>
     <string name="sort">Sort</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
