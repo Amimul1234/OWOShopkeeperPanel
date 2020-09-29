@@ -31,6 +31,7 @@ import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.adapters.Product_tag;
 import com.owoshopkeeperpanel.adapters.SearchedAdapter;
 import com.owoshopkeeperpanel.pagination.ItemViewModelSearch;
+import com.owoshopkeeperpanel.pagination.ItemViewModelSearchDesc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class SearchActivity extends AppCompatActivity {
     private int search_state = 0;
 
     private ItemViewModelSearch itemViewModelSearch;
+    private ItemViewModelSearchDesc itemViewModelSearchDesc;
 
     private Button filter_product, sort_product;
 
@@ -85,7 +87,11 @@ public class SearchActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                itemViewModelSearch.clear();
+                if(search_state == 0)
+                    itemViewModelSearch.clear();
+                else
+                    itemViewModelSearchDesc.clear();
+
                 adapter.notifyDataSetChanged();
             }
         });
@@ -167,7 +173,7 @@ public class SearchActivity extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
-        }); //should call different api
+        });
 
         search_product.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
@@ -242,16 +248,29 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void getItem(String query, String[] category) {
+        if(search_state == 0)
+        {
+            itemViewModelSearch = new ItemViewModelSearch(category, query);//Refreshing the model for new filtration
+            itemViewModelSearch.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
+                @Override
+                public void onChanged(@Nullable PagedList<Products> items) {
+                    adapter.submitList(items);
+                    showOnRecyclerView();
+                }
+            });
+        }
 
-        itemViewModelSearch = new ItemViewModelSearch(category, query);//Refreshing the model for new filtration
-
-        itemViewModelSearch.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
-            @Override
-            public void onChanged(@Nullable PagedList<Products> items) {
-                adapter.submitList(items);
-                showOnRecyclerView();
-            }
-        });
+        else
+        {
+            itemViewModelSearchDesc = new ItemViewModelSearchDesc(category, query);
+            itemViewModelSearchDesc.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
+                @Override
+                public void onChanged(@Nullable PagedList<Products> items) {
+                    adapter.submitList(items);
+                    showOnRecyclerView();
+                }
+            });
+        }
     }
 
 
