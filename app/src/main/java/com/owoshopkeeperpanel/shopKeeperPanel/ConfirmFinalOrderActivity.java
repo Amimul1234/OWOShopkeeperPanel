@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.owoshopkeeperpanel.Model.Cart;
+import com.owoshopkeeperpanel.Model.Ordered_products;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
 
@@ -38,6 +40,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
     private AllianceLoader loader;
     private ArrayList<Cart> carts;
     int ORDER_NUMBER = 0;
+    private Double discounted_price;
     String p = "";
 
     @Override
@@ -47,14 +50,15 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
         totalAmount = getIntent().getStringExtra("Total Price");
         carts = (ArrayList<Cart>) getIntent().getSerializableExtra("products_id");
+        discounted_price = Double.parseDouble(getIntent().getStringExtra("discounted_price"));
 
         int size = carts.size();
 
-        List<Integer> product_ids = new ArrayList<>();
+        List<Ordered_products> ordered_products = new ArrayList<>();
 
         for(int i=0; i<size; i++)
         {
-            product_ids.add(carts.get(i).getProduct_id());
+            ordered_products.add(new Ordered_products(carts.get(i).getProduct_id(), Integer.parseInt(carts.get(i).getNeeded_quantity())));
         }
 
         confirmOrderButton = findViewById(R.id.confirm_final_order_btn);
@@ -68,12 +72,12 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         confirmOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckValue(product_ids);
+                CheckValue(ordered_products);
             }
         });
     }
 
-    private void CheckValue(List<Integer> product_ids) {
+    private void CheckValue(List<Ordered_products> ordered_products) {
 
         if(TextUtils.isEmpty(phoneEditText.getText().toString()))
         {
@@ -86,11 +90,11 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         else
         {
             loader.setVisibility(View.VISIBLE);
-            UpdateValue(product_ids);
+            UpdateValue(ordered_products);
         }
     }
 
-    private void UpdateValue(List<Integer> product_ids) {
+    private void UpdateValue(List<Ordered_products> ordered_products) {
 
         final DatabaseReference orderNumber = FirebaseDatabase.getInstance().getReference();
 
@@ -110,7 +114,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
                     ORDER_NUMBER = Integer.parseInt(p) + 1;
                 }
-                ConfirmOrder(product_ids);
+                ConfirmOrder(ordered_products);
             }
 
             @Override
@@ -120,7 +124,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         });
     }
 
-    private void ConfirmOrder(List<Integer> product_ids) {
+    private void ConfirmOrder(List<Ordered_products> ordered_products) {
 
         final DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference().child("Shop Keeper Orders")
                 .child(Prevalent.currentOnlineUser.getPhone()).child(String.valueOf(ORDER_NUMBER));//Creating new Unique node
@@ -147,7 +151,8 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         orderMap.put("date", saveCurrentDate);
         orderMap.put("time", saveCurrentTime);
         orderMap.put("state", "Not Shipped");
-        orderMap.put("product_ids", product_ids);
+        orderMap.put("product_ids", ordered_products);
+        orderMap.put("coupon_discount", discounted_price);
 
         ordersRef.updateChildren(orderMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
