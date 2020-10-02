@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:cardElevation="5dp"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        app:cardCornerRadius="10dp">
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          >
+
+          <LinearLayout
+              android:id="@+id/first_linear"
+              android:layout_width="match_parent"
+              android:layout_height="55dp"
+              android:orientation="horizontal"
+              android:gravity="center"
+              >
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Order Number: "
+                  android:layout_marginStart="10dp"/>
+
+              <TextView
+                  android:id="@+id/order_number"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="01"
+                  android:layout_marginStart="5dp"
+                  android:textColor="@color/black"
+                  android:textSize="15sp"/>
+
+
+              <TextView
+                  android:id="@+id/order_status"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Order Status"
+                  android:textColor="@color/red"
+                  android:layout_marginStart="10dp"
+                  android:gravity="end"
+                  android:layout_marginEnd="20dp"/>
+          </LinearLayout>
+
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="45dp"
+              android:orientation="horizontal"
+              android:gravity="center"
+              android:layout_below="@id/first_linear"
+              >
+
+              <TextView
+                  android:id="@+id/order_total_price"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="01"
+                  android:layout_marginStart="10dp"
+                  android:textColor="@color/red"
+                  android:textSize="20sp"/>
+
+
+              <TextView
+                  android:id="@+id/order_date_and_time"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="30 Sep, 10.38 PM"
+                  android:textColor="@color/black"
+                  android:layout_marginStart="10dp"
+                  android:gravity="end"
+                  android:layout_marginEnd="20dp"/>
+
+          </LinearLayout>
+
+
+      </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

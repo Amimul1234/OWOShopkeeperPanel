@@ -17,7 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".shopKeeperPanel.SubCategoryWiseProduct"></activity>
+        <activity android:name=".shopKeeperPanel.Order_details_for_single_item"></activity>
+        <activity android:name=".shopKeeperPanel.Order_list" />
+        <activity android:name=".shopKeeperPanel.SubCategoryWiseProduct" />
         <activity
             android:name=".shopKeeperPanel.CategoryWiseProduct"
             android:screenOrientation="portrait" />

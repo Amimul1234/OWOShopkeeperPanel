@@ -330,7 +330,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         else if(id==R.id.nav_order)
         {
-
+            Intent intent = new Intent(HomeActivity.this, Order_list.class);
+            startActivity(intent);
         }
         else if(id==R.id.nav_cart)
         {

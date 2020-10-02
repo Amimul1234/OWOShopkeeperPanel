@@ -23,6 +23,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.owoshopkeeperpanel.Model.Cart;
 import com.owoshopkeeperpanel.Model.Ordered_products;
+import com.owoshopkeeperpanel.Model.PendingShop;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
 
@@ -58,7 +59,8 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
         for(int i=0; i<size; i++)
         {
-            ordered_products.add(new Ordered_products(carts.get(i).getProduct_id(), Integer.parseInt(carts.get(i).getNeeded_quantity())));
+            ordered_products.add(new Ordered_products(carts.get(i).getProduct_id(), Integer.parseInt(carts.get(i).getNeeded_quantity()),
+                    carts.get(i).getProduct_name(), carts.get(i).getProduct_image(), carts.get(i).getProduct_price()));
         }
 
         confirmOrderButton = findViewById(R.id.confirm_final_order_btn);
@@ -150,7 +152,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         orderMap.put("delivery_address", delivery_address.getText().toString());
         orderMap.put("date", saveCurrentDate);
         orderMap.put("time", saveCurrentTime);
-        orderMap.put("state", "Not Shipped");
+        orderMap.put("state", "Pending");
         orderMap.put("product_ids", ordered_products);
         orderMap.put("coupon_discount", discounted_price);
 
