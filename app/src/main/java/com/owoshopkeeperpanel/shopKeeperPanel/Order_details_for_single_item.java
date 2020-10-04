@@ -1,14 +1,21 @@
 package com.owoshopkeeperpanel.shopKeeperPanel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.badoualy.stepperindicator.StepperIndicator;
+import com.owoshopkeeperpanel.Model.Ordered_products;
 import com.owoshopkeeperpanel.Model.Ordered_products_model;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.adapters.Ordered_item_adapter;
+
+import java.util.List;
 
 public class Order_details_for_single_item extends AppCompatActivity {
 
@@ -18,7 +25,11 @@ public class Order_details_for_single_item extends AppCompatActivity {
     private TextView total_taka, discount_taka,
             sub_total, shipping_address, mobile_number;
 
+    private ImageView back_button;
+
     private Ordered_products_model ordered_products_model;
+
+    private List<Ordered_products> ordered_products_list;
 
 
     @Override
@@ -27,6 +38,8 @@ public class Order_details_for_single_item extends AppCompatActivity {
         setContentView(R.layout.activity_order_details_for_single_item);
 
         ordered_products_model = (Ordered_products_model) getIntent().getSerializableExtra("Order");
+
+        ordered_products_list = ordered_products_model.getProduct_ids();
 
         order_number = findViewById(R.id.order_number);
         order_date = findViewById(R.id.order_date);
@@ -37,6 +50,12 @@ public class Order_details_for_single_item extends AppCompatActivity {
         sub_total = findViewById(R.id.sub_total);
         shipping_address = findViewById(R.id.shipping_address);
         mobile_number = findViewById(R.id.mobile_number);
+        back_button = findViewById(R.id.back_from_order_details);
+
+        Ordered_item_adapter adapter = new Ordered_item_adapter(this, ordered_products_list);
+        ordered_products.setLayoutManager(new LinearLayoutManager(this));
+        ordered_products.setHasFixedSize(true);
+        ordered_products.setAdapter(adapter);
 
         order_number.setText("#"+ordered_products_model.getOrder_number());
         order_date.setText(ordered_products_model.getDate());
@@ -50,5 +69,13 @@ public class Order_details_for_single_item extends AppCompatActivity {
         stepperIndicator.setLabels(new String[]{"Pending", "Confirmed", "Processing", "Picked", "Shipped", "Delivered"});
         stepperIndicator.setCurrentStep(4);//Here current step should be checked
         stepperIndicator.setShowDoneIcon(true);
+
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 }
