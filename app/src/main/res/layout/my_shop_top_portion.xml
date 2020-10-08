@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/my_shop_image"
@@ -74,12 +74,5 @@
             android:text="Phone Number"
             android:textColor="@color/black"/>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/light_grey"
-        android:layout_below="@id/linear_layout_2"
-        android:layout_marginTop="20dp"/>
 
 </RelativeLayout>

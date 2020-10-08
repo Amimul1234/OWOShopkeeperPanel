@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.Model.Ordered_products;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.shopKeeperPanel.BridgeofCartAndProduct;
 import com.owoshopkeeperpanel.shopKeeperPanel.SubCategoryWiseProduct;
 
 import java.util.List;
@@ -66,14 +67,10 @@ public class Ordered_item_adapter extends  RecyclerView.Adapter<Ordered_item_ada
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /*
-                    //Here we are gonna implement sub category wise product
                     int position = getBindingAdapterPosition();
-                    Intent intent = new Intent(mCtx, SubCategoryWiseProduct.class);
-                    intent.putExtra("sub_category", category_names.get(position));
+                    Intent intent = new Intent(mCtx, BridgeofCartAndProduct.class);
+                    intent.putExtra("id", String.valueOf(ordered_products.get(position).getProduct_id()));
                     mCtx.startActivity(intent);
-
-                     */
                 }
             });
         }

@@ -67,7 +67,27 @@ public class Order_details_for_single_item extends AppCompatActivity {
         mobile_number.setText(ordered_products_model.getReceiver_phone());
 
         stepperIndicator.setLabels(new String[]{"Pending", "Confirmed", "Processing", "Picked", "Shipped", "Delivered"});
-        stepperIndicator.setCurrentStep(4);//Here current step should be checked
+
+        String[] states = new String[6];
+
+        states[0] = "Pending";
+        states[1] = "Confirmed";
+        states[2] = "Processing";
+        states[3] = "Picked";
+        states[4] = "Shipped";
+        states[5] = "Delivered";
+
+        int counter = 0;
+
+        for(int i=0; i<6; i++)
+        {
+            if(states[i].equals(ordered_products_model.getState()))
+            {
+                stepperIndicator.setCurrentStep(i+1);
+                break;
+            }
+        }
+
         stepperIndicator.setShowDoneIcon(true);
 
 
