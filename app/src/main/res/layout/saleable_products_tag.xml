@@ -19,15 +19,17 @@
         android:layout_below="@id/edge1"
         >
         <TextView
+            android:id="@+id/tag1"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
-            android:text="Saleable Products"
+            android:text="Shop Management"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:textSize="18sp"
             android:textColor="@color/black"
             />
+
     </RelativeLayout>
 
 

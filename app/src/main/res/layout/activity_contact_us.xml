@@ -1,89 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context=".shopKeeperPanel.Contact_us">
 
-    <ImageView
-        android:id="@+id/l"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/backgroundless"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
 
-
-    <TextView
-        android:id="@+id/ll"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/topbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/l"
-        android:text="@string/owo_support"
-        android:textSize="20sp"
-        android:fontFamily="@font/ethnocentric"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        android:textAlignment="center"/>
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/submit_complain"
-        app:layout_constraintTop_toBottomOf="@id/ll"
-        tools:layout_editor_absoluteX="10dp">
+        <ImageView
+            android:id="@+id/back_to_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_24"/>
 
         <TextView
-            android:id="@+id/lll"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="20dp"
-            android:text="@string/please_enter_the_subject" />
+            android:text="Contact Us"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginStart="20dp"/>
 
-        <EditText
-            android:id="@+id/complain_subject"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/lll"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_text_black"
-            android:maxLines="5"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+    </androidx.appcompat.widget.Toolbar>
 
-        <TextView
-            android:id="@+id/llll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/complain_subject"
-            android:layout_marginTop="15dp"
-            android:text="@string/complain_details" />
-
-        <EditText
-            android:id="@+id/complain_details"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_below="@id/llll"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_text_black"
-            android:gravity="start"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-    </RelativeLayout>
-
+    <WebView
+        android:id="@+id/chat_with_us"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/topbar"/>
 
     <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
         android:id="@+id/loader"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         app:alliance_animDuration="500"
         app:alliance_distanceMultiplier="4"
         app:alliance_dotsRadius="20dp"
@@ -91,25 +50,7 @@
         app:alliance_secondDotsColor="@color/green"
         app:alliance_strokeWidth="8dp"
         app:alliance_thirdDotsColor="@color/blue"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
+        android:layout_centerInParent="true"/>
 
 
-    <Button
-        android:id="@+id/submit_complain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/buttons_blue"
-        android:text="@string/submit_complain"
-        android:padding="15dp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/ethnocentric"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

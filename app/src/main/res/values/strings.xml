@@ -147,12 +147,12 @@
     <string name="my_products">My Products</string>
     <string name="my_orders">My Orders</string>
     <string name="trade_licence">Trade Licence:</string>
-    <string name="actual_price">Actual Price:</string>
+    <string name="actual_price">Buying Price:</string>
     <string name="discount">Discount:</string>
-    <string name="price_with_discount">Price(with discount):</string>
+    <string name="price_with_discount">New Price: </string>
     <string name="available_quantity">Available Quantity :</string>
     <string name="quantity">Quantity:</string>
-    <string name="add_to_cart">Add to cart</string>
+    <string name="add_to_cart">Add to shop</string>
     <string name="new_account">New Account</string>
     <string name="confirm_pin">Confirm Pin</string>
     <string name="i_accept_all_the">I accept all the</string>
@@ -181,8 +181,15 @@
     <string name="set_new_pin">Set new pin</string>
     <string name="filter">Filter</string>
     <string name="sort">Sort</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="shop_management">
+        <item>Add a new product</item>
+        <item>View products</item>
+        <item>Add a new offer</item>
+        <item>View offers</item>
+        <item>Pending Orders</item>
+        <item>All Completed Orders</item>
+    </string-array>
 
 
 </resources>

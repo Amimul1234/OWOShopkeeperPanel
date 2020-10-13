@@ -1,126 +1,53 @@
 package com.owoshopkeeperpanel.shopKeeperPanel;
 
-import androidx.annotation.NonNull;
+import android.os.Bundle;
+import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.FirebaseDatabase;
-import com.owoshopkeeperpanel.Model.Complains;
 import com.owoshopkeeperpanel.R;
 
 public class Contact_us extends AppCompatActivity {
 
-    EditText complain_subject, complain_details;
+    private WebView chat_with_us;
     private AllianceLoader loader;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private String shopKeeperMobile;
+    private ImageView back_to_home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_us);
 
-        shopKeeperMobile = getIntent().getStringExtra("mobileNumber");
-
-        complain_subject = findViewById(R.id.complain_subject);
-        complain_details = findViewById(R.id.complain_details);
-        Button submit_complain = findViewById(R.id.submit_complain);
+        back_to_home = findViewById(R.id.back_to_home);
+        chat_with_us = findViewById(R.id.chat_with_us);
         loader = findViewById(R.id.loader);
 
+        chat_with_us.getSettings().setJavaScriptEnabled(true);
 
-        submit_complain.setOnClickListener(new View.OnClickListener() {
+        chat_with_us.setWebChromeClient(new WebChromeClient() {
+            public void onProgressChanged(WebView view, int progress) {
+                if(progress < 100)
+                {
+                    loader.setVisibility(View.VISIBLE);
+                }
+                else
+                    loader.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        chat_with_us.loadUrl("https://tawk.to/chat/5f85a1484704467e89f70ca9/default");
+
+        back_to_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loader.setVisibility(View.VISIBLE);
-                String sub = complain_subject.getText().toString();
-                String details = complain_details.getText().toString();
-                validation(sub, details);
+                onBackPressed();
+                finish();
             }
         });
     }
-
-    private void validation(String sub, String details) {
-        if(sub.isEmpty())
-        {
-            complain_subject.setError("Please enter a subject to complain");
-            complain_subject.requestFocus();
-            loader.setVisibility(View.GONE);
-        }
-        else if(details.isEmpty())
-        {
-            complain_details.setError("Please enter complain body");
-            complain_details.requestFocus();
-            loader.setVisibility(View.GONE);
-        }
-        else
-        {
-            Complains complains = new Complains(sub, details);
-            database.getReference("ShopKeeperComplains").child(shopKeeperMobile)
-                    .setValue(complains)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            loader.setVisibility(View.GONE);
-
-                            LayoutInflater inflater = getLayoutInflater();
-                            View layout = inflater.inflate(R.layout.custom_toast,
-                                    (ViewGroup) findViewById(R.id.toast_layout_root));
-
-                            ImageView image = (ImageView) layout.findViewById(R.id.image);
-                            image.setImageResource(R.drawable.happy);
-                            TextView text = (TextView) layout.findViewById(R.id.text);
-                            text.setText("Thanks for your patience");
-
-                            Toast toast = new Toast(getApplicationContext());
-                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                            toast.setDuration(Toast.LENGTH_LONG);
-                            toast.setView(layout);
-                            toast.show();
-                            finish();
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-
-
-                    loader.setVisibility(View.GONE);
-
-                    LayoutInflater inflater = getLayoutInflater();
-                    View layout = inflater.inflate(R.layout.custom_toast,
-                            (ViewGroup) findViewById(R.id.toast_layout_root));
-
-                    ImageView image = (ImageView) layout.findViewById(R.id.image);
-                    image.setImageResource(R.drawable.sad);
-                    TextView text = (TextView) layout.findViewById(R.id.text);
-                    text.setText("Please try again...");
-
-                    Toast toast = new Toast(getApplicationContext());
-                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                    toast.setDuration(Toast.LENGTH_LONG);
-                    toast.setView(layout);
-                    toast.show();
-
-                    loader.setVisibility(View.GONE);
-                }
-            });
-        }
-
-    }
-
-
 }

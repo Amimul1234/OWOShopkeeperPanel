@@ -100,7 +100,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
         final DatabaseReference orderNumber = FirebaseDatabase.getInstance().getReference();
 
-        Query query = orderNumber.child("Shop Keeper Orders").child(Prevalent.currentOnlineUser.getPhone()).orderByKey().limitToLast(1);//Checking for the last order
+        Query query = orderNumber.child("Shop Keeper Orders").child(Prevalent.currentOnlineUser.getPhone()).orderByKey().limitToLast(1);//Checking for the last shop_management_order
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -171,7 +171,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful())
                                     {
-                                        Toast.makeText(ConfirmFinalOrderActivity.this, "Your order has been placed successfully", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ConfirmFinalOrderActivity.this, "Your shop_management_order has been placed successfully", Toast.LENGTH_SHORT).show();
 
                                         Intent intent = new Intent(ConfirmFinalOrderActivity.this, HomeActivity.class);
                                         startActivity(intent);

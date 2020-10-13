@@ -1,6 +1,7 @@
 package com.owoshopkeeperpanel.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.Model.Ordered_products;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.myShopRelated.new_product_adding;
+import com.owoshopkeeperpanel.shopKeeperPanel.BridgeofCartAndProduct;
+
 import java.util.List;
 
 public class Saleable_products_adapter extends  RecyclerView.Adapter<Saleable_products_adapter.ViewHolder>{
@@ -56,12 +60,11 @@ public class Saleable_products_adapter extends  RecyclerView.Adapter<Saleable_pr
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /*
                     int position = getBindingAdapterPosition();
-                    Intent intent = new Intent(mCtx, BridgeofCartAndProduct.class);
+                    Intent intent = new Intent(mCtx, new_product_adding.class);
                     intent.putExtra("id", String.valueOf(ordered_products.get(position).getProduct_id()));
+                    intent.putExtra("quantity", String.valueOf(ordered_products.get(position).getProduct_quantity()));
                     mCtx.startActivity(intent);
-                     */
                 }
             });
         }

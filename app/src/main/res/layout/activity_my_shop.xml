@@ -1,53 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".shopKeeperPanel.MyShopActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/topbar1"
-        android:background="@color/blue"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="match_parent"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/topbar1"
+            android:background="@color/blue"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <ImageView
+                android:id="@+id/back_to_home"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:tint="@color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Shop"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+        </androidx.appcompat.widget.Toolbar>
 
         <ImageView
-            android:id="@+id/back_to_home"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            app:tint="@color/white"/>
+            android:id="@+id/my_shop_image"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:src="@drawable/create_shop"
+            android:layout_below="@+id/topbar1"
+            android:scaleType="centerCrop"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/my_shop_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="My Shop"
+            android:layout_below="@+id/my_shop_image"
+            android:text="Shop Name"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/white"/>
-    </androidx.appcompat.widget.Toolbar>
-
-    <View
-        android:id="@+id/view1"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/grey"
-        android:layout_below="@id/topbar1"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/myshop_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/view1"/>
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            />
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/topbar1">
+        <LinearLayout
+            android:id="@+id/linear_layout_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/my_shop_name"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp">
 
-    </ScrollView>
+            <TextView
+                android:id="@+id/address_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address:  "/>
 
-</RelativeLayout>
+            <TextView
+                android:id="@+id/my_shop_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="#55, Phase 2, Adarsh Palm Retreat, Bellandur, Bengaluru"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear_layout_1"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:id="@+id/phone_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Service Mobile:   "/>
+
+            <TextView
+                android:id="@+id/my_shop_phone_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="Phone Number"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/shop_control_options"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linear_layout_2"
+            android:layout_marginTop="5dp"/>
+
+        <View
+            android:id="@+id/divider_2"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/grey"
+            android:layout_below="@+id/shop_control_options"
+            android:layout_marginTop="20dp"/>
+
+
+    </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>

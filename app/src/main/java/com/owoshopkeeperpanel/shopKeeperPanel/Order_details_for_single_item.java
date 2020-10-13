@@ -43,7 +43,7 @@ public class Order_details_for_single_item extends AppCompatActivity {
 
         order_number = findViewById(R.id.order_number);
         order_date = findViewById(R.id.order_date);
-        stepperIndicator = findViewById(R.id.steps); //For indicating order status
+        stepperIndicator = findViewById(R.id.steps); //For indicating shop_management_order status
         ordered_products = findViewById(R.id.ordered_products);
         total_taka = findViewById(R.id.total_taka);
         discount_taka = findViewById(R.id.discount_taka);
