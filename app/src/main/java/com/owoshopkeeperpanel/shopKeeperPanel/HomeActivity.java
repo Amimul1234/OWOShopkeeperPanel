@@ -42,6 +42,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Model.Offers;
 import com.owoshopkeeperpanel.Model.Products;
@@ -78,6 +79,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private AppCompatButton searchBar;
     private ItemViewModel itemViewModel;
 
+    private BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,23 +89,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         recyclerView = findViewById(R.id.recycler_view_for_products);
         searchBar = findViewById(R.id.search_product);
 
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+
         getProducts();
 
         Paper.init(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
         ImageView contact_us = findViewById(R.id.contact_us);
-
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(HomeActivity.this,CartActivity.class);
-                startActivity(intent);
-            }
-        });
 
         searchBar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,6 +192,44 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_home:
+                    {
+                        break;
+                    }
+                    case R.id.action_categories:
+                    {
+                        Intent intent = new Intent(HomeActivity.this, categories.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.action_calculator:
+                    {
+                        Intent intent = new Intent(HomeActivity.this, calculator.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.action_cart:
+                    {
+                        Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.action_account:
+                    {
+                        Intent intent=new Intent(HomeActivity.this, SettingsActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                }
+                return true;
             }
         });
 
@@ -343,6 +376,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(HomeActivity.this, WishList.class);
             startActivity(intent);
         }
+
+        else if(id == R.id.nav_owoLoan)
+        {
+            Toast.makeText(this, "Coming soon...", Toast.LENGTH_SHORT).show();
+        }
+
         else if(id==R.id.nav_contact)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
@@ -429,5 +468,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 getBaseContext().getResources().getDisplayMetrics());
         finish();
         startActivity(getIntent());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bottomNavigationView.setSelectedItemId(R.id.action_home);
     }
 }

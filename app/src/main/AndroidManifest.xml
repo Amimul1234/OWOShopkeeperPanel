@@ -17,7 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".myShopRelated.add_product_to_shop"></activity>
+        <activity android:name=".shopKeeperPanel.categories"></activity>
+        <activity android:name=".shopKeeperPanel.calculator" />
+        <activity android:name=".myShopRelated.add_product_to_shop" />
         <activity android:name=".myShopRelated.new_product_adding" />
         <activity android:name=".myShopRelated.Completed_orders" />
         <activity android:name=".myShopRelated.Pending_orders" />

@@ -60,14 +60,15 @@
 
     <include layout="@layout/content_home"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/blue"
-        app:borderWidth="0dp"
-        app:srcCompat="@drawable/ic_baseline_shopping_cart_24"/>
+        app:menu="@menu/bottom_nav_menu"
+        app:itemBackground="@color/white"
+        app:itemIconTint="@color/botoom_nav_color"
+        app:itemTextColor="@color/botoom_nav_color"
+        android:theme= "@style/ShapeAppearance.MaterialComponents.LargeComponent"
+        android:layout_gravity="bottom"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
