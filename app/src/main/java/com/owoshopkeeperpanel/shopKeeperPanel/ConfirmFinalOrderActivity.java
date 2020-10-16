@@ -10,6 +10,8 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
@@ -35,8 +37,10 @@ import java.util.List;
 
 public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
-    private EditText phoneEditText, delivery_address;
+    private EditText phoneEditText, delivery_address, additional_comments;
     private Button confirmOrderButton;
+    private RadioGroup radioGroup;
+    private RadioButton delivery_option_1, delivery_option_2;
     private String totalAmount = "";
     private AllianceLoader loader;
     private ArrayList<Cart> carts;
@@ -66,6 +70,10 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         confirmOrderButton = findViewById(R.id.confirm_final_order_btn);
         phoneEditText = findViewById(R.id.shipment_phone_number);
         delivery_address = findViewById(R.id.delivery_address);
+        additional_comments = findViewById(R.id.additional_comments);
+        delivery_option_1 = findViewById(R.id.delivery_option_1);
+        delivery_option_2 = findViewById(R.id.delivery_option_2);
+        radioGroup = findViewById(R.id.radio_group);
 
         loader = findViewById(R.id.loader);
 
@@ -100,7 +108,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
         final DatabaseReference orderNumber = FirebaseDatabase.getInstance().getReference();
 
-        Query query = orderNumber.child("Shop Keeper Orders").child(Prevalent.currentOnlineUser.getPhone()).orderByKey().limitToLast(1);//Checking for the last shop_management_order
+        Query query = orderNumber.child("Shop Keeper Orders").orderByKey().limitToLast(1);//Checking for the last shop_management_order
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -128,8 +136,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
     private void ConfirmOrder(List<Ordered_products> ordered_products) {
 
-        final DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference().child("Shop Keeper Orders")
-                .child(Prevalent.currentOnlineUser.getPhone()).child(String.valueOf(ORDER_NUMBER));//Creating new Unique node
+        final DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference().child("Shop Keeper Orders").child(String.valueOf(ORDER_NUMBER));//Creating new Unique node
 
 
         final String saveCurrentDate, saveCurrentTime;
@@ -150,6 +157,16 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         orderMap.put("name", Prevalent.currentOnlineUser.getName());
         orderMap.put("receiver_phone", phoneEditText.getText().toString());
         orderMap.put("delivery_address", delivery_address.getText().toString());
+        orderMap.put("additional comments", additional_comments.getText().toString());
+        orderMap.put("shop number", Prevalent.currentOnlineUser.getPhone());
+        if(radioGroup.getCheckedRadioButtonId() == R.id.delivery_option_1)
+        {
+            orderMap.put("delivery method", "Cash on delivery");
+        }
+        else
+        {
+            orderMap.put("delivery method", "Digital payment");
+        }
         orderMap.put("date", saveCurrentDate);
         orderMap.put("time", saveCurrentTime);
         orderMap.put("state", "Pending");
@@ -162,7 +179,6 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
                 if(task.isSuccessful())
                 {
-
                     FirebaseDatabase.getInstance().getReference().child("Cart List")
                             .child(Prevalent.currentOnlineUser.getPhone())
                             .removeValue()

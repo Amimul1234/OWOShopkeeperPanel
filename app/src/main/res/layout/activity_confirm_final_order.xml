@@ -1,111 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".shopKeeperPanel.ConfirmFinalOrderActivity">
 
-    <TextView
-        android:id="@+id/txt"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/write_your_shipment_details"
-        android:textSize="25dp"
-        android:textColor="@color/blue"
-        android:layout_margin="25dp"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        />
+        android:layout_height="match_parent"
+        >
+        <TextView
+            android:id="@+id/txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/write_your_shipment_details"
+            android:textSize="25dp"
+            android:textColor="@color/blue"
+            android:layout_margin="25dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            />
 
 
-    <TextView
-        android:id="@+id/tag1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mobile Number"
-        android:layout_below="@+id/txt"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="15dp"/>
+        <TextView
+            android:id="@+id/tag1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mobile Number"
+            android:layout_below="@+id/txt"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="15dp"/>
 
 
-    <EditText
-        android:id="@+id/shipment_phone_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tag1"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:hint="@string/mobile_number"
-        android:background="@drawable/edit_text_black"
-        android:padding="12dp"
-        android:inputType="phone"
-        android:maxLength="11"
-        android:textSize="20sp"
-        android:layout_marginBottom="15dp"
-        />
+        <EditText
+            android:id="@+id/shipment_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tag1"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/mobile_number"
+            android:background="@drawable/edit_text_black"
+            android:padding="12dp"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:textSize="20sp"
+            android:layout_marginBottom="15dp"
+            />
 
-    <TextView
-        android:id="@+id/tag2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delivery Location"
-        android:layout_below="@+id/shipment_phone_number"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="15dp"/>
+        <TextView
+            android:id="@+id/tag2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delivery Location(Optional)"
+            android:layout_below="@+id/shipment_phone_number"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="15dp"/>
 
-    <EditText
-        android:id="@+id/delivery_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tag2"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:hint="@string/delivery_location"
-        android:background="@drawable/edit_text_black"
-        android:padding="12dp"
-        android:textSize="20sp"
-        android:layout_marginBottom="15dp"
-        />
+        <EditText
+            android:id="@+id/delivery_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tag2"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/delivery_location"
+            android:background="@drawable/edit_text_black"
+            android:padding="12dp"
+            android:textSize="20sp"
+            android:layout_marginBottom="15dp"
+            />
 
-    <Button
-        android:id="@+id/confirm_final_order_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="40dp"
-        android:text="@string/confirm"
-        android:background="@drawable/buttons_blue"
-        android:textColor="#FFFFFF"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:padding="8dp"
-        />
 
-    <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
-        android:id="@+id/loader"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:alliance_animDuration="500"
-        app:alliance_distanceMultiplier="4"
-        app:alliance_dotsRadius="20dp"
-        app:alliance_firstDotsColor="@color/red"
-        app:alliance_secondDotsColor="@color/green"
-        app:alliance_strokeWidth="8dp"
-        app:alliance_thirdDotsColor="@color/blue"
-        android:layout_centerInParent="true"/>
+        <TextView
+            android:id="@+id/tag3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Write additional comments"
+            android:layout_below="@+id/delivery_address"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="15dp"/>
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/additional_comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tag3"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Additional comments"
+            android:background="@drawable/edit_text_black"
+            android:padding="12dp"
+            android:textSize="20sp"
+            android:layout_marginBottom="15dp"
+            />
+
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/additional_comments"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            >
+
+
+        <RadioButton
+            android:id="@+id/delivery_option_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cash on delivery"
+            android:layout_marginStart="15dp"
+            android:checked="true"
+            android:textSize="18sp"/>
+
+        <RadioButton
+            android:id="@+id/delivery_option_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Digital payment"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
+            android:textSize="18sp"/>
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/confirm_final_order_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="25dp"
+            android:layout_below="@id/radio_group"
+            android:text="@string/confirm"
+            android:background="@drawable/buttons_blue"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:padding="8dp"
+            />
+
+        <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
+            android:id="@+id/loader"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:alliance_animDuration="500"
+            app:alliance_distanceMultiplier="4"
+            app:alliance_dotsRadius="20dp"
+            app:alliance_firstDotsColor="@color/red"
+            app:alliance_secondDotsColor="@color/green"
+            app:alliance_strokeWidth="8dp"
+            app:alliance_thirdDotsColor="@color/blue"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+</ScrollView>
