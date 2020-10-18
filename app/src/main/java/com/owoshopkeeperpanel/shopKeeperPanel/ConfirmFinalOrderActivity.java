@@ -46,7 +46,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
     private ArrayList<Cart> carts;
     int ORDER_NUMBER = 0;
     private Double discounted_price;
-    String p = "";
+    int p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +108,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
         final DatabaseReference orderNumber = FirebaseDatabase.getInstance().getReference();
 
-        Query query = orderNumber.child("Shop Keeper Orders").orderByKey().limitToLast(1);//Checking for the last shop_management_order
+        Query query = orderNumber.child("Shop Order Number");//Checking for the last shop_management_order
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -117,14 +117,25 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
                 if(snapshot.exists())
                 {
-                    for(DataSnapshot ids : snapshot.getChildren())//key is retrieved by iteration because we have kept key under number
-                    {
-                        p = ids.getKey();
-                    }
-
-                    ORDER_NUMBER = Integer.parseInt(p) + 1;
+                    p = snapshot.getValue(Integer.class);
+                    ORDER_NUMBER = p + 1;
+                    orderNumber.child("Shop Order Number").setValue(ORDER_NUMBER).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            ConfirmOrder(ordered_products);
+                        }
+                    });
                 }
-                ConfirmOrder(ordered_products);
+                else
+                {
+                    orderNumber.child("Shop Order Number").setValue(ORDER_NUMBER).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            ConfirmOrder(ordered_products);
+                        }
+                    });
+                }
+
             }
 
             @Override
@@ -187,7 +198,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful())
                                     {
-                                        Toast.makeText(ConfirmFinalOrderActivity.this, "Your shop_management_order has been placed successfully", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ConfirmFinalOrderActivity.this, "Your order has been placed successfully", Toast.LENGTH_SHORT).show();
 
                                         Intent intent = new Intent(ConfirmFinalOrderActivity.this, HomeActivity.class);
                                         startActivity(intent);

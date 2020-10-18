@@ -85,8 +85,9 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha05'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha06'
 
-    compile 'com.github.badoualy:stepper-indicator:1.0.7'
+    implementation 'com.github.badoualy:stepper-indicator:1.0.7'
 
+    implementation 'com.daasuu:CountAnimationTextView:0.1.2'
 }
