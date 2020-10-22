@@ -74,7 +74,7 @@ public class Order_list extends AppCompatActivity {
 
         final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference();
 
-        Query query = cartListRef.child("Shop Keeper Orders").child(Prevalent.currentOnlineUser.getPhone()).orderByValue();
+        Query query = cartListRef.child("Shop Keeper Orders").orderByChild("shop_number").equalTo(Prevalent.currentOnlineUser.getPhone());
 
         FirebaseRecyclerOptions<Ordered_products_model> options =
                 new FirebaseRecyclerOptions.Builder<Ordered_products_model>()

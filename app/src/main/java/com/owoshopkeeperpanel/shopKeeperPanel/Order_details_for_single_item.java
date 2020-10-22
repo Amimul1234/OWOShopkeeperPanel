@@ -23,7 +23,7 @@ public class Order_details_for_single_item extends AppCompatActivity {
     private StepperIndicator stepperIndicator;
     private RecyclerView ordered_products;
     private TextView total_taka, discount_taka,
-            sub_total, shipping_address, mobile_number;
+            sub_total, shipping_address, mobile_number, shipping_method, additonal_comments;
 
     private ImageView back_button;
 
@@ -51,6 +51,8 @@ public class Order_details_for_single_item extends AppCompatActivity {
         shipping_address = findViewById(R.id.shipping_address);
         mobile_number = findViewById(R.id.mobile_number);
         back_button = findViewById(R.id.back_from_order_details);
+        shipping_method = findViewById(R.id.shipping_method);
+        additonal_comments = findViewById(R.id.additional_comments);
 
         Ordered_item_adapter adapter = new Ordered_item_adapter(this, ordered_products_list);
         ordered_products.setLayoutManager(new LinearLayoutManager(this));
@@ -66,9 +68,12 @@ public class Order_details_for_single_item extends AppCompatActivity {
         shipping_address.setText(ordered_products_model.getDelivery_address());
         mobile_number.setText(ordered_products_model.getReceiver_phone());
 
+        shipping_method.setText(ordered_products_model.getDelivery_method());
+        additonal_comments.setText(ordered_products_model.getAdditional_comments());
+
         stepperIndicator.setLabels(new String[]{"Pending", "Confirmed", "Processing", "Picked", "Shipped", "Delivered"});
 
-        String[] states = new String[6];
+        String[] states = new String[7];
 
         states[0] = "Pending";
         states[1] = "Confirmed";
@@ -76,6 +81,7 @@ public class Order_details_for_single_item extends AppCompatActivity {
         states[3] = "Picked";
         states[4] = "Shipped";
         states[5] = "Delivered";
+        states[6] = "Cancelled";
 
         int counter = 0;
 
@@ -84,11 +90,18 @@ public class Order_details_for_single_item extends AppCompatActivity {
             if(states[i].equals(ordered_products_model.getState()))
             {
                 stepperIndicator.setCurrentStep(i+1);
+                stepperIndicator.setShowDoneIcon(true);
                 break;
             }
         }
 
-        stepperIndicator.setShowDoneIcon(true);
+        if(states[6].equals(ordered_products_model.getState()))
+        {
+            stepperIndicator.setCurrentStep(6);
+            stepperIndicator.setShowDoneIcon(false);
+        }
+
+
 
 
         back_button.setOnClickListener(new View.OnClickListener() {

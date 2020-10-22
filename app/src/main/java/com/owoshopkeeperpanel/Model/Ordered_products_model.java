@@ -1,38 +1,58 @@
 package com.owoshopkeeperpanel.Model;
 
+import com.owoshopkeeperpanel.Model.Ordered_products;
+
 import java.io.Serializable;
 import java.util.List;
 
-public class Ordered_products_model implements Serializable {
-    private String date, delivery_address,
-        name,  order_number, receiver_phone, state, time, totalAmount, shop_name;
-
-    private Double coupon_discount;
-
+public class Ordered_products_model implements Serializable{
+    private String additional_comments;
+    private String delivery_method;
+    private double coupon_discount;
+    private String date, delivery_address, name, order_number;
     private List<Ordered_products> product_ids;
+    private String receiver_phone, shop_number, state, time, totalAmount;
 
     public Ordered_products_model() {
     }
 
-    public Ordered_products_model(Double coupon_discount, String date, String delivery_address, String name, String order_number, String receiver_phone, String state, String time, String totalAmount, String shop_name, List<Ordered_products> product_ids) {
+    public Ordered_products_model(String additional_comments, String delivery_method, double coupon_discount, String date, String delivery_address, String name, String order_number, List<Ordered_products> product_ids, String receiver_phone, String shop_number, String state, String time, String totalAmount) {
+        this.additional_comments = additional_comments;
+        this.delivery_method = delivery_method;
         this.coupon_discount = coupon_discount;
         this.date = date;
         this.delivery_address = delivery_address;
         this.name = name;
         this.order_number = order_number;
+        this.product_ids = product_ids;
         this.receiver_phone = receiver_phone;
+        this.shop_number = shop_number;
         this.state = state;
         this.time = time;
         this.totalAmount = totalAmount;
-        this.shop_name = shop_name;
-        this.product_ids = product_ids;
     }
 
-    public Double getCoupon_discount() {
+    public String getAdditional_comments() {
+        return additional_comments;
+    }
+
+    public void setAdditional_comments(String additional_comments) {
+        this.additional_comments = additional_comments;
+    }
+
+    public String getDelivery_method() {
+        return delivery_method;
+    }
+
+    public void setDelivery_method(String delivery_method) {
+        this.delivery_method = delivery_method;
+    }
+
+    public double getCoupon_discount() {
         return coupon_discount;
     }
 
-    public void setCoupon_discount(Double coupon_discount) {
+    public void setCoupon_discount(double coupon_discount) {
         this.coupon_discount = coupon_discount;
     }
 
@@ -68,12 +88,28 @@ public class Ordered_products_model implements Serializable {
         this.order_number = order_number;
     }
 
+    public List<Ordered_products> getProduct_ids() {
+        return product_ids;
+    }
+
+    public void setProduct_ids(List<Ordered_products> product_ids) {
+        this.product_ids = product_ids;
+    }
+
     public String getReceiver_phone() {
         return receiver_phone;
     }
 
     public void setReceiver_phone(String receiver_phone) {
         this.receiver_phone = receiver_phone;
+    }
+
+    public String getShop_number() {
+        return shop_number;
+    }
+
+    public void setShop_number(String shop_number) {
+        this.shop_number = shop_number;
     }
 
     public String getState() {
@@ -98,21 +134,5 @@ public class Ordered_products_model implements Serializable {
 
     public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
-    }
-
-    public List<Ordered_products> getProduct_ids() {
-        return product_ids;
-    }
-
-    public void setProduct_ids(List<Ordered_products> product_ids) {
-        this.product_ids = product_ids;
-    }
-
-    public String getShop_name() {
-        return shop_name;
-    }
-
-    public void setShop_name(String shop_name) {
-        this.shop_name = shop_name;
     }
 }

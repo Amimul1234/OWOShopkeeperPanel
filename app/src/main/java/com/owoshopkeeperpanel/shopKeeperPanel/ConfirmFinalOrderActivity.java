@@ -168,15 +168,15 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         orderMap.put("name", Prevalent.currentOnlineUser.getName());
         orderMap.put("receiver_phone", phoneEditText.getText().toString());
         orderMap.put("delivery_address", delivery_address.getText().toString());
-        orderMap.put("additional comments", additional_comments.getText().toString());
-        orderMap.put("shop number", Prevalent.currentOnlineUser.getPhone());
+        orderMap.put("additional_comments", additional_comments.getText().toString());
+        orderMap.put("shop_number", Prevalent.currentOnlineUser.getPhone());
         if(radioGroup.getCheckedRadioButtonId() == R.id.delivery_option_1)
         {
-            orderMap.put("delivery method", "Cash on delivery");
+            orderMap.put("delivery_method", "Cash on delivery");
         }
         else
         {
-            orderMap.put("delivery method", "Digital payment");
+            orderMap.put("delivery_method", "Digital payment");
         }
         orderMap.put("date", saveCurrentDate);
         orderMap.put("time", saveCurrentTime);

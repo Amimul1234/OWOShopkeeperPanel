@@ -88,6 +88,29 @@
 
             </RelativeLayout>
 
+
+            <TextView
+                android:id="@+id/tagline_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Shipping method"
+                android:layout_below="@id/relative_layout_1"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:id="@+id/shipping_method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tagline_5"
+                android:text="Cash on delivery"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/blue"
+                android:layout_marginBottom="15dp"/>
+
+
             <RelativeLayout
                 android:id="@+id/relative_layout_2"
                 android:layout_width="match_parent"
@@ -95,7 +118,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
-                android:layout_below="@id/relative_layout_1">
+                android:layout_below="@id/shipping_method">
 
                 <TextView
                     android:id="@+id/tagbar_2"
@@ -261,12 +284,36 @@
                 android:layout_below="@id/relative_layout_5"/>
 
 
+
+            <TextView
+                android:id="@+id/tagline_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Additional Comments"
+                android:layout_below="@id/divider_view_3"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"/>
+
+
+            <TextView
+                android:id="@+id/additional_comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Additional comments goes here"
+                android:layout_below="@id/tagline_4"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/red"/>
+
+
             <TextView
                 android:id="@+id/tagline_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Bill To"
-                android:layout_below="@id/divider_view_3"
+                android:layout_below="@id/additional_comments"
                 android:textSize="20sp"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp"

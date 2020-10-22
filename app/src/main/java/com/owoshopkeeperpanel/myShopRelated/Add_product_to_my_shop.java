@@ -59,9 +59,12 @@ public class Add_product_to_my_shop extends AppCompatActivity {
     }
 
     private void fetchForPurchasedProducts() { //This is for fetching purchased products
+
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
-        Query query = RootRef.child("Shop Keeper Orders").child(Prevalent.currentOnlineUser.getPhone());
+
+        Query query = RootRef.child("Shop Keeper Orders");
+
         query.orderByChild("state").equalTo("Delivered").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
