@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Network.RetrofitClient;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Response.SingleProductResponse;
@@ -34,9 +34,9 @@ public class BridgeofCartAndProduct extends AppCompatActivity {
                 if (response.body() != null) {
                     if(!response.body().error)
                     {
-                        Products clicked_products = response.body().products;
+                        Owo_product clicked_owoproduct = response.body().owoproduct;
                         Intent intent = new Intent(BridgeofCartAndProduct.this, ProductDetailsActivity.class);
-                        intent.putExtra("Products", clicked_products);
+                        intent.putExtra("Products", clicked_owoproduct);
                         startActivity(intent);
                         finish();
                     }

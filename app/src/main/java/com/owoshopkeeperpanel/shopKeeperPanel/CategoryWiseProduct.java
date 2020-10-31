@@ -5,9 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -23,7 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Model.Sub_categories;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.adapters.ItemAdapterCategory;
@@ -120,12 +117,10 @@ public class CategoryWiseProduct extends AppCompatActivity {
     }
 
     public void getProducts() {
-
         itemViewModelCategory = new ItemViewModelCategory(category);
-
-        itemViewModelCategory.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
+        itemViewModelCategory.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
             @Override
-            public void onChanged(@Nullable PagedList<Products> items) {
+            public void onChanged(@Nullable PagedList<Owo_product> items) {
                 adapter.submitList(items);
                 showOnRecyclerView();
             }
@@ -133,9 +128,7 @@ public class CategoryWiseProduct extends AppCompatActivity {
     }
 
     private void showOnRecyclerView() {
-
         recyclerView.setHasFixedSize(true);
-
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
         ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override

@@ -1,19 +1,13 @@
 package com.owoshopkeeperpanel.shopKeeperPanel;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -22,10 +16,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
-import com.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.adapters.Product_tag;
@@ -275,9 +268,9 @@ public class SearchActivity extends AppCompatActivity {
 
             itemViewModelSearch = new ItemViewModelSearch(category, query);//Refreshing the model for new filtration
 
-            itemViewModelSearch.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
+            itemViewModelSearch.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
                 @Override
-                public void onChanged(@Nullable PagedList<Products> items) {
+                public void onChanged(@Nullable PagedList<Owo_product> items) {
                     adapter.submitList(items);
                     showOnRecyclerView();
                 }
@@ -289,9 +282,9 @@ public class SearchActivity extends AppCompatActivity {
         {
             itemViewModelSearchDesc = new ItemViewModelSearchDesc(category, query);
 
-            itemViewModelSearchDesc.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
+            itemViewModelSearchDesc.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
                 @Override
-                public void onChanged(@Nullable PagedList<Products> items) {
+                public void onChanged(@Nullable PagedList<Owo_product> items) {
                     adapter.submitList(items);
                     showOnRecyclerView();
                 }

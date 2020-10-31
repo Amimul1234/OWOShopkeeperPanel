@@ -5,16 +5,15 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 
-import com.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Network.RetrofitClient;
 import com.owoshopkeeperpanel.Response.OwoApiResponse;
-import com.owoshopkeeperpanel.shopKeeperPanel.HomeActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ItemDataSource extends PageKeyedDataSource<Integer, Products> {
+public class ItemDataSource extends PageKeyedDataSource<Integer, Owo_product> {
 
     private static final int FIRST_PAGE = 0;
     private String[] categories;
@@ -24,7 +23,7 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, Products> {
     }
 
     @Override
-    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Products> callback) {
+    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Owo_product> callback) {
 
         RetrofitClient.getInstance()//Calling the getProductApi
                 .getApi()
@@ -32,23 +31,21 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, Products> {
                 .enqueue(new Callback<OwoApiResponse>() {
                     @Override
                     public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {
-
-                        if(response.body() != null){
-
+                        if(response.isSuccessful()){
                             callback.onResult(response.body().products, null, FIRST_PAGE+1);//(First page +1) is representing next page
                         }
                     }
 
                     @Override
                     public void onFailure(Call<OwoApiResponse> call, Throwable t) {
-
+                        Log.d("Error msg", t.getMessage());
                     }
                 });
 
     }
 
     @Override
-    public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Products> callback) {
+    public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Owo_product> callback) {
 
         RetrofitClient.getInstance()
                 .getApi()
@@ -56,8 +53,7 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, Products> {
                 .enqueue(new Callback<OwoApiResponse>() {
                     @Override
                     public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {
-
-                        if(response.body() != null){
+                        if(response.isSuccessful()){
                             Integer key = (params.key > 0) ? params.key - 1 : null;
                             callback.onResult(response.body().products, key);
                         }
@@ -65,23 +61,21 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, Products> {
 
                     @Override
                     public void onFailure(Call<OwoApiResponse> call, Throwable t) {
-
+                        Log.d("Error msg", t.getMessage());
                     }
                 });
 
     }
 
     @Override
-    public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Products> callback) {
-
+    public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Owo_product> callback) {
         RetrofitClient.getInstance()
                 .getApi()
                 .getProducts(params.key, categories)
                 .enqueue(new Callback<OwoApiResponse>() {
                     @Override
                     public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {
-
-                        if(response.body() != null){
+                        if(response.isSuccessful()){
                             if(params.key < 12)
                             {
                                 Log.d("loadAfter", String.valueOf(params.key));
@@ -94,13 +88,10 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, Products> {
                         }
 
                     }
-
                     @Override
                     public void onFailure(Call<OwoApiResponse> call, Throwable t) {
-
+                        Log.d("Error msg", t.getMessage());
                     }
                 });
-
-
     }
 }

@@ -23,7 +23,7 @@
     <string-array name="productCategory">
         <item>Bags and Luggage</item>
         <item>Beauty and Bodycare</item>
-        <item>Books and Stationery</item>
+        <item>Books and Stationary</item>
         <item>Construction Materials</item>
         <item>Decoration Materials</item>
         <item>Digital Goods</item>
@@ -158,7 +158,7 @@
     <string name="i_accept_all_the">I accept all the</string>
     <string name="terms_and_conditions">Terms and Conditions</string>
     <string name="create_account">Create Account</string>
-    <string name="products">Products</string>
+    <string name="owoproduct">Products</string>
     <string name="full_name">Full Name</string>
     <string name="update_information">Update Information</string>
     <string name="do_you_really_want_to_leave">Do you really want to leave?</string>
@@ -184,7 +184,7 @@
 
     <string-array name="shop_management">
         <item>Add a new product</item>
-        <item>View products</item>
+        <item>View owoproduct</item>
         <item>Add a new offer</item>
         <item>View offers</item>
         <item>Pending Orders</item>

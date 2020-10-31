@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                                 {
                                     List<String> permitted = new ArrayList<>();
 
-                                    permitted = (List<String>) snapshot.child(phone).getValue();
+                                    permitted = (List<String>) snapshot.child(phone).child("permissions").getValue();
 
                                     Prevalent.category_to_display = permitted;
 

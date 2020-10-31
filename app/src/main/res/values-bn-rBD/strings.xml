@@ -55,7 +55,7 @@
     <string-array name="productCategory">
         <item>Bags and Luggage</item>
         <item>Beauty and Bodycare</item>
-        <item>Books and Stationery</item>
+        <item>Books and Stationary</item>
         <item>Construction Materials</item>
         <item>Decoration Materials</item>
         <item>Digital Goods</item>
@@ -164,7 +164,7 @@
     <string name="i_accept_all_the">আমি মেনে নিচ্ছি</string>
     <string name="terms_and_conditions">সকল শর্তসমূহ</string>
     <string name="create_account">একাউন্ট তৈরি করুন</string>
-    <string name="products">পণ্যসামগ্রী</string>
+    <string name="owoproduct">পণ্যসামগ্রী</string>
     <string name="full_name">পুরো নাম</string>
     <string name="update_information">তথ্যগুলো আপডেট করুন</string>
     <string name="do_you_really_want_to_leave">আপনি কি সত্যি এ্যাপটি থেকে বের হতে চান ?</string>

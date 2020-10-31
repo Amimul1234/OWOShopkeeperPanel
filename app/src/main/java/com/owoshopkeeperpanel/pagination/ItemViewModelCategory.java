@@ -6,13 +6,13 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PageKeyedDataSource;
 import androidx.paging.PagedList;
 
-import com.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.Model.Owo_product;
 
 
 public class ItemViewModelCategory extends ViewModel {
 
-    public LiveData<PagedList<Products>> itemPagedList;
-    LiveData<PageKeyedDataSource<Integer, Products>> liveDataSource;
+    public LiveData<PagedList<Owo_product>> itemPagedList;
+    LiveData<PageKeyedDataSource<Integer, Owo_product>> liveDataSource;
 
     public ItemViewModelCategory(String category) {
 
@@ -21,7 +21,7 @@ public class ItemViewModelCategory extends ViewModel {
 
         PagedList.Config config =
                 (new PagedList.Config.Builder())
-                        .setPageSize(30)
+                        .setPageSize(10)
                         .setEnablePlaceholders(false)
                         .build();
 

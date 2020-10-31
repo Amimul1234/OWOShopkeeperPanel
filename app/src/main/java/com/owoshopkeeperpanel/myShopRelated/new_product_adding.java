@@ -6,12 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Model.add_product_model;
 import com.owoshopkeeperpanel.Network.RetrofitClient;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Response.SingleProductResponse;
-import com.owoshopkeeperpanel.shopKeeperPanel.ProductDetailsActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,10 +36,10 @@ public class new_product_adding extends AppCompatActivity {
                 if (response.body() != null) {
                     if(!response.body().error)
                     {
-                        Products clicked_products = response.body().products;
+                        Owo_product clicked_owoproduct = response.body().owoproduct;
 
-                        add_product_model add_product_model = new add_product_model(clicked_products.getProduct_id(), clicked_products.getProduct_price(),
-                                clicked_products.getProduct_image(), clicked_products.getProduct_name(), quantity, clicked_products.getProduct_description());
+                        add_product_model add_product_model = new add_product_model(clicked_owoproduct.getProduct_id(), clicked_owoproduct.getProduct_price(),
+                                clicked_owoproduct.getProduct_image(), clicked_owoproduct.getProduct_name(), quantity, clicked_owoproduct.getProduct_description());
 
                         Intent intent = new Intent(new_product_adding.this, add_product_to_shop.class);
                         intent.putExtra("add_product_model", add_product_model);

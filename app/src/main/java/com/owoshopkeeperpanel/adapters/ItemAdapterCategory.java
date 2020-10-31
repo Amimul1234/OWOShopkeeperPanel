@@ -17,11 +17,11 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.R;
-import com.owoshopkeeperpanel.Model.Products;
 import com.owoshopkeeperpanel.shopKeeperPanel.ProductDetailsActivity;
 
-public class ItemAdapterCategory extends PagedListAdapter<Products, RecyclerView.ViewHolder>{
+public class ItemAdapterCategory extends PagedListAdapter<Owo_product, RecyclerView.ViewHolder>{
 
     private Context mCtx;
 
@@ -41,7 +41,7 @@ public class ItemAdapterCategory extends PagedListAdapter<Products, RecyclerView
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
-        Products item = getItem(position);
+        Owo_product item = getItem(position);
 
         if (item != null) {
 
@@ -53,12 +53,12 @@ public class ItemAdapterCategory extends PagedListAdapter<Products, RecyclerView
             itemViewHolder.txtProductPrice.setPaintFlags(itemViewHolder.txtProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             itemViewHolder.txtProductPrice.setVisibility(View.VISIBLE);
 
-            double discounted_price = item.getProduct_price() - Double.parseDouble(item.getProduct_discount());
+            double discounted_price = item.getProduct_price() - item.getProduct_discount();
 
             itemViewHolder.txtProduct_discounted_price.setText("৳ "+ String.valueOf(discounted_price));
 
 
-            double percentage = (Double.parseDouble(item.getProduct_discount()) / item.getProduct_price()) * 100.00;
+            double percentage = (item.getProduct_discount() / item.getProduct_price()) * 100.00;
 
             int val = (int) percentage;
             itemViewHolder.discounted_percent.setText(String.valueOf(val) + " % ");
@@ -71,15 +71,15 @@ public class ItemAdapterCategory extends PagedListAdapter<Products, RecyclerView
 
     }
 
-    private static DiffUtil.ItemCallback<Products> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<Products>() {
+    private static DiffUtil.ItemCallback<Owo_product> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<Owo_product>() {
                 @Override
-                public boolean areItemsTheSame(Products oldItem, Products newItem) {
+                public boolean areItemsTheSame(Owo_product oldItem, Owo_product newItem) {
                     return oldItem.getProduct_id() == newItem.getProduct_id();
                 }
 
                 @Override
-                public boolean areContentsTheSame(Products oldItem, Products newItem) {
+                public boolean areContentsTheSame(Owo_product oldItem, Owo_product newItem) {
                     return true;
                 }
             };
@@ -115,9 +115,9 @@ public class ItemAdapterCategory extends PagedListAdapter<Products, RecyclerView
 
         @Override
         public void onClick(View v) {
-            Products products = getItem(getBindingAdapterPosition());
+            Owo_product owoproduct = getItem(getBindingAdapterPosition());
             Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
-            intent.putExtra("Products", products);
+            intent.putExtra("Products", owoproduct);
             mCtx.startActivity(intent);
         }
     }

@@ -1,19 +1,11 @@
 package com.owoshopkeeperpanel.shopKeeperPanel;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.LocaleList;
-import android.text.SpannableString;
-import android.text.style.TextAppearanceSpan;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -27,14 +19,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.os.ConfigurationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -45,24 +33,21 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Model.Offers;
-import com.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.adapters.CategoryAdapter;
 import com.owoshopkeeperpanel.adapters.ImageFlipperAdapter;
 import com.owoshopkeeperpanel.adapters.ItemAdapter;
 import com.owoshopkeeperpanel.adapters.Product_tag;
 import com.owoshopkeeperpanel.pagination.ItemViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.owoshopkeeperpanel.pagination.ItemViewModelCategory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -90,6 +75,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         searchBar = findViewById(R.id.search_product);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        adapter = new ItemAdapter(this);
 
         getProducts();
 
@@ -249,7 +236,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     public void getProducts() {
 
-        adapter = new ItemAdapter(this);
         imageFlipperAdapter = new ImageFlipperAdapter(this, images);
 
         int size = Prevalent.category_to_display.size();
@@ -263,9 +249,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         itemViewModel = new ItemViewModel(categories);
 
-        itemViewModel.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
+        itemViewModel.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
             @Override
-            public void onChanged(@Nullable PagedList<Products> items) {
+            public void onChanged(@Nullable PagedList<Owo_product> items) {
                 adapter.submitList(items);
                 showOnRecyclerView();
             }
@@ -273,9 +259,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showOnRecyclerView() {
-
         recyclerView.setHasFixedSize(true);
-
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
         ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override

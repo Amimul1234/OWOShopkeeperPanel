@@ -1,7 +1,6 @@
 package com.owoshopkeeperpanel.shopKeeperPanel;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,21 +16,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.firebase.ui.database.SnapshotParser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.ViewHolder.wishListItemHolder;
@@ -75,16 +68,16 @@ public class WishList extends AppCompatActivity {
 
         Query query = cartListRef.child("Wish List").child(Prevalent.currentOnlineUser.getPhone()).orderByValue();
 
-        FirebaseRecyclerOptions<Products> options =
-                new FirebaseRecyclerOptions.Builder<Products>()
-                        .setQuery(query, Products.class).build();
+        FirebaseRecyclerOptions<Owo_product> options =
+                new FirebaseRecyclerOptions.Builder<Owo_product>()
+                        .setQuery(query, Owo_product.class).build();
 
 
-        FirebaseRecyclerAdapter<Products, wishListItemHolder> adapter
-                = new FirebaseRecyclerAdapter<Products, wishListItemHolder>(options) {
+        FirebaseRecyclerAdapter<Owo_product, wishListItemHolder> adapter
+                = new FirebaseRecyclerAdapter<Owo_product, wishListItemHolder>(options) {
 
             @Override
-            protected void onBindViewHolder(@NonNull final wishListItemHolder holder, int position, @NonNull final Products model) {
+            protected void onBindViewHolder(@NonNull final wishListItemHolder holder, int position, @NonNull final Owo_product model) {
 
                 Glide.with(WishList.this).load(model.getProduct_image()).into(holder.product_image);
 

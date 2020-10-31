@@ -6,13 +6,13 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PageKeyedDataSource;
 import androidx.paging.PagedList;
 
-import com.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.Model.Owo_product;
 
 
 public class ItemViewModelSearchDesc extends ViewModel {
 
-    public LiveData<PagedList<Products>> itemPagedList;
-    private LiveData<PageKeyedDataSource<Integer, Products>> liveDataSource;
+    public LiveData<PagedList<Owo_product>> itemPagedList;
+    private LiveData<PageKeyedDataSource<Integer, Owo_product>> liveDataSource;
 
     public ItemViewModelSearchDesc(String[] categories, String searchedProduct) {
 

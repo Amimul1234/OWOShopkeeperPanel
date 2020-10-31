@@ -1,12 +1,12 @@
 package com.owoshopkeeperpanel.Response;
 
 
-import com.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.Model.Owo_product;
 
 import java.util.List;
 
 public class OwoApiResponse{
-    public Boolean error;
-    public List<Products> products;
+    public boolean error;
+    public List<Owo_product> products;
 }
 

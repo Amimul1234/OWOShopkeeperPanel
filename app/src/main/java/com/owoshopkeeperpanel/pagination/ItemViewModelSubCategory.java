@@ -5,12 +5,13 @@ import androidx.lifecycle.ViewModel;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PageKeyedDataSource;
 import androidx.paging.PagedList;
-import com.owoshopkeeperpanel.Model.Products;
+
+import com.owoshopkeeperpanel.Model.Owo_product;
 
 public class ItemViewModelSubCategory extends ViewModel {
 
-    public LiveData<PagedList<Products>> itemPagedList;
-    LiveData<PageKeyedDataSource<Integer, Products>> liveDataSource;
+    public LiveData<PagedList<Owo_product>> itemPagedList;
+    LiveData<PageKeyedDataSource<Integer, Owo_product>> liveDataSource;
 
     public ItemViewModelSubCategory(String category) {
 

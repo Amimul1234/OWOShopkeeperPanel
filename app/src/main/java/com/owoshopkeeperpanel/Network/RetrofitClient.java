@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "http://192.168.0.3/OwoDokan/public/"; //should always change while using outside network
+    private static final String BASE_URL = "http://192.168.0.9:8585"; //should always change while using outside network
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
 

@@ -3,14 +3,15 @@ package com.owoshopkeeperpanel.pagination;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
-import com.owoshopkeeperpanel.Model.Products;
+
+import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Network.RetrofitClient;
 import com.owoshopkeeperpanel.Response.OwoApiResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ItemDataSourceSubCategory extends PageKeyedDataSource<Integer, Products> {
+public class ItemDataSourceSubCategory extends PageKeyedDataSource<Integer, Owo_product> {
 
     private static final int FIRST_PAGE = 0;
     private String category;
@@ -20,7 +21,7 @@ public class ItemDataSourceSubCategory extends PageKeyedDataSource<Integer, Prod
     }
 
     @Override
-    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Products> callback) {
+    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Owo_product> callback) {
 
         RetrofitClient.getInstance()//Calling the getProductApi
                 .getApi()
@@ -44,7 +45,7 @@ public class ItemDataSourceSubCategory extends PageKeyedDataSource<Integer, Prod
     }
 
     @Override
-    public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Products> callback) {
+    public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Owo_product> callback) {
 
         RetrofitClient.getInstance()
                 .getApi()
@@ -68,7 +69,7 @@ public class ItemDataSourceSubCategory extends PageKeyedDataSource<Integer, Prod
     }
 
     @Override
-    public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Products> callback) {
+    public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Owo_product> callback) {
 
         RetrofitClient.getInstance()
                 .getApi()

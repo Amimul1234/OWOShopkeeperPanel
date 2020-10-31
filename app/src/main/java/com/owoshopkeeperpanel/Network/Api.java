@@ -12,7 +12,7 @@ public interface Api {
     @GET("getProductByCategories")
     Call<OwoApiResponse> getProducts(
             @Query("page") int page,
-            @Query("product_category[]") String[] categories
+            @Query("product_categories") String[] categories
     );
 
     @GET("getProductBySubCategory")
@@ -25,19 +25,19 @@ public interface Api {
     Call<OwoApiResponse> searchProduct(
             @Query("page") int page,
             @Query("product_name") String product_name,
-            @Query("product_category[]") String[] categories
+            @Query("product_categories") String[] categories
     );
 
     @GET("searchProductDesc")
     Call<OwoApiResponse> searchProductDesc(
             @Query("page") int page,
             @Query("product_name") String product_name,
-            @Query("product_category[]") String[] categories
+            @Query("product_categories") String[] categories
     );
 
     @GET("getProductById")
     Call<SingleProductResponse> getProductById(
-            @Query("product_id") int product_id
+            @Query("id") int product_id
     );
 
     @GET("getProductByCategory")

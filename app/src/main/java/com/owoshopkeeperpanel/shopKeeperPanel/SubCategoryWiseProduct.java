@@ -1,13 +1,9 @@
 package com.owoshopkeeperpanel.shopKeeperPanel;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -17,25 +13,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.owoshopkeeperpanel.Model.Products;
-import com.owoshopkeeperpanel.Model.Sub_categories;
+
+import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.R;
-import com.owoshopkeeperpanel.adapters.ItemAdapterCategory;
 import com.owoshopkeeperpanel.adapters.ItemAdapterSubCategory;
 import com.owoshopkeeperpanel.adapters.Product_tag;
-import com.owoshopkeeperpanel.adapters.SubCategoryAdapter;
-import com.owoshopkeeperpanel.adapters.SubCategoryTag;
-import com.owoshopkeeperpanel.pagination.ItemViewModelCategory;
 import com.owoshopkeeperpanel.pagination.ItemViewModelSubCategory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SubCategoryWiseProduct extends AppCompatActivity {
 
@@ -47,8 +30,6 @@ public class SubCategoryWiseProduct extends AppCompatActivity {
     static public String category = null;
 
     private ItemViewModelSubCategory itemViewModelSubCategory;
-
-    int sub_category_size = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,12 +74,10 @@ public class SubCategoryWiseProduct extends AppCompatActivity {
     }
 
     public void getProducts() {
-
         itemViewModelSubCategory = new ItemViewModelSubCategory(category);
-
-        itemViewModelSubCategory.itemPagedList.observe(this, new Observer<PagedList<Products>>() {
+        itemViewModelSubCategory.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
             @Override
-            public void onChanged(@Nullable PagedList<Products> items) {
+            public void onChanged(@Nullable PagedList<Owo_product> items) {
                 adapter.submitList(items);
                 showOnRecyclerView();
             }
@@ -106,9 +85,7 @@ public class SubCategoryWiseProduct extends AppCompatActivity {
     }
 
     private void showOnRecyclerView() {
-
         recyclerView.setHasFixedSize(true);
-
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
         ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override

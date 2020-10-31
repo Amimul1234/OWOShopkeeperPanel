@@ -4,12 +4,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
 import androidx.paging.PageKeyedDataSource;
 
-import com.owoshopkeeperpanel.Model.Products;
+import com.owoshopkeeperpanel.Model.Owo_product;
 
 
 public class ItemDataSourceFactorySubCategory extends DataSource.Factory {
 
-    private MutableLiveData<PageKeyedDataSource<Integer, Products>> itemLiveDataSource = new MutableLiveData<>();
+    private MutableLiveData<PageKeyedDataSource<Integer, Owo_product>> itemLiveDataSource = new MutableLiveData<>();
     private String category;
 
     public ItemDataSourceFactorySubCategory(String category) {
@@ -23,7 +23,7 @@ public class ItemDataSourceFactorySubCategory extends DataSource.Factory {
         return itemDataSource;
     }
 
-    public MutableLiveData<PageKeyedDataSource<Integer, Products>> getItemLiveDataSource() {
+    public MutableLiveData<PageKeyedDataSource<Integer, Owo_product>> getItemLiveDataSource() {
         return itemLiveDataSource;
     }
 }
