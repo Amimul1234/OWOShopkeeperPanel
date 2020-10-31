@@ -76,7 +76,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productDescription.setText(owoproduct.getProduct_description());
         productPrice.setText(String.valueOf(owoproduct.getProduct_price()));
         productDiscount.setText(String.valueOf(owoproduct.getProduct_discount()));
-        productQuantity.setText(owoproduct.getProduct_quantity());
+        productQuantity.setText(String.valueOf(owoproduct.getProduct_quantity()));
         double price_with_discount = owoproduct.getProduct_price() - owoproduct.getProduct_discount();
         productPriceWithDiscount.setText(String.valueOf(price_with_discount));
 
