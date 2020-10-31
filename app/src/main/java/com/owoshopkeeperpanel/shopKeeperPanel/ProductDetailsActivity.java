@@ -33,7 +33,7 @@ import java.util.Calendar;
 public class ProductDetailsActivity extends AppCompatActivity {
 
     private ElegantNumberButton numberButton;
-    private TextView productPrice,productDiscount,productQuantity,productDescription,productPriceWithDiscount;
+    private TextView productPrice,productDiscount,productQuantity,productDescription,productPriceWithDiscount, product_brand_name;
     private Button addToCartBtn;
     private ImageView back_to_home,productImage, add_product_to_wishList;
     private CollapsingToolbarLayout collapsingToolbarLayout;
@@ -58,6 +58,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         add_product_to_wishList = findViewById(R.id.add_to_wishList);
         productPriceWithDiscount=findViewById(R.id.product_price_with_discount_details);
         addToCartBtn=findViewById(R.id.add_to_cart_button);
+        product_brand_name = findViewById(R.id.product_brand_name);
 
         allianceLoader = findViewById(R.id.loader);
 
@@ -79,6 +80,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productQuantity.setText(String.valueOf(owoproduct.getProduct_quantity()));
         double price_with_discount = owoproduct.getProduct_price() - owoproduct.getProduct_discount();
         productPriceWithDiscount.setText(String.valueOf(price_with_discount));
+        product_brand_name.setText(owoproduct.getProduct_brand());
 
         productImage.setOnClickListener(new View.OnClickListener() {
             @Override

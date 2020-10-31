@@ -97,6 +97,42 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/grey"/>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Brand"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="20dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/red"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/product_brand_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Apple"
+                    android:layout_marginStart="25dp"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="25dp"
+                android:background="@color/grey"/>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -123,8 +159,6 @@
                     android:background="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
-
-
             </LinearLayout>
 
 
