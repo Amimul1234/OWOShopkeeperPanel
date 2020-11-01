@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.owoshopkeeperpanel.Model.Owo_product;
-import com.owoshopkeeperpanel.Network.RetrofitClient;
+import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Response.SingleProductResponse;
 

@@ -23,8 +23,8 @@ import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.adapters.Product_tag;
 import com.owoshopkeeperpanel.adapters.SearchedAdapter;
-import com.owoshopkeeperpanel.pagination.ItemViewModelSearch;
-import com.owoshopkeeperpanel.pagination.ItemViewModelSearchDesc;
+import com.owoshopkeeperpanel.pagination.Search.ItemViewModelSearch;
+import com.owoshopkeeperpanel.pagination.SearchDesc.ItemViewModelSearchDesc;
 
 import java.util.ArrayList;
 import java.util.List;

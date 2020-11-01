@@ -22,6 +22,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.Observer;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.ConcatAdapter;
@@ -35,11 +37,10 @@ import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Model.Offers;
 import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
-import com.owoshopkeeperpanel.adapters.CategoryAdapter;
 import com.owoshopkeeperpanel.adapters.ImageFlipperAdapter;
 import com.owoshopkeeperpanel.adapters.ItemAdapter;
 import com.owoshopkeeperpanel.adapters.Product_tag;
-import com.owoshopkeeperpanel.pagination.ItemViewModel;
+import com.owoshopkeeperpanel.pagination.HomeItems.ItemViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -236,7 +237,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     public void getProducts() {
 
-        imageFlipperAdapter = new ImageFlipperAdapter(this, images);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Lifecycle lifecycle = getLifecycle();
+        imageFlipperAdapter = new ImageFlipperAdapter(this, images, fragmentManager, lifecycle);
 
         int size = Prevalent.category_to_display.size();
 
@@ -259,21 +262,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showOnRecyclerView() {
+
         recyclerView.setHasFixedSize(true);
+
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
         ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-
-                if(position == 0)
-                {
-                    return 6;
-                }
-                else if(position >= 1 && position <= Prevalent.category_to_display.size())
-                {
-                    return 2;
-                }
-                else if(position == Prevalent.category_to_display.size()+1)
+                if(position>=0 && position<2)
                 {
                     return 6;
                 }
@@ -284,8 +280,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         recyclerView.setLayoutManager(layoutManager);
         Product_tag product_tag = new Product_tag(getApplicationContext());
-        CategoryAdapter categoryAdapter = new CategoryAdapter(HomeActivity.this);// For showing categories
-        ConcatAdapter concatAdapter = new ConcatAdapter(imageFlipperAdapter, categoryAdapter, product_tag, adapter);
+        ConcatAdapter concatAdapter = new ConcatAdapter(imageFlipperAdapter, product_tag, adapter);
         recyclerView.setAdapter(concatAdapter);
         adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);

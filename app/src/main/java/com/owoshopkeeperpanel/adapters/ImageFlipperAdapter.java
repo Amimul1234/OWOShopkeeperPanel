@@ -12,9 +12,14 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.tabs.TabLayout;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.shopKeeperPanel.HomeActivity;
 import com.owoshopkeeperpanel.shopKeeperPanel.SearchActivity;
@@ -26,10 +31,14 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
 
     private Context mCtx;
     private List<String> images = new ArrayList<String>();
+    private FragmentManager fragmentManager;
+    private Lifecycle lifecycle;
 
-    public ImageFlipperAdapter(Context mCtx, List<String> images) {
+    public ImageFlipperAdapter(Context mCtx, List<String> images, FragmentManager fragmentManager, Lifecycle lifecycle) {
         this.mCtx = mCtx;
         this.images.addAll(images);
+        this.fragmentManager = fragmentManager;
+        this.lifecycle = lifecycle;
     }
 
     @NonNull
@@ -53,10 +62,43 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public ViewFlipper bannerFlipper;
+        public TabLayout tabLayout;
+        public ViewPager2 viewPager2;
+        public ViewPagerAdapter viewPagerAdapter;
 
-        public ViewHolder(@NonNull View itemView) {
+
+        public ViewHolder(@NonNull View itemView){
             super(itemView);
             bannerFlipper = itemView.findViewById(R.id.view_flipper_offer);
+
+            tabLayout = itemView.findViewById(R.id.tabbed_layout);
+            viewPager2 = itemView.findViewById(R.id.category_and_brand_showing);
+            viewPagerAdapter = new ViewPagerAdapter(fragmentManager, lifecycle);
+
+            viewPager2.setAdapter(viewPagerAdapter);
+
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    viewPager2.setCurrentItem(tab.getPosition());
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+                }
+            });
+
+            viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageSelected(int position) {
+                    tabLayout.selectTab(tabLayout.getTabAt(position));
+                }
+            });
+
 
             DisplayMetrics displaymetrics = new DisplayMetrics(); //Resizing things dynamically
             ((Activity) mCtx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -92,7 +134,6 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
         viewFlipper.setFlipInterval(6000);
         viewFlipper.setAutoStart(true);
         viewFlipper.startFlipping();
-
         viewFlipper.setInAnimation(mCtx, R.anim.slide_in_right);
         viewFlipper.setOutAnimation(mCtx, R.anim.slide_out_left);
     }
