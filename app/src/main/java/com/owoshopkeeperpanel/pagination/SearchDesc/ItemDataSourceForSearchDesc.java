@@ -29,7 +29,7 @@ public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, Ow
 
         RetrofitClient.getInstance()//Calling the getProductApi
                 .getApi()
-                .searchProductDesc(FIRST_PAGE, searchedProduct, categories)
+                .searchProductDesc(FIRST_PAGE, categories, searchedProduct)
                 .enqueue(new Callback<OwoApiResponse>() {
                     @Override
                     public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {
@@ -53,7 +53,7 @@ public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, Ow
 
         RetrofitClient.getInstance()
                 .getApi()
-                .searchProductDesc(params.key, searchedProduct, categories)
+                .searchProductDesc(params.key, categories, searchedProduct)
                 .enqueue(new Callback<OwoApiResponse>() {
                     @Override
                     public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {
@@ -77,7 +77,7 @@ public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, Ow
 
         RetrofitClient.getInstance()
                 .getApi()
-                .searchProductDesc(params.key, searchedProduct, categories)
+                .searchProductDesc(params.key, categories, searchedProduct)
                 .enqueue(new Callback<OwoApiResponse>() {
                     @Override
                     public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {

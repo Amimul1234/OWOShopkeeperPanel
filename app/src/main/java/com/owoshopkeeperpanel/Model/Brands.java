@@ -1,6 +1,8 @@
 package com.owoshopkeeperpanel.Model;
 
-public class Brands {
+import java.io.Serializable;
+
+public class Brands implements Serializable {
     private String brand_name;
     private String brand_image;
     private String category;

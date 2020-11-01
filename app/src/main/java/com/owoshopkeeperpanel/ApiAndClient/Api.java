@@ -34,15 +34,15 @@ public interface Api {
     @GET("searchProduct")
     Call<OwoApiResponse> searchProduct(
             @Query("page") int page,
-            @Query("product_name") String product_name,
-            @Query("product_categories") String[] categories
+            @Query("product_categories") String[] product_categories,
+            @Query("product_name") String product_name
     );
 
     @GET("searchProductDesc")
     Call<OwoApiResponse> searchProductDesc(
             @Query("page") int page,
-            @Query("product_name") String product_name,
-            @Query("product_categories") String[] categories
+            @Query("product_categories") String[] product_categories,
+            @Query("product_name") String product_name
     );
 
     @GET("getProductById")
@@ -56,5 +56,10 @@ public interface Api {
             @Query("product_category") String product_category
     );
 
-
+    @GET("getProductByBrand")
+    Call<OwoApiResponse> getProductViaBrand(
+            @Query("page") int page,
+            @Query("product_categories") String[] product_categories,
+            @Query("product_brand") String product_brand
+    );
 }

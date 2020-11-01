@@ -2,6 +2,7 @@ package com.owoshopkeeperpanel.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.Model.Brands;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.shopKeeperPanel.BrandWiseProduct;
 
 import java.util.List;
 
@@ -76,7 +78,9 @@ public class BrandsAdapter extends RecyclerView.Adapter<BrandsAdapter.ViewHolder
                 public void onClick(View v) {
                     int position = getBindingAdapterPosition();
                     Brands brands = brandsList.get(position);
-
+                    Intent intent = new Intent(mCtx, BrandWiseProduct.class);
+                    intent.putExtra("brand", brands);
+                    mCtx.startActivity(intent);
                 }
             });
         }

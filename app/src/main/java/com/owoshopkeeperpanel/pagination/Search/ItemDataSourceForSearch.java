@@ -29,13 +29,12 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, Owo_pr
 
         RetrofitClient.getInstance()//Calling the getProductApi
                 .getApi()
-                .searchProduct(FIRST_PAGE, searchedProduct, categories)
+                .searchProduct(FIRST_PAGE, categories, searchedProduct)
                 .enqueue(new Callback<OwoApiResponse>() {
                     @Override
                     public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {
 
                         if(response.body() != null){
-
                             callback.onResult(response.body().products, null, FIRST_PAGE+1);//(First page +1) is representing next page
                         }
                     }
@@ -53,7 +52,7 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, Owo_pr
 
         RetrofitClient.getInstance()
                 .getApi()
-                .searchProduct(params.key, searchedProduct, categories)
+                .searchProduct(params.key, categories, searchedProduct)
                 .enqueue(new Callback<OwoApiResponse>() {
                     @Override
                     public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {
@@ -77,7 +76,7 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, Owo_pr
 
         RetrofitClient.getInstance()
                 .getApi()
-                .searchProduct(params.key, searchedProduct, categories)
+                .searchProduct(params.key, categories, searchedProduct)
                 .enqueue(new Callback<OwoApiResponse>() {
                     @Override
                     public void onResponse(Call<OwoApiResponse> call, Response<OwoApiResponse> response) {
