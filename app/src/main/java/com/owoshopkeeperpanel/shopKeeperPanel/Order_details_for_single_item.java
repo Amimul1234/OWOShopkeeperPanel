@@ -10,10 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.badoualy.stepperindicator.StepperIndicator;
-import com.owoshopkeeperpanel.Model.Ordered_products;
 import com.owoshopkeeperpanel.Model.Ordered_products_model;
+import com.owoshopkeeperpanel.Model.Shop_keeper_ordered_products;
+import com.owoshopkeeperpanel.Model.Shop_keeper_orders;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.adapters.Ordered_item_adapter;
+import com.owoshopkeeperpanel.adapters.Ordered_products;
 
 import java.util.List;
 
@@ -27,9 +29,9 @@ public class Order_details_for_single_item extends AppCompatActivity {
 
     private ImageView back_button;
 
-    private Ordered_products_model ordered_products_model;
+    private Shop_keeper_orders shop_keeper_orders;
 
-    private List<Ordered_products> ordered_products_list;
+    private List<Shop_keeper_ordered_products> shop_keeper_ordered_products;
 
 
     @Override
@@ -37,9 +39,10 @@ public class Order_details_for_single_item extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details_for_single_item);
 
-        ordered_products_model = (Ordered_products_model) getIntent().getSerializableExtra("Order");
+        shop_keeper_orders = (Shop_keeper_orders) getIntent().getSerializableExtra("Order");
 
-        ordered_products_list = ordered_products_model.getProduct_ids();
+        assert shop_keeper_orders != null;
+        shop_keeper_ordered_products = shop_keeper_orders.getShop_keeper_ordered_products();
 
         order_number = findViewById(R.id.order_number);
         order_date = findViewById(R.id.order_date);
@@ -54,22 +57,25 @@ public class Order_details_for_single_item extends AppCompatActivity {
         shipping_method = findViewById(R.id.shipping_method);
         additonal_comments = findViewById(R.id.additional_comments);
 
-        Ordered_item_adapter adapter = new Ordered_item_adapter(this, ordered_products_list);
+        Ordered_item_adapter adapter = new Ordered_item_adapter(this, shop_keeper_ordered_products);
+
         ordered_products.setLayoutManager(new LinearLayoutManager(this));
         ordered_products.setHasFixedSize(true);
         ordered_products.setAdapter(adapter);
 
-        order_number.setText("#"+ordered_products_model.getOrder_number());
-        order_date.setText(ordered_products_model.getDate());
-        total_taka.setText("৳ "+ordered_products_model.getTotalAmount());
-        discount_taka.setText("৳ "+String.valueOf(ordered_products_model.getCoupon_discount()));
-        Double sub_total_taka = Double.parseDouble(ordered_products_model.getTotalAmount()) - ordered_products_model.getCoupon_discount();
-        sub_total.setText("৳ "+String.valueOf(sub_total_taka));
-        shipping_address.setText(ordered_products_model.getDelivery_address());
-        mobile_number.setText(ordered_products_model.getReceiver_phone());
+        order_number.setText("#"+shop_keeper_orders.getOrder_number());
+        order_date.setText(shop_keeper_orders.getDate());
+        total_taka.setText("৳ "+String.format("%.2f", shop_keeper_orders.getTotal_amount()));
+        discount_taka.setText("৳ "+String.valueOf(shop_keeper_orders.getCoupon_discount()));
 
-        shipping_method.setText(ordered_products_model.getDelivery_method());
-        additonal_comments.setText(ordered_products_model.getAdditional_comments());
+        Double sub_total_taka = shop_keeper_orders.getTotal_amount() - shop_keeper_orders.getCoupon_discount();
+        sub_total.setText("৳ "+String.format("%.2f", sub_total_taka));
+
+        shipping_address.setText(shop_keeper_orders.getDelivery_address());
+        mobile_number.setText(shop_keeper_orders.getReceiver_phone());
+
+        shipping_method.setText(shop_keeper_orders.getMethod());
+        additonal_comments.setText(shop_keeper_orders.getAdditional_comments());
 
         stepperIndicator.setLabels(new String[]{"Pending", "Confirmed", "Processing", "Picked", "Shipped", "Delivered"});
 
@@ -87,7 +93,7 @@ public class Order_details_for_single_item extends AppCompatActivity {
 
         for(int i=0; i<6; i++)
         {
-            if(states[i].equals(ordered_products_model.getState()))
+            if(states[i].equals(shop_keeper_orders.getShipping_state()))
             {
                 stepperIndicator.setCurrentStep(i+1);
                 stepperIndicator.setShowDoneIcon(true);
@@ -95,7 +101,7 @@ public class Order_details_for_single_item extends AppCompatActivity {
             }
         }
 
-        if(states[6].equals(ordered_products_model.getState()))
+        if(states[6].equals(shop_keeper_orders.getShipping_state()))
         {
             stepperIndicator.setCurrentStep(6);
             stepperIndicator.setShowDoneIcon(false);

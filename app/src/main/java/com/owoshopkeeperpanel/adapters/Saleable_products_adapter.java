@@ -10,10 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
-import com.owoshopkeeperpanel.Model.Ordered_products;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.myShopRelated.new_product_adding;
-import com.owoshopkeeperpanel.shopKeeperPanel.BridgeofCartAndProduct;
 
 import java.util.List;
 

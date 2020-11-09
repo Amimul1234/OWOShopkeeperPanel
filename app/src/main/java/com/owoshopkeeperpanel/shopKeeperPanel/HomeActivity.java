@@ -40,7 +40,7 @@ import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.adapters.ImageFlipperAdapter;
 import com.owoshopkeeperpanel.adapters.ItemAdapter;
 import com.owoshopkeeperpanel.adapters.Product_tag;
-import com.owoshopkeeperpanel.pagination.HomeItems.ItemViewModel;
+import com.owoshopkeeperpanel.pagination.homeItems.ItemViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -64,7 +64,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private SwipeRefreshLayout swipeRefreshLayout;
     private AppCompatButton searchBar;
     private ItemViewModel itemViewModel;
-
     private BottomNavigationView bottomNavigationView;
 
     @Override

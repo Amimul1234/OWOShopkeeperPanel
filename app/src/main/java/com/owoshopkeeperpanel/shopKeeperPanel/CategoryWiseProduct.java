@@ -27,7 +27,7 @@ import com.owoshopkeeperpanel.adapters.ItemAdapterCategory;
 import com.owoshopkeeperpanel.adapters.Product_tag;
 import com.owoshopkeeperpanel.adapters.SubCategoryAdapter;
 import com.owoshopkeeperpanel.adapters.SubCategoryTag;
-import com.owoshopkeeperpanel.pagination.Category.ItemViewModelCategory;
+import com.owoshopkeeperpanel.pagination.category.ItemViewModelCategory;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -16,17 +16,8 @@
             android:id="@+id/recycler_view_for_products"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="?attr/actionBarSize"
             android:scrollbars="none"/>
-
-        <ProgressBar
-            android:id="@+id/progress_of_home"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminateTint="@color/blue"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"/>
-
 
     </RelativeLayout>
 

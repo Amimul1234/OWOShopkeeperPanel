@@ -1,6 +1,6 @@
 package com.owoshopkeeperpanel.Model;
 
-import com.owoshopkeeperpanel.Model.Ordered_products;
+import com.owoshopkeeperpanel.adapters.Ordered_products;
 
 import java.io.Serializable;
 import java.util.List;

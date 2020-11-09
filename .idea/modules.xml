@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/OWOShopkeeperPanel.iml" filepath="$PROJECT_DIR$/.idea/modules/OWOShopkeeperPanel.iml" group="OWOShopkeeperPanel" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="OWOShopkeeperPanel/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/OWOShopkeeperPanel.iml" filepath="$PROJECT_DIR$/.idea/modules/OWOShopkeeperPanel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/OWOShopkeeperPanel.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/OWOShopkeeperPanel.app.iml" />
     </modules>
   </component>
 </project>

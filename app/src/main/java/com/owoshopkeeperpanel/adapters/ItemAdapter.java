@@ -91,6 +91,7 @@ public class ItemAdapter extends PagedListAdapter<Owo_product, RecyclerView.View
 
         public ItemViewHolder(View itemView) {
             super(itemView);
+            
             imageView = (ImageView)itemView.findViewById(R.id.product_image);
             txtProductName = (TextView)itemView.findViewById(R.id.product_name);
             txtProductPrice = (TextView)itemView.findViewById(R.id.product_price);

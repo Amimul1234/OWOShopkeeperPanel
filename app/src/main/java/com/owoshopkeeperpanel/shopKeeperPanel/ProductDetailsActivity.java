@@ -3,7 +3,6 @@ package com.owoshopkeeperpanel.shopKeeperPanel;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,24 +10,27 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.bumptech.glide.Glide;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.owoshopkeeperpanel.Model.Cart;
+import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
+import com.owoshopkeeperpanel.Model.CartListFromClient;
+import com.owoshopkeeperpanel.Model.Cart_list_product;
 import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductDetailsActivity extends AppCompatActivity {
 
@@ -162,32 +164,37 @@ public class ProductDetailsActivity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm::ss a");
         saveCurrentTime = currentTime.format(callForDate.getTime());
 
-        final DatabaseReference cartList = FirebaseDatabase.getInstance().getReference().child("Cart List");
         final Owo_product owoproduct = (Owo_product) getIntent().getSerializableExtra("Products");
 
-        Cart cart = new Cart(owoproduct.getProduct_id(), owoproduct.getProduct_image(), owoproduct.getProduct_name(), Double.parseDouble(productPriceWithDiscount.getText().toString()),
-                numberButton.getNumber(), saveCurrentDate, saveCurrentTime, owoproduct.getProduct_category());
 
-        cartList.child(Prevalent.currentOnlineUser.getPhone()).child(String.valueOf(owoproduct.getProduct_id()))
-                .setValue(cart)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+        Cart_list_product cart_list_product = new Cart_list_product(owoproduct.getProduct_id(),
+                owoproduct.getProduct_name(), owoproduct.getProduct_category(), owoproduct.getProduct_price(), owoproduct.getProduct_discount(),
+                Integer.parseInt(numberButton.getNumber()), owoproduct.getProduct_description(), saveCurrentDate, saveCurrentTime, owoproduct.getProduct_sub_category(),
+                owoproduct.getProduct_brand(), owoproduct.getProduct_image());
 
-                        if(task.isSuccessful())
-                        {
-                            Toast.makeText(getApplicationContext(), "Added to cart", Toast.LENGTH_SHORT).show();
-                            allianceLoader.setVisibility(View.GONE);
-                            finish();
-                        }
-                        else
-                        {
-                            Toast.makeText(ProductDetailsActivity.this, "Please check your network connection", Toast.LENGTH_SHORT).show();
-                            allianceLoader.setVisibility(View.GONE);
-                        }
+        CartListFromClient cartList1 = new CartListFromClient(Prevalent.currentOnlineUser.getPhone(), cart_list_product);
 
-                    }
-                });
+        Call<ResponseBody> call = RetrofitClient.getInstance().getApi().cartListItems(cartList1);
+
+        allianceLoader.setVisibility(View.VISIBLE);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful())
+                {
+                    allianceLoader.setVisibility(View.INVISIBLE);
+                    Toast.makeText(ProductDetailsActivity.this, "Added to cart", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                allianceLoader.setVisibility(View.INVISIBLE);
+                Toast.makeText(ProductDetailsActivity.this, "Failed to add product to cart", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }

@@ -82,11 +82,12 @@ public class WishList extends AppCompatActivity {
                 Glide.with(WishList.this).load(model.getProduct_image()).into(holder.product_image);
 
                 holder.product_name.setText(model.getProduct_name());
-                holder.product_price.setText("৳ "+model.getProduct_price());
+                holder.product_price.setText("৳ "+String.valueOf(model.getProduct_price()));
 
                 holder.delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        /*
 
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WishList.this);
 
@@ -118,6 +119,7 @@ public class WishList extends AppCompatActivity {
 
                         AlertDialog alertDialog = alertDialogBuilder.create();
                         alertDialog.show();
+                        */
                     }
                 });
 

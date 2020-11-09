@@ -19,12 +19,9 @@ import com.owoshopkeeperpanel.Model.Brands;
 import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
-import com.owoshopkeeperpanel.adapters.BrandsAdapter;
 import com.owoshopkeeperpanel.adapters.ItemAdapterBrand;
-import com.owoshopkeeperpanel.adapters.ItemAdapterSubCategory;
 import com.owoshopkeeperpanel.adapters.Product_tag;
-import com.owoshopkeeperpanel.pagination.Brands.ItemViewModelBrands;
-import com.owoshopkeeperpanel.pagination.SubCategory.ItemViewModelSubCategory;
+import com.owoshopkeeperpanel.pagination.brands.ItemViewModelBrands;
 
 public class BrandWiseProduct extends AppCompatActivity {
 

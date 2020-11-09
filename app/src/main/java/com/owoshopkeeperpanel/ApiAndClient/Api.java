@@ -1,13 +1,20 @@
 package com.owoshopkeeperpanel.ApiAndClient;
 
 import com.owoshopkeeperpanel.Model.Brands;
+import com.owoshopkeeperpanel.Model.CartListFromClient;
+import com.owoshopkeeperpanel.Model.Cart_list_product;
+import com.owoshopkeeperpanel.Model.Owo_product;
+import com.owoshopkeeperpanel.Model.Shop_keeper_orders;
 import com.owoshopkeeperpanel.Response.OwoApiResponse;
-import com.owoshopkeeperpanel.Response.SingleProductResponse;
-
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface Api {
@@ -46,7 +53,7 @@ public interface Api {
     );
 
     @GET("getProductById")
-    Call<SingleProductResponse> getProductById(
+    Call<Owo_product> getProductById(
             @Query("id") int product_id
     );
 
@@ -61,5 +68,38 @@ public interface Api {
             @Query("page") int page,
             @Query("product_categories") String[] product_categories,
             @Query("product_brand") String product_brand
+    );
+
+    @POST("shop_keeper_cart")
+    Call<ResponseBody> cartListItems(
+            @Body CartListFromClient cartList
+    );
+
+    @GET("shop_keeper_cart_products")
+    Call<List<Cart_list_product>> getCartListProducts(
+            @Query("mobile_number") String mobile_number
+    );
+
+    @PUT("update_cart_list")
+    Call<Cart_list_product> updateCartList(
+            @Body Cart_list_product cart_list_product,
+            @Query("mobile_number") String mobile_number
+    );
+
+    @DELETE("delete_cart_product")
+    Call<ResponseBody> delete_product_from_cart(
+            @Query("product_id") int product_id,
+            @Query("mobile_number") String mobile_number
+    );
+
+    @POST("shop_keeper_order")
+    Call<ResponseBody> createOrder(
+            @Body Shop_keeper_orders shop_keeper_orders
+    );
+
+    @GET("get_shop_keeper_order")
+    Call<List<Shop_keeper_orders>> getShopKeeperOrders(
+            @Query("page") int page,
+            @Query("mobile_number") String mobile_number
     );
 }

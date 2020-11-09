@@ -18,7 +18,7 @@ import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.adapters.ItemAdapterSubCategory;
 import com.owoshopkeeperpanel.adapters.Product_tag;
-import com.owoshopkeeperpanel.pagination.SubCategory.ItemViewModelSubCategory;
+import com.owoshopkeeperpanel.pagination.subCategory.ItemViewModelSubCategory;
 
 public class SubCategoryWiseProduct extends AppCompatActivity {
 

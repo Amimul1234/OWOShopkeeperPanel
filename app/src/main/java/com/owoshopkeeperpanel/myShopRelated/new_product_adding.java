@@ -10,7 +10,6 @@ import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Model.add_product_model;
 import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.R;
-import com.owoshopkeeperpanel.Response.SingleProductResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,15 +27,15 @@ public class new_product_adding extends AppCompatActivity {
 
         int product_id = Integer.parseInt(id);
 
-        Call<SingleProductResponse> call = RetrofitClient.getInstance().getApi().getProductById(product_id);
+        Call<Owo_product> call = RetrofitClient.getInstance().getApi().getProductById(product_id);
 
-        call.enqueue(new Callback<SingleProductResponse>() {
+        call.enqueue(new Callback<Owo_product>() {
             @Override
-            public void onResponse(Call<SingleProductResponse> call, Response<SingleProductResponse> response) {
+            public void onResponse(Call<Owo_product> call, Response<Owo_product> response) {
                 if (response.body() != null) {
-                    if(!response.body().error)
+                    if(response.isSuccessful())
                     {
-                        Owo_product clicked_owoproduct = response.body().owoproduct;
+                        Owo_product clicked_owoproduct = response.body();
 
                         add_product_model add_product_model = new add_product_model(clicked_owoproduct.getProduct_id(), clicked_owoproduct.getProduct_price(),
                                 clicked_owoproduct.getProduct_image(), clicked_owoproduct.getProduct_name(), quantity, clicked_owoproduct.getProduct_description());
@@ -58,7 +57,7 @@ public class new_product_adding extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<SingleProductResponse> call, Throwable t) {
+            public void onFailure(Call<Owo_product> call, Throwable t) {
                 Toast.makeText(new_product_adding.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 finish();
             }
