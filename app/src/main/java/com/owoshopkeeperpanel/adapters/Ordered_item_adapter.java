@@ -7,16 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Model.Shop_keeper_ordered_products;
 import com.owoshopkeeperpanel.R;
-import com.owoshopkeeperpanel.shopKeeperPanel.BridgeofCartAndProduct;
 import com.owoshopkeeperpanel.shopKeeperPanel.ProductDetailsActivity;
-
 import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Ordered_item_adapter extends  RecyclerView.Adapter<Ordered_item_adapter.ViewHolder>{
 
@@ -65,28 +68,36 @@ public class Ordered_item_adapter extends  RecyclerView.Adapter<Ordered_item_ada
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     int position = getBindingAdapterPosition();
 
                     Shop_keeper_ordered_products shop_keeper_ordered_products1 = shop_keeper_ordered_products.get(position);
 
-                    Owo_product owo_product = new Owo_product();
+                    Toast.makeText(mCtx, String.valueOf(shop_keeper_ordered_products1.getProduct_id()), Toast.LENGTH_SHORT).show();
 
-                    owo_product.setProduct_id(shop_keeper_ordered_products1.getProduct_id());
-                    owo_product.setProduct_name(shop_keeper_ordered_products1.getProduct_name());
-                    owo_product.setProduct_category(shop_keeper_ordered_products1.getProduct_category());
-                    owo_product.setProduct_price(shop_keeper_ordered_products1.getProduct_price());
-                    owo_product.setProduct_discount(shop_keeper_ordered_products1.getProduct_discount());
-                    owo_product.setProduct_quantity(shop_keeper_ordered_products1.getProduct_quantity());
-                    owo_product.setProduct_description(shop_keeper_ordered_products1.getProduct_description());
-                    owo_product.setProduct_creation_date(shop_keeper_ordered_products1.getProduct_creation_date());
-                    owo_product.setProduct_creation_time(shop_keeper_ordered_products1.getProduct_creation_time());
-                    owo_product.setProduct_sub_category(shop_keeper_ordered_products1.getProduct_sub_category());
-                    owo_product.setProduct_brand(shop_keeper_ordered_products1.getProduct_brand());
-                    owo_product.setProduct_image(shop_keeper_ordered_products1.getProduct_image());
+                    Call<Owo_product> call = RetrofitClient.getInstance().getApi().getProductById(shop_keeper_ordered_products1.getProduct_id());
 
-                    Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
-                    intent.putExtra("Products", owo_product);
-                    mCtx.startActivity(intent);
+                    call.enqueue(new Callback<Owo_product>() {
+                        @Override
+                        public void onResponse(Call<Owo_product> call, Response<Owo_product> response) {
+                            if(response.isSuccessful())
+                            {
+                                Owo_product owo_product = response.body();
+                                Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
+                                intent.putExtra("Products", owo_product);
+                                mCtx.startActivity(intent);
+                            }
+                            else
+                            {
+                                Toast.makeText(mCtx, "Server error", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Owo_product> call, Throwable t) {
+                            Toast.makeText(mCtx, t.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             });
         }

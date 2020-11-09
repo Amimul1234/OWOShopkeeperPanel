@@ -3,7 +3,7 @@ package com.owoshopkeeperpanel.Model;
 import java.io.Serializable;
 
 public class Shop_keeper_ordered_products implements Serializable {
-    private int product_id;
+    private long product_id;
     private String product_name;
     private String product_category;
     private double product_price;
@@ -56,11 +56,11 @@ public class Shop_keeper_ordered_products implements Serializable {
     }
 
 
-    public int getProduct_id() {
+    public long getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(int product_id) {
+    public void setProduct_id(long product_id) {
         this.product_id = product_id;
     }
 

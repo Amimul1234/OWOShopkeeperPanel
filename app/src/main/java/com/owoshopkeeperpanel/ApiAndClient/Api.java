@@ -54,7 +54,7 @@ public interface Api {
 
     @GET("getProductById")
     Call<Owo_product> getProductById(
-            @Query("id") int product_id
+            @Query("id") long product_id
     );
 
     @GET("getProductByCategory")
@@ -88,7 +88,7 @@ public interface Api {
 
     @DELETE("delete_cart_product")
     Call<ResponseBody> delete_product_from_cart(
-            @Query("product_id") int product_id,
+            @Query("product_id") long product_id,
             @Query("mobile_number") String mobile_number
     );
 

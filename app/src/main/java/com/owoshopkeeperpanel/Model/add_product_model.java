@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class add_product_model implements Serializable {
 
-    private int product_id;
+    private long product_id;
     private double product_price;
     private String product_image, product_name,
             product_quantity, product_description;
@@ -12,7 +12,7 @@ public class add_product_model implements Serializable {
     public add_product_model() {
     }
 
-    public add_product_model(int product_id, double product_price, String product_image, String product_name, String product_quantity, String product_description) {
+    public add_product_model(long product_id, double product_price, String product_image, String product_name, String product_quantity, String product_description) {
         this.product_id = product_id;
         this.product_price = product_price;
         this.product_image = product_image;
@@ -21,11 +21,11 @@ public class add_product_model implements Serializable {
         this.product_description = product_description;
     }
 
-    public int getProduct_id() {
+    public long getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(int product_id) {
+    public void setProduct_id(long product_id) {
         this.product_id = product_id;
     }
 

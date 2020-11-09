@@ -3,7 +3,7 @@ package com.owoshopkeeperpanel.Model;
 import java.io.Serializable;
 
 public class Cart_list_product implements Serializable {
-    private int product_id;
+    private long product_id;
     private String product_name;
     private String product_category;
     private double product_price;
@@ -19,7 +19,7 @@ public class Cart_list_product implements Serializable {
     public Cart_list_product() {
     }
 
-    public Cart_list_product(int product_id, String product_name, String product_category,
+    public Cart_list_product(long product_id, String product_name, String product_category,
                               double product_price, double product_discount, int product_quantity,
                               String product_description, String product_creation_date, String product_creation_time,
                               String product_sub_category, String product_brand, String product_image) {
@@ -37,11 +37,11 @@ public class Cart_list_product implements Serializable {
         this.product_image = product_image;
     }
 
-    public int getProduct_id() {
+    public long getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(int product_id) {
+    public void setProduct_id(long product_id) {
         this.product_id = product_id;
     }
 

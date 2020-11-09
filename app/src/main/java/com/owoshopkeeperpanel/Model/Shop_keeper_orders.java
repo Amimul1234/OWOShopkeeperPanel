@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Shop_keeper_orders implements Serializable {
-    private int order_number;
+    private long order_number;
     private String additional_comments;
     private double coupon_discount;
     private String date;
@@ -44,11 +44,11 @@ public class Shop_keeper_orders implements Serializable {
     }
 
 
-    public int getOrder_number() {
+    public long getOrder_number() {
         return order_number;
     }
 
-    public void setOrder_number(int order_number) {
+    public void setOrder_number(long order_number) {
         this.order_number = order_number;
     }
 
