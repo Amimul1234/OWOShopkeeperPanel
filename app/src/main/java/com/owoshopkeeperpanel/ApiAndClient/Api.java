@@ -5,6 +5,7 @@ import com.owoshopkeeperpanel.Model.CartListFromClient;
 import com.owoshopkeeperpanel.Model.Cart_list_product;
 import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Model.Shop_keeper_orders;
+import com.owoshopkeeperpanel.Model.Shops;
 import com.owoshopkeeperpanel.Response.OwoApiResponse;
 import java.util.List;
 
@@ -101,5 +102,10 @@ public interface Api {
     Call<List<Shop_keeper_orders>> getShopKeeperOrders(
             @Query("page") int page,
             @Query("mobile_number") String mobile_number
+    );
+
+    @GET("getShopInfo")
+    Call<Shops> getShopInfo(
+            @Query("shop_phone") String shop_phone
     );
 }

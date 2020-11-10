@@ -15,7 +15,9 @@ import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Model.Shop_keeper_ordered_products;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.shopKeeperPanel.Order_list;
 import com.owoshopkeeperpanel.shopKeeperPanel.ProductDetailsActivity;
+import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,8 +25,8 @@ import retrofit2.Response;
 
 public class Ordered_item_adapter extends  RecyclerView.Adapter<Ordered_item_adapter.ViewHolder>{
 
-    private Context mCtx;
-    private List<Shop_keeper_ordered_products> shop_keeper_ordered_products;
+    private final Context mCtx;
+    private final List<Shop_keeper_ordered_products> shop_keeper_ordered_products;
 
     public Ordered_item_adapter(Context mCtx, List<Shop_keeper_ordered_products> shop_keeper_ordered_products) {
         this.mCtx = mCtx;
@@ -68,20 +70,20 @@ public class Ordered_item_adapter extends  RecyclerView.Adapter<Ordered_item_ada
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Order_list.allianceLoader.setVisibility(View.VISIBLE);
 
                     int position = getBindingAdapterPosition();
 
                     Shop_keeper_ordered_products shop_keeper_ordered_products1 = shop_keeper_ordered_products.get(position);
 
-                    Toast.makeText(mCtx, String.valueOf(shop_keeper_ordered_products1.getProduct_id()), Toast.LENGTH_SHORT).show();
-
                     Call<Owo_product> call = RetrofitClient.getInstance().getApi().getProductById(shop_keeper_ordered_products1.getProduct_id());
 
                     call.enqueue(new Callback<Owo_product>() {
                         @Override
-                        public void onResponse(Call<Owo_product> call, Response<Owo_product> response) {
+                        public void onResponse(@NotNull Call<Owo_product> call, @NotNull Response<Owo_product> response) {
                             if(response.isSuccessful())
                             {
+                                Order_list.allianceLoader.setVisibility(View.INVISIBLE);
                                 Owo_product owo_product = response.body();
                                 Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
                                 intent.putExtra("Products", owo_product);
@@ -90,12 +92,14 @@ public class Ordered_item_adapter extends  RecyclerView.Adapter<Ordered_item_ada
                             else
                             {
                                 Toast.makeText(mCtx, "Server error", Toast.LENGTH_SHORT).show();
+                                Order_list.allianceLoader.setVisibility(View.INVISIBLE);
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<Owo_product> call, Throwable t) {
+                        public void onFailure(@NotNull Call<Owo_product> call, @NotNull Throwable t) {
                             Toast.makeText(mCtx, t.getMessage(), Toast.LENGTH_LONG).show();
+                            Order_list.allianceLoader.setVisibility(View.INVISIBLE);
                         }
                     });
                 }

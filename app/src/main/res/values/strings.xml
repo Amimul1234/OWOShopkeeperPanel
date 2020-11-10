@@ -183,13 +183,16 @@
     <string name="sort">Sort</string>
 
     <string-array name="shop_management">
+        <item>Shop Statistics</item>
         <item>Add a new product</item>
-        <item>View owoproduct</item>
+        <item>View products</item>
         <item>Add a new offer</item>
         <item>View offers</item>
         <item>Pending Orders</item>
         <item>All Completed Orders</item>
+        <item>Due Records</item>
     </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

@@ -25,8 +25,9 @@ public class MyShopManagementAdapter extends RecyclerView.Adapter<MyShopManageme
 
     private Context mCtx;
     private List<String> names;
-    private int[] images = {R.drawable.add_new_product_to_shop, R.drawable.view_shop_products, R.drawable.add_offer,
-            R.drawable.view_offers, R.drawable.shop_management_order, R.drawable.completed_orders};
+
+    private int[] images = {R.drawable.shop_statictics, R.drawable.add_new_product_to_shop, R.drawable.view_shop_products, R.drawable.add_offer,
+            R.drawable.view_offers, R.drawable.shop_management_order, R.drawable.completed_orders, R.drawable.due_record};
 
     public MyShopManagementAdapter(Context mCtx) {
         this.mCtx = mCtx;

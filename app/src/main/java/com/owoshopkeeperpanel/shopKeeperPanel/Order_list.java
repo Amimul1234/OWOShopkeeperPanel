@@ -20,7 +20,7 @@ public class Order_list extends AppCompatActivity {
     private ImageView back_button, empty_image_view;
     private TextView empty_text_view;
     private RecyclerView order_list_recycler_view;
-    private AllianceLoader allianceLoader;
+    public static AllianceLoader allianceLoader;
     private ShopOrderAdapter shopOrderAdapter;
 
     @Override
