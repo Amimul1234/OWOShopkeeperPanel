@@ -8,6 +8,7 @@ import com.owoshopkeeperpanel.Model.Shop_keeper_orders;
 import com.owoshopkeeperpanel.Model.Shops;
 import com.owoshopkeeperpanel.Model.UserDebts;
 import com.owoshopkeeperpanel.Response.OwoApiResponse;
+
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -116,8 +117,8 @@ public interface Api {
             @Query("shop_mobile_number") String mobile_number
     );
 
-    @GET
-    Call<ResponseBody> getUserDebtLists(
+    @GET("/getUserDebtLists")
+    Call<List<UserDebts>> getUserDebtLists(
             @Query("page") int page,
             @Query("shop_mobile_number") String shop_mobile_number
     );

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <ImageView
+                android:id="@+id/letter_image_view"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"/>
+
+            <TextView
+                android:id="@+id/debt_taker_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Name"
+                android:layout_toEndOf="@+id/letter_image_view"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:id="@+id/debt_taker_mobile_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Mobile Number"
+                android:layout_below="@+id/debt_taker_name"
+                android:layout_toEndOf="@+id/letter_image_view"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
+                android:textSize="15sp"
+                android:maxLines="1"/>
+
+            <TextView
+                android:id="@+id/debt_taker_total_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$500"
+                android:textColor="@color/red"
+                android:layout_below="@+id/debt_taker_mobile_number"
+                android:layout_toEndOf="@+id/letter_image_view"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
+                android:textSize="15sp"
+                android:maxLines="1"/>
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

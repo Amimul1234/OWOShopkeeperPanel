@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.R;
