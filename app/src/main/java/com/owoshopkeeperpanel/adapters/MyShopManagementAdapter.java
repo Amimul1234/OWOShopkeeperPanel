@@ -17,6 +17,7 @@ import com.owoshopkeeperpanel.myShopRelated.Completed_orders;
 import com.owoshopkeeperpanel.myShopRelated.Pending_orders;
 import com.owoshopkeeperpanel.myShopRelated.View_avilable_product_to_sell;
 import com.owoshopkeeperpanel.myShopRelated.View_offers;
+import com.owoshopkeeperpanel.pagination.userDebts.UserDebtDetails;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,31 +52,40 @@ public class MyShopManagementAdapter extends RecyclerView.Adapter<MyShopManageme
             public void onClick(View v) {
                 if(position == 0)
                 {
-                    Intent intent = new Intent(mCtx, Add_product_to_my_shop.class);
-                    mCtx.startActivity(intent);
+
                 }
                 else if(position == 1)
                 {
-                    Intent intent = new Intent(mCtx, View_avilable_product_to_sell.class);
+                    Intent intent = new Intent(mCtx, Add_product_to_my_shop.class);
                     mCtx.startActivity(intent);
                 }
                 else if(position == 2)
                 {
-                    Intent intent = new Intent(mCtx, Add_a_new_offer.class);
+                    Intent intent = new Intent(mCtx, View_avilable_product_to_sell.class);
                     mCtx.startActivity(intent);
                 }
                 else if(position == 3)
                 {
-                    Intent intent = new Intent(mCtx, View_offers.class);
+                    Intent intent = new Intent(mCtx, Add_a_new_offer.class);
                     mCtx.startActivity(intent);
                 }
                 else if(position == 4)
                 {
+                    Intent intent = new Intent(mCtx, View_offers.class);
+                    mCtx.startActivity(intent);
+                }
+                else if(position == 5)
+                {
                     Intent intent = new Intent(mCtx, Pending_orders.class);
                     mCtx.startActivity(intent);
                 }
-                else {
+                else if(position == 6){
                     Intent intent = new Intent(mCtx, Completed_orders.class);
+                    mCtx.startActivity(intent);
+                }
+                else
+                {
+                    Intent intent = new Intent(mCtx, UserDebtDetails.class);
                     mCtx.startActivity(intent);
                 }
             }

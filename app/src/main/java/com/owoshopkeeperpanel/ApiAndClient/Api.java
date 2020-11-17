@@ -6,6 +6,7 @@ import com.owoshopkeeperpanel.Model.Cart_list_product;
 import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Model.Shop_keeper_orders;
 import com.owoshopkeeperpanel.Model.Shops;
+import com.owoshopkeeperpanel.Model.UserDebts;
 import com.owoshopkeeperpanel.Response.OwoApiResponse;
 import java.util.List;
 
@@ -108,4 +109,17 @@ public interface Api {
     Call<Shops> getShopInfo(
             @Query("shop_phone") String shop_phone
     );
+
+    @POST("/addUserDebt")
+    Call<ResponseBody> addAUserDebt(
+            @Body UserDebts userDebts,
+            @Query("shop_mobile_number") String mobile_number
+    );
+
+    @GET
+    Call<ResponseBody> getUserDebtLists(
+            @Query("page") int page,
+            @Query("shop_mobile_number") String shop_mobile_number
+    );
+
 }

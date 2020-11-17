@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".shopKeeperPanel.BrandWiseProduct"></activity>
+        <activity android:name=".pagination.userDebts.UserDebtDetails"></activity>
+        <activity android:name=".shopKeeperPanel.BrandWiseProduct" />
         <activity android:name=".shopKeeperPanel.categories" />
         <activity android:name=".shopKeeperPanel.calculator" />
         <activity android:name=".myShopRelated.add_product_to_shop" />

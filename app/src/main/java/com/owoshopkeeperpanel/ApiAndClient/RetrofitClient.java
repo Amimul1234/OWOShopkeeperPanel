@@ -7,7 +7,7 @@ public class RetrofitClient {
 
     private static final String BASE_URL = "http://192.168.0.8:8585"; //should always change while using outside network
     private static RetrofitClient mInstance;
-    private Retrofit retrofit;
+    private final Retrofit retrofit;
 
     private RetrofitClient()
     {

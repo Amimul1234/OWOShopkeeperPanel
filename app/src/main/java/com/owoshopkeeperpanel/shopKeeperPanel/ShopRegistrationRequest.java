@@ -34,6 +34,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class ShopRegistrationRequest extends AppCompatActivity {
 
@@ -100,7 +101,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
                 imageChooser = 1;
                 CropImage.activity(shopImageUri)
                         .setMinCropResultSize(100, 100)
-                        .setAspectRatio(1, 1)
+                        .setAspectRatio(16, 10)
                         .start(ShopRegistrationRequest.this);
 
             }
@@ -429,7 +430,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
                             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                                 if (!task.isSuccessful())
                                 {
-                                    throw  task.getException();
+                                    throw Objects.requireNonNull(task.getException());
                                 }
                                 pendingShop.setTrade_license_uri(filePath.getDownloadUrl().toString());
                                 return filePath.getDownloadUrl();
