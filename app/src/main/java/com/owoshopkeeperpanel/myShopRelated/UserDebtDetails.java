@@ -6,8 +6,12 @@ import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.owoshopkeeperpanel.Model.UserDebts;
 import com.owoshopkeeperpanel.R;
@@ -19,6 +23,8 @@ public class UserDebtDetails extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
     private UserDebtAdapter userDebtAdapter;
+    private ImageView back_button;
+    private static AllianceLoader loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,9 @@ public class UserDebtDetails extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.userDebtDetails);
         floatingActionButton = findViewById(R.id.add_a_new_debt);
+        back_button = findViewById(R.id.back_to_home);
+
+        loader = findViewById(R.id.loader);
 
         userDebtAdapter = new UserDebtAdapter(this);
 
@@ -42,5 +51,32 @@ public class UserDebtDetails extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(userDebtAdapter);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                finish();
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserDebtDetails.this, AddAUserDebt.class);
+                startActivity(intent);
+            }
+        });
     }
+
+    public static void visible()
+    {
+        loader.setVisibility(View.VISIBLE);
+    }
+
+    public static void invisible()
+    {
+        loader.setVisibility(View.INVISIBLE);
+    }
+
 }

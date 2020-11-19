@@ -6,9 +6,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,8 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
-        <activity android:name=".myShopRelated.UserDebtDetails"></activity>
+        <activity android:name=".myShopRelated.DebtDetailsForACustomer"/>
+        <activity android:name=".myShopRelated.AddAUserDebt" />
+        <activity android:name=".myShopRelated.UserDebtDetails" />
         <activity android:name=".shopKeeperPanel.BrandWiseProduct" />
         <activity android:name=".shopKeeperPanel.categories" />
         <activity android:name=".shopKeeperPanel.calculator" />
@@ -54,9 +57,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopKeeperPanel.SearchActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".shopKeeperPanel.BridgeofCartAndProduct"
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopKeeperPanel.AfterShopRegisterRequest"

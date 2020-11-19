@@ -7,6 +7,7 @@ import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Model.Shop_keeper_orders;
 import com.owoshopkeeperpanel.Model.Shops;
 import com.owoshopkeeperpanel.Model.UserDebts;
+import com.owoshopkeeperpanel.Model.User_debt_details;
 import com.owoshopkeeperpanel.Response.OwoApiResponse;
 
 import java.util.List;
@@ -123,4 +124,8 @@ public interface Api {
             @Query("shop_mobile_number") String shop_mobile_number
     );
 
+    @GET("/getAllDebtDetails")
+    Call<List<User_debt_details>> getUserDebtDetails(
+            @Query("user_id") Long user_id
+    );
 }

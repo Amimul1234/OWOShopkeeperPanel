@@ -1,6 +1,7 @@
 package com.owoshopkeeperpanel.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,20 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.Model.UserDebts;
+import com.owoshopkeeperpanel.Model.User_debt_details;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.myShopRelated.DebtDetailsForACustomer;
+import com.owoshopkeeperpanel.myShopRelated.UserDebtDetails;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserDebtAdapter extends PagedListAdapter<UserDebts, RecyclerView.ViewHolder>{
 
@@ -74,30 +85,83 @@ public class UserDebtAdapter extends PagedListAdapter<UserDebts, RecyclerView.Vi
                 }
             };
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ItemViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView letter_image_view;
         public TextView debt_taker_name, debt_taker_mobile_number, debt_taker_total_amount;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
+
             letter_image_view = itemView.findViewById(R.id.letter_image_view);
             debt_taker_name = itemView.findViewById(R.id.debt_taker_name);
             debt_taker_mobile_number = itemView.findViewById(R.id.debt_taker_mobile_number);
             debt_taker_total_amount = itemView.findViewById(R.id.debt_taker_total_amount);
-            itemView.setOnClickListener(this);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UserDebtDetails.visible();
+
+                    UserDebts userDebts = getItem(getBindingAdapterPosition());
+
+                    if (userDebts != null) {
+                        RetrofitClient.getInstance().getApi()
+                                .getUserDebtDetails(userDebts.getUser_id())
+                                .enqueue(new Callback<List<User_debt_details>>() {
+                                    @Override
+                                    public void onResponse(@NotNull Call<List<User_debt_details>> call, @NotNull Response<List<User_debt_details>> response) {
+
+                                        if(response.code() == 200)
+                                        {
+                                            UserDebtDetails.invisible();
+
+                                            if (response.body() != null) {
+                                                userDebts.getUserDebtDetails().addAll(response.body());
+                                            }
+
+                                            Intent intent = new Intent(mCtx, DebtDetailsForACustomer.class);
+                                            intent.putExtra("debtDetails", userDebts);
+                                            mCtx.startActivity(intent);
+                                        }
+
+                                        else if(response.code() == 204)
+                                        {
+                                            UserDebtDetails.invisible();
+                                            Toast.makeText(mCtx, "No debt record for this customer", Toast.LENGTH_SHORT).show();
+
+                                            Intent intent = new Intent(mCtx, DebtDetailsForACustomer.class);
+                                            intent.putExtra("debtDetails", userDebts);
+                                            mCtx.startActivity(intent);
+                                        }
+
+                                        else
+                                        {
+                                            UserDebtDetails.invisible();
+                                            Toast.makeText(mCtx, "Error fetching data", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(@NotNull Call<List<User_debt_details>> call, @NotNull Throwable t) {
+                                        Toast.makeText(mCtx, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                        UserDebtDetails.invisible();
+                                    }
+                                });
+                    }
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    return false;
+                }
+            });
         }
 
-        @Override
-        public void onClick(View v) {
-            /*
-            Owo_product owoproduct = getItem(getBindingAdapterPosition());
-            Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
-            intent.putExtra("Products", owoproduct);
-            mCtx.startActivity(intent);
 
-             */
-        }
     }
 
 }

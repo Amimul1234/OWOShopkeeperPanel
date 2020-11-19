@@ -53,4 +53,12 @@ public class UserDebts implements Serializable {
     public void setUser_total_debt(double user_total_debt) {
         this.user_total_debt = user_total_debt;
     }
+
+    public List<User_debt_details> getUserDebtDetails() {
+        return userDebtDetails;
+    }
+
+    public void setUserDebtDetails(List<User_debt_details> userDebtDetails) {
+        this.userDebtDetails = userDebtDetails;
+    }
 }
