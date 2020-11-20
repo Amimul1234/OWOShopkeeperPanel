@@ -16,6 +16,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,9 +27,18 @@ import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.Model.UserDebts;
 import com.owoshopkeeperpanel.R;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DebtDetailsForACustomer extends AppCompatActivity {
 
@@ -94,6 +105,45 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
             }
         });
 
+        clear_all_record_for_a_customer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(userDebts!=null)
+                {
+                    RetrofitClient.getInstance().getApi()
+                            .deleteAUserDebtList(userDebts.getUser_id())
+                            .enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                                    if(response.code() == 200)
+                                    {
+                                        Toast.makeText(DebtDetailsForACustomer.this, "Debt report deleted successfully", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(DebtDetailsForACustomer .this, UserDebtDetails.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                    }
+                                    else if(response.code() == 424)
+                                    {
+                                        Toast.makeText(DebtDetailsForACustomer.this, "Failed to delete", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else if(response.code() == 404){
+                                        Toast.makeText(DebtDetailsForACustomer.this, "User not found", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                                    Log.e("Error", t.getMessage());
+                                }
+                            });
+                }
+                else
+                {
+                    Toast.makeText(DebtDetailsForACustomer.this, "Please try again", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         download_invoice_for_a_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +154,7 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
 
     public void beginDownload()
     {
-        File file = new File(Environment.getExternalStorageDirectory()+"/Owo");
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Invoice");
 
         String name = null;
         Long id;
@@ -181,7 +231,13 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
         if (requestCode == STORAGE_PERMISSION_CODE)
         {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                beginDownload();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        beginDownload();
+                    }
+                }, 1000);
             }
             else {
                 Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();

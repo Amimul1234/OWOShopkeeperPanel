@@ -3,6 +3,7 @@ package com.owoshopkeeperpanel.shopKeeperPanel;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -94,7 +95,7 @@ public class ForgetVerifyPhoneActivity extends AppCompatActivity {
                 number,
                 60,
                 TimeUnit.SECONDS,
-                TaskExecutors.MAIN_THREAD,
+                (Activity) TaskExecutors.MAIN_THREAD,
                 mCallBack
         );
     }

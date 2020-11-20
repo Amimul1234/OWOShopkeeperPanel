@@ -128,4 +128,9 @@ public interface Api {
     Call<List<User_debt_details>> getUserDebtDetails(
             @Query("user_id") Long user_id
     );
+
+    @DELETE("/clearAllDebtDetails")
+    Call<ResponseBody> deleteAUserDebtList(
+            @Query("user_id") Long user_id
+    );
 }
