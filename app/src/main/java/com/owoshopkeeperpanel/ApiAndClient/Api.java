@@ -9,6 +9,7 @@ import com.owoshopkeeperpanel.Model.Shops;
 import com.owoshopkeeperpanel.Model.UserDebts;
 import com.owoshopkeeperpanel.Model.User_debt_details;
 import com.owoshopkeeperpanel.Response.OwoApiResponse;
+import com.owoshopkeeperpanel.myShopRelated.UserDebtDetails;
 
 import java.util.List;
 
@@ -125,7 +126,7 @@ public interface Api {
     );
 
     @GET("/getAllDebtDetails")
-    Call<List<User_debt_details>> getUserDebtDetails(
+    Call<UserDebts> getUserDebtDetails(
             @Query("user_id") Long user_id
     );
 
@@ -133,4 +134,12 @@ public interface Api {
     Call<ResponseBody> deleteAUserDebtList(
             @Query("user_id") Long user_id
     );
+
+    @POST("/addAdebtDetails")
+    Call<ResponseBody> addADebtDetailsForACustomer(
+            @Body User_debt_details user_debt_details,
+            @Query("user_id") Long user_id
+    );
+
+
 }

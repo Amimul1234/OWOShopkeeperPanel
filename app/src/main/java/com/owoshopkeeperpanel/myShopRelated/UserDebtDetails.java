@@ -69,14 +69,4 @@ public class UserDebtDetails extends AppCompatActivity {
         });
     }
 
-    public static void visible()
-    {
-        loader.setVisibility(View.VISIBLE);
-    }
-
-    public static void invisible()
-    {
-        loader.setVisibility(View.INVISIBLE);
-    }
-
 }

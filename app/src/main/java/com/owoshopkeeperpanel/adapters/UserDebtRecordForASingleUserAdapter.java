@@ -20,16 +20,13 @@ import com.owoshopkeeperpanel.Model.User_debt_details;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.myShopRelated.DebtDetailsForACustomer;
 import com.owoshopkeeperpanel.myShopRelated.UserDebtDetails;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserDebtAdapter extends PagedListAdapter<UserDebts, RecyclerView.ViewHolder>{
+public class UserDebtRecordForASingleUserAdapter extends PagedListAdapter<User_debt_details, RecyclerView.ViewHolder> {
     private Context mCtx;
 
     public UserDebtAdapter(Context mCtx) {
@@ -41,13 +38,13 @@ public class UserDebtAdapter extends PagedListAdapter<UserDebts, RecyclerView.Vi
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mCtx).inflate(R.layout.user_debt_sample, parent, false);
-        return new ItemViewHolder(view);
+        return new UserDebtAdapter.ItemViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+        UserDebtAdapter.ItemViewHolder itemViewHolder = (UserDebtAdapter.ItemViewHolder) holder;
 
         UserDebts userDebts = getItem(position);
 
@@ -101,19 +98,54 @@ public class UserDebtAdapter extends PagedListAdapter<UserDebts, RecyclerView.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    UserDebtDetails.visible();
+
                     UserDebts userDebts = getItem(getBindingAdapterPosition());
 
-                    Intent intent = new Intent(mCtx, DebtDetailsForACustomer.class);
-
                     if (userDebts != null) {
-                        intent.putExtra("user_id", userDebts.getUser_id());
-                    }
-                    else
-                    {
-                        Toast.makeText(mCtx, "Try again", Toast.LENGTH_SHORT).show();
-                    }
+                        RetrofitClient.getInstance().getApi()
+                                .getUserDebtDetails(userDebts.getUser_id())
+                                .enqueue(new Callback<List<User_debt_details>>() {
+                                    @Override
+                                    public void onResponse(@NotNull Call<List<User_debt_details>> call, @NotNull Response<List<User_debt_details>> response) {
 
-                    mCtx.startActivity(intent);
+                                        if(response.code() == 200)
+                                        {
+                                            UserDebtDetails.invisible();
+
+                                            if (response.body() != null) {
+                                                userDebts.getUserDebtDetails().addAll(response.body());
+                                            }
+
+                                            Intent intent = new Intent(mCtx, DebtDetailsForACustomer.class);
+                                            intent.putExtra("debtDetails", userDebts);
+                                            mCtx.startActivity(intent);
+                                        }
+
+                                        else if(response.code() == 204)
+                                        {
+                                            UserDebtDetails.invisible();
+                                            Toast.makeText(mCtx, "No debt record for this customer", Toast.LENGTH_SHORT).show();
+
+                                            Intent intent = new Intent(mCtx, DebtDetailsForACustomer.class);
+                                            intent.putExtra("debtDetails", userDebts);
+                                            mCtx.startActivity(intent);
+                                        }
+
+                                        else
+                                        {
+                                            UserDebtDetails.invisible();
+                                            Toast.makeText(mCtx, "Error fetching data", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(@NotNull Call<List<User_debt_details>> call, @NotNull Throwable t) {
+                                        Toast.makeText(mCtx, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                        UserDebtDetails.invisible();
+                                    }
+                                });
+                    }
                 }
             });
 

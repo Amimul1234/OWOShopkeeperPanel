@@ -29,11 +29,11 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.Model.UserDebts;
+import com.owoshopkeeperpanel.Model.User_debt_details;
 import com.owoshopkeeperpanel.R;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -48,11 +48,9 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
     private AllianceLoader loader;
     private RecyclerView debt_details_recyclerview;
     private TextView debt_taker_name, debt_taker_mobile_number, debt_taker_total_amount;
-
     private int STORAGE_PERMISSION_CODE = 1;
-
     private long downloadId;
-
+    private Long user_id;
     private UserDebts userDebts;
 
     @Override
@@ -71,29 +69,13 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
         debt_taker_mobile_number = findViewById(R.id.debt_taker_mobile_number);
         debt_taker_total_amount = findViewById(R.id.debt_taker_total_amount);
 
-        userDebts = (UserDebts) getIntent().getSerializableExtra("debtDetails");
-
-        ColorGenerator generator = ColorGenerator.MATERIAL;
-
         registerReceiver(onDownloadComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
+        add_a_new_debt_details = findViewById(R.id.add_a_new_debt_details);
 
-        int color1 = generator.getRandomColor();
+        user_id = getIntent().getLongExtra("user_id", -1);
 
-        char c = 0;
-
-        if (userDebts != null) {
-
-            c = userDebts.getUser_name().charAt(0);
-
-            debt_taker_mobile_number.setText(userDebts.getUser_mobile_number());
-            debt_taker_name.setText(userDebts.getUser_name());
-            debt_taker_total_amount.setText("৳ "+String.valueOf(userDebts.getUser_total_debt()));
-        }
-
-        TextDrawable drawable = TextDrawable.builder().buildRound(String.valueOf(c), color1);
-
-        letter_image_view.setImageDrawable(drawable);
+        loadData(user_id);
 
         back_to_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,11 +132,68 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
                 requestStoragePermission();
             }
         });
+
+        add_a_new_debt_details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DebtDetailsForACustomer.this, AddAUserDebtDetails.class);
+                intent.putExtra("user_id", user_id);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void loadData(Long user_id) {
+
+        loader.setVisibility(View.VISIBLE);
+
+        RetrofitClient.getInstance().getApi()
+                .getUserDebtDetails(user_id)
+                .enqueue(new Callback<UserDebts>() {
+                    @Override
+                    public void onResponse(@NotNull Call<UserDebts> call, @NotNull Response<UserDebts> response) {
+
+                        if(response.code() == 200)
+                        {
+                            if (response.body() != null) {
+                                userDebts = response.body();
+
+                                ColorGenerator generator = ColorGenerator.MATERIAL;
+                                int color1 = generator.getRandomColor();
+
+                                char c = 0;
+
+                                c = userDebts.getUser_name().charAt(0);
+
+                                debt_taker_mobile_number.setText(userDebts.getUser_mobile_number());
+                                debt_taker_name.setText(userDebts.getUser_name());
+                                debt_taker_total_amount.setText("৳ "+String.valueOf(userDebts.getUser_total_debt()));
+
+                                TextDrawable drawable = TextDrawable.builder().buildRound(String.valueOf(c), color1);
+
+                                letter_image_view.setImageDrawable(drawable);
+
+                                loader.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(DebtDetailsForACustomer.this, "Error fetching data", Toast.LENGTH_SHORT).show();
+                            loader.setVisibility(View.INVISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<UserDebts> call, @NotNull Throwable t) {
+                        Toast.makeText(DebtDetailsForACustomer.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        loader.setVisibility(View.INVISIBLE);
+                    }
+                });
     }
 
     public void beginDownload()
     {
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Invoice");
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Invoice.pdf");
 
         String name = null;
         Long id;
@@ -244,13 +283,4 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
             }
         }
     }
-
-
-
-
-
-
-
-
-
 }
