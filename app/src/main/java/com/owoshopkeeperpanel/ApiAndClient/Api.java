@@ -125,10 +125,16 @@ public interface Api {
             @Query("shop_mobile_number") String shop_mobile_number
     );
 
-    @GET("/getAllDebtDetails")
+    @GET("/getUserSpecificDebtDetails")
     Call<UserDebts> getUserDebtDetails(
             @Query("user_id") Long user_id
     );
+
+    @GET("/getADebtListForAUser")
+    Call<List<User_debt_details>> getDebtListForAnSpecificUser(
+            @Query("user_id") Long user_id
+    );
+
 
     @DELETE("/clearAllDebtDetails")
     Call<ResponseBody> deleteAUserDebtList(

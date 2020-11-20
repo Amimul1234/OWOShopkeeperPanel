@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.app.DownloadManager;
@@ -31,6 +32,7 @@ import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.Model.UserDebts;
 import com.owoshopkeeperpanel.Model.User_debt_details;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.adapters.UserDebtRecordForASingleUserAdapter;
 import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.util.List;
@@ -52,6 +54,8 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
     private long downloadId;
     private Long user_id;
     private UserDebts userDebts;
+
+    private UserDebtRecordForASingleUserAdapter userDebtRecordForASingleUserAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +160,7 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
                         if(response.code() == 200)
                         {
                             if (response.body() != null) {
+
                                 userDebts = response.body();
 
                                 ColorGenerator generator = ColorGenerator.MATERIAL;
@@ -174,6 +179,34 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
                                 letter_image_view.setImageDrawable(drawable);
 
                                 loader.setVisibility(View.INVISIBLE);
+
+                                RetrofitClient.getInstance().getApi()
+                                        .getDebtListForAnSpecificUser(user_id)
+                                        .enqueue(new Callback<List<User_debt_details>>() {
+                                            @Override
+                                            public void onResponse(@NotNull Call<List<User_debt_details>> call, @NotNull Response<List<User_debt_details>> response) {
+                                                if(response.code() == 200)
+                                                {
+                                                    userDebts.setUserDebtDetails(response.body());
+                                                    userDebtRecordForASingleUserAdapter = new UserDebtRecordForASingleUserAdapter(DebtDetailsForACustomer.this, userDebts.getUserDebtDetails());
+                                                    debt_details_recyclerview.setLayoutManager(new LinearLayoutManager(DebtDetailsForACustomer.this));
+                                                    debt_details_recyclerview.setAdapter(userDebtRecordForASingleUserAdapter);
+                                                }
+                                                else if(response.code() == 204)
+                                                {
+                                                    Toast.makeText(DebtDetailsForACustomer.this, "No record for this user", Toast.LENGTH_SHORT).show();
+                                                }
+                                                else
+                                                {
+                                                    Toast.makeText(DebtDetailsForACustomer.this, "User not found", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(@NotNull Call<List<User_debt_details>> call, @NotNull Throwable t) {
+
+                                            }
+                                        });
                             }
                         }
                         else

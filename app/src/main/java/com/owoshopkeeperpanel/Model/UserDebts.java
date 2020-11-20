@@ -59,6 +59,6 @@ public class UserDebts implements Serializable {
     }
 
     public void setUserDebtDetails(List<User_debt_details> userDebtDetails) {
-        this.userDebtDetails = userDebtDetails;
+        this.userDebtDetails.addAll(userDebtDetails);
     }
 }
