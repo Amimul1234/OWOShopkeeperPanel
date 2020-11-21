@@ -9,10 +9,7 @@ import com.owoshopkeeperpanel.Model.Shops;
 import com.owoshopkeeperpanel.Model.UserDebts;
 import com.owoshopkeeperpanel.Model.User_debt_details;
 import com.owoshopkeeperpanel.Response.OwoApiResponse;
-import com.owoshopkeeperpanel.myShopRelated.UserDebtDetails;
-
 import java.util.List;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -135,7 +132,6 @@ public interface Api {
             @Query("user_id") Long user_id
     );
 
-
     @DELETE("/clearAllDebtDetails")
     Call<ResponseBody> deleteAUserDebtList(
             @Query("user_id") Long user_id
@@ -147,5 +143,16 @@ public interface Api {
             @Query("user_id") Long user_id
     );
 
+    @DELETE("/deleteAdebtDetails")
+    Call<ResponseBody> deleteADebtDetails(
+            @Query("id_of_debt_details") long id_of_debt_details,
+            @Query("user_id") long user_id
+    );
+
+    @PUT("/updateAdebtDetails")
+    Call<ResponseBody> updateADebtDetails(
+            @Body User_debt_details user_debt_details,
+            @Query("user_id") long user_id
+    );
 
 }

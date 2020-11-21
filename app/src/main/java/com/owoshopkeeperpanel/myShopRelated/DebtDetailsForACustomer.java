@@ -147,7 +147,7 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
         });
     }
 
-    private void loadData(Long user_id) {
+    public void loadData(Long user_id) {
 
         loader.setVisibility(View.VISIBLE);
 
@@ -188,7 +188,7 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
                                                 if(response.code() == 200)
                                                 {
                                                     userDebts.setUserDebtDetails(response.body());
-                                                    userDebtRecordForASingleUserAdapter = new UserDebtRecordForASingleUserAdapter(DebtDetailsForACustomer.this, userDebts.getUserDebtDetails());
+                                                    userDebtRecordForASingleUserAdapter = new UserDebtRecordForASingleUserAdapter(DebtDetailsForACustomer.this, userDebts.getUserDebtDetails(), user_id);
                                                     debt_details_recyclerview.setLayoutManager(new LinearLayoutManager(DebtDetailsForACustomer.this));
                                                     debt_details_recyclerview.setAdapter(userDebtRecordForASingleUserAdapter);
                                                 }
