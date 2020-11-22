@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -21,7 +22,6 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.Observer;
@@ -30,7 +30,6 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.owoshopkeeperpanel.R;
@@ -47,11 +46,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
 
@@ -65,6 +62,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private AppCompatButton searchBar;
     private ItemViewModel itemViewModel;
     private BottomNavigationView bottomNavigationView;
+    private ProgressBar home_progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +74,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        adapter = new ItemAdapter(this);
+
+        home_progress = findViewById(R.id.home_progressbar);
+
+        adapter = new ItemAdapter(this, home_progress);
 
         getProducts();
 
@@ -230,9 +231,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
-
-
-
 
     public void getProducts() {
 
@@ -453,4 +451,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         bottomNavigationView.setSelectedItemId(R.id.action_home);
     }
+
+
 }

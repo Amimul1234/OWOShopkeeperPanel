@@ -18,6 +18,7 @@ import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.shopKeeperPanel.Order_list;
 import com.owoshopkeeperpanel.shopKeeperPanel.ProductDetailsActivity;
 import org.jetbrains.annotations.NotNull;
+import java.io.Serializable;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,9 +85,8 @@ public class Ordered_item_adapter extends  RecyclerView.Adapter<Ordered_item_ada
                             if(response.isSuccessful())
                             {
                                 Order_list.allianceLoader.setVisibility(View.INVISIBLE);
-                                Owo_product owo_product = response.body();
                                 Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
-                                intent.putExtra("Products", owo_product);
+                                intent.putExtra("Products", (Serializable) response.body());
                                 mCtx.startActivity(intent);
                             }
                             else

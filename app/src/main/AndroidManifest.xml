@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:hardwareAccelerated="true"
@@ -19,10 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".myShopRelated.AddAUserDebtDetails"></activity>
-        <activity android:name=".myShopRelated.DebtDetailsForACustomer" />
-        <activity android:name=".myShopRelated.AddAUserDebt" />
-        <activity android:name=".myShopRelated.UserDebtDetails" />
+        <activity android:name=".myShopRelated.debt.AddAUserDebtDetails"></activity>
+        <activity android:name=".myShopRelated.debt.DebtDetailsForACustomer" />
+        <activity android:name=".myShopRelated.debt.AddAUserDebt" />
+        <activity android:name=".myShopRelated.debt.UserDebtDetails" />
         <activity android:name=".shopKeeperPanel.BrandWiseProduct" />
         <activity android:name=".shopKeeperPanel.categories" />
         <activity android:name=".shopKeeperPanel.calculator" />

@@ -1,35 +1,29 @@
 package com.owoshopkeeperpanel.shopKeeperPanel;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Rect;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.owoshopkeeperpanel.Model.User_shopkeeper;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.google.android.gms.tasks.Continuation;
@@ -47,9 +41,6 @@ import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.sheetHandeler.User_Info_Update_Bottom_Sheet;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
-import java.util.HashMap;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SettingsActivity extends AppCompatActivity{
@@ -58,13 +49,14 @@ public class SettingsActivity extends AppCompatActivity{
     private String myUrl="";
     private StorageTask uploadTask;
     private StorageReference storageProfilePictureRef;
-
     private CardView profile_pic_card, pin_change_card;
     private CircleImageView profileImageView, profileImageSmall;
     private ImageView back_to_home;
     private TextView user_name, user_mobile, user_information_update;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private RelativeLayout change_pin_layout;
+
+    private static final int PERMISSION_REQUEST_CODE = 200;
 
     private User_shopkeeper user_shopkeeper = new User_shopkeeper();
 
@@ -117,10 +109,17 @@ public class SettingsActivity extends AppCompatActivity{
                     public void onClick(DialogInterface dialog, int i) {
                         if (i==0)
                         {
-                            CropImage.activity(imageUri)
-                                    .setAspectRatio(1,1)
-                                    .setCropShape(CropImageView.CropShape.OVAL)
-                                    .start(SettingsActivity.this);
+                            if(checkPermission())
+                            {
+                                CropImage.activity(imageUri)
+                                        .setAspectRatio(1,1)
+                                        .setCropShape(CropImageView.CropShape.OVAL)
+                                        .start(SettingsActivity.this);
+                            }
+                            else
+                            {
+                                requestPermission();
+                            }
 
                         }
                         else if(i==1)
@@ -215,8 +214,8 @@ public class SettingsActivity extends AppCompatActivity{
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode==RESULT_OK && data!=null)
         {
-            CropImage.ActivityResult result=CropImage.getActivityResult(data);
-            imageUri=result.getUri();
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            imageUri = result.getUri();
             profileImageView.setImageURI(imageUri);
             profileImageSmall.setImageURI(imageUri);
             uploadImage();
@@ -252,5 +251,70 @@ public class SettingsActivity extends AppCompatActivity{
             }
         });
     }
+
+    private boolean checkPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            return false;
+        }
+        return true;
+    }
+
+    private void requestPermission() {
+
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.CAMERA},
+                PERMISSION_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getApplicationContext(), "Permission Granted", Toast.LENGTH_SHORT).show();
+                    CropImage.activity(imageUri)
+                            .setAspectRatio(1,1)
+                            .setCropShape(CropImageView.CropShape.OVAL)
+                            .start(SettingsActivity.this);
+                } else {
+
+                    Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                                != PackageManager.PERMISSION_GRANTED) {
+                            showMessageOKCancel("You need to allow camera access permissions",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                requestPermission();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                }
+                break;
+        }
+    }
+
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(SettingsActivity.this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
+
+
+
+
+
+
+
 }
 

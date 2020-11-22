@@ -2,7 +2,6 @@ package com.owoshopkeeperpanel.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.Model.User_debt_details;
 import com.owoshopkeeperpanel.R;
-import com.owoshopkeeperpanel.myShopRelated.DebtDetailsForACustomer;
+import com.owoshopkeeperpanel.myShopRelated.debt.DebtDetailsForACustomer;
 
 import org.jetbrains.annotations.NotNull;
 

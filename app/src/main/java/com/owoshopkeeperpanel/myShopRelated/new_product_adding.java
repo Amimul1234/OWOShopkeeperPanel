@@ -11,6 +11,9 @@ import com.owoshopkeeperpanel.Model.add_product_model;
 import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.R;
 
+import org.jetbrains.annotations.NotNull;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,7 +34,7 @@ public class new_product_adding extends AppCompatActivity {
 
         call.enqueue(new Callback<Owo_product>() {
             @Override
-            public void onResponse(Call<Owo_product> call, Response<Owo_product> response) {
+            public void onResponse(@NotNull Call<Owo_product> call, @NotNull Response<Owo_product> response) {
                 if (response.body() != null) {
                     if(response.isSuccessful())
                     {
@@ -57,7 +60,7 @@ public class new_product_adding extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Owo_product> call, Throwable t) {
+            public void onFailure(@NotNull Call<Owo_product> call, @NotNull Throwable t) {
                 Toast.makeText(new_product_adding.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 finish();
             }

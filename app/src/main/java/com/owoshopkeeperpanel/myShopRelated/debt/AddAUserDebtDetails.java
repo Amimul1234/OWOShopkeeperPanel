@@ -1,4 +1,4 @@
-package com.owoshopkeeperpanel.myShopRelated;
+package com.owoshopkeeperpanel.myShopRelated.debt;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
@@ -14,6 +14,7 @@ import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.Model.User_debt_details;
 import com.owoshopkeeperpanel.R;
+
 import org.jetbrains.annotations.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

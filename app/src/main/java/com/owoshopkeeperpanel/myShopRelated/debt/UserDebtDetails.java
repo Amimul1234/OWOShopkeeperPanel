@@ -1,16 +1,14 @@
-package com.owoshopkeeperpanel.myShopRelated;
+package com.owoshopkeeperpanel.myShopRelated.debt;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.owoshopkeeperpanel.Model.UserDebts;

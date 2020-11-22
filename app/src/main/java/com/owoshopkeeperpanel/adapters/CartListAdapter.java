@@ -3,6 +3,7 @@ package com.owoshopkeeperpanel.adapters;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,10 @@ import com.owoshopkeeperpanel.Model.Cart_list_product;
 import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
-import com.owoshopkeeperpanel.shopKeeperPanel.BridgeofCartAndProduct;
 import com.owoshopkeeperpanel.shopKeeperPanel.CartActivity;
 import com.owoshopkeeperpanel.shopKeeperPanel.ProductDetailsActivity;
-
+import org.jetbrains.annotations.NotNull;
+import java.io.Serializable;
 import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -69,28 +70,24 @@ public class CartListAdapter extends ArrayAdapter<Cart_list_product> {
 
                 call.enqueue(new Callback<Owo_product>() {
                     @Override
-                    public void onResponse(Call<Owo_product> call, Response<Owo_product> response) {
-                        if(response.isSuccessful())
+                    public void onResponse(@NotNull Call<Owo_product> call, @NotNull Response<Owo_product> response) {
+                        if(response.code() == 200)
                         {
-                            if( response.isSuccessful())
-                            {
-                                Owo_product owo_product = response.body();
-                                cartActivity.loaderGone();
-                                Intent intent = new Intent(context, ProductDetailsActivity.class);
-                                intent.putExtra("Products", owo_product);
-                                context.startActivity(intent);
-                            }
-                            else
-                            {
-                                Toast.makeText(context, "Server error", Toast.LENGTH_SHORT).show();
-                                cartActivity.loaderGone();
-                            }
+                            cartActivity.loaderGone();
+                            Intent intent = new Intent(context, ProductDetailsActivity.class);
+                            intent.putExtra("Products", (Serializable) response.body());
+                            context.startActivity(intent);
+                        }
+                        else
+                        {
+                            Toast.makeText(context, "Server error", Toast.LENGTH_SHORT).show();
+                            cartActivity.loaderGone();
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<Owo_product> call, Throwable t) {
-                        Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+                    public void onFailure(@NotNull Call<Owo_product> call, @NotNull Throwable t) {
+                        Log.e("Error", t.getMessage());
                     }
                 });
             }
@@ -164,7 +161,7 @@ public class CartListAdapter extends ArrayAdapter<Cart_list_product> {
 
         call.enqueue(new Callback<Cart_list_product>() {
             @Override
-            public void onResponse(Call<Cart_list_product> call, Response<Cart_list_product> response) {
+            public void onResponse(@NotNull Call<Cart_list_product> call, @NotNull Response<Cart_list_product> response) {
                 if(response.isSuccessful())
                 {
                     cart_list_products.set(position, response.body());
@@ -191,7 +188,7 @@ public class CartListAdapter extends ArrayAdapter<Cart_list_product> {
             }
 
             @Override
-            public void onFailure(Call<Cart_list_product> call, Throwable t) {
+            public void onFailure(@NotNull Call<Cart_list_product> call, @NotNull Throwable t) {
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
                 cartActivity.loaderGone();
             }
@@ -214,7 +211,7 @@ public class CartListAdapter extends ArrayAdapter<Cart_list_product> {
                         Call<ResponseBody> call = RetrofitClient.getInstance().getApi().delete_product_from_cart(cart_list_product.getProduct_id(), Prevalent.currentOnlineUser.getPhone());
                         call.enqueue(new Callback<ResponseBody>() {
                             @Override
-                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                                 if(response.isSuccessful())
                                 {
                                     cart_list_products.remove(cart_list_product);
@@ -250,7 +247,7 @@ public class CartListAdapter extends ArrayAdapter<Cart_list_product> {
                             }
 
                             @Override
-                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
                                 cartActivity.loaderGone();
                             }

@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -16,17 +18,24 @@ import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.shopKeeperPanel.ProductDetailsActivity;
+import org.jetbrains.annotations.NotNull;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ItemAdapter extends PagedListAdapter<Owo_product, RecyclerView.ViewHolder>{
 
     private Context mCtx;
+    private ProgressBar progressBar;
 
-    public ItemAdapter(Context mCtx) {
+    public ItemAdapter(Context mCtx, ProgressBar progressBar) {
         super(DIFF_CALLBACK);
         this.mCtx = mCtx;
+        this.progressBar = progressBar;
     }
 
     @NonNull
@@ -101,7 +110,6 @@ public class ItemAdapter extends PagedListAdapter<Owo_product, RecyclerView.View
             ((Activity) mCtx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
             int devicewidth = displaymetrics.widthPixels / 2;
-            int deviceheight = displaymetrics.heightPixels / 3;
 
             itemView.getLayoutParams().width = devicewidth - 15;
 
@@ -110,10 +118,34 @@ public class ItemAdapter extends PagedListAdapter<Owo_product, RecyclerView.View
 
         @Override
         public void onClick(View v) {
-            Owo_product owoproduct = getItem(getBindingAdapterPosition());
-            Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
-            intent.putExtra("Products", owoproduct);
-            mCtx.startActivity(intent);
+            long id = getItem(getBindingAdapterPosition()).getProduct_id();
+
+            progressBar.setVisibility(View.VISIBLE);
+
+            RetrofitClient.getInstance().getApi()
+                    .getProductById(id)
+                    .enqueue(new Callback<Owo_product>() {
+                        @Override
+                        public void onResponse(@NotNull Call<Owo_product> call, @NotNull Response<Owo_product> response) {
+                            if(response.isSuccessful())
+                            {
+                                progressBar.setVisibility(View.INVISIBLE);
+                                Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
+                                intent.putExtra("Products", response.body());
+                                mCtx.startActivity(intent);
+                            }
+                            else
+                            {
+                                progressBar.setVisibility(View.INVISIBLE);
+                                Log.e("Error", "Server error occured");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NotNull Call<Owo_product> call, @NotNull Throwable t) {
+                            Log.e("Error", t.getMessage());
+                            progressBar.setVisibility(View.INVISIBLE);
+                        }});
         }
     }
 

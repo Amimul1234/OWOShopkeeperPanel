@@ -14,20 +14,11 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.Model.UserDebts;
-import com.owoshopkeeperpanel.Model.User_debt_details;
 import com.owoshopkeeperpanel.R;
-import com.owoshopkeeperpanel.myShopRelated.DebtDetailsForACustomer;
-import com.owoshopkeeperpanel.myShopRelated.UserDebtDetails;
+import com.owoshopkeeperpanel.myShopRelated.debt.DebtDetailsForACustomer;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class UserDebtAdapter extends PagedListAdapter<UserDebts, RecyclerView.ViewHolder>{
     private Context mCtx;

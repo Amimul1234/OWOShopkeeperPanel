@@ -1,28 +1,22 @@
 package com.owoshopkeeperpanel.shopKeeperPanel;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.Model.Brands;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.adapters.BrandsAdapter;
-import com.owoshopkeeperpanel.adapters.CategoryAdapter;
-
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -82,10 +76,10 @@ public class brands_fragment extends Fragment {
                 .getBrandsViaCategory(page, categories)
                 .enqueue(new Callback<List<Brands>>() {
                     @Override
-                    public void onResponse(Call<List<Brands>> call, Response<List<Brands>> response) {
-                        if(!response.body().isEmpty())
+                    public void onResponse(@NotNull Call<List<Brands>> call, @NotNull Response<List<Brands>> response) {
+                        if(response.code() == 200)
                         {
-                            brandsList.addAll(response.body());
+                            brandsList.addAll((List<Brands>)response.body());
                             brandsAdapter.notifyDataSetChanged();
                         }
                         else
@@ -95,7 +89,7 @@ public class brands_fragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<List<Brands>> call, Throwable t) {
+                    public void onFailure(@NotNull Call<List<Brands>> call, @NotNull Throwable t) {
                         Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

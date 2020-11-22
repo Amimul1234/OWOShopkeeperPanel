@@ -1,4 +1,4 @@
-package com.owoshopkeeperpanel.myShopRelated;
+package com.owoshopkeeperpanel.myShopRelated.debt;
 
 import androidx.appcompat.app.AppCompatActivity;
 

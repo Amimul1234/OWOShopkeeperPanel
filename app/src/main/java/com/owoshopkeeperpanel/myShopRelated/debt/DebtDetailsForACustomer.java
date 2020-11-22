@@ -1,4 +1,4 @@
-package com.owoshopkeeperpanel.myShopRelated;
+package com.owoshopkeeperpanel.myShopRelated.debt;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -33,10 +33,10 @@ import com.owoshopkeeperpanel.Model.UserDebts;
 import com.owoshopkeeperpanel.Model.User_debt_details;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.adapters.UserDebtRecordForASingleUserAdapter;
+
 import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.util.List;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;

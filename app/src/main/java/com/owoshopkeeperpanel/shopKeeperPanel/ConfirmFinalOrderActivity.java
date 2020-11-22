@@ -2,7 +2,6 @@ package com.owoshopkeeperpanel.shopKeeperPanel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -25,16 +24,15 @@ import com.owoshopkeeperpanel.Model.Shop_keeper_ordered_products;
 import com.owoshopkeeperpanel.Model.Shop_keeper_orders;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
+import org.jetbrains.annotations.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
@@ -179,14 +177,14 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
         shop_keeper_orders.setShop_keeper_ordered_products(shop_keeper_ordered_products);
 
-        Call<ResponseBody> call = RetrofitClient.getInstance().getApi().createOrder(shop_keeper_orders);
+        Call<ResponseBody> call = RetrofitClient.getInstance().getApi().createOrder(shop_keeper_orders, Prevalent.currentOnlineUser.getPhone());
 
         loader.setVisibility(View.VISIBLE);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful())
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                if(response.code() == 201)
                 {
                     loader.setVisibility(View.INVISIBLE);
                     Toast.makeText(ConfirmFinalOrderActivity.this, "Order placed successfully", Toast.LENGTH_SHORT).show();
@@ -195,12 +193,11 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
                 else
                 {
                     loader.setVisibility(View.INVISIBLE);
-                    Toast.makeText(ConfirmFinalOrderActivity.this, "Failed to place order", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ConfirmFinalOrderActivity.this, "Failed to place order, try again!!!", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                 loader.setVisibility(View.INVISIBLE);
                 Toast.makeText(ConfirmFinalOrderActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }

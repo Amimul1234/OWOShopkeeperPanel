@@ -14,7 +14,7 @@ import com.owoshopkeeperpanel.myShopRelated.Add_a_new_offer;
 import com.owoshopkeeperpanel.myShopRelated.Add_product_to_my_shop;
 import com.owoshopkeeperpanel.myShopRelated.Completed_orders;
 import com.owoshopkeeperpanel.myShopRelated.Pending_orders;
-import com.owoshopkeeperpanel.myShopRelated.UserDebtDetails;
+import com.owoshopkeeperpanel.myShopRelated.debt.UserDebtDetails;
 import com.owoshopkeeperpanel.myShopRelated.View_avilable_product_to_sell;
 import com.owoshopkeeperpanel.myShopRelated.View_offers;
 import java.util.Arrays;
