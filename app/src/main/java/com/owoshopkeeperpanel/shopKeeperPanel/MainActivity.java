@@ -2,7 +2,6 @@ package com.owoshopkeeperpanel.shopKeeperPanel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +12,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.Model.User_shopkeeper;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
@@ -27,11 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-
 import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText mobile, pin;
     private ImageView visibility;
     private Boolean isShowPin = false;
-    private ProgressBar progressBar;
     private TextView forgetPin,signUp;
     private CheckBox rememberMe;
     private ProgressDialog loadingbar;
@@ -51,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         Paper.init(this);
 
 
@@ -62,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
         forgetPin=(TextView)findViewById(R.id.forget_pin);
         signUp=(TextView)findViewById(R.id.sign_up);
         loadingbar = new ProgressDialog(this);
+
+        if(Paper.book().read(Prevalent.UserPhoneKey) != null && Paper.book().read(Prevalent.UserPinKey) != null)
+        {
+            loadingbar.setTitle("Login Account");
+            loadingbar.setMessage("Please wait while we are checking the credentials....");
+            loadingbar.setCanceledOnTouchOutside(false);
+            loadingbar.show();
+            AllowAccessToAccount(Paper.book().read(Prevalent.UserPhoneKey), Paper.book().read(Prevalent.UserPinKey));
+        }
 
         forgetPin.setOnClickListener(new View.OnClickListener() {
             @Override
