@@ -1,5 +1,7 @@
 package com.owoshopkeeperpanel.Model;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 
 public class Owo_product implements Serializable {
@@ -128,5 +130,13 @@ public class Owo_product implements Serializable {
 
     public void setProduct_image(String product_image) {
         this.product_image = product_image;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(this == obj)
+            return true;
+        else
+            return false;
     }
 }

@@ -7,7 +7,6 @@ import androidx.paging.PageKeyedDataSource;
 import androidx.paging.PagedList;
 import com.owoshopkeeperpanel.Model.Owo_product;
 
-
 public class ItemViewModel extends ViewModel {
 
     public LiveData<PagedList<Owo_product>> itemPagedList;

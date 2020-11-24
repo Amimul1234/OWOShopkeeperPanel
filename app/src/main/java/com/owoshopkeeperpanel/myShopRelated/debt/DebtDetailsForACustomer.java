@@ -33,9 +33,7 @@ import com.owoshopkeeperpanel.Model.UserDebts;
 import com.owoshopkeeperpanel.Model.User_debt_details;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.adapters.UserDebtRecordForASingleUserAdapter;
-
 import org.jetbrains.annotations.NotNull;
-import java.io.File;
 import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -226,10 +224,8 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
 
     public void beginDownload()
     {
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Invoice.pdf");
-
         String name = null;
-        Long id;
+        long id;
         String query_string = null;
 
         if(userDebts!=null)
@@ -242,12 +238,15 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
         DownloadManager.Request request = new DownloadManager.Request(
                 Uri.parse(query_string))
                 .setTitle(name+"'s Invoice")
-                .setDescription("Downloading")
+                .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
+                .setDescription("Downloading file....")
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 .setRequiresCharging(false)
-                .setDestinationUri(Uri.fromFile(file))
                 .setAllowedOverMetered(true)
                 .setAllowedOverRoaming(true);
+
+        request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, ""+System.currentTimeMillis()+".pdf");
+        request.allowScanningByMediaScanner();
 
         DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         downloadId = downloadManager.enqueue(request);
