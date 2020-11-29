@@ -1,6 +1,7 @@
 package com.owoshopkeeperpanel.Model;
 
 public class User_shopkeeper {
+
     private String name, phone, pin, image;
 
     public User_shopkeeper() {

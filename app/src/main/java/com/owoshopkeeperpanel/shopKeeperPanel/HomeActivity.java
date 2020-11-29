@@ -138,7 +138,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         intent.setData(Uri.parse("tel:+8801612201602"));
                         startActivity(intent);
                         alertDialog.cancel();
-
                     }
                 });
 

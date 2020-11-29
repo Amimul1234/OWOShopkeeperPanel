@@ -2,8 +2,6 @@ package com.owoshopkeeperpanel.shopKeeperPanel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,24 +9,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.owoshopkeeperpanel.Model.User_shopkeeper;
 import com.owoshopkeeperpanel.R;
-
 import java.util.concurrent.TimeUnit;
 
 public class VerifyPhoneActivity extends AppCompatActivity {
 
     private EditText otp;
     private Button continueBtn;
-    private String mobilenumber, name;
+    private String mobilenumber, name, hashed_pin;
     private String verificationId;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
@@ -47,6 +46,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         mobilenumber = getIntent().getStringExtra("mobilenumber");
         String phonenumber = getIntent().getStringExtra("phonenumber");
         name = getIntent().getStringExtra("name");
+        hashed_pin = getIntent().getStringExtra("hashed_pin");
 
         sendVerificationCode(phonenumber);
 
@@ -79,10 +79,30 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(VerifyPhoneActivity.this, RegisterFrontActivity.class);
-                            intent.putExtra("mobilenumber", mobilenumber);
-                            intent.putExtra("name", name);
-                            startActivity(intent);
+                            final DatabaseReference RootRef;
+                            RootRef = FirebaseDatabase.getInstance().getReference();
+
+                            User_shopkeeper user_shopkeeper = new User_shopkeeper(name,
+                                    mobilenumber, hashed_pin, null);
+
+                            RootRef.child("Shopkeeper").child(mobilenumber).setValue(user_shopkeeper).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    if (task.isSuccessful())
+                                    {
+                                        Toast.makeText(getApplicationContext(), "Congratulations ! Your account created successfully", Toast.LENGTH_SHORT).show();
+                                        FirebaseAuth.getInstance().signOut();
+                                        Intent intent = new Intent(VerifyPhoneActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+
+                                    }
+                                    else {
+                                        Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
 
                         } else {
                             Toast.makeText(VerifyPhoneActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -93,13 +113,15 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
     private void sendVerificationCode(String number) {
         progressBar.setVisibility(View.VISIBLE);
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                number,
-                60,
-                TimeUnit.SECONDS,
-                (Activity) TaskExecutors.MAIN_THREAD,
-                mCallBack
-        );
+
+        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth)
+                .setPhoneNumber(number)
+                .setTimeout(60L, TimeUnit.SECONDS)
+                .setActivity(this)
+                .setCallbacks(mCallBack)
+                .build();
+
+        PhoneAuthProvider.verifyPhoneNumber(options);
     }
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks

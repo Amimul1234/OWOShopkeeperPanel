@@ -4,8 +4,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2db9192562678820bfb8611755cb5fcf/jetified-relinker-1.3.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c2699dab2032196bafaa6da47576f47e/jetified-relinker-1.3.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c276d9789b723609dda1f958c89555fb/jetified-relinker-1.3.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c276d9789b723609dda1f958c89555fb/jetified-relinker-1.3.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c276d9789b723609dda1f958c89555fb/jetified-relinker-1.3.1/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d57255ea282b697ac997cd6ef6491beb/jetified-relinker-1.3.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d57255ea282b697ac997cd6ef6491beb/jetified-relinker-1.3.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d57255ea282b697ac997cd6ef6491beb/jetified-relinker-1.3.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/pl.droidsonroids/relinker/1.3.1/20c51d0b5f3e060b82905547cb1357084212fba0/relinker-1.3.1-javadoc.jar!/" />

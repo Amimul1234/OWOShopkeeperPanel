@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".myShopRelated.debt.AddAUserDebtDetails"></activity>
+        <activity android:name=".myShopRelated.debt.AddAUserDebtDetails"/>
         <activity android:name=".myShopRelated.debt.DebtDetailsForACustomer" />
         <activity android:name=".myShopRelated.debt.AddAUserDebt" />
         <activity android:name=".myShopRelated.debt.UserDebtDetails" />
@@ -116,10 +116,7 @@
             android:name=".shopKeeperPanel.VerifyPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.RegisterWithOTPActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".shopKeeperPanel.RegisterFrontActivity"
+            android:name=".shopKeeperPanel.RegistrationActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopKeeperPanel.ProductDetailsActivity"

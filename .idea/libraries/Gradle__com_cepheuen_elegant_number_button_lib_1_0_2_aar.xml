@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.cepheuen.elegant-number-button:lib:1.0.2@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7f861537a7e299b3776f06ad54baf98d/jetified-lib-1.0.2/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7f861537a7e299b3776f06ad54baf98d/jetified-lib-1.0.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7f861537a7e299b3776f06ad54baf98d/jetified-lib-1.0.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3f0a2aec5da6668d401a58a302df63bc/jetified-lib-1.0.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3f0a2aec5da6668d401a58a302df63bc/jetified-lib-1.0.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3f0a2aec5da6668d401a58a302df63bc/jetified-lib-1.0.2/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.cepheuen.elegant-number-button/lib/1.0.2/8ede7b53dd07980dfc2d35df61d46418957cd523/lib-1.0.2-javadoc.jar!/" />

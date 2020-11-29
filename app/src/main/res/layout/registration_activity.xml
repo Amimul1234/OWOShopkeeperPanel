@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".shopKeeperPanel.RegistrationActivity">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="220dp"
+        android:layout_height="150dp"
+        android:padding="5dp"
+        android:src="@drawable/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="@string/new_account"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt1"
+        app:layout_constraintBottom_toTopOf="@id/send_otp_btn">
+
+
+        <EditText
+            android:id="@+id/new_shopkeeper_name"
+            android:layout_marginTop="15dp"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:inputType="text"
+            android:hint="@string/name"
+            android:drawableStart="@drawable/ic_person_black_24dp"
+            android:drawablePadding="10dp"
+            android:background="@drawable/edit_text_black"
+            android:textSize="20sp"
+            />
+
+        <EditText
+            android:id="@+id/shopkeeper_register_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_black"
+            android:drawableStart="@drawable/phone"
+            android:drawablePadding="10dp"
+            android:hint="@string/mobile_number"
+            android:inputType="numberDecimal"
+            android:maxLength="11"
+            android:padding="15dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:layout_below="@+id/new_shopkeeper_name"/>
+
+
+        <RelativeLayout
+            android:id="@+id/relative1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shopkeeper_register_mobile">
+
+            <EditText
+                android:id="@+id/new_shopkeeper_pin"
+                android:layout_marginTop="10dp"
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:inputType="numberPassword"
+                android:hint="@string/pin_number"
+                android:drawableLeft="@drawable/ic_input_lock"
+                android:drawablePadding="10dp"
+                android:background="@drawable/edit_text_black"
+                android:textSize="20sp"
+                />
+
+            <ImageView
+                android:id="@+id/show_pin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_visibility_off"
+                android:layout_alignParentRight="true"
+                android:paddingRight="40dp"
+                android:paddingTop="10dp"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/relative2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/relative1">
+
+            <EditText
+                android:id="@+id/new_shopkeeper_confirm_pin"
+                android:layout_marginTop="10dp"
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:hint="@string/confirm_pin"
+                android:inputType="numberPassword"
+                android:background="@drawable/edit_text_black"
+                android:textSize="20sp"
+                android:drawableStart="@drawable/ic_input_lock"
+                android:drawablePadding="10dp"
+                />
+
+
+            <ImageView
+                android:id="@+id/show_confirmed_pin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_visibility_off"
+                android:layout_alignParentEnd="true"
+                android:paddingEnd="40dp"
+                android:paddingTop="10dp"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_below="@id/relative2">
+
+            <CheckBox
+                android:id="@+id/terms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/i_accept_all_the"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginLeft="15dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/terms_conditions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/terms_and_conditions"
+                android:textColor="@color/blue"
+                android:textSize="16sp"
+                android:layout_toRightOf="@+id/terms"
+                android:textStyle="bold"
+                android:paddingTop="5dp"
+                android:layout_marginRight="10dp"
+                />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/send_otp_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/buttons_blue"
+        android:padding="15dp"
+        android:text="@string/sign_up"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
+        android:id="@+id/loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:alliance_animDuration="500"
+        app:alliance_distanceMultiplier="4"
+        app:alliance_dotsRadius="15dp"
+        app:alliance_firstDotsColor="@color/red"
+        app:alliance_secondDotsColor="@color/green"
+        app:alliance_strokeWidth="8dp"
+        app:alliance_thirdDotsColor="@color/blue"
+        app:layout_constraintBottom_toTopOf="@+id/send_otp_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
