@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.R;
-import com.owoshopkeeperpanel.shopKeeperPanel.SubCategoryWiseProduct;
+import com.owoshopkeeperpanel.shopKeeperPanel.product_related.SubCategoryWiseProduct;
 
 import java.util.List;
 

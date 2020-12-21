@@ -24,7 +24,7 @@
         <activity android:name=".myShopRelated.debt.DebtDetailsForACustomer" />
         <activity android:name=".myShopRelated.debt.AddAUserDebt" />
         <activity android:name=".myShopRelated.debt.UserDebtDetails" />
-        <activity android:name=".shopKeeperPanel.BrandWiseProduct" />
+        <activity android:name=".shopKeeperPanel.product_related.BrandWiseProduct" />
         <activity android:name=".shopKeeperPanel.categories" />
         <activity android:name=".shopKeeperPanel.calculator" />
         <activity android:name=".myShopRelated.add_product_to_shop" />
@@ -37,7 +37,7 @@
         <activity android:name=".myShopRelated.Add_product_to_my_shop" />
         <activity android:name=".shopKeeperPanel.Order_details_for_single_item" />
         <activity android:name=".shopKeeperPanel.Order_list" />
-        <activity android:name=".shopKeeperPanel.SubCategoryWiseProduct" />
+        <activity android:name=".shopKeeperPanel.product_related.SubCategoryWiseProduct" />
         <activity
             android:name=".shopKeeperPanel.CategoryWiseProduct"
             android:screenOrientation="portrait" />
@@ -62,7 +62,7 @@
             android:name=".shopKeeperPanel.SearchActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.AfterShopRegisterRequest"
+            android:name=".shopKeeperPanel.registration_related.AfterShopRegisterRequest"
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopKeeperPanel.ConfirmFinalOrderActivity"
@@ -104,25 +104,25 @@
             android:name=".shopKeeperPanel.LocationFromMap"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.AfterRegisterActivity"
+            android:name=".shopKeeperPanel.registration_related.AfterRegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.TermsConditionsActivity"
+            android:name=".shopKeeperPanel.registration_related.TermsConditionsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopKeeperPanel.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.VerifyPhoneActivity"
+            android:name=".shopKeeperPanel.registration_related.VerifyPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.RegistrationActivity"
+            android:name=".shopKeeperPanel.registration_related.RegistrationActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopKeeperPanel.ProductDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.ShopRegistrationRequest"
+            android:name=".shopKeeperPanel.registration_related.ShopRegistrationRequest"
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopKeeperPanel.HomeActivity"

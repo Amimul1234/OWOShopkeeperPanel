@@ -1,4 +1,4 @@
-package com.owoshopkeeperpanel.shopKeeperPanel;
+package com.owoshopkeeperpanel.shopKeeperPanel.registration_related;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.owoshopkeeperpanel.hashing.hashing_algo;
+
 import java.security.NoSuchAlgorithmException;
 
 public class RegistrationActivity extends AppCompatActivity {

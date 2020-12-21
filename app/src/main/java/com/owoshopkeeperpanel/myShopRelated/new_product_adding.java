@@ -1,19 +1,14 @@
 package com.owoshopkeeperpanel.myShopRelated;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
-
 import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.Model.add_product_model;
 import com.owoshopkeeperpanel.ApiAndClient.RetrofitClient;
 import com.owoshopkeeperpanel.R;
-
 import org.jetbrains.annotations.NotNull;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,7 +18,7 @@ public class new_product_adding extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bridgeof_cart_and_product);
+        setContentView(R.layout.activity_new_product_adding);
 
         String id = getIntent().getStringExtra("id");
         String quantity = getIntent().getStringExtra("quantity");

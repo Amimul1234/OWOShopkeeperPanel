@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".shopKeeperPanel.RegistrationActivity">
+    tools:context=".shopKeeperPanel.registration_related.RegistrationActivity">
 
     <ImageView
         android:id="@+id/logo"

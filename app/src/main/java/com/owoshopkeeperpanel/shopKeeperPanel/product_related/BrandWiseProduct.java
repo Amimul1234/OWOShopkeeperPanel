@@ -1,4 +1,4 @@
-package com.owoshopkeeperpanel.shopKeeperPanel;
+package com.owoshopkeeperpanel.shopKeeperPanel.product_related;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,37 +13,42 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-
+import com.owoshopkeeperpanel.Model.Brands;
 import com.owoshopkeeperpanel.Model.Owo_product;
+import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
-import com.owoshopkeeperpanel.adapters.ItemAdapterSubCategory;
+import com.owoshopkeeperpanel.adapters.ItemAdapterBrand;
 import com.owoshopkeeperpanel.adapters.Product_tag;
-import com.owoshopkeeperpanel.pagination.subCategory.ItemViewModelSubCategory;
+import com.owoshopkeeperpanel.pagination.brands.ItemViewModelBrands;
+import com.owoshopkeeperpanel.shopKeeperPanel.SearchActivity;
 
-public class SubCategoryWiseProduct extends AppCompatActivity {
+public class BrandWiseProduct extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ImageView back_to_home;
     private AppCompatButton search_product;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ItemAdapterSubCategory adapter;
-    static public String category = null;
+    private Brands brands;
+    private ItemAdapterBrand adapter;
 
-    private ItemViewModelSubCategory itemViewModelSubCategory;
+    private String[] categories = (String[]) Prevalent.category_to_display.stream().toArray(String[]::new);
+
+    private ItemViewModelBrands itemViewModelBrands;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_wise_product);
+        setContentView(R.layout.activity_brand_wise_product);
 
         back_to_home = findViewById(R.id.back_to_home);
         search_product = findViewById(R.id.search_product);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
 
-        recyclerView = findViewById(R.id.recycler_view_for_products);
-        adapter = new ItemAdapterSubCategory(this);
+        brands = (Brands) getIntent().getSerializableExtra("brand");
 
-        category = getIntent().getStringExtra("sub_category");
+        recyclerView = findViewById(R.id.recycler_view_for_products);
+
+        adapter = new ItemAdapterBrand(this);
 
         back_to_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +60,7 @@ public class SubCategoryWiseProduct extends AppCompatActivity {
         search_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SubCategoryWiseProduct.this, SearchActivity.class);
+                Intent intent = new Intent(BrandWiseProduct.this, SearchActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -67,15 +72,15 @@ public class SubCategoryWiseProduct extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                itemViewModelSubCategory.clear();
+                itemViewModelBrands.clear();
                 getProducts();
             }
         });
     }
 
     public void getProducts() {
-        itemViewModelSubCategory = new ItemViewModelSubCategory(category);
-        itemViewModelSubCategory.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
+        itemViewModelBrands = new ItemViewModelBrands(categories, brands.getBrand_name());
+        itemViewModelBrands.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
             @Override
             public void onChanged(@Nullable PagedList<Owo_product> items) {
                 adapter.submitList(items);

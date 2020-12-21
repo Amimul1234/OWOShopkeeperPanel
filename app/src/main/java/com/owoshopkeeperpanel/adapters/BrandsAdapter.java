@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.Model.Brands;
 import com.owoshopkeeperpanel.R;
-import com.owoshopkeeperpanel.shopKeeperPanel.BrandWiseProduct;
+import com.owoshopkeeperpanel.shopKeeperPanel.product_related.BrandWiseProduct;
 
 import java.util.List;
 

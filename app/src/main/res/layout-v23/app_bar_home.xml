@@ -52,7 +52,7 @@
             android:textColor="@color/quantum_grey600"
             android:textAlignment="textStart"
             android:drawableStart="@drawable/ic_baseline_search_24"
-            app:drawableTint="@color/black"
+            android:drawableTint="@color/black"
             android:drawablePadding="10dp"
             android:background="@drawable/searchbuttondesign" />
 

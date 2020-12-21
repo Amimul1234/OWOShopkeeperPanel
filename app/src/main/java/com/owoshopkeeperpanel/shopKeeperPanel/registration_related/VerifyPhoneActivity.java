@@ -1,4 +1,4 @@
-package com.owoshopkeeperpanel.shopKeeperPanel;
+package com.owoshopkeeperpanel.shopKeeperPanel.registration_related;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.owoshopkeeperpanel.Model.User_shopkeeper;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.shopKeeperPanel.MainActivity;
+
 import java.util.concurrent.TimeUnit;
 
 public class VerifyPhoneActivity extends AppCompatActivity {

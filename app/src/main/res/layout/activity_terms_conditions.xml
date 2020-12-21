@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".shopKeeperPanel.TermsConditionsActivity">
+    tools:context=".shopKeeperPanel.registration_related.TermsConditionsActivity">
 
     <TextView
         android:layout_width="match_parent"

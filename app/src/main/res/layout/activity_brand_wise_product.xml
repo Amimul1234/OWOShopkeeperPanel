@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".shopKeeperPanel.BrandWiseProduct">
+    tools:context=".shopKeeperPanel.product_related.BrandWiseProduct">
 
     <include
         layout="@layout/app_bar_category"

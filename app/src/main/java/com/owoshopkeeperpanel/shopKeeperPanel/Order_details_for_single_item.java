@@ -3,19 +3,17 @@ package com.owoshopkeeperpanel.shopKeeperPanel;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.badoualy.stepperindicator.StepperIndicator;
-import com.owoshopkeeperpanel.Model.Ordered_products_model;
 import com.owoshopkeeperpanel.Model.Shop_keeper_ordered_products;
 import com.owoshopkeeperpanel.Model.Shop_keeper_orders;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.adapters.Ordered_item_adapter;
-import com.owoshopkeeperpanel.adapters.Ordered_products;
+
 
 import java.util.List;
 
@@ -34,6 +32,7 @@ public class Order_details_for_single_item extends AppCompatActivity {
     private List<Shop_keeper_ordered_products> shop_keeper_ordered_products;
 
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,7 +103,7 @@ public class Order_details_for_single_item extends AppCompatActivity {
         if(states[6].equals(shop_keeper_orders.getShipping_state()))
         {
             stepperIndicator.setCurrentStep(6);
-            stepperIndicator.setShowDoneIcon(false);
+            stepperIndicator.setDoneIcon(getResources().getDrawable(R.drawable.ic_baseline_cancel_24));
         }
 
 

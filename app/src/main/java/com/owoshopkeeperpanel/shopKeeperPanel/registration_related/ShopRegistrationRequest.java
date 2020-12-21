@@ -1,4 +1,4 @@
-package com.owoshopkeeperpanel.shopKeeperPanel;
+package com.owoshopkeeperpanel.shopKeeperPanel.registration_related;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -30,6 +30,7 @@ import com.google.firebase.storage.UploadTask;
 import com.owoshopkeeperpanel.Model.PendingShop;
 import com.owoshopkeeperpanel.Prevalent.Prevalent;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.shopKeeperPanel.LocationFromMap;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.text.SimpleDateFormat;
