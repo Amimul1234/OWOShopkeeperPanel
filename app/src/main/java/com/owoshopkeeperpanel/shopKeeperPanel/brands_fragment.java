@@ -1,5 +1,6 @@
 package com.owoshopkeeperpanel.shopKeeperPanel;
 
+import android.os.Build;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -70,7 +71,7 @@ public class brands_fragment extends Fragment {
 
     public void getItems(int page)
     {
-        String[] categories = Prevalent.category_to_display.stream().toArray(String[]::new);
+        String[] categories = Prevalent.category_to_display.toArray(new String[0]);
 
         RetrofitClient.getInstance().getApi()
                 .getBrandsViaCategory(page, categories)
