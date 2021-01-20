@@ -134,9 +134,11 @@ public class Owo_product implements Serializable {
 
     @Override
     public boolean equals(@Nullable Object obj) {
+
         if(this == obj)
             return true;
-        else
-            return false;
+
+        Owo_product owo_product = (Owo_product) obj;
+        return owo_product.getProduct_id() == this.product_id;
     }
 }

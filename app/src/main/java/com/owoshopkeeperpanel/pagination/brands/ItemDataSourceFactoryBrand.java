@@ -2,14 +2,11 @@ package com.owoshopkeeperpanel.pagination.brands;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
-import androidx.paging.PageKeyedDataSource;
-
-import com.owoshopkeeperpanel.Model.Owo_product;
 
 
 public class ItemDataSourceFactoryBrand extends DataSource.Factory {
 
-    private MutableLiveData<PageKeyedDataSource<Integer, Owo_product>> itemLiveDataSource = new MutableLiveData<>();
+    private MutableLiveData<ItemDataSourceBrands> itemLiveDataSource = new MutableLiveData<>();
     private String[] categories;
     private String brand_name;
 
@@ -20,12 +17,12 @@ public class ItemDataSourceFactoryBrand extends DataSource.Factory {
 
     @Override
     public DataSource create() {
-        ItemDataSourceBrands itemDataSourceCategory = new ItemDataSourceBrands(categories, brand_name);
-        itemLiveDataSource.postValue(itemDataSourceCategory);
-        return itemDataSourceCategory;
+        ItemDataSourceBrands itemDataSourceBrands = new ItemDataSourceBrands(categories, brand_name);
+        itemLiveDataSource.postValue(itemDataSourceBrands);
+        return itemDataSourceBrands;
     }
 
-    public MutableLiveData<PageKeyedDataSource<Integer, Owo_product>> getItemLiveDataSource() {
+    public MutableLiveData<ItemDataSourceBrands> getMutableLiveData() {
         return itemLiveDataSource;
     }
 }

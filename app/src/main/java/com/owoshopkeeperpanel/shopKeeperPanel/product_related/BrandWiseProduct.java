@@ -31,7 +31,7 @@ public class BrandWiseProduct extends AppCompatActivity {
     private Brands brands;
     private ItemAdapterBrand adapter;
 
-    private String[] categories = (String[]) Prevalent.category_to_display.stream().toArray(String[]::new);
+    private String[] categories = (String[]) Prevalent.category_to_display.toArray(new String[0]);
 
     private ItemViewModelBrands itemViewModelBrands;
 
@@ -69,10 +69,10 @@ public class BrandWiseProduct extends AppCompatActivity {
         getProducts();
 
         swipeRefreshLayout.setColorSchemeResources(R.color.blue);
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                itemViewModelBrands.clear();
                 getProducts();
             }
         });
@@ -80,6 +80,7 @@ public class BrandWiseProduct extends AppCompatActivity {
 
     public void getProducts() {
         itemViewModelBrands = new ItemViewModelBrands(categories, brands.getBrand_name());
+
         itemViewModelBrands.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
             @Override
             public void onChanged(@Nullable PagedList<Owo_product> items) {
@@ -87,10 +88,16 @@ public class BrandWiseProduct extends AppCompatActivity {
                 showOnRecyclerView();
             }
         });
+
+        itemViewModelBrands.getNetworkState().observe(this, networkState -> {
+            adapter.setNetworkState(networkState);
+        });
     }
 
     private void showOnRecyclerView() {
+
         recyclerView.setHasFixedSize(true);
+
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
         ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override

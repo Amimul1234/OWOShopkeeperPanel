@@ -9,15 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.Model.Brands;
 import com.owoshopkeeperpanel.R;
 import com.owoshopkeeperpanel.shopKeeperPanel.product_related.BrandWiseProduct;
-
 import java.util.List;
 
 public class BrandsAdapter extends RecyclerView.Adapter<BrandsAdapter.ViewHolder> {

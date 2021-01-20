@@ -9,21 +9,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.owoshopkeeperpanel.Model.Owo_product;
 import com.owoshopkeeperpanel.R;
+import com.owoshopkeeperpanel.pagination.NetworkState;
 import com.owoshopkeeperpanel.shopKeeperPanel.ProductDetailsActivity;
 
 public class ItemAdapterBrand extends PagedListAdapter<Owo_product, RecyclerView.ViewHolder>{
 
     private Context mCtx;
+    private NetworkState networkState;
+    private static final int TYPE_PROGRESS = 0;
+    private static final int TYPE_ITEM = 1;
 
     public ItemAdapterBrand(Context mCtx) {
         super(DIFF_CALLBACK);
@@ -33,42 +37,90 @@ public class ItemAdapterBrand extends PagedListAdapter<Owo_product, RecyclerView
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mCtx).inflate(R.layout.product_availability_sample, parent, false);
-        return new ItemViewHolder(view);
+
+        if(viewType == TYPE_PROGRESS)
+        {
+            View view = LayoutInflater.from(mCtx).inflate(R.layout.network_bond_layout, parent, false);
+            return new NetworkStateItemViewHolder(view);
+        }
+
+        else {
+            View view = LayoutInflater.from(mCtx).inflate(R.layout.product_availability_sample, parent, false);
+            return new ItemViewHolder(view);
+        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
-        Owo_product item = getItem(position);
+        if(holder instanceof ItemViewHolder)
+        {
+            ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
-        if (item != null) {
+            Owo_product item = getItem(position);
 
-            Glide.with(mCtx).load(item.getProduct_image()).into(itemViewHolder.imageView);
+            if (item != null) {
 
-            itemViewHolder.txtProductName.setText(item.getProduct_name());
+                Glide.with(mCtx).load(item.getProduct_image()).into(itemViewHolder.imageView);
 
-            itemViewHolder.txtProductPrice.setText("৳ "+item.getProduct_price());
-            itemViewHolder.txtProductPrice.setPaintFlags(itemViewHolder.txtProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            itemViewHolder.txtProductPrice.setVisibility(View.VISIBLE);
+                itemViewHolder.txtProductName.setText(item.getProduct_name());
 
-            double discounted_price = item.getProduct_price() - item.getProduct_discount();
+                itemViewHolder.txtProductPrice.setText("৳ "+item.getProduct_price());
+                itemViewHolder.txtProductPrice.setPaintFlags(itemViewHolder.txtProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                itemViewHolder.txtProductPrice.setVisibility(View.VISIBLE);
 
-            itemViewHolder.txtProduct_discounted_price.setText("৳ "+ String.valueOf(discounted_price));
+                double discounted_price = item.getProduct_price() - item.getProduct_discount();
 
-
-            double percentage = (item.getProduct_discount() / item.getProduct_price()) * 100.00;
-
-            int val = (int) percentage;
-            itemViewHolder.discounted_percent.setText(String.valueOf(val) + " % ");
+                itemViewHolder.txtProduct_discounted_price.setText("৳ "+ String.valueOf(discounted_price));
 
 
+                double percentage = (item.getProduct_discount() / item.getProduct_price()) * 100.00;
 
-        } else {
-            Toast.makeText(mCtx, "Item is null", Toast.LENGTH_LONG).show();
+                int val = (int) percentage;
+                itemViewHolder.discounted_percent.setText(String.valueOf(val) + " % ");
+
+            } else {
+                Toast.makeText(mCtx, "Item is null", Toast.LENGTH_LONG).show();
+            }
         }
 
+        else
+        {
+            ((NetworkStateItemViewHolder) holder).bindView(networkState);
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (hasExtraRow() && position == getItemCount() - 1) {
+            return TYPE_PROGRESS;
+        } else {
+            return TYPE_ITEM;
+        }
+    }
+
+    private boolean hasExtraRow() {
+        if (networkState != null && networkState != NetworkState.LOADED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setNetworkState(NetworkState newNetworkState) {
+        NetworkState previousState = this.networkState;
+        boolean previousExtraRow = hasExtraRow();
+        this.networkState = newNetworkState;
+        boolean newExtraRow = hasExtraRow();
+        if (previousExtraRow != newExtraRow) {
+            if (previousExtraRow) {
+                notifyItemRemoved(getItemCount());
+            } else {
+                notifyItemInserted(getItemCount());
+            }
+        } else if (newExtraRow && previousState != newNetworkState) {
+            notifyItemChanged(getItemCount() - 1);
+        }
     }
 
     private static DiffUtil.ItemCallback<Owo_product> DIFF_CALLBACK =
@@ -80,9 +132,36 @@ public class ItemAdapterBrand extends PagedListAdapter<Owo_product, RecyclerView
 
                 @Override
                 public boolean areContentsTheSame(Owo_product oldItem, Owo_product newItem) {
-                    return true;
+                    return oldItem.equals(newItem);
                 }
             };
+
+    public class NetworkStateItemViewHolder extends RecyclerView.ViewHolder {
+
+        private ProgressBar progressBar;
+        private TextView errorMsg;
+
+        public NetworkStateItemViewHolder(View itemView) {
+            super(itemView);
+            progressBar = itemView.findViewById(R.id.progressBar);
+            errorMsg = itemView.findViewById(R.id.errorMsg);
+        }
+
+        public void bindView(NetworkState networkState) {
+            if (networkState != null && networkState.getStatus() == NetworkState.Status.RUNNING) {
+                progressBar.setVisibility(View.VISIBLE);
+            } else {
+                progressBar.setVisibility(View.GONE);
+            }
+
+            if (networkState != null && networkState.getStatus() == NetworkState.Status.FAILED) {
+                errorMsg.setVisibility(View.VISIBLE);
+                errorMsg.setText(networkState.getMsg());
+            } else {
+                errorMsg.setVisibility(View.GONE);
+            }
+        }
+    }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
