@@ -79,6 +79,7 @@ public class BrandWiseProduct extends AppCompatActivity {
     }
 
     public void getProducts() {
+
         itemViewModelBrands = new ItemViewModelBrands(categories, brands.getBrand_name());
 
         itemViewModelBrands.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
@@ -98,11 +99,10 @@ public class BrandWiseProduct extends AppCompatActivity {
 
         recyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
-        ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-
                 if(position == 0)
                 {
                     return 6;

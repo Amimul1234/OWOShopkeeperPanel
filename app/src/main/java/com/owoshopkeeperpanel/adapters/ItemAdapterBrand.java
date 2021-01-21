@@ -43,7 +43,6 @@ public class ItemAdapterBrand extends PagedListAdapter<Owo_product, RecyclerView
             View view = LayoutInflater.from(mCtx).inflate(R.layout.network_bond_layout, parent, false);
             return new NetworkStateItemViewHolder(view);
         }
-
         else {
             View view = LayoutInflater.from(mCtx).inflate(R.layout.product_availability_sample, parent, false);
             return new ItemViewHolder(view);
@@ -52,7 +51,6 @@ public class ItemAdapterBrand extends PagedListAdapter<Owo_product, RecyclerView
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
         if(holder instanceof ItemViewHolder)
         {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;

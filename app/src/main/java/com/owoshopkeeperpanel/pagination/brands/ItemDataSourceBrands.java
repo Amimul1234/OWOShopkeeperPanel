@@ -17,35 +17,27 @@ import retrofit2.Response;
 public class ItemDataSourceBrands extends PageKeyedDataSource<Integer, Owo_product> {
 
     private static final int FIRST_PAGE = 0;
-    private String[] categories;
-    private String brand_name;
 
-    private Api restApiFactory;
+    private final String[] categories;
+    private final String brand_name;
+    private final Api restApiFactory;
 
     private MutableLiveData networkState;
-    private MutableLiveData initialLoading;
 
     public ItemDataSourceBrands(String[] categories, String brand_name) {
         this.categories = categories;
         this.brand_name = brand_name;
         restApiFactory = RetrofitClient.getInstance().getApi();
-
         networkState = new MutableLiveData();
-        initialLoading = new MutableLiveData();
     }
 
     public MutableLiveData getNetworkState() {
         return networkState;
     }
 
-    public MutableLiveData getInitialLoading() {
-        return initialLoading;
-    }
-
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Owo_product> callback) {
 
-        initialLoading.postValue(NetworkState.LOADING);
         networkState.postValue(NetworkState.LOADING);
 
         restApiFactory.getProductViaBrand(FIRST_PAGE, categories, brand_name)
@@ -56,13 +48,11 @@ public class ItemDataSourceBrands extends PageKeyedDataSource<Integer, Owo_produ
                         if(response.isSuccessful())
                         {
                             callback.onResult((List<Owo_product>) response.body(), null, FIRST_PAGE+1);
-                            initialLoading.postValue(NetworkState.LOADED);
                             networkState.postValue(NetworkState.LOADED);
                         }
                         else
                         {
                             Log.e("Error", "Failed on server");
-                            initialLoading.postValue(new NetworkState(NetworkState.Status.FAILED, response.message()));
                             networkState.postValue(new NetworkState(NetworkState.Status.FAILED, response.message()));
                         }
                     }
@@ -79,7 +69,6 @@ public class ItemDataSourceBrands extends PageKeyedDataSource<Integer, Owo_produ
     @Override
     public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Owo_product> callback) {
 
-        initialLoading.postValue(NetworkState.LOADING);
         networkState.postValue(NetworkState.LOADING);
 
         restApiFactory.getProductViaBrand(params.key, categories, brand_name)
@@ -92,13 +81,10 @@ public class ItemDataSourceBrands extends PageKeyedDataSource<Integer, Owo_produ
                             callback.onResult((List<Owo_product>) response.body(), key);
 
                             networkState.postValue(NetworkState.LOADED);
-                            initialLoading.postValue(NetworkState.LOADED);
                         }
                         else
                         {
                             Log.e("Error", "Error caught on server");
-
-                            initialLoading.postValue(new NetworkState(NetworkState.Status.FAILED, response.message()));
                             networkState.postValue(new NetworkState(NetworkState.Status.FAILED, response.message()));
                         }
                     }
