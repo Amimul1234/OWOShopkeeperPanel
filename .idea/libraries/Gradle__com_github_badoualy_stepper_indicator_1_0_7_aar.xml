@@ -1,12 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.badoualy:stepper-indicator:1.0.7@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8b76e9522e387e6800cd9e1b8220cbdf/jetified-stepper-indicator-1.0.7/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8b76e9522e387e6800cd9e1b8220cbdf/jetified-stepper-indicator-1.0.7/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8b76e9522e387e6800cd9e1b8220cbdf/jetified-stepper-indicator-1.0.7/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3b6ebcb596ba3766765e6d45526e6bef/jetified-stepper-indicator-1.0.7/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3b6ebcb596ba3766765e6d45526e6bef/jetified-stepper-indicator-1.0.7/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3b6ebcb596ba3766765e6d45526e6bef/jetified-stepper-indicator-1.0.7/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ebce388e2c73429a5dd40a2ccdaae2d7/jetified-stepper-indicator-1.0.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ebce388e2c73429a5dd40a2ccdaae2d7/jetified-stepper-indicator-1.0.7/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ebce388e2c73429a5dd40a2ccdaae2d7/jetified-stepper-indicator-1.0.7/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.badoualy/stepper-indicator/1.0.7/d4d5f1a1542b3564c73ec3aedb264e23ae126906/stepper-indicator-1.0.7-javadoc.jar!/" />
