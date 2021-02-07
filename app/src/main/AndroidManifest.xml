@@ -9,9 +9,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-
-
+    <uses-permission android:name="android.permission.CAMERA"
+        android:required="true"
+        android:requiredFeature="true"
+        tools:targetApi="o" />
 
     <application
         android:hardwareAccelerated="true"
@@ -39,7 +40,7 @@
         <activity android:name=".myShopRelated.Pending_orders" />
         <activity android:name=".myShopRelated.View_offers" />
         <activity android:name=".myShopRelated.Add_a_new_offer" />
-        <activity android:name=".myShopRelated.View_avilable_product_to_sell" />
+        <activity android:name=".myShopRelated.View_available_product_to_sell" />
         <activity android:name=".myShopRelated.Add_product_to_my_shop" />
         <activity android:name=".shopKeeperPanel.Order_details_for_single_item" />
         <activity android:name=".shopKeeperPanel.Order_list" />

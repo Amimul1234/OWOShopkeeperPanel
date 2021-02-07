@@ -15,7 +15,7 @@ import com.owoShopKeeperPanel.myShopRelated.Add_product_to_my_shop;
 import com.owoShopKeeperPanel.myShopRelated.Completed_orders;
 import com.owoShopKeeperPanel.myShopRelated.Pending_orders;
 import com.owoShopKeeperPanel.myShopRelated.debt.UserDebtDetails;
-import com.owoShopKeeperPanel.myShopRelated.View_avilable_product_to_sell;
+import com.owoShopKeeperPanel.myShopRelated.View_available_product_to_sell;
 import com.owoShopKeeperPanel.myShopRelated.View_offers;
 import java.util.Arrays;
 import java.util.List;
@@ -59,7 +59,7 @@ public class MyShopManagementAdapter extends RecyclerView.Adapter<MyShopManageme
                 }
                 else if(position == 2)
                 {
-                    Intent intent = new Intent(mCtx, View_avilable_product_to_sell.class);
+                    Intent intent = new Intent(mCtx, View_available_product_to_sell.class);
                     mCtx.startActivity(intent);
                 }
                 else if(position == 3)

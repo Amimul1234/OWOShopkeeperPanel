@@ -1,6 +1,8 @@
 package com.owoShopKeeperPanel.registerRequest;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class ShopPendingRequest implements Serializable {
@@ -10,8 +12,8 @@ public class ShopPendingRequest implements Serializable {
     private String shopImageUri;
     private String shopKeeperNidFrontUri;
     private String shopName;
-    private String shopOwnerMobile;
     private String shopOwnerName;
+    private String shopOwnerMobile;
     private String shopServiceMobile;
     private String tradeLicenseUrl;
     private List<String> categoryPermissions;
@@ -21,9 +23,7 @@ public class ShopPendingRequest implements Serializable {
 
     public ShopPendingRequest(Double latitude, Double longitude, String shopAddress,
                               String shopImageUri, String shopKeeperNidFrontUri, String shopName,
-                              String shopOwnerMobile, String shopOwnerName,
-                              String shopServiceMobile, String tradeLicenseUrl,
-                              List<String> categoryPermissions) {
+                              String shopOwnerName, String shopOwnerMobile, String shopServiceMobile, String tradeLicenseUrl) {
 
         this.latitude = latitude;
         this.longitude = longitude;
@@ -31,26 +31,30 @@ public class ShopPendingRequest implements Serializable {
         this.shopImageUri = shopImageUri;
         this.shopKeeperNidFrontUri = shopKeeperNidFrontUri;
         this.shopName = shopName;
-        this.shopOwnerMobile = shopOwnerMobile;
         this.shopOwnerName = shopOwnerName;
+        this.shopOwnerMobile = shopOwnerMobile;
         this.shopServiceMobile = shopServiceMobile;
         this.tradeLicenseUrl = tradeLicenseUrl;
-        this.categoryPermissions = categoryPermissions;
     }
 
-    public double getLatitude() {
+    public List<String> duplicateProtection(List<String> permissionListUnFiltered) {
+        List<String> listWithoutDuplicates = new ArrayList<>(new HashSet<>(permissionListUnFiltered));
+        return listWithoutDuplicates;
+    }
+
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
@@ -86,20 +90,20 @@ public class ShopPendingRequest implements Serializable {
         this.shopName = shopName;
     }
 
-    public String getShopOwnerMobile() {
-        return shopOwnerMobile;
-    }
-
-    public void setShopOwnerMobile(String shopOwnerMobile) {
-        this.shopOwnerMobile = shopOwnerMobile;
-    }
-
     public String getShopOwnerName() {
         return shopOwnerName;
     }
 
     public void setShopOwnerName(String shopOwnerName) {
         this.shopOwnerName = shopOwnerName;
+    }
+
+    public String getShopOwnerMobile() {
+        return shopOwnerMobile;
+    }
+
+    public void setShopOwnerMobile(String shopOwnerMobile) {
+        this.shopOwnerMobile = shopOwnerMobile;
     }
 
     public String getShopServiceMobile() {

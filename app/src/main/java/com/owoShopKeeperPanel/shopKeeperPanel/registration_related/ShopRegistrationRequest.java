@@ -32,6 +32,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
+import com.owoShopKeeperPanel.Prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.registerRequest.ShopPendingRequest;
 import org.jetbrains.annotations.NotNull;
@@ -39,6 +40,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import okhttp3.MediaType;
@@ -344,8 +347,60 @@ public class ShopRegistrationRequest extends AppCompatActivity {
     }
 
     private void uploadRequestToServer() {
-        ShopPendingRequest shopPendingRequest = new ShopPendingRequest();
+        List<String> permissions = new ArrayList<>();
 
+        if(checkBox1.isChecked())
+        {
+            permissions.add(requestedCategory1.getSelectedItem().toString());
+        }
+        if(checkBox2.isChecked())
+        {
+            permissions.add(requestedCategory2.getSelectedItem().toString());
+        }
+        if(checkBox3.isChecked())
+        {
+            permissions.add(requestedCategory3.getSelectedItem().toString());
+        }
+
+        ShopPendingRequest shopPendingRequest = new ShopPendingRequest(latitude, longitude, shopAddress.getText().toString(),
+                shopImageUri, shopKeeperNidUri, shopName.getText().toString(), shopOwnerName.getText().toString(),
+                Prevalent.currentOnlineUser.getPhone(), shopServiceMobile.getText().toString(), shopTradeLicenseUri);
+
+        List<String> listWithOutDuplication = shopPendingRequest.duplicateProtection(permissions);
+
+        shopPendingRequest.setCategoryPermissions(listWithOutDuplication);
+
+        RetrofitClient.getInstance().getApi()
+                .shopRegisterRequest(shopPendingRequest)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                        if(response.isSuccessful())
+                        {
+                            Toast.makeText(ShopRegistrationRequest.this, "Successfully registered shop", Toast.LENGTH_SHORT).show();
+                            mainProgressBar.setVisibility(View.GONE);
+
+                            Intent intent = new Intent(ShopRegistrationRequest.this, AfterShopRegisterRequest.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+
+                            finish();
+                        }
+
+                        else
+                        {
+                            Toast.makeText(ShopRegistrationRequest.this, "Failed to register shop, please try again", Toast.LENGTH_SHORT).show();
+                            mainProgressBar.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                        Log.e(TAG, "Error occurred, Error is: "+ t.getMessage());
+                        mainProgressBar.setVisibility(View.GONE);
+                        Toast.makeText(ShopRegistrationRequest.this, "Failed to register shop, please try again", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void requestStoragePermission(int i)

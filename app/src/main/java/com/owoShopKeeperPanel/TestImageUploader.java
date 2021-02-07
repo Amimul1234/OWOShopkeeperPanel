@@ -43,58 +43,50 @@ public class TestImageUploader extends AppCompatActivity {
         test_image = findViewById(R.id.select_image);
         send_to_server = findViewById(R.id.send_to_server);
 
-        test_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImage(TestImageUploader.this);
+        test_image.setOnClickListener(v -> selectImage(TestImageUploader.this));
+
+        send_to_server.setOnClickListener(v -> {
+
+            Bitmap bitmap = ((BitmapDrawable) test_image.getDrawable()).getBitmap();
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+            String filename = UUID.randomUUID().toString();
+
+            File file = new File(TestImageUploader.this.getCacheDir() + File.separator + filename+".jpg");
+
+            try {
+                FileOutputStream fo = new FileOutputStream(file);
+                fo.write(byteArrayOutputStream.toByteArray());
+                fo.flush();
+                fo.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        });
-
-        send_to_server.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Bitmap bitmap = ((BitmapDrawable) test_image.getDrawable()).getBitmap();
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-
-                String filename = UUID.randomUUID().toString();
-
-                File file = new File(TestImageUploader.this.getCacheDir() + File.separator + filename+".jpg");
-
-                try {
-                    FileOutputStream fo = new FileOutputStream(file);
-                    fo.write(byteArrayOutputStream.toByteArray());
-                    fo.flush();
-                    fo.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
 
-                RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-                MultipartBody.Part multipartFile = MultipartBody.Part.createFormData("multipartFile", file.getName(), requestBody);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+            MultipartBody.Part multipartFile = MultipartBody.Part.createFormData("multipartFile", file.getName(), requestBody);
 
-                /*
-                RetrofitClient.getInstance().getApi()
-                        .uploadImageToServer("Admin", multipartFile)
-                        .enqueue(new Callback<String>() {
-                            @Override
-                            public void onResponse(@NotNull Call<String> call, @NotNull Response<String> response) {
-                                if(response.isSuccessful())
-                                {
-                                    Toast.makeText(TestImageUploader.this, "SUCCESS!", Toast.LENGTH_SHORT).show();
-                                }
+            /*
+            RetrofitClient.getInstance().getApi()
+                    .uploadImageToServer("Admin", multipartFile)
+                    .enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(@NotNull Call<String> call, @NotNull Response<String> response) {
+                            if(response.isSuccessful())
+                            {
+                                Toast.makeText(TestImageUploader.this, "SUCCESS!", Toast.LENGTH_SHORT).show();
                             }
+                        }
 
-                            @Override
-                            public void onFailure(@NotNull Call<String> call, @NotNull Throwable t) {
-                                Toast.makeText(TestImageUploader.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        });
+                        @Override
+                        public void onFailure(@NotNull Call<String> call, @NotNull Throwable t) {
+                            Toast.makeText(TestImageUploader.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
 
-                 */
-            }
+             */
         });
 
     }
@@ -106,19 +98,15 @@ public class TestImageUploader extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Choose your profile picture");
 
-        builder.setItems(options, new DialogInterface.OnClickListener() {
+        builder.setItems(options, (dialog, item) -> {
+            if (options[item].equals("Take Photo")) {
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePicture, 0);
 
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals("Take Photo")) {
-                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePicture, 0);
+            } else if (options[item].equals("Choose from Gallery")) {
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , 1);
 
-                } else if (options[item].equals("Choose from Gallery")) {
-                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto , 1);
-
-                }
             }
         });
         builder.show();
