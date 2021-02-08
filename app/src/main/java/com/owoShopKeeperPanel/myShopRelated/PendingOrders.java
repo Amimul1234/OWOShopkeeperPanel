@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.owoShopKeeperPanel.R;
 
-public class Add_a_new_offer extends AppCompatActivity {
+public class PendingOrders extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_a_new_offer);
+        setContentView(R.layout.activity_pending_orders);
     }
 }

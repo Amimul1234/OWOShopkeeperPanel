@@ -24,7 +24,7 @@ import com.owoShopKeeperPanel.Model.product_database_model;
 import com.owoShopKeeperPanel.Prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 
-public class add_product_to_shop extends AppCompatActivity {
+public class AddProductToShop extends AppCompatActivity {
 
     private AllianceLoader loader;
     private ImageView back_to_home;
@@ -126,14 +126,14 @@ public class add_product_to_shop extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(add_product_to_shop.this, "Product added to shop", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddProductToShop.this, "Product added to shop", Toast.LENGTH_SHORT).show();
                         loader.setVisibility(View.INVISIBLE);
                         finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(add_product_to_shop.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddProductToShop.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

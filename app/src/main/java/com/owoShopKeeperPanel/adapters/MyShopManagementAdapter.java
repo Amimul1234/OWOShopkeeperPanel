@@ -10,13 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.owoShopKeeperPanel.R;
-import com.owoShopKeeperPanel.myShopRelated.Add_a_new_offer;
-import com.owoShopKeeperPanel.myShopRelated.Add_product_to_my_shop;
-import com.owoShopKeeperPanel.myShopRelated.Completed_orders;
-import com.owoShopKeeperPanel.myShopRelated.Pending_orders;
+import com.owoShopKeeperPanel.myShopRelated.AddANewOffer;
+import com.owoShopKeeperPanel.myShopRelated.AddProductToMyShop;
+import com.owoShopKeeperPanel.myShopRelated.CompletedOrders;
+import com.owoShopKeeperPanel.myShopRelated.PendingOrders;
 import com.owoShopKeeperPanel.myShopRelated.debt.UserDebtDetails;
-import com.owoShopKeeperPanel.myShopRelated.View_available_product_to_sell;
-import com.owoShopKeeperPanel.myShopRelated.View_offers;
+import com.owoShopKeeperPanel.myShopRelated.ViewAvailableProductToSell;
+import com.owoShopKeeperPanel.myShopRelated.ViewOffers;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,31 +54,31 @@ public class MyShopManagementAdapter extends RecyclerView.Adapter<MyShopManageme
                 }
                 else if(position == 1)
                 {
-                    Intent intent = new Intent(mCtx, Add_product_to_my_shop.class);
+                    Intent intent = new Intent(mCtx, AddProductToMyShop.class);
                     mCtx.startActivity(intent);
                 }
                 else if(position == 2)
                 {
-                    Intent intent = new Intent(mCtx, View_available_product_to_sell.class);
+                    Intent intent = new Intent(mCtx, ViewAvailableProductToSell.class);
                     mCtx.startActivity(intent);
                 }
                 else if(position == 3)
                 {
-                    Intent intent = new Intent(mCtx, Add_a_new_offer.class);
+                    Intent intent = new Intent(mCtx, AddANewOffer.class);
                     mCtx.startActivity(intent);
                 }
                 else if(position == 4)
                 {
-                    Intent intent = new Intent(mCtx, View_offers.class);
+                    Intent intent = new Intent(mCtx, ViewOffers.class);
                     mCtx.startActivity(intent);
                 }
                 else if(position == 5)
                 {
-                    Intent intent = new Intent(mCtx, Pending_orders.class);
+                    Intent intent = new Intent(mCtx, PendingOrders.class);
                     mCtx.startActivity(intent);
                 }
                 else if(position == 6){
-                    Intent intent = new Intent(mCtx, Completed_orders.class);
+                    Intent intent = new Intent(mCtx, CompletedOrders.class);
                     mCtx.startActivity(intent);
                 }
                 else

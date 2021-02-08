@@ -24,7 +24,7 @@ import com.owoShopKeeperPanel.adapters.Saleable_products_adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Add_product_to_my_shop extends AppCompatActivity {
+public class AddProductToMyShop extends AppCompatActivity {
 
     private ImageView back_button;
     private RecyclerView bought_products;
@@ -84,13 +84,13 @@ public class Add_product_to_my_shop extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(Add_product_to_my_shop.this, "Please purchase products", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddProductToMyShop.this, "Please purchase products", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Add_product_to_my_shop.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddProductToMyShop.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
             }
         });
     }

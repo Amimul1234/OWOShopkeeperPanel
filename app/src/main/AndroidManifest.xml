@@ -32,16 +32,16 @@
         <activity android:name=".myShopRelated.debt.AddAUserDebt" />
         <activity android:name=".myShopRelated.debt.UserDebtDetails" />
         <activity android:name=".shopKeeperPanel.product_related.BrandWiseProduct" />
-        <activity android:name=".shopKeeperPanel.categories" />
-        <activity android:name=".shopKeeperPanel.calculator" />
-        <activity android:name=".myShopRelated.add_product_to_shop" />
-        <activity android:name=".myShopRelated.new_product_adding" />
-        <activity android:name=".myShopRelated.Completed_orders" />
-        <activity android:name=".myShopRelated.Pending_orders" />
-        <activity android:name=".myShopRelated.View_offers" />
-        <activity android:name=".myShopRelated.Add_a_new_offer" />
-        <activity android:name=".myShopRelated.View_available_product_to_sell" />
-        <activity android:name=".myShopRelated.Add_product_to_my_shop" />
+        <activity android:name=".shopKeeperPanel.Categories" />
+        <activity android:name=".shopKeeperPanel.Calculator" />
+        <activity android:name=".myShopRelated.AddProductToShop" />
+        <activity android:name=".myShopRelated.NewProductAdding" />
+        <activity android:name=".myShopRelated.CompletedOrders" />
+        <activity android:name=".myShopRelated.PendingOrders" />
+        <activity android:name=".myShopRelated.ViewOffers" />
+        <activity android:name=".myShopRelated.AddANewOffer" />
+        <activity android:name=".myShopRelated.ViewAvailableProductToSell" />
+        <activity android:name=".myShopRelated.AddProductToMyShop" />
         <activity android:name=".shopKeeperPanel.Order_details_for_single_item" />
         <activity android:name=".shopKeeperPanel.Order_list" />
         <activity android:name=".shopKeeperPanel.product_related.SubCategoryWiseProduct" />
@@ -108,7 +108,7 @@
             android:name=".shopKeeperPanel.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.registration_related.AfterRegisterActivity"
+            android:name=".shopKeeperPanel.registration_related.AfterUserRegister"
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopKeeperPanel.registration_related.TermsConditionsActivity"

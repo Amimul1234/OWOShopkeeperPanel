@@ -24,7 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.owoShopKeeperPanel.shopKeeperPanel.registration_related.AfterRegisterActivity;
+import com.owoShopKeeperPanel.shopKeeperPanel.registration_related.AfterUserRegister;
 import com.owoShopKeeperPanel.shopKeeperPanel.registration_related.AfterShopRegisterRequest;
 import com.owoShopKeeperPanel.shopKeeperPanel.registration_related.RegistrationActivity;
 
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                                             else
                                             {
                                                 Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(getApplicationContext(), AfterRegisterActivity.class);
+                                                Intent intent = new Intent(getApplicationContext(), AfterUserRegister.class);
                                                 Prevalent.currentOnlineUser = users;
                                                 loadingbar.dismiss();
                                                 startActivity(intent);

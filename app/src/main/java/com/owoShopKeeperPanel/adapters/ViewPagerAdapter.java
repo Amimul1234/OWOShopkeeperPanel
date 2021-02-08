@@ -8,8 +8,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.owoShopKeeperPanel.shopKeeperPanel.brands_fragment;
-import com.owoShopKeeperPanel.shopKeeperPanel.category_fragment;
+import com.owoShopKeeperPanel.shopKeeperPanel.BrandsFragment;
+import com.owoShopKeeperPanel.shopKeeperPanel.CategoryFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
@@ -22,12 +22,12 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         if (position == 0) {
             Log.d("pos", String.valueOf(position));
-            return new category_fragment();
+            return new CategoryFragment();
         }
         else
         {
             Log.d("pos", String.valueOf(position));
-            return new brands_fragment();
+            return new BrandsFragment();
         }
     }
 

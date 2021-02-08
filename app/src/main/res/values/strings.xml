@@ -140,7 +140,7 @@
     <string name="optional">(Optional)</string>
     <string name="enter_your_mobile_number_again">Enter your mobile number again.</string>
     <string name="send_otp">Send OTP</string>
-    <string name="please_enter_verification_code">Please, Enter verification code</string>
+    <string name="please_enter_verification_code">Please, Enter Verification Code</string>
     <string name="enter_code">Enter Code</string>
     <string name="continueI">Continue</string>
     <string name="validate_location">Validate Location</string>

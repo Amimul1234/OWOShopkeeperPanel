@@ -60,7 +60,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
         for(int i=0; i<size; i++)
-            categories[i] = Prevalent.category_to_display.get(i); //getting the categories in which we will search
+            categories[i] = Prevalent.category_to_display.get(i); //getting the Categories in which we will search
 
         search_product = findViewById(R.id.search_product);
         search_product.setIconifiedByDefault(false);
@@ -94,7 +94,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
-                builder.setTitle("Choose categories");
+                builder.setTitle("Choose Categories");
                 builder.setIcon(R.drawable.filter);
 
                 builder.setMultiChoiceItems(categories, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {

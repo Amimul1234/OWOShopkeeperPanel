@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.owoShopKeeperPanel.R;
 
-public class View_available_product_to_sell extends AppCompatActivity {
+public class AddANewOffer extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_avilable_product_to_sell);
+        setContentView(R.layout.activity_add_a_new_offer);
     }
 }

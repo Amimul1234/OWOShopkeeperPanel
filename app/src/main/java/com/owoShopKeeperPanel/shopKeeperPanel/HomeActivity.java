@@ -193,13 +193,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     }
                     case R.id.action_categories:
                     {
-                        Intent intent = new Intent(HomeActivity.this, categories.class);
+                        Intent intent = new Intent(HomeActivity.this, Categories.class);
                         startActivity(intent);
                         break;
                     }
                     case R.id.action_calculator:
                     {
-                        Intent intent = new Intent(HomeActivity.this, calculator.class);
+                        Intent intent = new Intent(HomeActivity.this, Calculator.class);
                         startActivity(intent);
                         break;
                     }

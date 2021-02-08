@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/white"
-    tools:context=".myShopRelated.add_product_to_shop">
+    tools:context=".myShopRelated.AddProductToShop">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

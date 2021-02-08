@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.owoShopKeeperPanel.R;
-import com.owoShopKeeperPanel.myShopRelated.new_product_adding;
+import com.owoShopKeeperPanel.myShopRelated.NewProductAdding;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class Saleable_products_adapter extends  RecyclerView.Adapter<Saleable_pr
                 @Override
                 public void onClick(View v) {
                     int position = getBindingAdapterPosition();
-                    Intent intent = new Intent(mCtx, new_product_adding.class);
+                    Intent intent = new Intent(mCtx, NewProductAdding.class);
                     intent.putExtra("id", String.valueOf(ordered_products.get(position).getProduct_id()));
                     intent.putExtra("quantity", String.valueOf(ordered_products.get(position).getProduct_quantity()));
                     mCtx.startActivity(intent);

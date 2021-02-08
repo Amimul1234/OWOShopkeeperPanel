@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.owoShopKeeperPanel.hashing.hashing_algo;
 import java.security.NoSuchAlgorithmException;
 
+@SuppressWarnings("deprecation")
 public class RegistrationActivity extends AppCompatActivity {
 
     private EditText merchant_name, regMobile;
@@ -53,28 +54,23 @@ public class RegistrationActivity extends AppCompatActivity {
 
         loader = findViewById(R.id.loader);
 
-        term_condition.setOnClickListener(new View.OnClickListener() {//for showing the terms and conditions
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(RegistrationActivity.this, TermsConditionsActivity.class);
-                startActivity(intent);
-            }
+        //for showing the terms and conditions
+        term_condition.setOnClickListener(v -> {
+            Intent intent=new Intent(RegistrationActivity.this, TermsConditionsActivity.class);
+            startActivity(intent);
         });
 
-        showPin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        showPin.setOnClickListener(v -> {
 
-                if (isShowPin) {
-                    newShopkeeperPin.setTransformationMethod(new PasswordTransformationMethod());
-                    showPin.setImageResource(R.drawable.ic_visibility_off);
-                    isShowPin = false;
+            if (isShowPin) {
+                newShopkeeperPin.setTransformationMethod(new PasswordTransformationMethod());
+                showPin.setImageResource(R.drawable.ic_visibility_off);
+                isShowPin = false;
 
-                }else{
-                    newShopkeeperPin.setTransformationMethod(null);
-                    showPin.setImageResource(R.drawable.ic_visibility);
-                    isShowPin = true;
-                }
+            }else{
+                newShopkeeperPin.setTransformationMethod(null);
+                showPin.setImageResource(R.drawable.ic_visibility);
+                isShowPin = true;
             }
         });
 
@@ -139,7 +135,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     else
                     {
 
-                        String phoneNumber = "+" + "88" + number;
+                        String phoneNumber = "+" + "88" + number;//Shop Owner Mobile With Country Code
                         Intent intent = new Intent(RegistrationActivity.this, VerifyPhoneActivity.class);
                         intent.putExtra("phonenumber", phoneNumber);
                         intent.putExtra("mobilenumber", number);

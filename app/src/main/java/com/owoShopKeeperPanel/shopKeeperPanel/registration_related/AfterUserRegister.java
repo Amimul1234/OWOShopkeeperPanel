@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.owoShopKeeperPanel.R;
 
-public class AfterRegisterActivity extends AppCompatActivity {
+public class AfterUserRegister extends AppCompatActivity {
 
     private Button button;
 
@@ -22,7 +22,7 @@ public class AfterRegisterActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(AfterRegisterActivity.this, ShopRegistrationRequest.class);
+                Intent intent=new Intent(AfterUserRegister.this, ShopRegistrationRequest.class);
                 startActivity(intent);
                 finish();
             }

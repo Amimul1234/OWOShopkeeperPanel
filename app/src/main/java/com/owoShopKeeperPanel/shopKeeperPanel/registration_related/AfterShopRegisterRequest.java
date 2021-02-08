@@ -1,9 +1,7 @@
 package com.owoShopKeeperPanel.shopKeeperPanel.registration_related;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-
 import com.owoShopKeeperPanel.R;
 
 public class AfterShopRegisterRequest extends AppCompatActivity {

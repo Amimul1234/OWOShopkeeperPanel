@@ -1,8 +1,6 @@
 package com.owoShopKeeperPanel.Prevalent;
 
-
 import com.owoShopKeeperPanel.Model.User_shopkeeper;
-
 import java.util.List;
 
 public class Prevalent {

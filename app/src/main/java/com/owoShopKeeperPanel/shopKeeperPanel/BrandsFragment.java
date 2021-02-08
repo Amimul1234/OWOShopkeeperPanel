@@ -21,7 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class brands_fragment extends Fragment {
+public class BrandsFragment extends Fragment {
 
     int counter = 0;
 
@@ -29,7 +29,7 @@ public class brands_fragment extends Fragment {
 
     private BrandsAdapter brandsAdapter;
 
-    public brands_fragment() {
+    public BrandsFragment() {
     }
 
     @Override

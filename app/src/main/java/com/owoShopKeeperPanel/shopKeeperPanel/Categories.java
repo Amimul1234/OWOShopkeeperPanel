@@ -7,7 +7,6 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,13 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.owoShopKeeperPanel.Prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.adapters.CategoryAdapter;
 
-public class categories extends AppCompatActivity {
+public class Categories extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private BottomNavigationView bottomNavigationView;
@@ -38,7 +36,7 @@ public class categories extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         searchBar = findViewById(R.id.search_product);
 
-        CategoryAdapter categoryAdapter = new CategoryAdapter(categories.this);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(Categories.this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         recyclerView.setAdapter(categoryAdapter);
 
@@ -54,7 +52,7 @@ public class categories extends AppCompatActivity {
         searchBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(categories.this, SearchActivity.class);
+                Intent intent = new Intent(Categories.this, SearchActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -67,9 +65,9 @@ public class categories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(categories.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Categories.this);
 
-                View view = LayoutInflater.from(categories.this).inflate(R.layout.care_toast, null);
+                View view = LayoutInflater.from(Categories.this).inflate(R.layout.care_toast, null);
 
                 Button call_us_now = view.findViewById(R.id.call_us_now);
                 Button issue_a_complain = view.findViewById(R.id.issue_a_complain);
@@ -94,7 +92,7 @@ public class categories extends AppCompatActivity {
                 issue_a_complain.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(categories.this, Contact_us.class);
+                        Intent intent = new Intent(Categories.this, Contact_us.class);
                         intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getPhone());
                         startActivity(intent);
                         alertDialog.cancel();
@@ -121,19 +119,19 @@ public class categories extends AppCompatActivity {
                     }
                     case R.id.action_calculator:
                     {
-                        Intent intent = new Intent(categories.this, calculator.class);
+                        Intent intent = new Intent(Categories.this, Calculator.class);
                         startActivity(intent);
                         break;
                     }
                     case R.id.action_cart:
                     {
-                        Intent intent = new Intent(categories.this, CartActivity.class);
+                        Intent intent = new Intent(Categories.this, CartActivity.class);
                         startActivity(intent);
                         break;
                     }
                     case R.id.action_account:
                     {
-                        Intent intent=new Intent(categories.this, SettingsActivity.class);
+                        Intent intent=new Intent(Categories.this, SettingsActivity.class);
                         startActivity(intent);
                         break;
                     }
