@@ -19,7 +19,7 @@ import android.widget.Button;
 
 import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.owoShopKeeperPanel.Model.Owo_product;
-import com.owoShopKeeperPanel.Prevalent.Prevalent;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.adapters.Product_tag;
 import com.owoShopKeeperPanel.adapters.SearchedAdapter;

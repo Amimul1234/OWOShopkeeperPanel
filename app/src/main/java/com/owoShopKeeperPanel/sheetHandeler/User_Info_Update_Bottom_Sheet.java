@@ -22,7 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.owoShopKeeperPanel.Model.User_shopkeeper;
-import com.owoShopKeeperPanel.Prevalent.Prevalent;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.shopKeeperPanel.SettingsActivity;
 

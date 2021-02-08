@@ -1,8 +1,6 @@
 package com.owoShopKeeperPanel.shopKeeperPanel;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
@@ -12,28 +10,23 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.owoShopKeeperPanel.Model.User_shopkeeper;
-import com.owoShopKeeperPanel.Prevalent.Prevalent;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.hashing.hashing_algo;
-
+import com.owoShopKeeperPanel.login.LogInActivity;
 import java.security.NoSuchAlgorithmException;
-
 import io.paperdb.Paper;
 
 public class ChangePin extends AppCompatActivity {
 
-    private ImageView back_to_home, show_current_pin, show_new_pin, show_new_pin_confirm;
+    private ImageView show_current_pin;
+    private ImageView show_new_pin;
+    private ImageView show_new_pin_confirm;
     private EditText current_pin, new_pin, confirm_pin;
-    private Button change;
-
     private ProgressBar progressBar;
-
     private Boolean isShowPinCurrentPin = false;
     private Boolean isShowPinNewPin = false;
     private Boolean isShowNewPinConfirm = false;
@@ -53,70 +46,51 @@ public class ChangePin extends AppCompatActivity {
         new_pin = findViewById(R.id.newPinUpdate);
         confirm_pin = findViewById(R.id.newPinConfirmation);
 
-        change = findViewById(R.id.change);
-        back_to_home = findViewById(R.id.back_to_home);
+        Button change = findViewById(R.id.change);
+        ImageView back_to_home = findViewById(R.id.back_to_home);
 
-        back_to_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
+        back_to_home.setOnClickListener(v -> onBackPressed());
+
+        show_current_pin.setOnClickListener(v -> {
+            if (isShowPinCurrentPin) {
+                current_pin.setTransformationMethod(new PasswordTransformationMethod());
+                show_current_pin.setImageResource(R.drawable.ic_visibility_off);
+                isShowPinCurrentPin = false;
+
+            }else{
+                current_pin.setTransformationMethod(null);
+                show_current_pin.setImageResource(R.drawable.ic_visibility);
+                isShowPinCurrentPin = true;
             }
         });
 
-        show_current_pin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isShowPinCurrentPin) {
-                    current_pin.setTransformationMethod(new PasswordTransformationMethod());
-                    show_current_pin.setImageResource(R.drawable.ic_visibility_off);
-                    isShowPinCurrentPin = false;
+        show_new_pin.setOnClickListener(v -> {
+            if (isShowPinNewPin) {
+                new_pin.setTransformationMethod(new PasswordTransformationMethod());
+                show_new_pin.setImageResource(R.drawable.ic_visibility_off);
+                isShowPinNewPin = false;
 
-                }else{
-                    current_pin.setTransformationMethod(null);
-                    show_current_pin.setImageResource(R.drawable.ic_visibility);
-                    isShowPinCurrentPin = true;
-                }
+            }else{
+                new_pin.setTransformationMethod(null);
+                show_new_pin.setImageResource(R.drawable.ic_visibility);
+                isShowPinNewPin = true;
             }
         });
 
-        show_new_pin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isShowPinNewPin) {
-                    new_pin.setTransformationMethod(new PasswordTransformationMethod());
-                    show_new_pin.setImageResource(R.drawable.ic_visibility_off);
-                    isShowPinNewPin = false;
+        show_new_pin_confirm.setOnClickListener(v -> {
+            if (isShowNewPinConfirm) {
+                confirm_pin.setTransformationMethod(new PasswordTransformationMethod());
+                show_new_pin_confirm.setImageResource(R.drawable.ic_visibility_off);
+                isShowNewPinConfirm = false;
 
-                }else{
-                    new_pin.setTransformationMethod(null);
-                    show_new_pin.setImageResource(R.drawable.ic_visibility);
-                    isShowPinNewPin = true;
-                }
+            }else{
+                confirm_pin.setTransformationMethod(null);
+                show_new_pin_confirm.setImageResource(R.drawable.ic_visibility);
+                isShowNewPinConfirm = true;
             }
         });
 
-        show_new_pin_confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isShowNewPinConfirm) {
-                    confirm_pin.setTransformationMethod(new PasswordTransformationMethod());
-                    show_new_pin_confirm.setImageResource(R.drawable.ic_visibility_off);
-                    isShowNewPinConfirm = false;
-
-                }else{
-                    confirm_pin.setTransformationMethod(null);
-                    show_new_pin_confirm.setImageResource(R.drawable.ic_visibility);
-                    isShowNewPinConfirm = true;
-                }
-            }
-        });
-
-        change.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validate();
-            }
-        });
+        change.setOnClickListener(v -> validate());
 
     }
 
@@ -132,6 +106,7 @@ public class ChangePin extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        assert hashed_pin != null;
         if (!hashed_pin.equals(Prevalent.currentOnlineUser.getPin())) {
             current_pin.setError("Pin did not match with current pin");
             current_pin.requestFocus();
@@ -176,23 +151,17 @@ public class ChangePin extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        ref.child(Prevalent.currentOnlineUser.getPhone()).setValue(user_shopkeeper).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(ChangePin.this, "Pin number updated successfully", Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.GONE);
-                Paper.book().destroy();
-                Intent intent=new Intent(ChangePin.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ChangePin.this, "Can not update pin number", Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.GONE);
-            }
+        ref.child(Prevalent.currentOnlineUser.getPhone()).setValue(user_shopkeeper).addOnSuccessListener(aVoid -> {
+            Toast.makeText(ChangePin.this, "Pin number updated successfully", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            Paper.book().destroy();
+            Intent intent=new Intent(ChangePin.this, LogInActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }).addOnFailureListener(e -> {
+            Toast.makeText(ChangePin.this, "Can not update pin number", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
         });
 
     }

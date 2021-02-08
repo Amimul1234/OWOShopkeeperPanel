@@ -14,7 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,8 +23,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.Observer;
-import androidx.paging.PagedList;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,11 +31,12 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.Model.Offers;
-import com.owoShopKeeperPanel.Model.Owo_product;
-import com.owoShopKeeperPanel.Prevalent.Prevalent;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.adapters.ImageFlipperAdapter;
 import com.owoShopKeeperPanel.adapters.ItemAdapter;
 import com.owoShopKeeperPanel.adapters.Product_tag;
+import com.owoShopKeeperPanel.changableEnums.ServiceMobile;
+import com.owoShopKeeperPanel.login.LogInActivity;
 import com.owoShopKeeperPanel.pagination.homeItems.ItemViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -55,14 +53,12 @@ import io.paperdb.Paper;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView recyclerView;
-    private List<String> images = new ArrayList<String>();
+    private final List<String> images = new ArrayList<>();
     private ItemAdapter adapter;
     private ImageFlipperAdapter imageFlipperAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private AppCompatButton searchBar;
     private ItemViewModel itemViewModel;
     private BottomNavigationView bottomNavigationView;
-    private ProgressBar home_progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +66,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
 
         recyclerView = findViewById(R.id.recycler_view_for_products);
-        searchBar = findViewById(R.id.search_product);
+        AppCompatButton searchBar = findViewById(R.id.search_product);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
 
-        home_progress = findViewById(R.id.home_progressbar);
+        ProgressBar home_progress = findViewById(R.id.home_progressbar);
 
         adapter = new ItemAdapter(this, home_progress);
 
@@ -87,13 +83,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         ImageView contact_us = findViewById(R.id.contact_us);
 
-        searchBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        searchBar.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+            startActivity(intent);
+            finish();
         });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -114,44 +107,35 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         Glide.with(getApplicationContext()).load(Prevalent.currentOnlineUser.getImage()).into(profileImageView);
 
-        contact_us.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        contact_us.setOnClickListener(v -> {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
 
-                View view = LayoutInflater.from(HomeActivity.this).inflate(R.layout.care_toast, null);
+            View view = LayoutInflater.from(HomeActivity.this).inflate(R.layout.care_toast, null);
 
-                Button call_us_now = view.findViewById(R.id.call_us_now);
-                Button issue_a_complain = view.findViewById(R.id.issue_a_complain);
+            Button call_us_now = view.findViewById(R.id.call_us_now);
+            Button issue_a_complain = view.findViewById(R.id.issue_a_complain);
 
-                builder.setView(view);
+            builder.setView(view);
 
-                final AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-                alertDialog.getWindow().setLayout(950, 800);
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+            alertDialog.getWindow().setLayout(950, 800);
 
-                call_us_now.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL); //calling activity
-                        intent.setData(Uri.parse("tel:+8801612201602"));
-                        startActivity(intent);
-                        alertDialog.cancel();
-                    }
-                });
+            call_us_now.setOnClickListener(v1 -> {
+                Intent intent = new Intent(Intent.ACTION_DIAL); //calling activity
+                intent.setData(Uri.parse("tel:"+ ServiceMobile.SERVICE_MOBILE.getServiceMobile())); //Configurable Service Mobile
+                startActivity(intent);
+                alertDialog.cancel();
+            });
 
-                issue_a_complain.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(HomeActivity.this, Contact_us.class);
-                        intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getPhone());
-                        startActivity(intent);
-                        alertDialog.cancel();
-                    }
-                });
+            issue_a_complain.setOnClickListener(v12 -> {
+                Intent intent = new Intent(HomeActivity.this, Contact_us.class);
+                intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getPhone());
+                startActivity(intent);
+                alertDialog.cancel();
+            });
 
-            }
         });
 
         DatabaseReference offersRef = FirebaseDatabase.getInstance().getReference().child("Offers");
@@ -183,51 +167,45 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_home:
-                    {
-                        break;
-                    }
-                    case R.id.action_categories:
-                    {
-                        Intent intent = new Intent(HomeActivity.this, Categories.class);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.action_calculator:
-                    {
-                        Intent intent = new Intent(HomeActivity.this, Calculator.class);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.action_cart:
-                    {
-                        Intent intent = new Intent(HomeActivity.this, CartActivity.class);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.action_account:
-                    {
-                        Intent intent=new Intent(HomeActivity.this, SettingsActivity.class);
-                        startActivity(intent);
-                        break;
-                    }
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_home:
+                {
+                    break;
                 }
-                return true;
+                case R.id.action_categories:
+                {
+                    Intent intent = new Intent(HomeActivity.this, Categories.class);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.action_calculator:
+                {
+                    Intent intent = new Intent(HomeActivity.this, Calculator.class);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.action_cart:
+                {
+                    Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.action_account:
+                {
+                    Intent intent=new Intent(HomeActivity.this, SettingsActivity.class);
+                    startActivity(intent);
+                    break;
+                }
             }
+            return true;
         });
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.blue);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                itemViewModel.clear();
-                getProducts();
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            itemViewModel.clear();
+            getProducts();
         });
     }
 
@@ -248,12 +226,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         itemViewModel = new ItemViewModel(categories);
 
-        itemViewModel.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
-            @Override
-            public void onChanged(@Nullable PagedList<Owo_product> items) {
-                adapter.submitList(items);
-                showOnRecyclerView();
-            }
+        itemViewModel.itemPagedList.observe(this, items -> {
+            adapter.submitList(items);
+            showOnRecyclerView();
         });
     }
 
@@ -261,8 +236,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         recyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
-        ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 if(position>=0 && position<2)
@@ -302,20 +277,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             final AlertDialog alertDialog = builder.create();
             alertDialog.show();
 
-            yes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    alertDialog.dismiss();
-                    finish();
-                }
+            yes.setOnClickListener(v -> {
+                alertDialog.dismiss();
+                finish();
             });
 
-            no.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    alertDialog.cancel();
-                }
-            });
+            no.setOnClickListener(v -> alertDialog.cancel());
         }
     }
 
@@ -323,7 +290,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -372,25 +338,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             alertDialog.show();
             alertDialog.getWindow().setLayout(950, 800);
 
-            call_us_now.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_DIAL); //calling activity
-                    intent.setData(Uri.parse("tel:+8801612201602"));
-                    startActivity(intent);
-                    alertDialog.cancel();
+            call_us_now.setOnClickListener(v -> {
+                Intent intent = new Intent(Intent.ACTION_DIAL); //calling activity
+                intent.setData(Uri.parse("tel:+8801612201602"));
+                startActivity(intent);
+                alertDialog.cancel();
 
-                }
             });
 
-            issue_a_complain.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(HomeActivity.this, Contact_us.class);
-                    intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getPhone());
-                    startActivity(intent);
-                    alertDialog.cancel();
-                }
+            issue_a_complain.setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, Contact_us.class);
+                intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getPhone());
+                startActivity(intent);
+                alertDialog.cancel();
             });
         }
 
@@ -403,18 +363,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         else if(id == R.id.nav_change_language)
         {
+            Locale locale;
+
             if(Prevalent.locale%2 == 0)
             {
-                Locale locale = new Locale("bn");
-                Prevalent.locale++;
-                setLocale(locale);
+                locale = new Locale("bn");
             }
             else
             {
-                Locale locale = new Locale("en");
-                Prevalent.locale++;
-                setLocale(locale);
+                locale = new Locale("en");
             }
+            Prevalent.locale++;
+            setLocale(locale);
 
         }
 
@@ -423,7 +383,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         else if(id==R.id.nav_logout)
         {
             Paper.book().destroy();
-            Intent intent=new Intent(HomeActivity.this, MainActivity.class);
+            Intent intent=new Intent(HomeActivity.this, LogInActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
@@ -435,10 +395,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void setLocale(Locale languageToLoad) {
-        Locale locale = languageToLoad;
-        Locale.setDefault(locale);
+        Locale.setDefault(languageToLoad);
         Configuration config = new Configuration();
-        config.locale = locale;
+        config.locale = languageToLoad;
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
         finish();

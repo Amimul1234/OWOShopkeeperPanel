@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.owoShopKeeperPanel.shopKeeperPanel.registration_related.ShopRegistrationRequest">
+    tools:context="com.owoShopKeeperPanel.shopRegistration.ShopRegistrationRequest">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/scroller"

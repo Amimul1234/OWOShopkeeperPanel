@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.owoShopKeeperPanel.Model.User_shopkeeper;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.hashing.hashing_algo;
+import com.owoShopKeeperPanel.login.LogInActivity;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -97,7 +98,7 @@ public class SetPinActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful())
                                     {
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
                                         loadingbar.dismiss();
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);

@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.Model.UserDebts;
-import com.owoShopKeeperPanel.Prevalent.Prevalent;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 
 import org.jetbrains.annotations.NotNull;

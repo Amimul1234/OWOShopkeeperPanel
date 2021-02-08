@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.owoShopKeeperPanel.Model.add_product_model;
 import com.owoShopKeeperPanel.Model.product_database_model;
-import com.owoShopKeeperPanel.Prevalent.Prevalent;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 
 public class AddProductToShop extends AppCompatActivity {

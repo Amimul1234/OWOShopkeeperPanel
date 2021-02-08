@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:aapt="http://schemas.android.com/aapt"
     android:orientation="vertical"
     android:background="#fff"
     android:focusableInTouchMode="true"
@@ -35,9 +33,7 @@
         android:paddingRight="30dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.6"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
+        android:layout_weight="1.6">
 
         <EditText
             android:textSize="20sp"
@@ -48,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/mobile_number"
-            android:drawableLeft="@drawable/phone"
+            android:drawableStart="@drawable/phone"
             android:drawablePadding="10dp"
             android:inputType="number"/>
 
@@ -65,17 +61,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/pin_number"
-                android:drawableLeft="@drawable/ic_input_lock"
+                android:drawableStart="@drawable/ic_input_lock"
                 android:drawablePadding="10dp"
                 android:inputType="numberPassword"/>
 
             <ImageView
                 android:id="@+id/show_pin"
-                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_visibility_off"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"/>
 
         </RelativeLayout>
@@ -103,10 +99,10 @@
                 android:text="@string/forget_pin"
                 android:textColor="@android:color/holo_red_light"
                 android:textSize="16sp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:textStyle="bold"
                 android:paddingTop="5dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 />
 
         </RelativeLayout>
@@ -131,7 +127,7 @@
             android:layout_marginTop="20dp">
 
             <TextView
-                android:layout_toLeftOf="@+id/sign_up"
+                android:layout_toStartOf="@+id/sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/are_you_not_registered"
@@ -148,11 +144,10 @@
                 android:textColor="@android:color/holo_red_light"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 />
 
         </RelativeLayout>
-
 
     </LinearLayout>
 

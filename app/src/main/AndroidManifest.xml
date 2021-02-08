@@ -69,7 +69,7 @@
             android:name=".shopKeeperPanel.SearchActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.registration_related.AfterShopRegisterRequest"
+            android:name=".shopRegistration.AfterShopRegisterRequest"
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopKeeperPanel.ConfirmFinalOrderActivity"
@@ -108,25 +108,25 @@
             android:name=".shopKeeperPanel.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.registration_related.AfterUserRegister"
+            android:name=".shopRegistration.AfterUserRegister"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.registration_related.TermsConditionsActivity"
+            android:name=".userRegistration.TermsConditionsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.MainActivity"
+            android:name=".login.LogInActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.registration_related.VerifyPhoneActivity"
+            android:name=".userRegistration.VerifyPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.registration_related.RegistrationActivity"
+            android:name=".userRegistration.UserRegistrationActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopKeeperPanel.ProductDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.registration_related.ShopRegistrationRequest"
+            android:name=".shopRegistration.ShopRegistrationRequest"
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopKeeperPanel.HomeActivity"

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".shopKeeperPanel.registration_related.RegistrationActivity">
+    tools:context=".userRegistration.UserRegistrationActivity">
 
     <ImageView
         android:id="@+id/logo"
@@ -44,7 +44,7 @@
         <EditText
             android:id="@+id/new_shopkeeper_name"
             android:layout_marginTop="15dp"
-            android:padding="15dp"
+            android:padding="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
@@ -67,7 +67,7 @@
             android:hint="@string/mobile_number"
             android:inputType="numberDecimal"
             android:maxLength="11"
-            android:padding="15dp"
+            android:padding="12dp"
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:layout_marginTop="10dp"
@@ -84,14 +84,14 @@
             <EditText
                 android:id="@+id/new_shopkeeper_pin"
                 android:layout_marginTop="10dp"
-                android:padding="15dp"
+                android:padding="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
                 android:layout_marginRight="18dp"
                 android:inputType="numberPassword"
                 android:hint="@string/pin_number"
-                android:drawableLeft="@drawable/ic_input_lock"
+                android:drawableStart="@drawable/ic_input_lock"
                 android:drawablePadding="10dp"
                 android:background="@drawable/edit_text_black"
                 android:textSize="20sp"
@@ -102,8 +102,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_visibility_off"
-                android:layout_alignParentRight="true"
-                android:paddingRight="40dp"
+                android:layout_alignParentEnd="true"
+                android:paddingEnd="40dp"
                 android:paddingTop="10dp"
                 android:layout_centerVertical="true"/>
 
@@ -119,7 +119,7 @@
             <EditText
                 android:id="@+id/new_shopkeeper_confirm_pin"
                 android:layout_marginTop="10dp"
-                android:padding="15dp"
+                android:padding="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
@@ -130,7 +130,7 @@
                 android:textSize="20sp"
                 android:drawableStart="@drawable/ic_input_lock"
                 android:drawablePadding="10dp"
-                />
+                android:autofillHints="" />
 
 
             <ImageView
@@ -141,7 +141,8 @@
                 android:layout_alignParentEnd="true"
                 android:paddingEnd="40dp"
                 android:paddingTop="10dp"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/confirm_pin" />
 
         </RelativeLayout>
 
@@ -159,7 +160,7 @@
                 android:text="@string/i_accept_all_the"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:textStyle="bold"
                 />
 
@@ -170,10 +171,10 @@
                 android:text="@string/terms_and_conditions"
                 android:textColor="@color/blue"
                 android:textSize="16sp"
-                android:layout_toRightOf="@+id/terms"
+                android:layout_toEndOf="@+id/terms"
                 android:textStyle="bold"
                 android:paddingTop="5dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 />
 
         </RelativeLayout>
@@ -194,7 +195,7 @@
         android:layout_marginBottom="25dp"
         android:background="@drawable/buttons_blue"
         android:padding="15dp"
-        android:text="@string/sign_up"
+        android:text="@string/send_verification_code"
         android:textStyle="bold"
         android:textAllCaps="false"
         android:textColor="#fff"
@@ -202,22 +203,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
+    <ProgressBar
         android:id="@+id/loader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:alliance_animDuration="500"
-        app:alliance_distanceMultiplier="4"
-        app:alliance_dotsRadius="15dp"
-        app:alliance_firstDotsColor="@color/red"
-        app:alliance_secondDotsColor="@color/green"
-        app:alliance_strokeWidth="8dp"
-        app:alliance_thirdDotsColor="@color/blue"
         app:layout_constraintBottom_toTopOf="@+id/send_otp_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
-        />
-
+        android:layout_marginTop="5dp"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

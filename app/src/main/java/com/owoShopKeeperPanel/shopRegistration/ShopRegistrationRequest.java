@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.shopKeeperPanel.registration_related;
+package com.owoShopKeeperPanel.shopRegistration;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -32,9 +32,10 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
-import com.owoShopKeeperPanel.Prevalent.Prevalent;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.registerRequest.ShopPendingRequest;
+
 import org.jetbrains.annotations.NotNull;
 import java.io.ByteArrayOutputStream;
 import java.io.File;

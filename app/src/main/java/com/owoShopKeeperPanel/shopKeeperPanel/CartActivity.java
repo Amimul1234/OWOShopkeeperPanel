@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.Model.Cart_list_product;
 import com.owoShopKeeperPanel.Model.Qupon;
-import com.owoShopKeeperPanel.Prevalent.Prevalent;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.adapters.CartListAdapter;
 import java.util.ArrayList;

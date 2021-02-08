@@ -199,6 +199,10 @@
     <string name="shop_trade_license">Shop Trade License</string>
     <string name="shop_image">Shop Image</string>
     <string name="shop_keeper_nid">Shop Keeper NID</string>
+    <string name="logo">logo</string>
+    <string name="send_verification_code_again">Send Verification Code Again</string>
+    <string name="next">Next</string>
+    <string name="send_verification_code">Send Verification Code</string>
 
 
 </resources>

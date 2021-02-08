@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import com.owoShopKeeperPanel.Model.Brands;
 import com.owoShopKeeperPanel.Model.Owo_product;
-import com.owoShopKeeperPanel.Prevalent.Prevalent;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.adapters.ItemAdapterBrand;
 import com.owoShopKeeperPanel.adapters.Product_tag;

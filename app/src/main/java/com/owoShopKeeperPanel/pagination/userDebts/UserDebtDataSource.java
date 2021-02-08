@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.Model.UserDebts;
-import com.owoShopKeeperPanel.Prevalent.Prevalent;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Objects;

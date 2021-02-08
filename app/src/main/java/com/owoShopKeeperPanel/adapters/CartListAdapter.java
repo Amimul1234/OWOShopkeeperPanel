@@ -19,7 +19,7 @@ import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.Model.Cart_list_product;
 import com.owoShopKeeperPanel.Model.Owo_product;
-import com.owoShopKeeperPanel.Prevalent.Prevalent;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.shopKeeperPanel.CartActivity;
 import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;

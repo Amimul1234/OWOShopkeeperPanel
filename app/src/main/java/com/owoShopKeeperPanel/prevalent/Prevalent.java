@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.Prevalent;
+package com.owoShopKeeperPanel.prevalent;
 
 import com.owoShopKeeperPanel.Model.User_shopkeeper;
 import java.util.List;

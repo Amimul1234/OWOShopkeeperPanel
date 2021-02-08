@@ -22,7 +22,7 @@ import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.Model.Cart_list_product;
 import com.owoShopKeeperPanel.Model.Shop_keeper_ordered_products;
 import com.owoShopKeeperPanel.Model.Shop_keeper_orders;
-import com.owoShopKeeperPanel.Prevalent.Prevalent;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import org.jetbrains.annotations.NotNull;
 import java.text.SimpleDateFormat;

@@ -1,12 +1,14 @@
-package com.owoShopKeeperPanel.shopKeeperPanel;
+package com.owoShopKeeperPanel.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
-import android.view.View;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.Model.User_shopkeeper;
-import com.owoShopKeeperPanel.Prevalent.Prevalent;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.hashing.hashing_algo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,42 +26,52 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.owoShopKeeperPanel.shopKeeperPanel.registration_related.AfterUserRegister;
-import com.owoShopKeeperPanel.shopKeeperPanel.registration_related.AfterShopRegisterRequest;
-import com.owoShopKeeperPanel.shopKeeperPanel.registration_related.RegistrationActivity;
-
+import com.owoShopKeeperPanel.shopKeeperPanel.HomeActivity;
+import com.owoShopKeeperPanel.shopRegistration.AfterUserRegister;
+import com.owoShopKeeperPanel.shopRegistration.AfterShopRegisterRequest;
+import com.owoShopKeeperPanel.userRegistration.UserRegistrationActivity;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import io.paperdb.Paper;
 
-public class MainActivity extends AppCompatActivity {
+@SuppressWarnings("deprecation")
+public class LogInActivity extends AppCompatActivity {
 
-    private Button loginButton;
     private EditText mobile, pin;
     private ImageView visibility;
     private Boolean isShowPin = false;
-    private TextView forgetPin,signUp;
     private CheckBox rememberMe;
     private ProgressDialog loadingbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login_activity);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+
+            final WindowInsetsController insetsController = getWindow().getInsetsController();
+
+            if (insetsController != null) {
+                insetsController.hide(WindowInsets.Type.statusBars());
+            }
+        } else {
+            getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+            );
+        }
 
         Paper.init(this);
 
-
-        loginButton=(Button)findViewById(R.id.login_btn);
+        Button loginButton = (Button) findViewById(R.id.login_btn);
         mobile = (EditText)findViewById(R.id.shopkeeper_mobile);
         pin = (EditText)findViewById(R.id.shopkeeper_pin);
         visibility = findViewById(R.id.show_pin);
         rememberMe=(CheckBox)findViewById(R.id.remember_me);
-        forgetPin=(TextView)findViewById(R.id.forget_pin);
-        signUp=(TextView)findViewById(R.id.sign_up);
+        TextView forgetPin = (TextView) findViewById(R.id.forget_pin);
+        TextView signUp = (TextView) findViewById(R.id.sign_up);
         loadingbar = new ProgressDialog(this);
 
         if(Paper.book().read(Prevalent.UserPhoneKey) != null && Paper.book().read(Prevalent.UserPinKey) != null)
@@ -71,50 +83,36 @@ public class MainActivity extends AppCompatActivity {
             AllowAccessToAccount(Paper.book().read(Prevalent.UserPhoneKey), Paper.book().read(Prevalent.UserPinKey));
         }
 
-        forgetPin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, RegistrationActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        forgetPin.setOnClickListener(v -> {
+            Intent intent=new Intent(LogInActivity.this, UserRegistrationActivity.class);
+            startActivity(intent);
+            finish();
         });
 
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, RegistrationActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        signUp.setOnClickListener(v -> {
+            Intent intent=new Intent(LogInActivity.this, UserRegistrationActivity.class);
+            startActivity(intent);
+            finish();
         });
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginUser();
-            }
-        });
+        loginButton.setOnClickListener(v -> loginUser());
 
-        visibility.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        visibility.setOnClickListener(v -> {
 
-                if (isShowPin) {
-                    pin.setTransformationMethod(new PasswordTransformationMethod());
-                    visibility.setImageResource(R.drawable.ic_visibility_off);
-                    isShowPin = false;
+            if (isShowPin) {
+                pin.setTransformationMethod(new PasswordTransformationMethod());
+                visibility.setImageResource(R.drawable.ic_visibility_off);
+                isShowPin = false;
 
-                }else{
-                    pin.setTransformationMethod(null);
-                    visibility.setImageResource(R.drawable.ic_visibility);
-                    isShowPin = true;
-                }
+            }else{
+                pin.setTransformationMethod(null);
+                visibility.setImageResource(R.drawable.ic_visibility);
+                isShowPin = true;
             }
         });
     }
 
-    private void LoginUser() {
+    private void loginUser() {
 
         String Phone = mobile.getText().toString();
         String Pin = pin.getText().toString();
@@ -131,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         else
         {
             loadingbar.setTitle("Login Account");
-            loadingbar.setMessage("Please wait while we are checking the credentials....");
+            loadingbar.setMessage("Please wait while we are checking your credentials....");
             loadingbar.setCanceledOnTouchOutside(false);
             loadingbar.show();
 
@@ -221,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
-                                            Toast.makeText(MainActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LogInActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }
@@ -229,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(MainActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LogInActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
                                 loadingbar.dismiss();
                             }
                         });
@@ -237,20 +235,20 @@ public class MainActivity extends AppCompatActivity {
 
                     else
                     {
-                        Toast.makeText(MainActivity.this, "Please enter correct pin", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LogInActivity.this, "Please enter correct pin", Toast.LENGTH_SHORT).show();
                         loadingbar.dismiss();
                     }
                 }
 
                 else {
-                    Toast.makeText(MainActivity.this, "No such account", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LogInActivity.this, "No such account", Toast.LENGTH_SHORT).show();
                     loadingbar.dismiss();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LogInActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

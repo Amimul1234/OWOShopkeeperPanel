@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.shopKeeperPanel.registration_related;
+package com.owoShopKeeperPanel.shopRegistration;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
