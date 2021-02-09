@@ -19,6 +19,7 @@ import com.esotericsoftware.minlog.Log;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.Model.Shops;
 import com.owoShopKeeperPanel.R;
+import com.owoShopKeeperPanel.login.forgetPin.ForgetPin;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.hashing.hashing_algo;
 import com.owoShopKeeperPanel.shopKeeperPanel.HomeActivity;
@@ -84,7 +85,7 @@ public class LogInActivity extends AppCompatActivity {
         }
 
         forgetPin.setOnClickListener(v -> {
-            Intent intent=new Intent(LogInActivity.this, UserRegistrationActivity.class);
+            Intent intent=new Intent(LogInActivity.this, ForgetPin.class);
             startActivity(intent);
             finish();
         });
