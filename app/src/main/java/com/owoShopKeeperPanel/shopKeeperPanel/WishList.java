@@ -61,7 +61,7 @@ public class WishList extends AppCompatActivity {
 
         final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference();
 
-        Query query = cartListRef.child("Wish List").child(Prevalent.currentOnlineUser.getPhone()).orderByValue();
+        Query query = cartListRef.child("Wish List").child(Prevalent.currentOnlineUser.getMobileNumber()).orderByValue();
 
         FirebaseRecyclerOptions<Owo_product> options =
                 new FirebaseRecyclerOptions.Builder<Owo_product>()

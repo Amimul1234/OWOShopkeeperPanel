@@ -121,7 +121,7 @@ public class AddProductToShop extends AppCompatActivity {
         product_database_model product_database_model = new product_database_model(add_product_model.getProduct_id(),
                 add_product_model.getProduct_quantity(), price);
 
-        databaseReference.child("Shop Products").child(Prevalent.currentOnlineUser.getPhone())
+        databaseReference.child("Shop Products").child(Prevalent.currentOnlineUser.getMobileNumber())
                 .child(String.valueOf(add_product_model.getProduct_id())).setValue(product_database_model)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

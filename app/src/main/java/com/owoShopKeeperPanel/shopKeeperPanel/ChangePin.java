@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.owoShopKeeperPanel.Model.User_shopkeeper;
+import com.owoShopKeeperPanel.Model.UserShopKeeper;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.hashing.hashing_algo;
@@ -138,20 +138,20 @@ public class ChangePin extends AppCompatActivity {
 
         DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("Shopkeeper");
 
-        User_shopkeeper user_shopkeeper = new User_shopkeeper();
+        UserShopKeeper user_shopKeeper = new UserShopKeeper();
 
         try {
             String new_hashed_pin = hashing_algo.toHexString(hashing_algo.getSHA(new_pin));
-            user_shopkeeper.setName(Prevalent.currentOnlineUser.getName());
-            user_shopkeeper.setPhone(Prevalent.currentOnlineUser.getPhone());
-            user_shopkeeper.setImage(Prevalent.currentOnlineUser.getImage());
-            user_shopkeeper.setPin(new_hashed_pin);
+            user_shopKeeper.setName(Prevalent.currentOnlineUser.getName());
+            user_shopKeeper.setPhone(Prevalent.currentOnlineUser.getMobileNumber());
+            user_shopKeeper.setImage(Prevalent.currentOnlineUser.getImageUri());
+            user_shopKeeper.setPin(new_hashed_pin);
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
 
-        ref.child(Prevalent.currentOnlineUser.getPhone()).setValue(user_shopkeeper).addOnSuccessListener(aVoid -> {
+        ref.child(Prevalent.currentOnlineUser.getMobileNumber()).setValue(user_shopKeeper).addOnSuccessListener(aVoid -> {
             Toast.makeText(ChangePin.this, "Pin number updated successfully", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(View.GONE);
             Paper.book().destroy();

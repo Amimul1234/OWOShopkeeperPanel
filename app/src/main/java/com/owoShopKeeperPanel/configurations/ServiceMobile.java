@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.changableEnums;
+package com.owoShopKeeperPanel.configurations;
 
 public enum ServiceMobile {
     SERVICE_MOBILE("+8801612201602");

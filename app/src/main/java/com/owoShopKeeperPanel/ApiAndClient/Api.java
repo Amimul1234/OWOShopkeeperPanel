@@ -7,11 +7,11 @@ import com.owoShopKeeperPanel.Model.Owo_product;
 import com.owoShopKeeperPanel.Model.Shop_keeper_orders;
 import com.owoShopKeeperPanel.Model.Shops;
 import com.owoShopKeeperPanel.Model.UserDebts;
+import com.owoShopKeeperPanel.Model.UserShopKeeper;
 import com.owoShopKeeperPanel.Model.User_debt_details;
 import com.owoShopKeeperPanel.registerRequest.ShopPendingRequest;
-
+import com.owoShopKeeperPanel.userRegistration.ShopKeeperUser;
 import java.util.List;
-
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -26,6 +26,16 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface Api {
+
+    @POST("/registerShopKeeper")
+    Call<ResponseBody> registerShopKeeper(
+            @Body UserShopKeeper userShopKeeper
+            );
+
+    @GET("/getShopKeeper")
+    Call<ShopKeeperUser> getShopKeeper(
+            @Query("mobile_number") String mobile_number
+    );
 
     @POST("/shopRegisterRequest")
     Call<ResponseBody> shopRegisterRequest(

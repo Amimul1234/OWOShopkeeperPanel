@@ -21,7 +21,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.owoShopKeeperPanel.Model.User_shopkeeper;
+import com.owoShopKeeperPanel.Model.UserShopKeeper;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.shopKeeperPanel.SettingsActivity;
@@ -76,18 +76,18 @@ public class User_Info_Update_Bottom_Sheet extends BottomSheetDialogFragment {
     private void updateOnlyUserInfo(String user_name, String phone_number) {
         DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("Shopkeeper");
 
-        User_shopkeeper user_shopkeeper = new User_shopkeeper();
-        user_shopkeeper.setName(user_name);
-        user_shopkeeper.setPhone(phone_number);
-        user_shopkeeper.setImage(Prevalent.currentOnlineUser.getImage());
-        user_shopkeeper.setPin(Prevalent.currentOnlineUser.getPin());
+        UserShopKeeper user_shopKeeper = new UserShopKeeper();
+        user_shopKeeper.setName(user_name);
+        user_shopKeeper.setPhone(phone_number);
+        user_shopKeeper.setImage(Prevalent.currentOnlineUser.getImageUri());
+        user_shopKeeper.setPin(Prevalent.currentOnlineUser.getPin());
 
-        ref.child(Prevalent.currentOnlineUser.getPhone()).setValue(user_shopkeeper).addOnSuccessListener(new OnSuccessListener<Void>() {
+        ref.child(Prevalent.currentOnlineUser.getMobileNumber()).setValue(user_shopKeeper).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(mCtx, "Profile information updated successfully", Toast.LENGTH_SHORT).show();
                 Prevalent.currentOnlineUser.setName(user_name);
-                Prevalent.currentOnlineUser.setPhone(phone_number);
+                Prevalent.currentOnlineUser.setMobileNumber(phone_number);
                 startActivity(new Intent(mCtx, SettingsActivity.class));
             }
         }).addOnFailureListener(new OnFailureListener() {

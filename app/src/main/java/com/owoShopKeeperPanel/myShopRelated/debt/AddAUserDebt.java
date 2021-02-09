@@ -75,7 +75,7 @@ public class AddAUserDebt extends AppCompatActivity {
         userDebts.setUser_total_debt(0.0);
 
         RetrofitClient.getInstance().getApi()
-                .addAUserDebt(userDebts, Prevalent.currentOnlineUser.getPhone())
+                .addAUserDebt(userDebts, Prevalent.currentOnlineUser.getMobileNumber())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {

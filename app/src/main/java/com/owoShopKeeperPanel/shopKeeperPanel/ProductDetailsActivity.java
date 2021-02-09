@@ -109,7 +109,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     allianceLoader.setVisibility(View.VISIBLE);
                     add_product_to_wishList.setColorFilter(ContextCompat.getColor(ProductDetailsActivity.this, R.color.red), android.graphics.PorterDuff.Mode.SRC_IN);
                     final DatabaseReference wishListRef = FirebaseDatabase.getInstance().getReference();
-                    wishListRef.child("Wish List").child(Prevalent.currentOnlineUser.getPhone()).child(String.valueOf(owoproduct.getProduct_id())).setValue(owoproduct).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    wishListRef.child("Wish List").child(Prevalent.currentOnlineUser.getMobileNumber()).child(String.valueOf(owoproduct.getProduct_id())).setValue(owoproduct).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(ProductDetailsActivity.this, "Added to wish list", Toast.LENGTH_SHORT).show();
@@ -130,7 +130,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     allianceLoader.setVisibility(View.VISIBLE);
                     add_product_to_wishList.setColorFilter(ContextCompat.getColor(ProductDetailsActivity.this, R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
                     final DatabaseReference wishListRef = FirebaseDatabase.getInstance().getReference();
-                    wishListRef.child("Wish List").child(Prevalent.currentOnlineUser.getPhone()).child(String.valueOf(owoproduct.getProduct_id())).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    wishListRef.child("Wish List").child(Prevalent.currentOnlineUser.getMobileNumber()).child(String.valueOf(owoproduct.getProduct_id())).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(ProductDetailsActivity.this, "Removed from wish list", Toast.LENGTH_SHORT).show();
@@ -172,7 +172,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 Integer.parseInt(numberButton.getNumber()), owoproduct.getProduct_description(), saveCurrentDate, saveCurrentTime, owoproduct.getProduct_sub_category(),
                 owoproduct.getProduct_brand(), owoproduct.getProduct_image());
 
-        CartListFromClient cartList1 = new CartListFromClient(Prevalent.currentOnlineUser.getPhone(), cart_list_product);
+        CartListFromClient cartList1 = new CartListFromClient(Prevalent.currentOnlineUser.getMobileNumber(), cart_list_product);
 
         Call<ResponseBody> call = RetrofitClient.getInstance().getApi().cartListItems(cartList1);
 

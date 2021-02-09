@@ -104,7 +104,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
             }
         });
 
-        phoneEditText.setText(Prevalent.currentOnlineUser.getPhone());
+        phoneEditText.setText(Prevalent.currentOnlineUser.getMobileNumber());
 
         confirmOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +159,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         }
 
         shop_keeper_orders.setReceiver_phone(phoneEditText.getText().toString());
-        shop_keeper_orders.setShop_phone(Prevalent.currentOnlineUser.getPhone());
+        shop_keeper_orders.setShop_phone(Prevalent.currentOnlineUser.getMobileNumber());
         shop_keeper_orders.setShipping_state("Pending");
         shop_keeper_orders.setTime_slot(time_slot_selector.getSelectedItem().toString());
         shop_keeper_orders.setOrder_time(saveCurrentTime);
@@ -177,7 +177,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
         shop_keeper_orders.setShop_keeper_ordered_products(shop_keeper_ordered_products);
 
-        Call<ResponseBody> call = RetrofitClient.getInstance().getApi().createOrder(shop_keeper_orders, Prevalent.currentOnlineUser.getPhone());
+        Call<ResponseBody> call = RetrofitClient.getInstance().getApi().createOrder(shop_keeper_orders, Prevalent.currentOnlineUser.getMobileNumber());
 
         loader.setVisibility(View.VISIBLE);
 

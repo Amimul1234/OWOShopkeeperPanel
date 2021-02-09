@@ -42,102 +42,82 @@ public class Categories extends AppCompatActivity {
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.blue);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(() -> swipeRefreshLayout.setRefreshing(false));
 
-        searchBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Categories.this, SearchActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        searchBar.setOnClickListener(v -> {
+            Intent intent = new Intent(Categories.this, SearchActivity.class);
+            startActivity(intent);
+            finish();
         });
 
 
         ImageView contact_us = findViewById(R.id.contact_us);
 
-        contact_us.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        contact_us.setOnClickListener(v -> {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(Categories.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(Categories.this);
 
-                View view = LayoutInflater.from(Categories.this).inflate(R.layout.care_toast, null);
+            View view = LayoutInflater.from(Categories.this).inflate(R.layout.care_toast, null);
 
-                Button call_us_now = view.findViewById(R.id.call_us_now);
-                Button issue_a_complain = view.findViewById(R.id.issue_a_complain);
+            Button call_us_now = view.findViewById(R.id.call_us_now);
+            Button issue_a_complain = view.findViewById(R.id.issue_a_complain);
 
-                builder.setView(view);
+            builder.setView(view);
 
-                final AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-                alertDialog.getWindow().setLayout(950, 800);
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+            alertDialog.getWindow().setLayout(950, 800);
 
-                call_us_now.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL); //calling activity
-                        intent.setData(Uri.parse("tel:+8801612201602"));
-                        startActivity(intent);
-                        alertDialog.cancel();
+            call_us_now.setOnClickListener(v12 -> {
+                Intent intent = new Intent(Intent.ACTION_DIAL); //calling activity
+                intent.setData(Uri.parse("tel:+8801612201602"));
+                startActivity(intent);
+                alertDialog.cancel();
 
-                    }
-                });
+            });
 
-                issue_a_complain.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Categories.this, Contact_us.class);
-                        intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getPhone());
-                        startActivity(intent);
-                        alertDialog.cancel();
-                    }
-                });
+            issue_a_complain.setOnClickListener(v1 -> {
+                Intent intent = new Intent(Categories.this, Contact_us.class);
+                intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getMobileNumber());
+                startActivity(intent);
+                alertDialog.cancel();
+            });
 
-            }
         });
 
 
 
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_home:
-                    {
-                        onBackPressed();
-                        break;
-                    }
-                    case R.id.action_categories: {
-                        break;
-                    }
-                    case R.id.action_calculator:
-                    {
-                        Intent intent = new Intent(Categories.this, Calculator.class);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.action_cart:
-                    {
-                        Intent intent = new Intent(Categories.this, CartActivity.class);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.action_account:
-                    {
-                        Intent intent=new Intent(Categories.this, SettingsActivity.class);
-                        startActivity(intent);
-                        break;
-                    }
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_home:
+                {
+                    onBackPressed();
+                    break;
                 }
-                return true;
+                case R.id.action_categories: {
+                    break;
+                }
+                case R.id.action_calculator:
+                {
+                    Intent intent = new Intent(Categories.this, Calculator.class);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.action_cart:
+                {
+                    Intent intent = new Intent(Categories.this, CartActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.action_account:
+                {
+                    Intent intent=new Intent(Categories.this, SettingsActivity.class);
+                    startActivity(intent);
+                    break;
+                }
             }
+            return true;
         });
     }
 

@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 import com.owoShopKeeperPanel.R;
-import com.owoShopKeeperPanel.changableEnums.TermsAndConditions;
+import com.owoShopKeeperPanel.configurations.TermsAndConditions;
 
 public class TermsConditionsActivity extends AppCompatActivity {
     @Override

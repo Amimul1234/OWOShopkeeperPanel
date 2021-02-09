@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,9 +15,7 @@ import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.adapters.MyShopManagementAdapter;
 import com.owoShopKeeperPanel.adapters.Saleable_products;
-
 import org.jetbrains.annotations.NotNull;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,8 +46,8 @@ public class MyShopActivity extends AppCompatActivity {
         myShopManagementAdapter = new MyShopManagementAdapter(MyShopActivity.this);
 
         shop_controlling_options.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
-        ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 if(position == 0)
@@ -67,18 +64,13 @@ public class MyShopActivity extends AppCompatActivity {
         shop_controlling_options.setAdapter(concatAdapter);
         back_button = findViewById(R.id.back_to_home);
 
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        back_button.setOnClickListener(v -> onBackPressed());
     }
 
 
     private void fetchFromDatabase() {
 
-        RetrofitClient.getInstance().getApi().getShopInfo(Prevalent.currentOnlineUser.getPhone())
+        RetrofitClient.getInstance().getApi().getShopInfo(Prevalent.currentOnlineUser.getMobileNumber())
                 .enqueue(new Callback<Shops>() {
                     @Override
                     public void onResponse(@NotNull Call<Shops> call, @NotNull Response<Shops> response) {

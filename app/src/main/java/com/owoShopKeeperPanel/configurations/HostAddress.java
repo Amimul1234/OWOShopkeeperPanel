@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.changableEnums;
+package com.owoShopKeeperPanel.configurations;
 
 public enum HostAddress {
     HOST_ADDRESS("192.168.0.2");

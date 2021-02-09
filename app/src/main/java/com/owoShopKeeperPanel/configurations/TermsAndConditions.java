@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.changableEnums;
+package com.owoShopKeeperPanel.configurations;
 
 public enum TermsAndConditions {
     TERMS_AND_CONDITIONS("This needed to be filled with terms and conditions");

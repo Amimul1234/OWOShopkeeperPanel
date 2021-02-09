@@ -157,7 +157,7 @@ public class CartListAdapter extends ArrayAdapter<Cart_list_product> {
         cart_list_products.get(position).setProduct_quantity(newValue);
         Cart_list_product cart_list_product = cart_list_products.get(position);
 
-        Call<Cart_list_product> call = RetrofitClient.getInstance().getApi().updateCartList(cart_list_product, Prevalent.currentOnlineUser.getPhone());
+        Call<Cart_list_product> call = RetrofitClient.getInstance().getApi().updateCartList(cart_list_product, Prevalent.currentOnlineUser.getMobileNumber());
 
         call.enqueue(new Callback<Cart_list_product>() {
             @Override
@@ -208,7 +208,7 @@ public class CartListAdapter extends ArrayAdapter<Cart_list_product> {
 
                         cartActivity.loaderVisible();
 
-                        Call<ResponseBody> call = RetrofitClient.getInstance().getApi().delete_product_from_cart(cart_list_product.getProduct_id(), Prevalent.currentOnlineUser.getPhone());
+                        Call<ResponseBody> call = RetrofitClient.getInstance().getApi().delete_product_from_cart(cart_list_product.getProduct_id(), Prevalent.currentOnlineUser.getMobileNumber());
                         call.enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {

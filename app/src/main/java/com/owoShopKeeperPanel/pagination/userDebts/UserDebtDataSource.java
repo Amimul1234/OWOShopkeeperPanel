@@ -21,7 +21,7 @@ public class UserDebtDataSource extends PageKeyedDataSource<Integer, UserDebts> 
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Integer, UserDebts> callback) {
 
         RetrofitClient.getInstance().getApi()
-                .getUserDebtLists(FIRST_PAGE, Prevalent.currentOnlineUser.getPhone())
+                .getUserDebtLists(FIRST_PAGE, Prevalent.currentOnlineUser.getMobileNumber())
                 .enqueue(new Callback<List<UserDebts>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<UserDebts>> call, @NotNull Response<List<UserDebts>> response) {
@@ -52,7 +52,7 @@ public class UserDebtDataSource extends PageKeyedDataSource<Integer, UserDebts> 
     public void loadBefore(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, UserDebts> callback) {
 
         RetrofitClient.getInstance().getApi()
-                .getUserDebtLists(params.key, Prevalent.currentOnlineUser.getPhone())
+                .getUserDebtLists(params.key, Prevalent.currentOnlineUser.getMobileNumber())
                 .enqueue(new Callback<List<UserDebts>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<UserDebts>> call, @NotNull Response<List<UserDebts>> response) {
@@ -83,7 +83,7 @@ public class UserDebtDataSource extends PageKeyedDataSource<Integer, UserDebts> 
     @Override
     public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, UserDebts> callback) {
         RetrofitClient.getInstance().getApi()
-                .getUserDebtLists(params.key, Prevalent.currentOnlineUser.getPhone())
+                .getUserDebtLists(params.key, Prevalent.currentOnlineUser.getMobileNumber())
                 .enqueue(new Callback<List<UserDebts>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<UserDebts>> call, @NotNull Response<List<UserDebts>> response) {

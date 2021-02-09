@@ -1,9 +1,15 @@
 package com.owoShopKeeperPanel.Model;
 
-public class Shops {
-    private long shop_id;
-    private double latitude;
-    private double longitude;
+import com.owoShopKeeperPanel.login.ShopKeeperPermissions;
+
+import java.io.Serializable;
+import java.util.List;
+
+public class Shops implements Serializable {
+    private Long shop_id;
+    private Double latitude;
+    private Double longitude;
+    private Boolean approved;
     private String shop_address;
     private String shop_image_uri;
     private String shop_keeper_nid_front_uri;
@@ -12,11 +18,12 @@ public class Shops {
     private String shop_owner_name;
     private String shop_service_mobile;
     private String trade_license_url;
+    private List<ShopKeeperPermissions> shopKeeperPermissions;
 
     public Shops() {
     }
 
-    public Shops(long shop_id, double latitude, double longitude, String shop_address,
+    public Shops(Long shop_id, Double latitude, Double longitude, Boolean approved, String shop_address,
                  String shop_image_uri, String shop_keeper_nid_front_uri, String shop_name,
                  String shop_owner_mobile, String shop_owner_name, String shop_service_mobile,
                  String trade_license_url) {
@@ -24,6 +31,7 @@ public class Shops {
         this.shop_id = shop_id;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.approved = approved;
         this.shop_address = shop_address;
         this.shop_image_uri = shop_image_uri;
         this.shop_keeper_nid_front_uri = shop_keeper_nid_front_uri;
@@ -34,27 +42,35 @@ public class Shops {
         this.trade_license_url = trade_license_url;
     }
 
-    public long getShop_id() {
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
+
+    public Long getShop_id() {
         return shop_id;
     }
 
-    public void setShop_id(long shop_id) {
+    public void setShop_id(Long shop_id) {
         this.shop_id = shop_id;
     }
 
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
@@ -120,5 +136,13 @@ public class Shops {
 
     public void setTrade_license_url(String trade_license_url) {
         this.trade_license_url = trade_license_url;
+    }
+
+    public List<ShopKeeperPermissions> getShopKeeperPermissions() {
+        return shopKeeperPermissions;
+    }
+
+    public void setShopKeeperPermissions(List<ShopKeeperPermissions> shopKeeperPermissions) {
+        this.shopKeeperPermissions = shopKeeperPermissions;
     }
 }

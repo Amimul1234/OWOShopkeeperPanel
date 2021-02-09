@@ -3,10 +3,13 @@ package com.owoShopKeeperPanel.userRegistration;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,17 +21,16 @@ import android.widget.Toast;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.owoShopKeeperPanel.hashing.hashing_algo;
-
+import com.owoShopKeeperPanel.login.LogInActivity;
+import org.jetbrains.annotations.NotNull;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 @SuppressWarnings("deprecation")
 public class UserRegistrationActivity extends AppCompatActivity {
@@ -46,7 +48,19 @@ public class UserRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_activity);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+
+            final WindowInsetsController insetsController = getWindow().getInsetsController();
+
+            if (insetsController != null) {
+                insetsController.hide(WindowInsets.Type.statusBars());
+            }
+        } else {
+            getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+            );
+        }
 
         regMobile = findViewById(R.id.shopkeeper_register_mobile);
         merchant_name = findViewById(R.id.new_shopkeeper_name);
@@ -119,35 +133,37 @@ public class UserRegistrationActivity extends AppCompatActivity {
             }
             else
             {
-                DatabaseReference shopkeeperRef = FirebaseDatabase.getInstance().getReference();
-
-                final Query query = shopkeeperRef.child("Shopkeeper").orderByKey().equalTo(number);
-
                 loader.setVisibility(View.VISIBLE);
 
-                query.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists())
-                        {
-                            Toast.makeText(UserRegistrationActivity.this, "This number is already registered, please log in", Toast.LENGTH_SHORT).show();
-                            loader.setVisibility(View.GONE);
-                        }
-                        else
-                        {
-                            //Going to change this for OTP register
-                            String phoneNumberWithCountryCode = "+" + "88" + number;
-                            sendOtpToUser(phoneNumberWithCountryCode);
-                        }
-                    }
+                RetrofitClient.getInstance().getApi()
+                        .getShopKeeper(number)
+                        .enqueue(new Callback<ShopKeeperUser>() {
+                            @Override
+                            public void onResponse(@NotNull Call<ShopKeeperUser> call, @NotNull Response<ShopKeeperUser> response) {
+                                if(response.isSuccessful())
+                                {
+                                    Toast.makeText(UserRegistrationActivity.this, "This number is already registered, please log in", Toast.LENGTH_SHORT).show();
+                                    loader.setVisibility(View.GONE);
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Log.e("User Registration", "Error is: "+error.getDetails());
-                        Toast.makeText(UserRegistrationActivity.this, "Error occurred, please try again", Toast.LENGTH_SHORT).show();
-                        loader.setVisibility(View.GONE);
-                    }
-                });
+                                    Intent intent = new Intent(UserRegistrationActivity.this, LogInActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                else
+                                {
+                                    String phoneNumberWithCountryCode = "+" + "88" + number;
+                                    sendOtpToUser(phoneNumberWithCountryCode);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(@NotNull Call<ShopKeeperUser> call, @NotNull Throwable t) {
+                                Log.e("User Registration", "Error is: "+t.getMessage());
+                                Toast.makeText(UserRegistrationActivity.this, "Error occurred, please try again", Toast.LENGTH_SHORT).show();
+                                loader.setVisibility(View.GONE);
+                            }
+                        });
             }
 
         });

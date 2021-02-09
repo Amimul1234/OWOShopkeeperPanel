@@ -27,6 +27,9 @@ import com.owoShopKeeperPanel.Model.Qupon;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.adapters.CartListAdapter;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -135,10 +138,10 @@ public class CartActivity extends AppCompatActivity {
     public void fetch_from_database()
     {
         RetrofitClient.getInstance().getApi().
-                getCartListProducts(Prevalent.currentOnlineUser.getPhone())
+                getCartListProducts(Prevalent.currentOnlineUser.getMobileNumber())
                 .enqueue(new Callback<List<Cart_list_product>>() {
                     @Override
-                    public void onResponse(Call<List<Cart_list_product>> call, Response<List<Cart_list_product>> response) {
+                    public void onResponse(@NotNull Call<List<Cart_list_product>> call, @NotNull Response<List<Cart_list_product>> response) {
                         if(response.isSuccessful())
                         {
                             cart_list_products = (ArrayList<Cart_list_product>) response.body();

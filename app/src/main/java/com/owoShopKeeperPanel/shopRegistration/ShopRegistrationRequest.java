@@ -365,7 +365,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
 
         ShopPendingRequest shopPendingRequest = new ShopPendingRequest(latitude, longitude, shopAddress.getText().toString(),
                 shopImageUri, shopKeeperNidUri, shopName.getText().toString(), shopOwnerName.getText().toString(),
-                Prevalent.currentOnlineUser.getPhone(), shopServiceMobile.getText().toString(), shopTradeLicenseUri);
+                Prevalent.currentOnlineUser.getMobileNumber(), shopServiceMobile.getText().toString(), shopTradeLicenseUri);
 
         List<String> listWithOutDuplication = shopPendingRequest.duplicateProtection(permissions);
 

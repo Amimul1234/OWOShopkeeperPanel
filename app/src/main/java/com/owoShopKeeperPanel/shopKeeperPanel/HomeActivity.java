@@ -35,7 +35,7 @@ import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.adapters.ImageFlipperAdapter;
 import com.owoShopKeeperPanel.adapters.ItemAdapter;
 import com.owoShopKeeperPanel.adapters.Product_tag;
-import com.owoShopKeeperPanel.changableEnums.ServiceMobile;
+import com.owoShopKeeperPanel.configurations.ServiceMobile;
 import com.owoShopKeeperPanel.login.LogInActivity;
 import com.owoShopKeeperPanel.pagination.homeItems.ItemViewModel;
 import com.google.android.material.navigation.NavigationView;
@@ -105,7 +105,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         userNameTextView.setText(Prevalent.currentOnlineUser.getName());
 
-        Glide.with(getApplicationContext()).load(Prevalent.currentOnlineUser.getImage()).into(profileImageView);
+        Glide.with(getApplicationContext()).load(Prevalent.currentOnlineUser.getImageUri()).into(profileImageView);
 
         contact_us.setOnClickListener(v -> {
 
@@ -131,7 +131,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             issue_a_complain.setOnClickListener(v12 -> {
                 Intent intent = new Intent(HomeActivity.this, Contact_us.class);
-                intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getPhone());
+                intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getMobileNumber());
                 startActivity(intent);
                 alertDialog.cancel();
             });
@@ -348,7 +348,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             issue_a_complain.setOnClickListener(v -> {
                 Intent intent = new Intent(HomeActivity.this, Contact_us.class);
-                intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getPhone());
+                intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getMobileNumber());
                 startActivity(intent);
                 alertDialog.cancel();
             });

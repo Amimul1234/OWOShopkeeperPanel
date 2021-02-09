@@ -24,7 +24,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.owoShopKeeperPanel.Model.User_shopkeeper;
+import com.owoShopKeeperPanel.Model.UserShopKeeper;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -58,7 +58,7 @@ public class SettingsActivity extends AppCompatActivity{
 
     private static final int PERMISSION_REQUEST_CODE = 200;
 
-    private User_shopkeeper user_shopkeeper = new User_shopkeeper();
+    private UserShopKeeper user_shopKeeper = new UserShopKeeper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +136,7 @@ public class SettingsActivity extends AppCompatActivity{
         user_information_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User_Info_Update_Bottom_Sheet bottomSheet = new User_Info_Update_Bottom_Sheet(getApplicationContext(), user_shopkeeper.getName(), user_shopkeeper.getPhone());
+                User_Info_Update_Bottom_Sheet bottomSheet = new User_Info_Update_Bottom_Sheet(getApplicationContext(), user_shopKeeper.getName(), user_shopKeeper.getPhone());
                 bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
             }
         });
@@ -154,9 +154,9 @@ public class SettingsActivity extends AppCompatActivity{
 
         if (imageUri!=null)
         {
-            final StorageReference fileRef=storageProfilePictureRef.child(Prevalent.currentOnlineUser.getPhone() + ".jpg");
+            final StorageReference fileRef=storageProfilePictureRef.child(Prevalent.currentOnlineUser.getMobileNumber() + ".jpg");
 
-            StorageReference profile_pic = FirebaseStorage.getInstance().getReferenceFromUrl(user_shopkeeper.getImage());
+            StorageReference profile_pic = FirebaseStorage.getInstance().getReferenceFromUrl(user_shopKeeper.getImage());
 
             profile_pic.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
@@ -181,9 +181,9 @@ public class SettingsActivity extends AppCompatActivity{
                                 Uri downloadUrl=task.getResult();
                                 myUrl=downloadUrl.toString();
                                 DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("Shopkeeper");
-                                user_shopkeeper.setImage(myUrl);
-                                Prevalent.currentOnlineUser.setImage(myUrl); //Setting the prevalent user image
-                                ref.child(Prevalent.currentOnlineUser.getPhone()).setValue(user_shopkeeper);
+                                user_shopKeeper.setImage(myUrl);
+                                Prevalent.currentOnlineUser.setImageUri(myUrl); //Setting the prevalent user image
+                                ref.child(Prevalent.currentOnlineUser.getMobileNumber()).setValue(user_shopKeeper);
                                 progressDialog.dismiss();
                                 Toast.makeText(SettingsActivity.this, "Profile information updated successfully", Toast.LENGTH_SHORT).show();
                                 userInfoDisplay();
@@ -229,19 +229,19 @@ public class SettingsActivity extends AppCompatActivity{
 
     private void userInfoDisplay() {
 
-        DatabaseReference UsersRef= FirebaseDatabase.getInstance().getReference().child("Shopkeeper").child(Prevalent.currentOnlineUser.getPhone());
+        DatabaseReference UsersRef= FirebaseDatabase.getInstance().getReference().child("Shopkeeper").child(Prevalent.currentOnlineUser.getMobileNumber());
 
         UsersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                 if (datasnapshot.exists())
                 {
-                    user_shopkeeper =  datasnapshot.getValue(User_shopkeeper.class);
-                    Glide.with(getApplicationContext()).load(user_shopkeeper.getImage()).into(profileImageView);
-                    Glide.with(getApplicationContext()).load(user_shopkeeper.getImage()).into(profileImageSmall);
-                    collapsingToolbarLayout.setTitle(user_shopkeeper.getName());
-                    user_name.setText(user_shopkeeper.getName());
-                    user_mobile.setText(user_shopkeeper.getPhone());
+                    user_shopKeeper =  datasnapshot.getValue(UserShopKeeper.class);
+                    Glide.with(getApplicationContext()).load(user_shopKeeper.getImage()).into(profileImageView);
+                    Glide.with(getApplicationContext()).load(user_shopKeeper.getImage()).into(profileImageSmall);
+                    collapsingToolbarLayout.setTitle(user_shopKeeper.getName());
+                    user_name.setText(user_shopKeeper.getName());
+                    user_mobile.setText(user_shopKeeper.getPhone());
                 }
             }
 

@@ -1,14 +1,16 @@
 package com.owoShopKeeperPanel.Model;
 
-public class User_shopkeeper {
+import java.io.Serializable;
+
+public class UserShopKeeper implements Serializable {
 
     private String name, phone, pin, image;
 
-    public User_shopkeeper() {
+    public UserShopKeeper() {
 
     }
 
-    public User_shopkeeper(String name, String phone, String pin, String image) {
+    public UserShopKeeper(String name, String phone, String pin, String image) {
         this.name = name;
         this.phone = phone;
         this.pin = pin;

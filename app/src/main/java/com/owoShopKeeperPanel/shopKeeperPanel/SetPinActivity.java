@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.owoShopKeeperPanel.Model.User_shopkeeper;
+import com.owoShopKeeperPanel.Model.UserShopKeeper;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.hashing.hashing_algo;
 import com.owoShopKeeperPanel.login.LogInActivity;
@@ -83,7 +83,7 @@ public class SetPinActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()) {
-                            User_shopkeeper users = snapshot.child(mobilenumber).getValue(User_shopkeeper.class);
+                            UserShopKeeper users = snapshot.child(mobilenumber).getValue(UserShopKeeper.class);
                             String Pin = setNewPin.getText().toString();
 
                             try {

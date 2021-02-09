@@ -1,6 +1,5 @@
 package com.owoShopKeeperPanel.login;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,24 +15,25 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.esotericsoftware.minlog.Log;
+import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
+import com.owoShopKeeperPanel.Model.Shops;
 import com.owoShopKeeperPanel.R;
-import com.owoShopKeeperPanel.Model.User_shopkeeper;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.hashing.hashing_algo;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.owoShopKeeperPanel.shopKeeperPanel.HomeActivity;
 import com.owoShopKeeperPanel.shopRegistration.AfterUserRegister;
 import com.owoShopKeeperPanel.shopRegistration.AfterShopRegisterRequest;
+import com.owoShopKeeperPanel.userRegistration.ShopKeeperUser;
 import com.owoShopKeeperPanel.userRegistration.UserRegistrationActivity;
+import org.jetbrains.annotations.NotNull;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 @SuppressWarnings("deprecation")
 public class LogInActivity extends AppCompatActivity {
@@ -65,19 +65,19 @@ public class LogInActivity extends AppCompatActivity {
 
         Paper.init(this);
 
-        Button loginButton = (Button) findViewById(R.id.login_btn);
-        mobile = (EditText)findViewById(R.id.shopkeeper_mobile);
-        pin = (EditText)findViewById(R.id.shopkeeper_pin);
+        Button loginButton = findViewById(R.id.login_btn);
+        mobile = findViewById(R.id.shopkeeper_mobile);
+        pin = findViewById(R.id.shopkeeper_pin);
         visibility = findViewById(R.id.show_pin);
-        rememberMe=(CheckBox)findViewById(R.id.remember_me);
-        TextView forgetPin = (TextView) findViewById(R.id.forget_pin);
-        TextView signUp = (TextView) findViewById(R.id.sign_up);
+        rememberMe = findViewById(R.id.remember_me);
+        TextView forgetPin = findViewById(R.id.forget_pin);
+        TextView signUp = findViewById(R.id.sign_up);
         loadingbar = new ProgressDialog(this);
 
         if(Paper.book().read(Prevalent.UserPhoneKey) != null && Paper.book().read(Prevalent.UserPinKey) != null)
         {
-            loadingbar.setTitle("Login Account");
-            loadingbar.setMessage("Please wait while we are checking the credentials....");
+            loadingbar.setTitle("Account Login");
+            loadingbar.setMessage("Please wait while we are checking your credentials....");
             loadingbar.setCanceledOnTouchOutside(false);
             loadingbar.show();
             AllowAccessToAccount(Paper.book().read(Prevalent.UserPhoneKey), Paper.book().read(Prevalent.UserPinKey));
@@ -143,115 +143,102 @@ public class LogInActivity extends AppCompatActivity {
         }
     }
 
+    //Should Shift to spring
     private void AllowAccessToAccount(final String phone, final String pin) {
 
-        final DatabaseReference RootRef;
-
-        RootRef = FirebaseDatabase.getInstance().getReference();
-
-        Query query = RootRef.child("Shopkeeper").orderByKey().equalTo(phone);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                if(snapshot.exists())
-                {
-                    User_shopkeeper users = snapshot.child(phone).getValue(User_shopkeeper.class);
-
-                    if(users.getPin().equals(pin))
-                    {
-
-                        if(rememberMe.isChecked())//Writing user data on android storage
+        RetrofitClient.getInstance().getApi()
+                .getShopKeeper(phone)
+                .enqueue(new Callback<ShopKeeperUser>() {
+                    @Override
+                    public void onResponse(@NotNull Call<ShopKeeperUser> call, @NotNull Response<ShopKeeperUser> response) {
+                        if(response.isSuccessful())
                         {
-                            Paper.book().write(Prevalent.UserPhoneKey, phone);
-                            Paper.book().write(Prevalent.UserPinKey, pin);
+                            ShopKeeperUser shopKeeperUser = response.body();
+
+                            assert shopKeeperUser != null;
+                            if(shopKeeperUser.getPin().equals(pin))
+                            {
+                                if(rememberMe.isChecked())//Writing user data on android storage
+                                {
+                                    Paper.book().write(Prevalent.UserPhoneKey, phone);
+                                    Paper.book().write(Prevalent.UserPinKey, pin);
+                                }
+
+                                RetrofitClient.getInstance().getApi()
+                                        .getShopInfo(phone)
+                                        .enqueue(new Callback<Shops>() {
+                                            @Override
+                                            public void onResponse(@NotNull Call<Shops> call, @NotNull Response<Shops> response) {
+                                                if(response.isSuccessful())
+                                                {
+                                                    Shops shops = response.body();
+
+                                                    assert shops != null;
+                                                    if(shops.getApproved()) //Shop is already approved. Proceed to checking permissions
+                                                    {
+                                                        List<String> permitted = new ArrayList<>();
+
+                                                        for(ShopKeeperPermissions shopKeeperPermissions : shops.getShopKeeperPermissions())
+                                                        {
+                                                            permitted.add(shopKeeperPermissions.getPermittedCategory());
+                                                        }
+
+                                                        Prevalent.category_to_display = permitted;
+
+                                                        Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
+
+                                                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                                        Prevalent.currentOnlineUser = shopKeeperUser;
+                                                        loadingbar.dismiss();
+                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                        startActivity(intent);
+                                                    }
+                                                    
+                                                    else//Requested shop creation. But not approved.
+                                                    {
+                                                        Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(getApplicationContext(), AfterShopRegisterRequest.class);
+                                                        Prevalent.currentOnlineUser = shopKeeperUser;
+                                                        loadingbar.dismiss();
+                                                        startActivity(intent);
+                                                    }
+
+                                                }
+                                                else //Didn't requested for register yet
+                                                {
+                                                    Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(getApplicationContext(), AfterUserRegister.class);
+                                                    Prevalent.currentOnlineUser = shopKeeperUser;
+                                                    loadingbar.dismiss();
+                                                    startActivity(intent);
+                                                }
+                                                finish();
+                                            }
+
+                                            @Override
+                                            public void onFailure(@NotNull Call<Shops> call, @NotNull Throwable t) {
+                                                Toast.makeText(LogInActivity.this, "Please try again abcd", Toast.LENGTH_SHORT).show();
+                                                Log.error("Log in activity", "Error is: "+t.getMessage());
+                                                loadingbar.dismiss();
+                                            }
+                                        });
+
+                            }
                         }
 
-                        Query query = RootRef.child("permittedShopKeeper").orderByKey().equalTo(phone); //Checking if the shop already permitted or not
-
-                        query.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                if (snapshot.exists())
-                                {
-                                    List<String> permitted = new ArrayList<>();
-
-                                    permitted = (List<String>) snapshot.child(phone).child("permissions").getValue();
-
-                                    Prevalent.category_to_display = permitted;
-
-                                    Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
-
-                                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                                    Prevalent.currentOnlineUser = users;
-                                    loadingbar.dismiss();
-                                    startActivity(intent);
-                                    finish();
-                                }
-                                else
-                                {
-                                    Query query = RootRef.child("PendingShopRequest").orderByKey().equalTo(phone);
-
-                                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if(snapshot.exists())
-                                            {
-                                                Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(getApplicationContext(), AfterShopRegisterRequest.class);
-                                                Prevalent.currentOnlineUser = users;
-                                                loadingbar.dismiss();
-                                                startActivity(intent);
-                                                finish();
-                                            }
-                                            else
-                                            {
-                                                Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(getApplicationContext(), AfterUserRegister.class);
-                                                Prevalent.currentOnlineUser = users;
-                                                loadingbar.dismiss();
-                                                startActivity(intent);
-                                                finish();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-                                            Toast.makeText(LogInActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(LogInActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
-                                loadingbar.dismiss();
-                            }
-                        });
+                        else
+                        {
+                            Toast.makeText(LogInActivity.this, "No such account", Toast.LENGTH_SHORT).show();
+                            loadingbar.dismiss();
+                        }
                     }
 
-                    else
-                    {
-                        Toast.makeText(LogInActivity.this, "Please enter correct pin", Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onFailure(@NotNull Call<ShopKeeperUser> call, @NotNull Throwable t) {
+                        Toast.makeText(LogInActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+                        Log.error("Log in activity", "Error is: "+t.getMessage());
                         loadingbar.dismiss();
                     }
-                }
-
-                else {
-                    Toast.makeText(LogInActivity.this, "No such account", Toast.LENGTH_SHORT).show();
-                    loadingbar.dismiss();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(LogInActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                });
     }
-
-
 }

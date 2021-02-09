@@ -20,7 +20,7 @@ public class OrderItemDataSource extends PageKeyedDataSource<Integer, Shop_keepe
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Shop_keeper_orders> callback) {
 
         RetrofitClient.getInstance().getApi()
-                .getShopKeeperOrders(FIRST_PAGE, Prevalent.currentOnlineUser.getPhone())
+                .getShopKeeperOrders(FIRST_PAGE, Prevalent.currentOnlineUser.getMobileNumber())
                 .enqueue(new Callback<List<Shop_keeper_orders>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<Shop_keeper_orders>> call, @NotNull Response<List<Shop_keeper_orders>> response) {
@@ -42,7 +42,7 @@ public class OrderItemDataSource extends PageKeyedDataSource<Integer, Shop_keepe
 
 
         RetrofitClient.getInstance().getApi()
-                .getShopKeeperOrders(params.key, Prevalent.currentOnlineUser.getPhone())
+                .getShopKeeperOrders(params.key, Prevalent.currentOnlineUser.getMobileNumber())
                 .enqueue(new Callback<List<Shop_keeper_orders>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<Shop_keeper_orders>> call, @NotNull Response<List<Shop_keeper_orders>> response) {
@@ -71,7 +71,7 @@ public class OrderItemDataSource extends PageKeyedDataSource<Integer, Shop_keepe
     public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Shop_keeper_orders> callback) {
 
         RetrofitClient.getInstance().getApi()
-                .getShopKeeperOrders(params.key, Prevalent.currentOnlineUser.getPhone())
+                .getShopKeeperOrders(params.key, Prevalent.currentOnlineUser.getMobileNumber())
                 .enqueue(new Callback<List<Shop_keeper_orders>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<Shop_keeper_orders>> call, @NotNull Response<List<Shop_keeper_orders>> response) {
