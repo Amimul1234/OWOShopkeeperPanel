@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import com.owoShopKeeperPanel.Model.Brands;
 import com.owoShopKeeperPanel.Model.Owo_product;
@@ -33,8 +32,6 @@ public class BrandWiseProduct extends AppCompatActivity {
 
     private String[] categories = (String[]) Prevalent.category_to_display.toArray(new String[0]);
 
-    private ItemViewModelBrands itemViewModelBrands;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,37 +47,24 @@ public class BrandWiseProduct extends AppCompatActivity {
 
         adapter = new ItemAdapterBrand(this);
 
-        back_to_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        back_to_home.setOnClickListener(v -> onBackPressed());
 
-        search_product.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BrandWiseProduct.this, SearchActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        search_product.setOnClickListener(v -> {
+            Intent intent = new Intent(BrandWiseProduct.this, SearchActivity.class);
+            startActivity(intent);
+            finish();
         });
 
         getProducts();
 
         swipeRefreshLayout.setColorSchemeResources(R.color.blue);
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getProducts();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(this::getProducts);
     }
 
     public void getProducts() {
 
-        itemViewModelBrands = new ItemViewModelBrands(categories, brands.getBrand_name());
+        ItemViewModelBrands itemViewModelBrands = new ItemViewModelBrands(categories, brands.getBrand_name());
 
         itemViewModelBrands.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
             @Override

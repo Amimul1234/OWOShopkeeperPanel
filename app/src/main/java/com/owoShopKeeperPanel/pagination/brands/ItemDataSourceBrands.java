@@ -22,16 +22,16 @@ public class ItemDataSourceBrands extends PageKeyedDataSource<Integer, Owo_produ
     private final String brand_name;
     private final Api restApiFactory;
 
-    private MutableLiveData networkState;
+    private final MutableLiveData<NetworkState> networkState;
 
     public ItemDataSourceBrands(String[] categories, String brand_name) {
         this.categories = categories;
         this.brand_name = brand_name;
         restApiFactory = RetrofitClient.getInstance().getApi();
-        networkState = new MutableLiveData();
+        networkState = new MutableLiveData<>();
     }
 
-    public MutableLiveData getNetworkState() {
+    public MutableLiveData<NetworkState> getNetworkState() {
         return networkState;
     }
 

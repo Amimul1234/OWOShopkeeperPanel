@@ -24,7 +24,7 @@ import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;
 
 public class ItemAdapterBrand extends PagedListAdapter<Owo_product, RecyclerView.ViewHolder>{
 
-    private Context mCtx;
+    private final Context mCtx;
     private NetworkState networkState;
     private static final int TYPE_PROGRESS = 0;
     private static final int TYPE_ITEM = 1;
@@ -98,11 +98,7 @@ public class ItemAdapterBrand extends PagedListAdapter<Owo_product, RecyclerView
     }
 
     private boolean hasExtraRow() {
-        if (networkState != null && networkState != NetworkState.LOADED) {
-            return true;
-        } else {
-            return false;
-        }
+        return networkState != null && networkState != NetworkState.LOADED;
     }
 
     public void setNetworkState(NetworkState newNetworkState) {
@@ -136,8 +132,8 @@ public class ItemAdapterBrand extends PagedListAdapter<Owo_product, RecyclerView
 
     public class NetworkStateItemViewHolder extends RecyclerView.ViewHolder {
 
-        private ProgressBar progressBar;
-        private TextView errorMsg;
+        private final ProgressBar progressBar;
+        private final TextView errorMsg;
 
         public NetworkStateItemViewHolder(View itemView) {
             super(itemView);

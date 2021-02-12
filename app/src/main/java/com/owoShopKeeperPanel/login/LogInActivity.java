@@ -144,7 +144,6 @@ public class LogInActivity extends AppCompatActivity {
         }
     }
 
-    //Should Shift to spring
     private void AllowAccessToAccount(final String phone, final String pin) {
 
         RetrofitClient.getInstance().getApi()

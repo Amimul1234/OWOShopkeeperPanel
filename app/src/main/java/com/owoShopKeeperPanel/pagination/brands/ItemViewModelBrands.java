@@ -15,14 +15,13 @@ import java.util.concurrent.Executors;
 
 public class ItemViewModelBrands extends ViewModel {
 
-    private Executor executor;
-    private LiveData<NetworkState> networkState;
+    private final LiveData<NetworkState> networkState;
     public LiveData itemPagedList;
     LiveData<PageKeyedDataSource<Integer, Owo_product>> liveDataSource;
 
     public ItemViewModelBrands(String[] categories, String brand_name) {
 
-        executor = Executors.newFixedThreadPool(5);
+        Executor executor = Executors.newFixedThreadPool(5);
 
         ItemDataSourceFactoryBrand itemDataSourceFactoryBrand = new ItemDataSourceFactoryBrand(categories, brand_name);
 
