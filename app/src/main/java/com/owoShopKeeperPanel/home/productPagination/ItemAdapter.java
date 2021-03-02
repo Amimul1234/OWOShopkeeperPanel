@@ -25,6 +25,9 @@ import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -127,7 +130,8 @@ public class ItemAdapter extends PagedListAdapter<OwoProduct, RecyclerView.ViewH
 
         @Override
         public void onClick(View v) {
-            long id = getItem(getBindingAdapterPosition()).getProductId();
+
+            Long id = Objects.requireNonNull(getItem(getBindingAdapterPosition())).getProductId();
 
             progressBar.setVisibility(View.VISIBLE);
 
@@ -139,6 +143,7 @@ public class ItemAdapter extends PagedListAdapter<OwoProduct, RecyclerView.ViewH
                             if(response.isSuccessful())
                             {
                                 progressBar.setVisibility(View.INVISIBLE);
+
                                 Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
                                 intent.putExtra("Products", response.body());
                                 mCtx.startActivity(intent);
@@ -147,6 +152,7 @@ public class ItemAdapter extends PagedListAdapter<OwoProduct, RecyclerView.ViewH
                             {
                                 progressBar.setVisibility(View.INVISIBLE);
                                 Log.e("Error", "Server error occurred");
+                                Toast.makeText(mCtx, "Can not get product data, please try again", Toast.LENGTH_SHORT).show();
                             }
                         }
 

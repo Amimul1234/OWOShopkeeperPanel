@@ -2,7 +2,7 @@ package com.owoShopKeeperPanel.ApiAndClient;
 
 import com.owoShopKeeperPanel.Model.Brands;
 import com.owoShopKeeperPanel.Model.CartListFromClient;
-import com.owoShopKeeperPanel.Model.Cart_list_product;
+import com.owoShopKeeperPanel.Model.CartListProduct;
 import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.Model.Shop_keeper_orders;
 import com.owoShopKeeperPanel.Model.Shops;
@@ -77,7 +77,10 @@ public interface Api {
     );
 
     @GET("/getProductById")
-    Call<OwoProduct> getProductById(@Query("id") long product_id);
+    Call<OwoProduct> getProductById(@Query("productId") Long productId);
+
+    @GET("/getBrandNameViaProductId")
+    Call<ResponseBody> getBrandNameViaProductId(@Query("productId") Long productId);
 
     @GET("/getProductByCategory")
     Call<List<OwoProduct>> getProductsByCategory(
@@ -92,19 +95,17 @@ public interface Api {
             @Query("product_brand") String product_brand
     );
 
-    @POST("/shop_keeper_cart")
-    Call<ResponseBody> cartListItems(
-            @Body CartListFromClient cartList
-    );
+    @POST("/shopKeeperCart")
+    Call<ResponseBody> cartListItems(@Body CartListFromClient cartList);
 
     @GET("/shop_keeper_cart_products")
-    Call<List<Cart_list_product>> getCartListProducts(
+    Call<List<CartListProduct>> getCartListProducts(
             @Query("mobile_number") String mobile_number
     );
 
     @PUT("/update_cart_list")
-    Call<Cart_list_product> updateCartList(
-            @Body Cart_list_product cart_list_product,
+    Call<CartListProduct> updateCartList(
+            @Body CartListProduct cartListProduct,
             @Query("mobile_number") String mobile_number
     );
 

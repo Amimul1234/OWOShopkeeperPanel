@@ -9,21 +9,17 @@ public class Shop_keeper_ordered_products implements Serializable {
     private double product_price;
     private double product_discount;
     private int product_quantity;
-    private String product_description;
     private String product_creation_date;
     private String product_creation_time;
     private String product_sub_category;
-    private String product_brand;
     private String product_image;
 
     public Shop_keeper_ordered_products() {
     }
 
     public Shop_keeper_ordered_products(int product_id, String product_name, String product_category,
-                                        double product_price, double product_discount, int product_quantity,
-                                        String product_description, String product_creation_date,
-                                        String product_creation_time, String product_sub_category, String product_brand,
-                                        String product_image) {
+                                        double product_price, double product_discount, int product_quantity, String product_creation_date,
+                                        String product_creation_time, String product_sub_category, String product_image) {
 
         this.product_id = product_id;
         this.product_name = product_name;
@@ -31,28 +27,24 @@ public class Shop_keeper_ordered_products implements Serializable {
         this.product_price = product_price;
         this.product_discount = product_discount;
         this.product_quantity = product_quantity;
-        this.product_description = product_description;
         this.product_creation_date = product_creation_date;
         this.product_creation_time = product_creation_time;
         this.product_sub_category = product_sub_category;
-        this.product_brand = product_brand;
         this.product_image = product_image;
     }
 
 
-    public Shop_keeper_ordered_products(Cart_list_product cart_list_product) {
-        this.product_id = cart_list_product.getProduct_id();
-        this.product_name = cart_list_product.getProduct_name();
-        this.product_category = cart_list_product.getProduct_category();
-        this.product_price = cart_list_product.getProduct_price();
-        this.product_discount = cart_list_product.getProduct_discount();
-        this.product_quantity = cart_list_product.getProduct_quantity();
-        this.product_description = cart_list_product.getProduct_description();
-        this.product_creation_date = cart_list_product.getProduct_creation_date();
-        this.product_creation_time = cart_list_product.getProduct_creation_time();
-        this.product_sub_category = cart_list_product.getProduct_sub_category();
-        this.product_brand = cart_list_product.getProduct_brand();
-        this.product_image = cart_list_product.getProduct_image();
+    public Shop_keeper_ordered_products(CartListProduct cartListProduct) {
+        this.product_id = cartListProduct.getProductId();
+        this.product_name = cartListProduct.getProductName();
+        this.product_category = String.valueOf(cartListProduct.getProductCategoryId());
+        this.product_price = cartListProduct.getProductPrice();
+        this.product_discount = cartListProduct.getProductDiscount();
+        this.product_quantity = cartListProduct.getProductQuantity();
+        this.product_creation_date = cartListProduct.getProductAddingDate();
+        this.product_creation_time = cartListProduct.getProductAddingTime();
+        this.product_sub_category = String.valueOf(cartListProduct.getProductSubCategory());
+        this.product_image = cartListProduct.getProductImage();
     }
 
 
@@ -104,13 +96,6 @@ public class Shop_keeper_ordered_products implements Serializable {
         this.product_quantity = product_quantity;
     }
 
-    public String getProduct_description() {
-        return product_description;
-    }
-
-    public void setProduct_description(String product_description) {
-        this.product_description = product_description;
-    }
 
     public String getProduct_creation_date() {
         return product_creation_date;
@@ -134,14 +119,6 @@ public class Shop_keeper_ordered_products implements Serializable {
 
     public void setProduct_sub_category(String product_sub_category) {
         this.product_sub_category = product_sub_category;
-    }
-
-    public String getProduct_brand() {
-        return product_brand;
-    }
-
-    public void setProduct_brand(String product_brand) {
-        this.product_brand = product_brand;
     }
 
     public String getProduct_image() {

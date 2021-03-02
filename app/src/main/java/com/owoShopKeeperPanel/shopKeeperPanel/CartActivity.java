@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
-import com.owoShopKeeperPanel.Model.Cart_list_product;
+import com.owoShopKeeperPanel.Model.CartListProduct;
 import com.owoShopKeeperPanel.Model.Qupon;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
@@ -52,7 +52,7 @@ public class CartActivity extends AppCompatActivity {
 
     String coupon_code_string;
 
-    private ArrayList<Cart_list_product> cart_list_products = new ArrayList<>();
+    private ArrayList<CartListProduct> CartListProducts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,7 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ConfirmFinalOrderActivity.class);
                 intent.putExtra("grand_total", String.valueOf(grand_total));
-                intent.putExtra("cart_list_products", cart_list_products);
+                intent.putExtra("CartListProducts", CartListProducts);
                 intent.putExtra("grand_total_with_discount", String.valueOf(grand_total_with_discount));
                 intent.putExtra("discount", String.valueOf(discount));
                 startActivity(intent);
@@ -139,14 +139,14 @@ public class CartActivity extends AppCompatActivity {
     {
         RetrofitClient.getInstance().getApi().
                 getCartListProducts(Prevalent.currentOnlineUser.getMobileNumber())
-                .enqueue(new Callback<List<Cart_list_product>>() {
+                .enqueue(new Callback<List<CartListProduct>>() {
                     @Override
-                    public void onResponse(@NotNull Call<List<Cart_list_product>> call, @NotNull Response<List<Cart_list_product>> response) {
+                    public void onResponse(@NotNull Call<List<CartListProduct>> call, @NotNull Response<List<CartListProduct>> response) {
                         if(response.isSuccessful())
                         {
-                            cart_list_products = (ArrayList<Cart_list_product>) response.body();
+                            CartListProducts = (ArrayList<CartListProduct>) response.body();
 
-                            if(cart_list_products.isEmpty())
+                            if(CartListProducts.isEmpty())
                             {
                                 empty_image.setVisibility(View.VISIBLE);
                                 empty_text.setVisibility(View.VISIBLE);
@@ -154,16 +154,16 @@ public class CartActivity extends AppCompatActivity {
                                 tag4.setVisibility(View.INVISIBLE);
                             }
 
-                            for(Cart_list_product cart_list_product : cart_list_products)
+                            for(CartListProduct cartListProduct : CartListProducts)
                             {
-                                grand_total += cart_list_product.getProduct_price() * cart_list_product.getProduct_quantity();
+                                grand_total += cartListProduct.getProductPrice() * cartListProduct.getProductQuantity();
                             }
 
                             totalAmount.setText(String.format("%.2f", grand_total));//Rounding up to 2 decimal places
 
                             loaderGone();
 
-                            CartListAdapter cartListAdapter = new CartListAdapter(CartActivity.this, cart_list_products);
+                            CartListAdapter cartListAdapter = new CartListAdapter(CartActivity.this, CartListProducts);
                             listView.setAdapter(cartListAdapter);
 
                         }
@@ -177,7 +177,7 @@ public class CartActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<List<Cart_list_product>> call, Throwable t) {
+                    public void onFailure(Call<List<CartListProduct>> call, Throwable t) {
                         Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                         loader.setVisibility(View.INVISIBLE);
                     }

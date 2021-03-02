@@ -167,6 +167,14 @@
     <string name="see_pin">See Pin</string>
     <string name="category_image">Category Image</string>
     <string name="category_name">Category Name</string>
+    <string name="back_to_home_arrow">Back To Home Arrow</string>
+    <string name="add_to_wishlist">Add to WishList</string>
+    <string name="apple">Apple</string>
+    <string name="brand">Brand</string>
+    <string name="_1200">1200</string>
+    <string name="_300">300</string>
+    <string name="_900">900</string>
+    <string name="_20">20</string>
 
 
 </resources>

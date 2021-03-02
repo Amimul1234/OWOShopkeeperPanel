@@ -42,11 +42,6 @@ import com.owoShopKeeperPanel.configurations.ServiceMobile;
 import com.owoShopKeeperPanel.login.LogInActivity;
 import com.owoShopKeeperPanel.home.productPagination.ItemViewModel;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.owoShopKeeperPanel.shopKeeperPanel.Calculator;
 import com.owoShopKeeperPanel.shopKeeperPanel.CartActivity;
 import com.owoShopKeeperPanel.shopKeeperPanel.Categories;
@@ -56,9 +51,7 @@ import com.owoShopKeeperPanel.shopKeeperPanel.Order_list;
 import com.owoShopKeeperPanel.shopKeeperPanel.SearchActivity;
 import com.owoShopKeeperPanel.shopKeeperPanel.SettingsActivity;
 import com.owoShopKeeperPanel.shopKeeperPanel.WishList;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -227,6 +220,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         swipeRefreshLayout.setColorSchemeResources(R.color.blue);
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
+            getOfferBanners();
             itemViewModel.clear();
             getProducts();
         });
@@ -240,6 +234,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     public void onResponse(@NotNull Call<List<String>> call, @NotNull Response<List<String>> response) {
                         if(response.isSuccessful())
                         {
+                            images.clear();
                             assert response.body() != null;
                             images.addAll(response.body());
                             imageFlipperAdapter.updateItems(images);

@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
-import com.owoShopKeeperPanel.Model.Cart_list_product;
+import com.owoShopKeeperPanel.Model.CartListProduct;
 import com.owoShopKeeperPanel.Model.Shop_keeper_ordered_products;
 import com.owoShopKeeperPanel.Model.Shop_keeper_orders;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
@@ -47,7 +47,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
     private AllianceLoader loader;
 
-    private ArrayList<Cart_list_product> cart_list_products;
+    private ArrayList<CartListProduct> CartListProducts;
 
     private Spinner time_slot_selector;
     private List<String> available_time_slots = new ArrayList<>();
@@ -69,7 +69,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
 
         grand_total_price = Double.parseDouble(getIntent().getStringExtra("grand_total"));
-        cart_list_products = (ArrayList<Cart_list_product>) getIntent().getSerializableExtra("cart_list_products");
+        CartListProducts = (ArrayList<CartListProduct>) getIntent().getSerializableExtra("CartListProducts");
         discount = Double.parseDouble(getIntent().getStringExtra("discount"));
         grand_total_with_discount = Double.parseDouble(getIntent().getStringExtra("grand_total_with_discount"));
 
@@ -109,12 +109,12 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         confirmOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckValue(cart_list_products);
+                CheckValue(CartListProducts);
             }
         });
     }
 
-    private void CheckValue(List<Cart_list_product> cart_list_products) {
+    private void CheckValue(List<CartListProduct> CartListProducts) {
 
         if(TextUtils.isEmpty(phoneEditText.getText().toString()))
         {
@@ -127,11 +127,11 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         else
         {
             loader.setVisibility(View.VISIBLE);
-            ConfirmOrder(cart_list_products);
+            ConfirmOrder(CartListProducts);
         }
     }
 
-    private void ConfirmOrder(List<Cart_list_product> cart_list_products) {
+    private void ConfirmOrder(List<CartListProduct> CartListProducts) {
         final String saveCurrentDate, saveCurrentTime;
 
         Calendar callForDate = Calendar.getInstance();
@@ -165,14 +165,14 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         shop_keeper_orders.setOrder_time(saveCurrentTime);
         shop_keeper_orders.setTotal_amount(grand_total_price);
 
-        int size = cart_list_products.size();
+        int size = CartListProducts.size();
 
 
         List<Shop_keeper_ordered_products> shop_keeper_ordered_products = new ArrayList<>();
 
         for(int i=0; i<size; i++)
         {
-            shop_keeper_ordered_products.add(new Shop_keeper_ordered_products(cart_list_products.get(i)));
+            shop_keeper_ordered_products.add(new Shop_keeper_ordered_products(CartListProducts.get(i)));
         }
 
         shop_keeper_orders.setShop_keeper_ordered_products(shop_keeper_ordered_products);

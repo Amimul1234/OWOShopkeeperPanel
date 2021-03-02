@@ -1,12 +1,14 @@
 package com.owoShopKeeperPanel.Model;
 
-public class CartListFromClient {
-    private String mobile_number;
-    private Cart_list_product cart_list_product;
+import java.io.Serializable;
 
-    public CartListFromClient(String mobile_number, Cart_list_product cart_list_product) {
+public class CartListFromClient implements Serializable {
+    private String mobile_number;
+    private CartListProduct cartListProduct;
+
+    public CartListFromClient(String mobile_number, CartListProduct cartListProduct) {
         this.mobile_number = mobile_number;
-        this.cart_list_product = cart_list_product;
+        this.cartListProduct = cartListProduct;
     }
 
     public CartListFromClient() {
@@ -20,11 +22,11 @@ public class CartListFromClient {
         this.mobile_number = mobile_number;
     }
 
-    public Cart_list_product getCart_list_product() {
-        return cart_list_product;
+    public CartListProduct getCartListProduct() {
+        return cartListProduct;
     }
 
-    public void setCart_list_product(Cart_list_product cart_list_product) {
-        this.cart_list_product = cart_list_product;
+    public void setCartListProduct(CartListProduct cartListProduct) {
+        this.cartListProduct = cartListProduct;
     }
 }

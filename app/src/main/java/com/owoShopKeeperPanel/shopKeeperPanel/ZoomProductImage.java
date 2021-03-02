@@ -1,14 +1,13 @@
 package com.owoShopKeeperPanel.shopKeeperPanel;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.owoShopKeeperPanel.R;
+import com.owoShopKeeperPanel.configurations.HostAddress;
 
 public class ZoomProductImage extends AppCompatActivity {
 
@@ -22,13 +21,9 @@ public class ZoomProductImage extends AppCompatActivity {
 
         String url = getIntent().getStringExtra("image");
 
-        Glide.with(ZoomProductImage.this).load(url).into(photoView);
+        Glide.with(ZoomProductImage.this).load(HostAddress.HOST_ADDRESS.getHostAddress()+url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL).timeout(6000).into(photoView);
 
-        back_arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        back_arrow.setOnClickListener(v -> finish());
     }
 }

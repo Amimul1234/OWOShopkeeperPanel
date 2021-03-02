@@ -23,7 +23,7 @@ public class NewProductAdding extends AppCompatActivity {
         String id = getIntent().getStringExtra("id");
         String quantity = getIntent().getStringExtra("quantity");
 
-        int product_id = Integer.parseInt(id);
+        Long product_id = Long.parseLong(id);
 
         Call<OwoProduct> call = RetrofitClient.getInstance().getApi().getProductById(product_id);
 
