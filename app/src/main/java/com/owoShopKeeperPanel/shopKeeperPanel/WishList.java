@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -26,32 +24,26 @@ import com.owoShopKeeperPanel.ViewHolder.wishListItemHolder;
 
 public class WishList extends AppCompatActivity {
 
-    private ImageView backArrow, empty_image;
+    private ImageView empty_image;
     private TextView empty_text;
     private RecyclerView wishList;
-    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish_list);
 
-        backArrow = findViewById(R.id.back_arrow_from_wish_list);
+        ImageView backArrow = findViewById(R.id.back_arrow_from_wish_list);
         empty_image = findViewById(R.id.empty_image);
         empty_text = findViewById(R.id.empty_text);
 
         wishList = findViewById(R.id.wishList);
         wishList.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         wishList.setLayoutManager(layoutManager);
 
 
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        backArrow.setOnClickListener(v -> onBackPressed());
 
     }
 
@@ -79,43 +71,40 @@ public class WishList extends AppCompatActivity {
                 holder.product_name.setText(model.getProductName());
                 holder.product_price.setText("৳ "+String.valueOf(model.getProductPrice()));
 
-                holder.delete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        /*
+                holder.delete.setOnClickListener(v -> {
+                    /*
 
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WishList.this);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WishList.this);
 
-                        alertDialogBuilder.setMessage("Are you sure you want to remove this item from cart ?");
-                        alertDialogBuilder.setPositiveButton("yes",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface arg0, int arg1) {
-                                        cartListRef.child("Wish List").child(Prevalent.currentOnlineUser.getPhone())
-                                                .child(String.valueOf(model.getProduct_id()))
-                                                .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if(task.isSuccessful())
-                                                {
-                                                    Toast.makeText(getApplicationContext(), "Item removed from wish list", Toast.LENGTH_SHORT).show();
-                                                }
+                    alertDialogBuilder.setMessage("Are you sure you want to remove this item from cart ?");
+                    alertDialogBuilder.setPositiveButton("yes",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    cartListRef.child("Wish List").child(Prevalent.currentOnlineUser.getPhone())
+                                            .child(String.valueOf(model.getProduct_id()))
+                                            .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful())
+                                            {
+                                                Toast.makeText(getApplicationContext(), "Item removed from wish list", Toast.LENGTH_SHORT).show();
                                             }
-                                        });
-                                    }
-                                });
+                                        }
+                                    });
+                                }
+                            });
 
-                        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                    alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                            }
-                        });
+                        }
+                    });
 
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
-                        */
-                    }
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                    */
                 });
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {

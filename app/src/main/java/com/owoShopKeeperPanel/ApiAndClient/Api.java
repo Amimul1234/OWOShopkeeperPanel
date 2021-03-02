@@ -28,6 +28,10 @@ import retrofit2.http.Query;
 
 public interface Api {
 
+    //Offer Banner
+    @GET("/getBannerForSelectedCategories")
+    Call<List<String>> bannerImages(@Query("categoryIds") List<Long> categoryIds);
+
     //Shop Registration
     @POST("/shopRegisterRequest")
     Call<ResponseBody> shopRegisterRequest(@Body ShopPendingRequest shopPendingRequest);

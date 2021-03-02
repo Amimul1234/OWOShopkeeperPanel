@@ -8,26 +8,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
-
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.tabs.TabLayout;
 import com.owoShopKeeperPanel.R;
-
+import com.owoShopKeeperPanel.configurations.HostAddress;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapter.ViewHolder>{
 
-    private Context mCtx;
-    private List<String> images = new ArrayList<String>();
-    private FragmentManager fragmentManager;
-    private Lifecycle lifecycle;
+    private final Context mCtx;
+    private final List<String> images = new ArrayList<String>();
+    private final FragmentManager fragmentManager;
+    private final Lifecycle lifecycle;
 
     public ImageFlipperAdapter(Context mCtx, List<String> images, FragmentManager fragmentManager, Lifecycle lifecycle) {
         this.mCtx = mCtx;
@@ -45,8 +44,7 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ImageFlipperAdapter.ViewHolder holder, int position) {
-        ViewHolder bannerFlipper = holder;
-        fliptheView(bannerFlipper.bannerFlipper);
+        fliptheView(holder.bannerFlipper);
     }
 
     @Override
@@ -121,10 +119,13 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
 
     public void flipperImage(String image, ViewFlipper viewFlipper)
     {
-        ImageView imageView=new ImageView(mCtx);
+        ImageView imageView = new ImageView(mCtx);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        Glide.with(mCtx).load(image).into(imageView);
+
+        Glide.with(mCtx).load(HostAddress.HOST_ADDRESS.getHostAddress()+image)
+                .diskCacheStrategy(DiskCacheStrategy.ALL).timeout(6000).into(imageView);
+
         viewFlipper.addView(imageView);
         viewFlipper.setFlipInterval(6000);
         viewFlipper.setAutoStart(true);

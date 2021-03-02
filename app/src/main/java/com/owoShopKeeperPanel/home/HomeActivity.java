@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,8 +31,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.R;
-import com.owoShopKeeperPanel.Model.Offers;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.adapters.ImageFlipperAdapter;
@@ -55,11 +56,17 @@ import com.owoShopKeeperPanel.shopKeeperPanel.Order_list;
 import com.owoShopKeeperPanel.shopKeeperPanel.SearchActivity;
 import com.owoShopKeeperPanel.shopKeeperPanel.SettingsActivity;
 import com.owoShopKeeperPanel.shopKeeperPanel.WishList;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -72,7 +79,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private BottomNavigationView bottomNavigationView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -150,36 +158,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         });
 
-        DatabaseReference offersRef = FirebaseDatabase.getInstance().getReference().child("Offers");
+        //offerFetching
 
-        offersRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+        getOfferBanners();
 
-                if(snapshot.exists())
-                {
-                    for(DataSnapshot dataSnapshot1 : snapshot.getChildren())
-                    {
-                        Offers offers = dataSnapshot1.getValue(Offers.class);
-                        images.add(offers.getImage());
-                    }
-                    imageFlipperAdapter.updateItems(images);
-                }
-                else
-                {
-                    Toast.makeText(HomeActivity.this, "No offer currently available", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+        bottomNavigationView.setOnNavigationItemSelectedListener(item ->
+        {
             if(item.getItemId() == R.id.action_categories)
             {
                 Intent intent = new Intent(HomeActivity.this, Categories.class);
@@ -241,13 +225,42 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.blue);
+
         swipeRefreshLayout.setOnRefreshListener(() -> {
             itemViewModel.clear();
             getProducts();
         });
     }
 
-    public void getProducts() {
+    private void getOfferBanners() {
+        RetrofitClient.getInstance().getApi()
+                .bannerImages(Prevalent.category_to_display)
+                .enqueue(new Callback<List<String>>() {
+                    @Override
+                    public void onResponse(@NotNull Call<List<String>> call, @NotNull Response<List<String>> response) {
+                        if(response.isSuccessful())
+                        {
+                            assert response.body() != null;
+                            images.addAll(response.body());
+                            imageFlipperAdapter.updateItems(images);
+                        }
+                        else
+                        {
+                            Toast.makeText(HomeActivity.this, "Failed to get offer banners, please try again", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<List<String>> call, @NotNull Throwable t) {
+                        Log.e("Home", "Error is: "+t.getMessage());
+                        Toast.makeText(HomeActivity.this, "Failed to get offer banners", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
+
+    public void getProducts()
+    {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Lifecycle lifecycle = getLifecycle();
@@ -270,7 +283,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    private void showOnRecyclerView() {
+    private void showOnRecyclerView()
+    {
 
         recyclerView.setHasFixedSize(true);
 
@@ -297,7 +311,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if(drawer.isDrawerOpen(GravityCompat.START))
             drawer.closeDrawer(GravityCompat.START);
@@ -431,7 +446,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void setLocale(Locale languageToLoad) {
+    public void setLocale(Locale languageToLoad)
+    {
         Locale.setDefault(languageToLoad);
         Configuration config = new Configuration();
         config.locale = languageToLoad;
@@ -442,10 +458,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
         bottomNavigationView.setSelectedItemId(R.id.action_home);
     }
-
-
 }
