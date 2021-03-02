@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.adapters;
+package com.owoShopKeeperPanel.home.productPagination;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,19 +18,21 @@ import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.R;
+import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ItemAdapter extends PagedListAdapter<Owo_product, RecyclerView.ViewHolder>{
+public class ItemAdapter extends PagedListAdapter<OwoProduct, RecyclerView.ViewHolder>{
 
-    private Context mCtx;
-    private ProgressBar progressBar;
+    private final Context mCtx;
+    private final ProgressBar progressBar;
 
     public ItemAdapter(Context mCtx, ProgressBar progressBar) {
         super(DIFF_CALLBACK);
@@ -49,46 +51,53 @@ public class ItemAdapter extends PagedListAdapter<Owo_product, RecyclerView.View
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
-            Owo_product item = getItem(position);
+            OwoProduct item = getItem(position);
 
             if (item != null) {
 
-                Glide.with(mCtx).load(item.getProduct_image()).into(itemViewHolder.imageView);
+                Glide.with(mCtx).load(HostAddress.HOST_ADDRESS.getHostAddress()+item.getProductImage())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL).timeout(6000).into(itemViewHolder.imageView);
 
-                itemViewHolder.txtProductName.setText(item.getProduct_name());
+                itemViewHolder.txtProductName.setText(item.getProductName());
 
-                itemViewHolder.txtProductPrice.setText("৳ "+item.getProduct_price());
+                String price = "৳ "+ item.getProductPrice();
+
+                itemViewHolder.txtProductPrice.setText(price);
+
                 itemViewHolder.txtProductPrice.setPaintFlags(itemViewHolder.txtProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 itemViewHolder.txtProductPrice.setVisibility(View.VISIBLE);
 
-                double discounted_price = item.getProduct_price() - item.getProduct_discount();
+                double discounted_price = item.getProductPrice() - item.getProductDiscount();
 
-                itemViewHolder.txtProduct_discounted_price.setText("৳ "+ String.valueOf(discounted_price));
+                String discount = "৳ "+ discounted_price;
+
+                itemViewHolder.txtProduct_discounted_price.setText(discount);
 
 
-                double percentage = (item.getProduct_discount() / item.getProduct_price()) * 100.00;
+                double percentage = (item.getProductDiscount() / item.getProductPrice()) * 100.00;
 
                 int val = (int) percentage;
-                itemViewHolder.discounted_percent.setText(String.valueOf(val) + " % ");
+                String percent = val + " % ";
+                itemViewHolder.discounted_percent.setText(percent);
 
 
 
             } else {
-                Toast.makeText(mCtx, "Item is null", Toast.LENGTH_LONG).show();
+                Toast.makeText(mCtx, "No Product Available", Toast.LENGTH_LONG).show();
             }
 
     }
 
-    private static DiffUtil.ItemCallback<Owo_product> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<Owo_product>() {
+    private static final DiffUtil.ItemCallback<OwoProduct> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<OwoProduct>() {
                 @Override
-                public boolean areItemsTheSame(Owo_product oldItem, Owo_product newItem) {
-                    return oldItem.getProduct_id() == newItem.getProduct_id();
+                public boolean areItemsTheSame(OwoProduct oldItem, OwoProduct newItem) {
+                    return oldItem.getProductId().equals(newItem.getProductId());
                 }
 
                 @Override
-                public boolean areContentsTheSame(Owo_product oldItem, Owo_product newItem) {
-                    return true;
+                public boolean areContentsTheSame(OwoProduct oldItem, @NotNull OwoProduct newItem) {
+                    return oldItem.equals(newItem);
                 }
             };
 
@@ -118,15 +127,15 @@ public class ItemAdapter extends PagedListAdapter<Owo_product, RecyclerView.View
 
         @Override
         public void onClick(View v) {
-            long id = getItem(getBindingAdapterPosition()).getProduct_id();
+            long id = getItem(getBindingAdapterPosition()).getProductId();
 
             progressBar.setVisibility(View.VISIBLE);
 
             RetrofitClient.getInstance().getApi()
                     .getProductById(id)
-                    .enqueue(new Callback<Owo_product>() {
+                    .enqueue(new Callback<OwoProduct>() {
                         @Override
-                        public void onResponse(@NotNull Call<Owo_product> call, @NotNull Response<Owo_product> response) {
+                        public void onResponse(@NotNull Call<OwoProduct> call, @NotNull Response<OwoProduct> response) {
                             if(response.isSuccessful())
                             {
                                 progressBar.setVisibility(View.INVISIBLE);
@@ -137,12 +146,12 @@ public class ItemAdapter extends PagedListAdapter<Owo_product, RecyclerView.View
                             else
                             {
                                 progressBar.setVisibility(View.INVISIBLE);
-                                Log.e("Error", "Server error occured");
+                                Log.e("Error", "Server error occurred");
                             }
                         }
 
                         @Override
-                        public void onFailure(@NotNull Call<Owo_product> call, @NotNull Throwable t) {
+                        public void onFailure(@NotNull Call<OwoProduct> call, @NotNull Throwable t) {
                             Log.e("Error", t.getMessage());
                             progressBar.setVisibility(View.INVISIBLE);
                         }});

@@ -19,7 +19,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.ViewHolder.wishListItemHolder;
@@ -63,21 +63,21 @@ public class WishList extends AppCompatActivity {
 
         Query query = cartListRef.child("Wish List").child(Prevalent.currentOnlineUser.getMobileNumber()).orderByValue();
 
-        FirebaseRecyclerOptions<Owo_product> options =
-                new FirebaseRecyclerOptions.Builder<Owo_product>()
-                        .setQuery(query, Owo_product.class).build();
+        FirebaseRecyclerOptions<OwoProduct> options =
+                new FirebaseRecyclerOptions.Builder<OwoProduct>()
+                        .setQuery(query, OwoProduct.class).build();
 
 
-        FirebaseRecyclerAdapter<Owo_product, wishListItemHolder> adapter
-                = new FirebaseRecyclerAdapter<Owo_product, wishListItemHolder>(options) {
+        FirebaseRecyclerAdapter<OwoProduct, wishListItemHolder> adapter
+                = new FirebaseRecyclerAdapter<OwoProduct, wishListItemHolder>(options) {
 
             @Override
-            protected void onBindViewHolder(@NonNull final wishListItemHolder holder, int position, @NonNull final Owo_product model) {
+            protected void onBindViewHolder(@NonNull final wishListItemHolder holder, int position, @NonNull final OwoProduct model) {
 
-                Glide.with(WishList.this).load(model.getProduct_image()).into(holder.product_image);
+                Glide.with(WishList.this).load(model.getProductImage()).into(holder.product_image);
 
-                holder.product_name.setText(model.getProduct_name());
-                holder.product_price.setText("৳ "+String.valueOf(model.getProduct_price()));
+                holder.product_name.setText(model.getProductName());
+                holder.product_price.setText("৳ "+String.valueOf(model.getProductPrice()));
 
                 holder.delete.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.shopKeeperPanel;
+package com.owoShopKeeperPanel.home;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -28,22 +28,33 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.Model.Offers;
+import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.adapters.ImageFlipperAdapter;
-import com.owoShopKeeperPanel.adapters.ItemAdapter;
+import com.owoShopKeeperPanel.home.productPagination.ItemAdapter;
 import com.owoShopKeeperPanel.adapters.Product_tag;
 import com.owoShopKeeperPanel.configurations.ServiceMobile;
 import com.owoShopKeeperPanel.login.LogInActivity;
-import com.owoShopKeeperPanel.pagination.homeItems.ItemViewModel;
+import com.owoShopKeeperPanel.home.productPagination.ItemViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.owoShopKeeperPanel.shopKeeperPanel.Calculator;
+import com.owoShopKeeperPanel.shopKeeperPanel.CartActivity;
+import com.owoShopKeeperPanel.shopKeeperPanel.Categories;
+import com.owoShopKeeperPanel.shopKeeperPanel.Contact_us;
+import com.owoShopKeeperPanel.shopKeeperPanel.MyShopActivity;
+import com.owoShopKeeperPanel.shopKeeperPanel.Order_list;
+import com.owoShopKeeperPanel.shopKeeperPanel.SearchActivity;
+import com.owoShopKeeperPanel.shopKeeperPanel.SettingsActivity;
+import com.owoShopKeeperPanel.shopKeeperPanel.WishList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -105,7 +116,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         userNameTextView.setText(Prevalent.currentOnlineUser.getName());
 
-        Glide.with(getApplicationContext()).load(Prevalent.currentOnlineUser.getImageUri()).into(profileImageView);
+        Glide.with(getApplicationContext()).load(HostAddress.HOST_ADDRESS.getHostAddress()+Prevalent.currentOnlineUser.getImageUri()).
+                diskCacheStrategy(DiskCacheStrategy.ALL).timeout(6000).into(profileImageView);
 
         contact_us.setOnClickListener(v -> {
 
@@ -168,6 +180,29 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            if(item.getItemId() == R.id.action_categories)
+            {
+                Intent intent = new Intent(HomeActivity.this, Categories.class);
+                startActivity(intent);
+            }
+            else if(item.getItemId() == R.id.action_calculator)
+            {
+
+                Intent intent = new Intent(HomeActivity.this, Calculator.class);
+                startActivity(intent);
+            }
+            else if(item.getItemId() == R.id.action_cart)
+            {
+                Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+            else if(item.getItemId() == R.id.action_account)
+            {
+                Intent intent=new Intent(HomeActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+
+            /*
             switch (item.getItemId()) {
                 case R.id.action_home:
                 {
@@ -198,6 +233,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     break;
                 }
             }
+
+             */
+
             return true;
         });
 
@@ -217,7 +255,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         int size = Prevalent.category_to_display.size();
 
-        String[] categories = new String[size];
+        Long[] categories = new Long[size];
 
         for(int i=0; i<size; i++)
         {
@@ -289,7 +327,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
 

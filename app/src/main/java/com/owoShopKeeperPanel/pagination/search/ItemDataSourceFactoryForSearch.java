@@ -4,12 +4,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
 import androidx.paging.PageKeyedDataSource;
 
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
 
 
 public class ItemDataSourceFactoryForSearch extends DataSource.Factory {
 
-    private MutableLiveData<PageKeyedDataSource<Integer, Owo_product>> itemLiveDataSource = new MutableLiveData<>();
+    private MutableLiveData<PageKeyedDataSource<Integer, OwoProduct>> itemLiveDataSource = new MutableLiveData<>();
     private String[] categories;
     private String searchedProduct;
 
@@ -25,7 +25,7 @@ public class ItemDataSourceFactoryForSearch extends DataSource.Factory {
         return itemDataSourceCategory;
     }
 
-    public MutableLiveData<PageKeyedDataSource<Integer, Owo_product>> getItemLiveDataSource() {
+    public MutableLiveData<PageKeyedDataSource<Integer, OwoProduct>> getItemLiveDataSource() {
         return itemLiveDataSource;
     }
 }

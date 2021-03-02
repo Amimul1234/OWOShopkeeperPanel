@@ -12,11 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.shopKeeperPanel.CategoryWiseProduct;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +35,7 @@ public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewH
 
     public CategoryAdapter(Context mCtx) {
         this.mCtx = mCtx;
-        category_names = mCtx.getResources().getStringArray(R.array.productCategory);
+        //category_names = mCtx.getResources().getStringArray(R.array.productCategory);
 
         int size = category_names.length;
 

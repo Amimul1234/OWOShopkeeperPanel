@@ -1,17 +1,17 @@
-package com.owoShopKeeperPanel.pagination.homeItems;
+package com.owoShopKeeperPanel.home.productPagination;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
 import androidx.paging.PageKeyedDataSource;
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
 
 
 public class ItemDataSourceFactory extends DataSource.Factory {
 
-    private MutableLiveData<PageKeyedDataSource<Integer, Owo_product>> itemLiveDataSource = new MutableLiveData<>();
-    private String[] categories;
+    private MutableLiveData<PageKeyedDataSource<Integer, OwoProduct>> itemLiveDataSource = new MutableLiveData<>();
+    private Long[] categories;
 
-    public ItemDataSourceFactory(String[] categories) {
+    public ItemDataSourceFactory(Long[] categories) {
         this.categories = categories;
     }
 
@@ -22,7 +22,7 @@ public class ItemDataSourceFactory extends DataSource.Factory {
         return itemDataSource;
     }
 
-    public MutableLiveData<PageKeyedDataSource<Integer, Owo_product>> getItemLiveDataSource() {
+    public MutableLiveData<PageKeyedDataSource<Integer, OwoProduct>> getItemLiveDataSource() {
         return itemLiveDataSource;
     }
 }

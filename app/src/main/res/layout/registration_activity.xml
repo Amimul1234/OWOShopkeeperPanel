@@ -11,7 +11,7 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="220dp"
+        android:layout_width="200dp"
         android:layout_height="150dp"
         android:padding="5dp"
         android:src="@drawable/logo"
@@ -43,7 +43,6 @@
 
         <EditText
             android:id="@+id/new_shopkeeper_name"
-            android:layout_marginTop="15dp"
             android:padding="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

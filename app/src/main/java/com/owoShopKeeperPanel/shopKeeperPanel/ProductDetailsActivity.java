@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,9 +22,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.Model.CartListFromClient;
 import com.owoShopKeeperPanel.Model.Cart_list_product;
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
+import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -72,23 +77,26 @@ public class ProductDetailsActivity extends AppCompatActivity {
             }
         });
 
-        final Owo_product owoproduct = (Owo_product) getIntent().getSerializableExtra("Products");
+        final OwoProduct owoproduct = (OwoProduct) getIntent().getSerializableExtra("Products");
 
-        Glide.with(this).load(owoproduct.getProduct_image()).into(productImage);
-        collapsingToolbarLayout.setTitle(owoproduct.getProduct_name());
-        productDescription.setText(owoproduct.getProduct_description());
-        productPrice.setText(String.valueOf(owoproduct.getProduct_price()));
-        productDiscount.setText(String.valueOf(owoproduct.getProduct_discount()));
-        productQuantity.setText(String.valueOf(owoproduct.getProduct_quantity()));
-        double price_with_discount = owoproduct.getProduct_price() - owoproduct.getProduct_discount();
+        Glide.with(this).load(HostAddress.HOST_ADDRESS.getHostAddress()+owoproduct.getProductImage())
+                .diskCacheStrategy(DiskCacheStrategy.ALL).timeout(6000).into(productImage);
+
+        collapsingToolbarLayout.setTitle(owoproduct.getProductName());
+        productDescription.setText(owoproduct.getProductDescription());
+        productPrice.setText(String.valueOf(owoproduct.getProductPrice()));
+        productDiscount.setText(String.valueOf(owoproduct.getProductDiscount()));
+        productQuantity.setText(String.valueOf(owoproduct.getProductQuantity()));
+        double price_with_discount = owoproduct.getProductPrice() - owoproduct.getProductDiscount();
         productPriceWithDiscount.setText(String.valueOf(price_with_discount));
-        product_brand_name.setText(owoproduct.getProduct_brand());
+
+        //product_brand_name.setText(owoproduct.getBrands());
 
         productImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProductDetailsActivity.this, ZoomProductImage.class);
-                intent.putExtra("image", owoproduct.getProduct_image());
+                intent.putExtra("image", owoproduct.getProductImage());
                 startActivity(intent);
             }
         });
@@ -109,7 +117,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     allianceLoader.setVisibility(View.VISIBLE);
                     add_product_to_wishList.setColorFilter(ContextCompat.getColor(ProductDetailsActivity.this, R.color.red), android.graphics.PorterDuff.Mode.SRC_IN);
                     final DatabaseReference wishListRef = FirebaseDatabase.getInstance().getReference();
-                    wishListRef.child("Wish List").child(Prevalent.currentOnlineUser.getMobileNumber()).child(String.valueOf(owoproduct.getProduct_id())).setValue(owoproduct).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    wishListRef.child("Wish List").child(Prevalent.currentOnlineUser.getMobileNumber()).child(String.valueOf(owoproduct.getProductId())).setValue(owoproduct).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(ProductDetailsActivity.this, "Added to wish list", Toast.LENGTH_SHORT).show();
@@ -130,7 +138,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     allianceLoader.setVisibility(View.VISIBLE);
                     add_product_to_wishList.setColorFilter(ContextCompat.getColor(ProductDetailsActivity.this, R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
                     final DatabaseReference wishListRef = FirebaseDatabase.getInstance().getReference();
-                    wishListRef.child("Wish List").child(Prevalent.currentOnlineUser.getMobileNumber()).child(String.valueOf(owoproduct.getProduct_id())).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    wishListRef.child("Wish List").child(Prevalent.currentOnlineUser.getMobileNumber()).child(String.valueOf(owoproduct.getProductId())).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(ProductDetailsActivity.this, "Removed from wish list", Toast.LENGTH_SHORT).show();
@@ -164,13 +172,18 @@ public class ProductDetailsActivity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm::ss a");
         saveCurrentTime = currentTime.format(callForDate.getTime());
 
-        final Owo_product owoproduct = (Owo_product) getIntent().getSerializableExtra("Products");
+        final OwoProduct owoproduct = (OwoProduct) getIntent().getSerializableExtra("Products");
 
 
-        Cart_list_product cart_list_product = new Cart_list_product(owoproduct.getProduct_id(),
-                owoproduct.getProduct_name(), owoproduct.getProduct_category(), owoproduct.getProduct_price(), owoproduct.getProduct_discount(),
-                Integer.parseInt(numberButton.getNumber()), owoproduct.getProduct_description(), saveCurrentDate, saveCurrentTime, owoproduct.getProduct_sub_category(),
-                owoproduct.getProduct_brand(), owoproduct.getProduct_image());
+        /*
+        Cart_list_product cart_list_product = new Cart_list_product(owoproduct.getProductId(),
+                owoproduct.getProductName(), owoproduct.getProductCategoryId(), owoproduct.getProductPrice(), owoproduct.getProductDiscount(),
+                Integer.parseInt(numberButton.getNumber()), owoproduct.getProductDescription(), saveCurrentDate, saveCurrentTime, owoproduct.getProductSubCategoryId(),
+                owoproduct.getBrands(), owoproduct.getProductImage());
+
+         */
+
+        Cart_list_product cart_list_product = new Cart_list_product();
 
         CartListFromClient cartList1 = new CartListFromClient(Prevalent.currentOnlineUser.getMobileNumber(), cart_list_product);
 
@@ -180,7 +193,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                 if(response.isSuccessful())
                 {
                     allianceLoader.setVisibility(View.INVISIBLE);
@@ -190,7 +203,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                 allianceLoader.setVisibility(View.INVISIBLE);
                 Toast.makeText(ProductDetailsActivity.this, "Failed to add product to cart", Toast.LENGTH_SHORT).show();
             }

@@ -14,7 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.adapters.ItemAdapterSubCategory;
 import com.owoShopKeeperPanel.adapters.Product_tag;
@@ -76,9 +76,9 @@ public class SubCategoryWiseProduct extends AppCompatActivity {
 
     public void getProducts() {
         itemViewModelSubCategory = new ItemViewModelSubCategory(category);
-        itemViewModelSubCategory.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
+        itemViewModelSubCategory.itemPagedList.observe(this, new Observer<PagedList<OwoProduct>>() {
             @Override
-            public void onChanged(@Nullable PagedList<Owo_product> items) {
+            public void onChanged(@Nullable PagedList<OwoProduct> items) {
                 adapter.submitList(items);
                 showOnRecyclerView();
             }

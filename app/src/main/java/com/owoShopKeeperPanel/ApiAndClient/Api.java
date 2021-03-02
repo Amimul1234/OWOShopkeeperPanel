@@ -3,12 +3,13 @@ package com.owoShopKeeperPanel.ApiAndClient;
 import com.owoShopKeeperPanel.Model.Brands;
 import com.owoShopKeeperPanel.Model.CartListFromClient;
 import com.owoShopKeeperPanel.Model.Cart_list_product;
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.Model.Shop_keeper_orders;
 import com.owoShopKeeperPanel.Model.Shops;
 import com.owoShopKeeperPanel.Model.UserDebts;
 import com.owoShopKeeperPanel.Model.UserShopKeeper;
 import com.owoShopKeeperPanel.Model.User_debt_details;
+import com.owoShopKeeperPanel.categorySpinner.entity.CategoryEntity;
 import com.owoShopKeeperPanel.registerRequest.ShopPendingRequest;
 import com.owoShopKeeperPanel.userRegistration.ShopKeeperUser;
 import java.util.List;
@@ -27,29 +28,22 @@ import retrofit2.http.Query;
 
 public interface Api {
 
+    //Shop Registration
+    @POST("/shopRegisterRequest")
+    Call<ResponseBody> shopRegisterRequest(@Body ShopPendingRequest shopPendingRequest);
+
     @POST("/registerShopKeeper")
-    Call<ResponseBody> registerShopKeeper(
-            @Body UserShopKeeper userShopKeeper
-            );
+    Call<ResponseBody> registerShopKeeper(@Body UserShopKeeper userShopKeeper);
 
     @GET("/getShopKeeper")
-    Call<ShopKeeperUser> getShopKeeper(
-            @Query("mobile_number") String mobile_number
-    );
-
-    @POST("/shopRegisterRequest")
-    Call<ResponseBody> shopRegisterRequest(
-            @Body ShopPendingRequest shopPendingRequest
-            );
+    Call<ShopKeeperUser> getShopKeeper(@Query("mobileNumber") String mobileNumber);
 
     @GET("/getProductByCategories")
-    Call<List<Owo_product>> getProducts(
-            @Query("page") int page,
-            @Query("product_categories") String[] categories
-    );
+    Call<List<OwoProduct>> getProducts(@Query("page") int page,
+                                       @Query("product_categories") Long[] categories);
 
     @GET("/getProductBySubCategory")
-    Call<List<Owo_product>> getProductsBySubCategory(
+    Call<List<OwoProduct>> getProductsBySubCategory(
             @Query("page") int page,
             @Query("product_sub_category") String categories
     );
@@ -60,34 +54,35 @@ public interface Api {
             @Query("product_categories") String[] categories
     );
 
+    @GET("/getAllCategories")
+    Call<List<CategoryEntity>> getAllCategories();
+
 
     @GET("/searchProduct")
-    Call<List<Owo_product>> searchProduct(
+    Call<List<OwoProduct>> searchProduct(
             @Query("page") int page,
             @Query("product_categories") String[] product_categories,
             @Query("product_name") String product_name
     );
 
     @GET("/searchProductDesc")
-    Call<List<Owo_product>> searchProductDesc(
+    Call<List<OwoProduct>> searchProductDesc(
             @Query("page") int page,
             @Query("product_categories") String[] product_categories,
             @Query("product_name") String product_name
     );
 
     @GET("/getProductById")
-    Call<Owo_product> getProductById(
-            @Query("id") long product_id
-    );
+    Call<OwoProduct> getProductById(@Query("id") long product_id);
 
     @GET("/getProductByCategory")
-    Call<List<Owo_product>> getProductsByCategory(
+    Call<List<OwoProduct>> getProductsByCategory(
             @Query("page") int page,
             @Query("product_category") String product_category
     );
 
     @GET("/getProductByBrand")
-    Call<List<Owo_product>> getProductViaBrand(
+    Call<List<OwoProduct>> getProductViaBrand(
             @Query("page") int page,
             @Query("product_categories") String[] product_categories,
             @Query("product_brand") String product_brand
@@ -181,6 +176,6 @@ public interface Api {
     @POST("/imageController/{directory}")
     Call<ResponseBody> uploadImageToServer(
             @Path("directory") String directory,
-            @Part MultipartBody.Part multipartFile
-    );
+            @Part MultipartBody.Part multipartFile);
+
 }

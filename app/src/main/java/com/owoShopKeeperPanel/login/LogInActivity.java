@@ -22,7 +22,7 @@ import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.login.forgetPin.ForgetPin;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.hashing.hashing_algo;
-import com.owoShopKeeperPanel.shopKeeperPanel.HomeActivity;
+import com.owoShopKeeperPanel.home.HomeActivity;
 import com.owoShopKeeperPanel.shopRegistration.AfterUserRegister;
 import com.owoShopKeeperPanel.shopRegistration.AfterShopRegisterRequest;
 import com.owoShopKeeperPanel.userRegistration.ShopKeeperUser;
@@ -36,14 +36,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-@SuppressWarnings("deprecation")
 public class LogInActivity extends AppCompatActivity {
 
     private EditText mobile, pin;
     private ImageView visibility;
     private Boolean isShowPin = false;
     private CheckBox rememberMe;
-    private ProgressDialog loadingbar;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +72,14 @@ public class LogInActivity extends AppCompatActivity {
         rememberMe = findViewById(R.id.remember_me);
         TextView forgetPin = findViewById(R.id.forget_pin);
         TextView signUp = findViewById(R.id.sign_up);
-        loadingbar = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
 
         if(Paper.book().read(Prevalent.UserPhoneKey) != null && Paper.book().read(Prevalent.UserPinKey) != null)
         {
-            loadingbar.setTitle("Account Login");
-            loadingbar.setMessage("Please wait while we are checking your credentials....");
-            loadingbar.setCanceledOnTouchOutside(false);
-            loadingbar.show();
+            progressDialog.setTitle("Account Login");
+            progressDialog.setMessage("Please wait while we are checking your credentials....");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
             AllowAccessToAccount(Paper.book().read(Prevalent.UserPhoneKey), Paper.book().read(Prevalent.UserPinKey));
         }
 
@@ -129,18 +128,17 @@ public class LogInActivity extends AppCompatActivity {
 
         else
         {
-            loadingbar.setTitle("Login Account");
-            loadingbar.setMessage("Please wait while we are checking your credentials....");
-            loadingbar.setCanceledOnTouchOutside(false);
-            loadingbar.show();
+            progressDialog.setTitle("Login Account");
+            progressDialog.setMessage("Please wait while we are checking your credentials....");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
 
             try {
-                Pin = hashing_algo.toHexString(hashing_algo.getSHA(Pin));
+                AllowAccessToAccount(Phone, hashing_algo.toHexString(hashing_algo.getSHA(Pin)));
             } catch (NoSuchAlgorithmException e) {
+                Toast.makeText(this, "Error occurred, please try again", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
-
-            AllowAccessToAccount(Phone, Pin);
         }
     }
 
@@ -155,81 +153,88 @@ public class LogInActivity extends AppCompatActivity {
                         {
                             ShopKeeperUser shopKeeperUser = response.body();
 
-                            assert shopKeeperUser != null;
-                            if(shopKeeperUser.getPin().equals(pin))
+                            if(shopKeeperUser.getAccountEnabled()) //Account blocked checking
                             {
-                                if(rememberMe.isChecked())//Writing user data on android storage
+                                assert shopKeeperUser != null;
+                                if(shopKeeperUser.getPin().equals(pin))
                                 {
-                                    Paper.book().write(Prevalent.UserPhoneKey, phone);
-                                    Paper.book().write(Prevalent.UserPinKey, pin);
-                                }
+                                    if(rememberMe.isChecked())//Writing user data on android storage
+                                    {
+                                        Paper.book().write(Prevalent.UserPhoneKey, phone);
+                                        Paper.book().write(Prevalent.UserPinKey, pin);
+                                    }
 
-                                RetrofitClient.getInstance().getApi()
-                                        .getShopInfo(phone)
-                                        .enqueue(new Callback<Shops>() {
-                                            @Override
-                                            public void onResponse(@NotNull Call<Shops> call, @NotNull Response<Shops> response) {
-                                                if(response.isSuccessful())
-                                                {
-                                                    Shops shops = response.body();
-
-                                                    assert shops != null;
-                                                    if(shops.getApproved()) //Shop is already approved. Proceed to checking permissions
+                                    RetrofitClient.getInstance().getApi()
+                                            .getShopInfo(phone)
+                                            .enqueue(new Callback<Shops>() {
+                                                @Override
+                                                public void onResponse(@NotNull Call<Shops> call, @NotNull Response<Shops> response) {
+                                                    if(response.isSuccessful())
                                                     {
-                                                        List<String> permitted = new ArrayList<>();
+                                                        Shops shops = response.body();
 
-                                                        for(ShopKeeperPermissions shopKeeperPermissions : shops.getShopKeeperPermissions())
+                                                        assert shops != null;
+                                                        if(shops.getApproved()) //Shop is already approved. Proceed to checking permissions
                                                         {
-                                                            permitted.add(shopKeeperPermissions.getPermittedCategory());
+                                                            List<Long> permitted = new ArrayList<>();
+
+                                                            for(ShopKeeperPermissions shopKeeperPermissions : shops.getShopKeeperPermissions())
+                                                            {
+                                                                permitted.add(shopKeeperPermissions.getPermittedCategoryId());
+                                                            }
+
+                                                            Prevalent.category_to_display = permitted;
+
+                                                            Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
+
+                                                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                                            Prevalent.currentOnlineUser = shopKeeperUser;
+                                                            progressDialog.dismiss();
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                            startActivity(intent);
                                                         }
 
-                                                        Prevalent.category_to_display = permitted;
+                                                        else//Requested shop creation. But not approved.
+                                                        {
+                                                            Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
+                                                            Intent intent = new Intent(getApplicationContext(), AfterShopRegisterRequest.class);
+                                                            Prevalent.currentOnlineUser = shopKeeperUser;
+                                                            progressDialog.dismiss();
+                                                            startActivity(intent);
+                                                        }
 
-                                                        Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
-
-                                                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                                                        Prevalent.currentOnlineUser = shopKeeperUser;
-                                                        loadingbar.dismiss();
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                        startActivity(intent);
                                                     }
-                                                    
-                                                    else//Requested shop creation. But not approved.
+                                                    else //Didn't requested for register yet
                                                     {
                                                         Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
-                                                        Intent intent = new Intent(getApplicationContext(), AfterShopRegisterRequest.class);
+                                                        Intent intent = new Intent(getApplicationContext(), AfterUserRegister.class);
                                                         Prevalent.currentOnlineUser = shopKeeperUser;
-                                                        loadingbar.dismiss();
+                                                        progressDialog.dismiss();
                                                         startActivity(intent);
                                                     }
-
+                                                    finish();
                                                 }
-                                                else //Didn't requested for register yet
-                                                {
-                                                    Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
-                                                    Intent intent = new Intent(getApplicationContext(), AfterUserRegister.class);
-                                                    Prevalent.currentOnlineUser = shopKeeperUser;
-                                                    loadingbar.dismiss();
-                                                    startActivity(intent);
+
+                                                @Override
+                                                public void onFailure(@NotNull Call<Shops> call, @NotNull Throwable t) {
+                                                    Toast.makeText(LogInActivity.this, "Please try again abcd", Toast.LENGTH_SHORT).show();
+                                                    Log.error("Log in activity", "Error is: "+t.getMessage());
+                                                    progressDialog.dismiss();
                                                 }
-                                                finish();
-                                            }
+                                            });
 
-                                            @Override
-                                            public void onFailure(@NotNull Call<Shops> call, @NotNull Throwable t) {
-                                                Toast.makeText(LogInActivity.this, "Please try again abcd", Toast.LENGTH_SHORT).show();
-                                                Log.error("Log in activity", "Error is: "+t.getMessage());
-                                                loadingbar.dismiss();
-                                            }
-                                        });
-
+                                }
+                            }
+                            else
+                            {
+                                progressDialog.dismiss();
+                                Toast.makeText(LogInActivity.this, "Your account is disabled by admin, please contact us for further information", Toast.LENGTH_SHORT).show();
                             }
                         }
-
                         else
                         {
                             Toast.makeText(LogInActivity.this, "No such account", Toast.LENGTH_SHORT).show();
-                            loadingbar.dismiss();
+                            progressDialog.dismiss();
                         }
                     }
 
@@ -237,7 +242,7 @@ public class LogInActivity extends AppCompatActivity {
                     public void onFailure(@NotNull Call<ShopKeeperUser> call, @NotNull Throwable t) {
                         Toast.makeText(LogInActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
                         Log.error("Log in activity", "Error is: "+t.getMessage());
-                        loadingbar.dismiss();
+                        progressDialog.dismiss();
                     }
                 });
     }

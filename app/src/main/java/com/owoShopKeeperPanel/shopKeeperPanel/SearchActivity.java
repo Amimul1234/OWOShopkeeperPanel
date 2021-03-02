@@ -18,7 +18,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
+import com.owoShopKeeperPanel.home.HomeActivity;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.adapters.Product_tag;
@@ -58,9 +59,12 @@ public class SearchActivity extends AppCompatActivity {
 
         int size = Prevalent.category_to_display.size();
 
+        /*
 
         for(int i=0; i<size; i++)
             categories[i] = Prevalent.category_to_display.get(i); //getting the Categories in which we will search
+
+         */
 
         search_product = findViewById(R.id.search_product);
         search_product.setIconifiedByDefault(false);
@@ -162,8 +166,11 @@ public class SearchActivity extends AppCompatActivity {
 
                             String[] searching_on = new String[p];
 
+                            /*
                             for(int i=0; i<p; i++)
                                 searching_on[i] = Prevalent.category_to_display.get(i);
+
+                             */
 
                             getItem(query, searching_on);
                         }
@@ -199,8 +206,11 @@ public class SearchActivity extends AppCompatActivity {
 
                     String[] searching_on = new String[p];
 
+                    /*
                     for(int i=0; i<p; i++)
                         searching_on[i] = Prevalent.category_to_display.get(i);
+
+                     */
 
                     query = abcd;
 
@@ -234,8 +244,11 @@ public class SearchActivity extends AppCompatActivity {
 
                         String[] searching_on = new String[p];
 
+                        /*
                         for(int i=0; i<p; i++)
                             searching_on[i] = Prevalent.category_to_display.get(i);
+
+                         */
 
                         query = "";
 
@@ -268,9 +281,9 @@ public class SearchActivity extends AppCompatActivity {
 
             itemViewModelSearch = new ItemViewModelSearch(category, query);//Refreshing the model for new filtration
 
-            itemViewModelSearch.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
+            itemViewModelSearch.itemPagedList.observe(this, new Observer<PagedList<OwoProduct>>() {
                 @Override
-                public void onChanged(@Nullable PagedList<Owo_product> items) {
+                public void onChanged(@Nullable PagedList<OwoProduct> items) {
                     adapter.submitList(items);
                     showOnRecyclerView();
                 }
@@ -282,9 +295,9 @@ public class SearchActivity extends AppCompatActivity {
         {
             itemViewModelSearchDesc = new ItemViewModelSearchDesc(category, query);
 
-            itemViewModelSearchDesc.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
+            itemViewModelSearchDesc.itemPagedList.observe(this, new Observer<PagedList<OwoProduct>>() {
                 @Override
-                public void onChanged(@Nullable PagedList<Owo_product> items) {
+                public void onChanged(@Nullable PagedList<OwoProduct> items) {
                     adapter.submitList(items);
                     showOnRecyclerView();
                 }

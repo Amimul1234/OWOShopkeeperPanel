@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.Model.Shop_keeper_ordered_products;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.shopKeeperPanel.Order_list;
@@ -77,11 +77,11 @@ public class Ordered_item_adapter extends  RecyclerView.Adapter<Ordered_item_ada
 
                     Shop_keeper_ordered_products shop_keeper_ordered_products1 = shop_keeper_ordered_products.get(position);
 
-                    Call<Owo_product> call = RetrofitClient.getInstance().getApi().getProductById(shop_keeper_ordered_products1.getProduct_id());
+                    Call<OwoProduct> call = RetrofitClient.getInstance().getApi().getProductById(shop_keeper_ordered_products1.getProduct_id());
 
-                    call.enqueue(new Callback<Owo_product>() {
+                    call.enqueue(new Callback<OwoProduct>() {
                         @Override
-                        public void onResponse(@NotNull Call<Owo_product> call, @NotNull Response<Owo_product> response) {
+                        public void onResponse(@NotNull Call<OwoProduct> call, @NotNull Response<OwoProduct> response) {
                             if(response.isSuccessful())
                             {
                                 Order_list.allianceLoader.setVisibility(View.INVISIBLE);
@@ -97,7 +97,7 @@ public class Ordered_item_adapter extends  RecyclerView.Adapter<Ordered_item_ada
                         }
 
                         @Override
-                        public void onFailure(@NotNull Call<Owo_product> call, @NotNull Throwable t) {
+                        public void onFailure(@NotNull Call<OwoProduct> call, @NotNull Throwable t) {
                             Toast.makeText(mCtx, t.getMessage(), Toast.LENGTH_LONG).show();
                             Order_list.allianceLoader.setVisibility(View.INVISIBLE);
                         }

@@ -2,24 +2,27 @@ package com.owoShopKeeperPanel.shopRegistration;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -32,10 +35,11 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
+import com.owoShopKeeperPanel.categorySpinner.CategoryCustomSpinnerAdapter;
+import com.owoShopKeeperPanel.categorySpinner.entity.CategoryEntity;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.registerRequest.ShopPendingRequest;
-
 import org.jetbrains.annotations.NotNull;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -55,27 +59,25 @@ import retrofit2.Response;
 
 public class ShopRegistrationRequest extends AppCompatActivity {
 
-    private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
+    private static final int REQUEST_CODE_LOCATION_PERMISSION = 19;
     private final int STORAGE_PERMISSION_CODE = 1;
+
     private final String TAG = "Shop Reg. Activity";
     private Double latitude, longitude;
     private String shopImageUri, shopKeeperNidUri, shopTradeLicenseUri;
 
-    private ProgressBar shopAddressProgressbar, mainProgressBar;
     private ImageView shopImage, shopOwnerNid,shopTradeLicense;
     private EditText shopName, shopAddress, shopOwnerName, shopServiceMobile;
     private CheckBox checkBox1, checkBox2, checkBox3;
     private Spinner requestedCategory1, requestedCategory2, requestedCategory3;
 
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pending_shop_request);
-
-        shopAddressProgressbar = findViewById(R.id.shopAddressProgressbar);
-        mainProgressBar = findViewById(R.id.mainProgressBar);
 
         shopImage = findViewById(R.id.shopImage);
         shopOwnerNid = findViewById(R.id.shopOwnerNid);
@@ -87,27 +89,94 @@ public class ShopRegistrationRequest extends AppCompatActivity {
         checkBox1 = findViewById(R.id.category_1_check_box);
         checkBox2 = findViewById(R.id.category_2_check_box);
         checkBox3 = findViewById(R.id.category_3_check_box);
-        requestedCategory1 = findViewById(R.id.category_1);
-        requestedCategory2 = findViewById(R.id.category_2);
-        requestedCategory3 = findViewById(R.id.category_3);
+        requestedCategory1 = findViewById(R.id.category1);
+        requestedCategory2 = findViewById(R.id.category2);
+        requestedCategory3 = findViewById(R.id.category3);
+
+        progressDialog = new ProgressDialog(this);
 
         Button shopLocationButton = findViewById(R.id.shopLocationButton);
         Button createShopButton = findViewById(R.id.createShopButton);
 
+        fetchCategories();
+
+        enableGps();
+
         shopImage.setOnClickListener(v -> requestStoragePermission(1));
         shopOwnerNid.setOnClickListener(v -> requestStoragePermission(2));
         shopTradeLicense.setOnClickListener(v -> requestStoragePermission(3));
+        createShopButton.setOnClickListener(v -> validateInputs());
+
         shopLocationButton.setOnClickListener(v -> {
 
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+                    PackageManager.PERMISSION_GRANTED) {
 
-                ActivityCompat.requestPermissions(ShopRegistrationRequest.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_LOCATION_PERMISSION);
+                ActivityCompat.requestPermissions(ShopRegistrationRequest.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        REQUEST_CODE_LOCATION_PERMISSION);
 
             } else {
                 getCurrentLocation();
             }
         });
-        createShopButton.setOnClickListener(v -> validateInputs());
+    }
+
+    private void enableGps() {
+        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER) || !lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Location Services Not Active");
+            builder.setMessage("Please enable Location Services and GPS for address verification");
+
+            builder.setPositiveButton("OK", (dialogInterface, i) -> {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            });
+
+            Dialog alertDialog = builder.create();
+            alertDialog.setCanceledOnTouchOutside(false);
+            alertDialog.show();
+        }
+    }
+
+    private void fetchCategories()
+    {
+
+        progressDialog.setTitle("Categories");
+        progressDialog.setMessage("Please wait while we are fetching categories");
+        progressDialog.show();
+
+        RetrofitClient.getInstance().getApi()
+                .getAllCategories()
+                .enqueue(new Callback<List<CategoryEntity>>() {
+                    @Override
+                    public void onResponse(@NotNull Call<List<CategoryEntity>> call, @NotNull Response<List<CategoryEntity>> response) {
+                        if(response.isSuccessful())
+                        {
+                            progressDialog.dismiss();
+                            CategoryCustomSpinnerAdapter categoryCustomSpinnerAdapter = new CategoryCustomSpinnerAdapter(ShopRegistrationRequest.this,
+                                    response.body());
+
+                            requestedCategory1.setAdapter(categoryCustomSpinnerAdapter);
+                            requestedCategory2.setAdapter(categoryCustomSpinnerAdapter);
+                            requestedCategory3.setAdapter(categoryCustomSpinnerAdapter);
+                        }
+                        else
+                        {
+                            progressDialog.dismiss();
+                            Toast.makeText(ShopRegistrationRequest.this, "Can not get categories, please try again", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<List<CategoryEntity>> call, @NotNull Throwable t) {
+                        progressDialog.dismiss();
+                        Log.e(TAG, "Error is: "+t.getMessage());
+                        Toast.makeText(ShopRegistrationRequest.this, "Can not get categories, please try again", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 
     private void validateInputs()
@@ -161,7 +230,9 @@ public class ShopRegistrationRequest extends AppCompatActivity {
     private void doDbOperations()
     {
 
-        mainProgressBar.setVisibility(View.VISIBLE);
+        progressDialog.setTitle("Register shop");
+        progressDialog.setMessage("Please wait while we are registering your shop");
+        progressDialog.show();
 
         Bitmap bitmap = ((BitmapDrawable) shopImage.getDrawable()).getBitmap();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -178,7 +249,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
             fo.close();
         } catch (IOException e) {
             e.printStackTrace();
-            mainProgressBar.setVisibility(View.GONE);
+            progressDialog.dismiss();
             Toast.makeText(ShopRegistrationRequest.this, "Can not make request, please try again", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -276,7 +347,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
 
                                                                                     }catch (Exception e)
                                                                                     {
-                                                                                        mainProgressBar.setVisibility(View.GONE);
+                                                                                        progressDialog.dismiss();
                                                                                         Log.e(TAG, "Error is: "+e.getLocalizedMessage());
                                                                                         Toast.makeText(ShopRegistrationRequest.this, "Can not make request, please try again", Toast.LENGTH_SHORT).show();
                                                                                     }
@@ -284,7 +355,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
                                                                                 else
                                                                                 {
                                                                                     Toast.makeText(ShopRegistrationRequest.this, "Can not make request, please try again", Toast.LENGTH_SHORT).show();
-                                                                                    mainProgressBar.setVisibility(View.GONE);
+                                                                                    progressDialog.dismiss();
                                                                                 }
                                                                             }
 
@@ -292,7 +363,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
                                                                             public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                                                                                 Toast.makeText(ShopRegistrationRequest.this, "Can not request for shop creation, please try again", Toast.LENGTH_SHORT).show();
                                                                                 Log.e(TAG, "Error occurred, Error is: "+t.getMessage());
-                                                                                mainProgressBar.setVisibility(View.GONE);
+                                                                                progressDialog.dismiss();
                                                                             }
                                                                         });
 
@@ -304,7 +375,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
 
                                                         }catch (Exception e)
                                                         {
-                                                            mainProgressBar.setVisibility(View.GONE);
+                                                            progressDialog.dismiss();
                                                             Log.e(TAG, "Error is: "+e.getLocalizedMessage());
                                                             Toast.makeText(ShopRegistrationRequest.this, "Can not make request, please try again", Toast.LENGTH_SHORT).show();
                                                         }
@@ -312,7 +383,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
                                                     else
                                                     {
                                                         Toast.makeText(ShopRegistrationRequest.this, "Can not make request, please try again", Toast.LENGTH_SHORT).show();
-                                                        mainProgressBar.setVisibility(View.GONE);
+                                                        progressDialog.dismiss();
                                                     }
                                                 }
 
@@ -320,7 +391,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
                                                 public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                                                     Toast.makeText(ShopRegistrationRequest.this, "Can not request for shop creation, please try again", Toast.LENGTH_SHORT).show();
                                                     Log.e(TAG, "Error occurred, Error is: "+t.getMessage());
-                                                    mainProgressBar.setVisibility(View.GONE);
+                                                    progressDialog.dismiss();
                                                 }
                                             });
                                 }
@@ -328,13 +399,13 @@ public class ShopRegistrationRequest extends AppCompatActivity {
                             {
                                 Log.e(TAG, "Exception, Exception is: "+e.getLocalizedMessage());
                                 Toast.makeText(ShopRegistrationRequest.this, "Can not make request, please try again", Toast.LENGTH_SHORT).show();
-                                mainProgressBar.setVisibility(View.GONE);
+                                progressDialog.dismiss();
                             }
                         }
                         else
                         {
                             Toast.makeText(ShopRegistrationRequest.this, "Can not make request, please try again", Toast.LENGTH_SHORT).show();
-                            mainProgressBar.setVisibility(View.GONE);
+                            progressDialog.dismiss();
                         }
                     }
 
@@ -342,32 +413,36 @@ public class ShopRegistrationRequest extends AppCompatActivity {
                     public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                         Toast.makeText(ShopRegistrationRequest.this, "Can not request for shop creation, please try again", Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "Error occurred, Error is: "+t.getMessage());
-                        mainProgressBar.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                     }
                 });
     }
 
-    private void uploadRequestToServer() {
-        List<String> permissions = new ArrayList<>();
+    private void uploadRequestToServer()
+    {
+        List<Long> permissions = new ArrayList<>();
 
         if(checkBox1.isChecked())
         {
-            permissions.add(requestedCategory1.getSelectedItem().toString());
+            CategoryEntity categoryEntity = (CategoryEntity) requestedCategory1.getSelectedItem();
+            permissions.add(categoryEntity.getCategoryId());
         }
         if(checkBox2.isChecked())
         {
-            permissions.add(requestedCategory2.getSelectedItem().toString());
+            CategoryEntity categoryEntity = (CategoryEntity) requestedCategory2.getSelectedItem();
+            permissions.add(categoryEntity.getCategoryId());
         }
         if(checkBox3.isChecked())
         {
-            permissions.add(requestedCategory3.getSelectedItem().toString());
+            CategoryEntity categoryEntity = (CategoryEntity) requestedCategory3.getSelectedItem();
+            permissions.add(categoryEntity.getCategoryId());
         }
 
         ShopPendingRequest shopPendingRequest = new ShopPendingRequest(latitude, longitude, shopAddress.getText().toString(),
                 shopImageUri, shopKeeperNidUri, shopName.getText().toString(), shopOwnerName.getText().toString(),
                 Prevalent.currentOnlineUser.getMobileNumber(), shopServiceMobile.getText().toString(), shopTradeLicenseUri);
 
-        List<String> listWithOutDuplication = shopPendingRequest.duplicateProtection(permissions);
+        List<Long> listWithOutDuplication = shopPendingRequest.duplicateProtection(permissions);
 
         shopPendingRequest.setCategoryPermissions(listWithOutDuplication);
 
@@ -379,7 +454,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
                         if(response.isSuccessful())
                         {
                             Toast.makeText(ShopRegistrationRequest.this, "Successfully registered shop", Toast.LENGTH_SHORT).show();
-                            mainProgressBar.setVisibility(View.GONE);
+                            progressDialog.dismiss();
 
                             Intent intent = new Intent(ShopRegistrationRequest.this, AfterShopRegisterRequest.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -391,14 +466,14 @@ public class ShopRegistrationRequest extends AppCompatActivity {
                         else
                         {
                             Toast.makeText(ShopRegistrationRequest.this, "Failed to register shop, please try again", Toast.LENGTH_SHORT).show();
-                            mainProgressBar.setVisibility(View.GONE);
+                            progressDialog.dismiss();
                         }
                     }
 
                     @Override
                     public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                         Log.e(TAG, "Error occurred, Error is: "+ t.getMessage());
-                        mainProgressBar.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         Toast.makeText(ShopRegistrationRequest.this, "Failed to register shop, please try again", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -575,7 +650,12 @@ public class ShopRegistrationRequest extends AppCompatActivity {
 
         if (requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.length > 0) {
             getCurrentLocation();
-        } else {
+        }
+        else if(requestCode == STORAGE_PERMISSION_CODE && grantResults.length > 0)
+        {
+
+        }
+        else {
             Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
         }
     }
@@ -583,8 +663,9 @@ public class ShopRegistrationRequest extends AppCompatActivity {
     @SuppressLint("MissingPermission")
     private void getCurrentLocation()
     {
-
-        shopAddressProgressbar.setVisibility(View.VISIBLE);
+        progressDialog.setTitle("Validate location");
+        progressDialog.setMessage("Please wait while we are validating your location");
+        progressDialog.show();
 
         LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(10000);
@@ -603,7 +684,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
                     int latestLocationIndex = locationResult.getLocations().size() - 1;
                     latitude = locationResult.getLocations().get(latestLocationIndex).getLatitude();
                     longitude = locationResult.getLocations().get(latestLocationIndex).getLongitude();
-                    shopAddressProgressbar.setVisibility(View.GONE);
+                    progressDialog.dismiss();
                 }
 
             }

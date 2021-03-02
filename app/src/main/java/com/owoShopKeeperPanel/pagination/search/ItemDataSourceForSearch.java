@@ -3,7 +3,7 @@ package com.owoShopKeeperPanel.pagination.search;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
@@ -11,7 +11,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, Owo_product> {
+public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, OwoProduct> {
 
     private static final int FIRST_PAGE = 0;
     private String[] categories;
@@ -23,18 +23,18 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, Owo_pr
     }
 
     @Override
-    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Owo_product> callback) {
+    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, OwoProduct> callback) {
 
         RetrofitClient.getInstance()//Calling the getProductApi
                 .getApi()
                 .searchProduct(FIRST_PAGE, categories, searchedProduct)
-                .enqueue(new Callback<List<Owo_product>>() {
+                .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
-                    public void onResponse(@NotNull Call<List<Owo_product>> call, @NotNull Response<List<Owo_product>> response) {
+                    public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
 
                         if(response.code() == 200)
                         {
-                            callback.onResult((List<Owo_product>) response.body(), null, FIRST_PAGE+1);
+                            callback.onResult((List<OwoProduct>) response.body(), null, FIRST_PAGE+1);
                         }
                         else
                         {
@@ -43,7 +43,7 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, Owo_pr
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<List<Owo_product>> call, @NotNull Throwable t) {
+                    public void onFailure(@NotNull Call<List<OwoProduct>> call, @NotNull Throwable t) {
                         Log.e("Error", t.getMessage());
                     }
                 });
@@ -51,18 +51,18 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, Owo_pr
     }
 
     @Override
-    public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Owo_product> callback) {
+    public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, OwoProduct> callback) {
 
         RetrofitClient.getInstance()
                 .getApi()
                 .searchProduct(params.key, categories, searchedProduct)
-                .enqueue(new Callback<List<Owo_product>>() {
+                .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
-                    public void onResponse(@NotNull Call<List<Owo_product>> call, @NotNull Response<List<Owo_product>> response) {
+                    public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
                         if(response.code() == 200)
                         {
                             Integer key = (params.key > 0) ? params.key - 1 : null;
-                            callback.onResult((List<Owo_product>) response.body(), key);
+                            callback.onResult((List<OwoProduct>) response.body(), key);
                         }
                         else
                         {
@@ -71,7 +71,7 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, Owo_pr
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<List<Owo_product>> call, @NotNull Throwable t) {
+                    public void onFailure(@NotNull Call<List<OwoProduct>> call, @NotNull Throwable t) {
                         Log.e("Error", t.getMessage());
                     }
                 });
@@ -79,23 +79,23 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, Owo_pr
     }
 
     @Override
-    public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Owo_product> callback) {
+    public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, OwoProduct> callback) {
 
         RetrofitClient.getInstance()
                 .getApi()
                 .searchProduct(params.key, categories, searchedProduct)
-                .enqueue(new Callback<List<Owo_product>>() {
+                .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
-                    public void onResponse(@NotNull Call<List<Owo_product>> call, @NotNull Response<List<Owo_product>> response) {
+                    public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
                         if(response.code() == 200)
                         {
                             if(params.key < 12)
                             {
-                                callback.onResult((List<Owo_product>) response.body(), params.key+1);
+                                callback.onResult((List<OwoProduct>) response.body(), params.key+1);
                             }
                             else
                             {
-                                callback.onResult((List<Owo_product>) response.body(), null);
+                                callback.onResult((List<OwoProduct>) response.body(), null);
                             }
                         }
                         else
@@ -105,7 +105,7 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, Owo_pr
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<List<Owo_product>> call, @NotNull Throwable t) {
+                    public void onFailure(@NotNull Call<List<OwoProduct>> call, @NotNull Throwable t) {
                         Log.e("Error", t.getMessage());
                     }
                 });

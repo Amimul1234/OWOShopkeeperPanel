@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.Model.Cart_list_product;
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.shopKeeperPanel.CartActivity;
@@ -66,11 +66,11 @@ public class CartListAdapter extends ArrayAdapter<Cart_list_product> {
 
                 cartActivity.loaderVisible();
 
-                Call<Owo_product> call = RetrofitClient.getInstance().getApi().getProductById(cart_list_products.get(position).getProduct_id());
+                Call<OwoProduct> call = RetrofitClient.getInstance().getApi().getProductById(cart_list_products.get(position).getProduct_id());
 
-                call.enqueue(new Callback<Owo_product>() {
+                call.enqueue(new Callback<OwoProduct>() {
                     @Override
-                    public void onResponse(@NotNull Call<Owo_product> call, @NotNull Response<Owo_product> response) {
+                    public void onResponse(@NotNull Call<OwoProduct> call, @NotNull Response<OwoProduct> response) {
                         if(response.code() == 200)
                         {
                             cartActivity.loaderGone();
@@ -86,7 +86,7 @@ public class CartListAdapter extends ArrayAdapter<Cart_list_product> {
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<Owo_product> call, @NotNull Throwable t) {
+                    public void onFailure(@NotNull Call<OwoProduct> call, @NotNull Throwable t) {
                         Log.e("Error", t.getMessage());
                     }
                 });

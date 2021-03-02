@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.owoShopKeeperPanel.shopRegistration.ShopRegistrationRequest">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -104,14 +103,6 @@
                 android:textSize="18sp"
                 />
 
-            <ProgressBar
-                android:id="@+id/shopAddressProgressbar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:indeterminateTint="@color/blue"
-                android:visibility="gone"/>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -138,8 +129,9 @@
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginBottom="5dp"
+                    android:gravity="center"
                     >
 
                     <CheckBox
@@ -148,18 +140,19 @@
                         android:layout_height="wrap_content"/>
 
                     <Spinner
-                        android:id="@+id/category_1"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/productCategory"
+                        android:id="@+id/category1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="5dp"/>
+
                 </LinearLayout>
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginBottom="5dp"
+                    android:gravity="center"
                     >
 
                     <CheckBox
@@ -168,17 +161,17 @@
                         android:layout_height="wrap_content"/>
 
                     <Spinner
-                        android:id="@+id/category_2"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/productCategory"
+                        android:id="@+id/category2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="5dp"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginBottom="5dp"
+                    android:gravity="center"
                     >
 
                     <CheckBox
@@ -187,12 +180,12 @@
                         android:layout_height="wrap_content"/>
 
                     <Spinner
-                        android:id="@+id/category_3"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/productCategory"
+                        android:id="@+id/category3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="5dp"/>
                 </LinearLayout>
+
             </LinearLayout>
 
 
@@ -290,12 +283,5 @@
                 />
         </LinearLayout>
     </ScrollView>
-
-    <ProgressBar
-        android:id="@+id/mainProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
 
 </RelativeLayout>

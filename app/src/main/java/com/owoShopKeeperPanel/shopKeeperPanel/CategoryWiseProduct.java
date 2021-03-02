@@ -20,7 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.Model.Sub_categories;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.adapters.ItemAdapterCategory;
@@ -118,9 +118,9 @@ public class CategoryWiseProduct extends AppCompatActivity {
 
     public void getProducts() {
         itemViewModelCategory = new ItemViewModelCategory(category);
-        itemViewModelCategory.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
+        itemViewModelCategory.itemPagedList.observe(this, new Observer<PagedList<OwoProduct>>() {
             @Override
-            public void onChanged(@Nullable PagedList<Owo_product> items) {
+            public void onChanged(@Nullable PagedList<OwoProduct> items) {
                 adapter.submitList(items);
                 showOnRecyclerView();
             }

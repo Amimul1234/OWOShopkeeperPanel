@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PageKeyedDataSource;
 import androidx.paging.PagedList;
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.pagination.NetworkState;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -17,7 +17,7 @@ public class ItemViewModelBrands extends ViewModel {
 
     private final LiveData<NetworkState> networkState;
     public LiveData itemPagedList;
-    LiveData<PageKeyedDataSource<Integer, Owo_product>> liveDataSource;
+    LiveData<PageKeyedDataSource<Integer, OwoProduct>> liveDataSource;
 
     public ItemViewModelBrands(String[] categories, String brand_name) {
 
@@ -45,7 +45,7 @@ public class ItemViewModelBrands extends ViewModel {
         return networkState;
     }
 
-    public LiveData<PagedList<Owo_product>> getItemPagedList() {
+    public LiveData<PagedList<OwoProduct>> getItemPagedList() {
         return itemPagedList;
     }
 }

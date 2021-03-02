@@ -12,18 +12,18 @@
         android:gravity="bottom|center_vertical|center_horizontal|center"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_marginTop="25dp"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="0.6">
 
         <ImageView
             android:id="@+id/logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/logo"/>
+            android:src="@drawable/logo"
+            android:contentDescription="@string/owo_logo" />
+
     </LinearLayout>
-
-
 
     <LinearLayout
         android:gravity="center_vertical"
@@ -46,7 +46,8 @@
             android:hint="@string/mobile_number"
             android:drawableStart="@drawable/phone"
             android:drawablePadding="10dp"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:autofillHints="@string/mobile_number" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -63,7 +64,8 @@
                 android:hint="@string/pin_number"
                 android:drawableStart="@drawable/ic_input_lock"
                 android:drawablePadding="10dp"
-                android:inputType="numberPassword"/>
+                android:inputType="numberPassword"
+                android:autofillHints="@string/pin_number" />
 
             <ImageView
                 android:id="@+id/show_pin"
@@ -72,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_visibility_off"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/see_pin" />
 
         </RelativeLayout>
 

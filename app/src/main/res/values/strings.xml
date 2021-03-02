@@ -20,51 +20,6 @@
     <string name="call">Call us now</string>
 
 
-    <string-array name="productCategory">
-        <item>Bags and Luggage</item>
-        <item>Beauty and Bodycare</item>
-        <item>Books and Stationary</item>
-        <item>Construction Materials</item>
-        <item>Decoration Materials</item>
-        <item>Digital Goods</item>
-        <item>Electric and Parts</item>
-        <item>Electronics and Appliance</item>
-        <item>Event and Media</item>
-        <item>Fashion For Men</item>
-        <item>Fashion For Women</item>
-        <item>Furniture</item>
-        <item>Glasses</item>
-        <item>Grocery</item>
-        <item>Handmade</item>
-        <item>Harvesting and Agriculture</item>
-        <item>Health Care and Pharmacy</item>
-        <item>Home and Living</item>
-        <item>Home Appliance</item>
-        <item>Home Garden</item>
-        <item>Hotel Booking</item>
-        <item>Jewellery</item>
-        <item>Kitchen and Dining</item>
-        <item>Leather Goods</item>
-        <item>LP Gas</item>
-        <item>Machinery</item>
-        <item>Mother, Kids and Toys</item>
-        <item>Paints</item>
-        <item>Pet and Poultry Supplies</item>
-        <item>Plastic made Products</item>
-        <item>Property</item>
-        <item>Service</item>
-        <item>Shoes</item>
-        <item>Sports</item>
-        <item>Vehicles and Parts</item>
-        <item>Watch and Clock</item>
-        <item>Fruits and Vegetables</item>
-        <item>Meat and Fish</item>
-        <item>Cooking</item>
-        <item>Beverages</item>
-        <item>Office Products</item>
-    </string-array>
-
-
     <string name="mobile_description">Cell phone redirects here. For the film, see Cell Phone (film).
         Handphone redirects here. For the film, see Headphone (film).
         For the modern mobile phone, see Smartphone.
@@ -203,6 +158,15 @@
     <string name="send_verification_code_again">Send Verification Code Again</string>
     <string name="next">Next</string>
     <string name="send_verification_code">Send Verification Code</string>
+    <string name="product_image">Product Image</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_price">Product Price</string>
+    <string name="_0">0%</string>
+    <string name="xxxxxxxxxxx">XXXXXXXXXXX</string>
+    <string name="owo_logo">Owo Logo</string>
+    <string name="see_pin">See Pin</string>
+    <string name="category_image">Category Image</string>
+    <string name="category_name">Category Name</string>
 
 
 </resources>

@@ -16,7 +16,7 @@ public class ShopPendingRequest implements Serializable {
     private String shopOwnerMobile;
     private String shopServiceMobile;
     private String tradeLicenseUrl;
-    private List<String> categoryPermissions;
+    private List<Long> categoryPermissionsId;
 
     public ShopPendingRequest() {
     }
@@ -37,9 +37,9 @@ public class ShopPendingRequest implements Serializable {
         this.tradeLicenseUrl = tradeLicenseUrl;
     }
 
-    public List<String> duplicateProtection(List<String> permissionListUnFiltered) {
-        List<String> listWithoutDuplicates = new ArrayList<>(new HashSet<>(permissionListUnFiltered));
-        return listWithoutDuplicates;
+    public List<Long> duplicateProtection(List<Long> permissionListUnFiltered)
+    {
+        return new ArrayList<>(new HashSet<>(permissionListUnFiltered));
     }
 
     public Double getLatitude() {
@@ -122,12 +122,12 @@ public class ShopPendingRequest implements Serializable {
         this.tradeLicenseUrl = tradeLicenseUrl;
     }
 
-    public List<String> getCategoryPermissions() {
-        return categoryPermissions;
+    public List<Long> getCategoryPermissions() {
+        return categoryPermissionsId;
     }
 
-    public void setCategoryPermissions(List<String> categoryPermissions) {
-        this.categoryPermissions = categoryPermissions;
+    public void setCategoryPermissions(List<Long> categoryPermissionsId) {
+        this.categoryPermissionsId = categoryPermissionsId;
     }
 }
 

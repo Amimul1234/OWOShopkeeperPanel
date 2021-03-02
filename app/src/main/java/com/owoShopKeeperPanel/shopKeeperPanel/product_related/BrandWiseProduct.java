@@ -13,7 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import com.owoShopKeeperPanel.Model.Brands;
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.adapters.ItemAdapterBrand;
@@ -66,9 +66,9 @@ public class BrandWiseProduct extends AppCompatActivity {
 
         ItemViewModelBrands itemViewModelBrands = new ItemViewModelBrands(categories, brands.getBrand_name());
 
-        itemViewModelBrands.itemPagedList.observe(this, new Observer<PagedList<Owo_product>>() {
+        itemViewModelBrands.itemPagedList.observe(this, new Observer<PagedList<OwoProduct>>() {
             @Override
-            public void onChanged(@Nullable PagedList<Owo_product> items) {
+            public void onChanged(@Nullable PagedList<OwoProduct> items) {
                 adapter.submitList(items);
                 showOnRecyclerView();
             }

@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.PageKeyedDataSource;
 import com.owoShopKeeperPanel.ApiAndClient.Api;
-import com.owoShopKeeperPanel.Model.Owo_product;
+import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.pagination.NetworkState;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +14,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ItemDataSourceBrands extends PageKeyedDataSource<Integer, Owo_product> {
+public class ItemDataSourceBrands extends PageKeyedDataSource<Integer, OwoProduct> {
 
     private static final int FIRST_PAGE = 0;
 
@@ -36,18 +36,18 @@ public class ItemDataSourceBrands extends PageKeyedDataSource<Integer, Owo_produ
     }
 
     @Override
-    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Owo_product> callback) {
+    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, OwoProduct> callback) {
 
         networkState.postValue(NetworkState.LOADING);
 
         restApiFactory.getProductViaBrand(FIRST_PAGE, categories, brand_name)
-                .enqueue(new Callback<List<Owo_product>>() {
+                .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
-                    public void onResponse(@NotNull Call<List<Owo_product>> call, @NotNull Response<List<Owo_product>> response) {
+                    public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
 
                         if(response.isSuccessful())
                         {
-                            callback.onResult((List<Owo_product>) response.body(), null, FIRST_PAGE+1);
+                            callback.onResult((List<OwoProduct>) response.body(), null, FIRST_PAGE+1);
                             networkState.postValue(NetworkState.LOADED);
                         }
                         else
@@ -58,7 +58,7 @@ public class ItemDataSourceBrands extends PageKeyedDataSource<Integer, Owo_produ
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<List<Owo_product>> call, @NotNull Throwable t) {
+                    public void onFailure(@NotNull Call<List<OwoProduct>> call, @NotNull Throwable t) {
                         String errorMessage = t == null ? "unknown error" : t.getMessage();
                         networkState.postValue(new NetworkState(NetworkState.Status.FAILED, errorMessage));
                     }
@@ -67,18 +67,18 @@ public class ItemDataSourceBrands extends PageKeyedDataSource<Integer, Owo_produ
     }
 
     @Override
-    public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Owo_product> callback) {
+    public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, OwoProduct> callback) {
 
         networkState.postValue(NetworkState.LOADING);
 
         restApiFactory.getProductViaBrand(params.key, categories, brand_name)
-                .enqueue(new Callback<List<Owo_product>>() {
+                .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
-                    public void onResponse(@NotNull Call<List<Owo_product>> call, @NotNull Response<List<Owo_product>> response) {
+                    public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
                         if(response.isSuccessful())
                         {
                             Integer key = (params.key > 0) ? params.key - 1 : null;
-                            callback.onResult((List<Owo_product>) response.body(), key);
+                            callback.onResult((List<OwoProduct>) response.body(), key);
 
                             networkState.postValue(NetworkState.LOADED);
                         }
@@ -89,7 +89,7 @@ public class ItemDataSourceBrands extends PageKeyedDataSource<Integer, Owo_produ
                         }
                     }
                     @Override
-                    public void onFailure(@NotNull Call<List<Owo_product>> call, @NotNull Throwable t) {
+                    public void onFailure(@NotNull Call<List<OwoProduct>> call, @NotNull Throwable t) {
                         String errorMessage = t == null ? "unknown error" : t.getMessage();
                         networkState.postValue(new NetworkState(NetworkState.Status.FAILED, errorMessage));
                     }
@@ -98,27 +98,27 @@ public class ItemDataSourceBrands extends PageKeyedDataSource<Integer, Owo_produ
     }
 
     @Override
-    public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Owo_product> callback) {
+    public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, OwoProduct> callback) {
 
         networkState.postValue(NetworkState.LOADING);
 
         restApiFactory.getProductViaBrand(params.key, categories, brand_name)
-                .enqueue(new Callback<List<Owo_product>>() {
+                .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
-                    public void onResponse(@NotNull Call<List<Owo_product>> call, @NotNull Response<List<Owo_product>> response) {
+                    public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
 
                         if(response.isSuccessful())
                         {
                             if(params.key < 12)
                             {
                                 Log.d("loadAfter", String.valueOf(params.key));
-                                callback.onResult((List<Owo_product>) response.body(), params.key+1);
+                                callback.onResult((List<OwoProduct>) response.body(), params.key+1);
 
                                 networkState.postValue(NetworkState.LOADED);
                             }
                             else
                             {
-                                callback.onResult((List<Owo_product>) response.body(), null);
+                                callback.onResult((List<OwoProduct>) response.body(), null);
                             }
                         }
                         else
@@ -129,7 +129,7 @@ public class ItemDataSourceBrands extends PageKeyedDataSource<Integer, Owo_produ
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<List<Owo_product>> call, @NotNull Throwable t) {
+                    public void onFailure(@NotNull Call<List<OwoProduct>> call, @NotNull Throwable t) {
                         Log.e("Error", t.getMessage());
                         String errorMessage = t == null ? "unknown error" : t.getMessage();
                         networkState.postValue(new NetworkState(NetworkState.Status.FAILED, errorMessage));

@@ -50,9 +50,12 @@ public class CategoryFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
 
+        /*
         CategoryAdapter categoryAdapter = new CategoryAdapter(Objects.requireNonNull(getActivity()));
 
         recyclerView.setAdapter(categoryAdapter);
+
+         */
 
         return rootView;
     }

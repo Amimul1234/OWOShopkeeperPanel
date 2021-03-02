@@ -1,18 +1,19 @@
 package com.owoShopKeeperPanel.login;
 
 import com.owoShopKeeperPanel.Model.Shops;
+import java.io.Serializable;
 
-public class ShopKeeperPermissions {
+public class ShopKeeperPermissions implements Serializable {
     private Long id;
-    private String permittedCategory;
+    private Long permittedCategoryId;
     private Shops shops;
 
     public ShopKeeperPermissions() {
     }
 
-    public ShopKeeperPermissions(Long id, String permittedCategory, Shops shops) {
+    public ShopKeeperPermissions(Long id, Long permittedCategoryId, Shops shops) {
         this.id = id;
-        this.permittedCategory = permittedCategory;
+        this.permittedCategoryId = permittedCategoryId;
         this.shops = shops;
     }
 
@@ -24,12 +25,12 @@ public class ShopKeeperPermissions {
         this.id = id;
     }
 
-    public String getPermittedCategory() {
-        return permittedCategory;
+    public Long getPermittedCategoryId() {
+        return permittedCategoryId;
     }
 
-    public void setPermittedCategory(String permittedCategory) {
-        this.permittedCategory = permittedCategory;
+    public void setPermittedCategoryId(Long permittedCategoryId) {
+        this.permittedCategoryId = permittedCategoryId;
     }
 
     public Shops getShops() {
