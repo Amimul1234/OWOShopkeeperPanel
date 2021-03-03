@@ -1,13 +1,11 @@
 package com.owoShopKeeperPanel.adapters;
 
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-
 import com.owoShopKeeperPanel.shopKeeperPanel.BrandsFragment;
 import com.owoShopKeeperPanel.shopKeeperPanel.CategoryFragment;
 

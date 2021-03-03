@@ -43,8 +43,8 @@ import com.owoShopKeeperPanel.login.LogInActivity;
 import com.owoShopKeeperPanel.home.productPagination.ItemViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.owoShopKeeperPanel.shopKeeperPanel.Calculator;
-import com.owoShopKeeperPanel.shopKeeperPanel.CartActivity;
-import com.owoShopKeeperPanel.shopKeeperPanel.Categories;
+import com.owoShopKeeperPanel.shopCart.CartActivity;
+import com.owoShopKeeperPanel.categoryWiseProducts.Categories;
 import com.owoShopKeeperPanel.shopKeeperPanel.Contact_us;
 import com.owoShopKeeperPanel.shopKeeperPanel.MyShopActivity;
 import com.owoShopKeeperPanel.shopKeeperPanel.Order_list;
@@ -82,7 +82,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-
         ProgressBar home_progress = findViewById(R.id.home_progressbar);
 
         adapter = new ItemAdapter(this, home_progress);
@@ -113,7 +112,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         View headerView=navigationView.getHeaderView(0);
         TextView userNameTextView=headerView.findViewById(R.id.user_profile_name);
-        CircleImageView profileImageView=headerView.findViewById(R.id.user_profile_image);
+        CircleImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
 
         userNameTextView.setText(Prevalent.currentOnlineUser.getName());
 
@@ -227,6 +226,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void getOfferBanners() {
+
         RetrofitClient.getInstance().getApi()
                 .bannerImages(Prevalent.category_to_display)
                 .enqueue(new Callback<List<String>>() {
@@ -436,7 +436,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             finish();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

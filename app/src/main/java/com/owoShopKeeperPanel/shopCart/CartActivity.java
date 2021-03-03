@@ -1,11 +1,11 @@
-package com.owoShopKeeperPanel.shopKeeperPanel;
+package com.owoShopKeeperPanel.shopCart;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -26,10 +26,8 @@ import com.owoShopKeeperPanel.Model.CartListProduct;
 import com.owoShopKeeperPanel.Model.Qupon;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
-import com.owoShopKeeperPanel.adapters.CartListAdapter;
-
+import com.owoShopKeeperPanel.shopKeeperPanel.ConfirmFinalOrderActivity;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -39,12 +37,10 @@ import retrofit2.Response;
 public class CartActivity extends AppCompatActivity {
 
     private ListView listView;
-    private Button place_order_button;
     private TextView totalAmount;
-    private TextView subTotalAmount, vouchartxt;
+    private TextView subTotalAmount;
     private double grand_total = 0.0;
     private double discount = 0.0, grand_total_with_discount = 0.0;
-    private ImageView back_from_cart;
     private ImageView empty_image;
     private AllianceLoader loader;
     private TextView empty_text;
@@ -61,11 +57,11 @@ public class CartActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.cart_list);
 
-        place_order_button=(Button)findViewById(R.id.place_order_btn);
-        vouchartxt=(TextView)findViewById(R.id.cart_vouchar);
-        totalAmount=(TextView)findViewById(R.id.cart_total_amount);
-        subTotalAmount=(TextView)findViewById(R.id.cart_sub_total_amount);
-        back_from_cart=(ImageView)findViewById(R.id.back_arrow_from_cart);
+        Button place_order_button = findViewById(R.id.place_order_btn);
+        TextView vouchartxt = findViewById(R.id.cart_vouchar);
+        totalAmount = findViewById(R.id.cart_total_amount);
+        subTotalAmount = findViewById(R.id.cart_sub_total_amount);
+        ImageView back_from_cart = findViewById(R.id.back_arrow_from_cart);
         empty_image = findViewById(R.id.empty_image);
         empty_text = findViewById(R.id.empty_text);
         tag4 = findViewById(R.id.tag4);
@@ -76,33 +72,20 @@ public class CartActivity extends AppCompatActivity {
 
         fetch_from_database();
 
-        back_from_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        back_from_cart.setOnClickListener(v -> finish());
 
 
-        place_order_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ConfirmFinalOrderActivity.class);
-                intent.putExtra("grand_total", String.valueOf(grand_total));
-                intent.putExtra("CartListProducts", CartListProducts);
-                intent.putExtra("grand_total_with_discount", String.valueOf(grand_total_with_discount));
-                intent.putExtra("discount", String.valueOf(discount));
-                startActivity(intent);
-                finish();
-            }
+        place_order_button.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), ConfirmFinalOrderActivity.class);
+            intent.putExtra("grand_total", String.valueOf(grand_total));
+            intent.putExtra("CartListProducts", CartListProducts);
+            intent.putExtra("grand_total_with_discount", String.valueOf(grand_total_with_discount));
+            intent.putExtra("discount", String.valueOf(discount));
+            startActivity(intent);
+            finish();
         });
 
-        vouchartxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                inflateDialogueForCoupon();
-            }
-        });
+        vouchartxt.setOnClickListener(v -> inflateDialogueForCoupon());
     }
 
 
@@ -114,23 +97,15 @@ public class CartActivity extends AppCompatActivity {
 
         alertDialog.setCancelable(false);
 
-        EditText coupon_code = (EditText) view.findViewById(R.id.coupon_code);
+        EditText coupon_code = view.findViewById(R.id.coupon_code);
 
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                loaderVisible();
-                coupon_code_string = coupon_code.getText().toString();
-                check(coupon_code_string);
-                dialog.dismiss();
-            }
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", (dialog, which) -> {
+            loaderVisible();
+            coupon_code_string = coupon_code.getText().toString();
+            check(coupon_code_string);
+            dialog.dismiss();
         });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", (dialog, which) -> dialog.dismiss());
         alertDialog.setView(view);
         alertDialog.show();
     }
@@ -146,6 +121,7 @@ public class CartActivity extends AppCompatActivity {
                         {
                             CartListProducts = (ArrayList<CartListProduct>) response.body();
 
+                            assert CartListProducts != null;
                             if(CartListProducts.isEmpty())
                             {
                                 empty_image.setVisibility(View.VISIBLE);
@@ -170,15 +146,16 @@ public class CartActivity extends AppCompatActivity {
                         else{
                             empty_image.setVisibility(View.VISIBLE);
                             empty_text.setVisibility(View.VISIBLE);
-                            empty_text.setText("No Item in Cart");
+                            empty_text.setText(R.string.noItem);
                             tag4.setVisibility(View.INVISIBLE);
                             loader.setVisibility(View.INVISIBLE);
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<List<CartListProduct>> call, Throwable t) {
-                        Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    public void onFailure(@NotNull Call<List<CartListProduct>> call, @NotNull Throwable t) {
+                        Log.e("CartActivity", "Error is: "+t.getMessage());
+                        Toast.makeText(CartActivity.this, "Failed to get cart list, please try again", Toast.LENGTH_SHORT).show();
                         loader.setVisibility(View.INVISIBLE);
                     }
                 });
@@ -211,6 +188,7 @@ public class CartActivity extends AppCompatActivity {
                     {
                         Qupon qupon = snapshot1.getValue(Qupon.class);
 
+                        assert qupon != null;
                         String coupon_code_b = qupon.getQupon_code();
 
                         if(voucher.equals(coupon_code_b))
@@ -230,7 +208,7 @@ public class CartActivity extends AppCompatActivity {
                                 }
                                 else
                                 {
-                                    subTotalAmount.setText("৳ "+String.valueOf(discount));
+                                    subTotalAmount.setText("৳ "+discount);
                                 }
                             }
 

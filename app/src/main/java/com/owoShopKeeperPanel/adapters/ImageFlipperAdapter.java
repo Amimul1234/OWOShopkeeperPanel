@@ -24,7 +24,7 @@ import java.util.List;
 public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapter.ViewHolder>{
 
     private final Context mCtx;
-    private final List<String> images = new ArrayList<String>();
+    private final List<String> images = new ArrayList<>();
     private final FragmentManager fragmentManager;
     private final Lifecycle lifecycle;
 
@@ -66,6 +66,7 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
 
             tabLayout = itemView.findViewById(R.id.tabbed_layout);
             viewPager2 = itemView.findViewById(R.id.category_and_brand_showing);
+
             viewPagerAdapter = new ViewPagerAdapter(fragmentManager, lifecycle);
 
             viewPager2.setAdapter(viewPagerAdapter);

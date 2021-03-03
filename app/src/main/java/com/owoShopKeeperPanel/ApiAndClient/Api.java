@@ -61,6 +61,9 @@ public interface Api {
     @GET("/getAllCategories")
     Call<List<CategoryEntity>> getAllCategories();
 
+    @GET("/getSpecificCategoryData")
+    Call<List<CategoryEntity>> getSpecificCategoryData(@Query("categoryIds") List<Long> categoryIds);
+
 
     @GET("/searchProduct")
     Call<List<OwoProduct>> searchProduct(

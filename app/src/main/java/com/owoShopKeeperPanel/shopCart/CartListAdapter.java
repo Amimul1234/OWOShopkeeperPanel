@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.adapters;
+package com.owoShopKeeperPanel.shopCart;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -15,16 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.Model.CartListProduct;
 import com.owoShopKeeperPanel.Model.OwoProduct;
+import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
-import com.owoShopKeeperPanel.shopKeeperPanel.CartActivity;
 import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;
 import org.jetbrains.annotations.NotNull;
-import java.io.Serializable;
 import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -32,9 +32,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CartListAdapter extends ArrayAdapter<CartListProduct> {
-    private Activity context;
-    private List<CartListProduct> CartListProducts;
-    private CartActivity cartActivity;
+
+    private final Activity context;
+    private final List<CartListProduct> CartListProducts;
+    private final CartActivity cartActivity;
 
     public CartListAdapter(Activity context, List<CartListProduct> CartListProducts){
         super(context, R.layout.cart_items_sample, CartListProducts);
@@ -60,37 +61,35 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
         holder.setPosition(position);
         holder.bindViews();
 
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        convertView.setOnClickListener(v -> {
 
-                cartActivity.loaderVisible();
+            cartActivity.loaderVisible();
 
-                Call<OwoProduct> call = RetrofitClient.getInstance().getApi().getProductById(CartListProducts.get(position).getProductId());
+            Call<OwoProduct> call = RetrofitClient.getInstance().getApi().getProductById(CartListProducts
+                    .get(position).getProductId());
 
-                call.enqueue(new Callback<OwoProduct>() {
-                    @Override
-                    public void onResponse(@NotNull Call<OwoProduct> call, @NotNull Response<OwoProduct> response) {
-                        if(response.code() == 200)
-                        {
-                            cartActivity.loaderGone();
-                            Intent intent = new Intent(context, ProductDetailsActivity.class);
-                            intent.putExtra("Products", (Serializable) response.body());
-                            context.startActivity(intent);
-                        }
-                        else
-                        {
-                            Toast.makeText(context, "Server error", Toast.LENGTH_SHORT).show();
-                            cartActivity.loaderGone();
-                        }
+            call.enqueue(new Callback<OwoProduct>() {
+                @Override
+                public void onResponse(@NotNull Call<OwoProduct> call, @NotNull Response<OwoProduct> response) {
+                    if(response.code() == 200)
+                    {
+                        cartActivity.loaderGone();
+                        Intent intent = new Intent(context, ProductDetailsActivity.class);
+                        intent.putExtra("Products", response.body());
+                        context.startActivity(intent);
                     }
-
-                    @Override
-                    public void onFailure(@NotNull Call<OwoProduct> call, @NotNull Throwable t) {
-                        Log.e("Error", t.getMessage());
+                    else
+                    {
+                        Toast.makeText(context, "Server error", Toast.LENGTH_SHORT).show();
+                        cartActivity.loaderGone();
                     }
-                });
-            }
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<OwoProduct> call, @NotNull Throwable t) {
+                    Log.e("Error", t.getMessage());
+                }
+            });
         });
 
         return convertView;
@@ -124,7 +123,8 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
 
             CartListProduct cartListProduct = CartListProducts.get(position);
 
-            Glide.with(context).load(cartListProduct.getProductImage()).into(cart_product_image);
+            Glide.with(context).load(HostAddress.HOST_ADDRESS.getHostAddress()+cartListProduct.getProductImage())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL).timeout(6000).into(cart_product_image);
 
             cart_product_name.setText(cartListProduct.getProductName());
             cart_product_quantity.setText("৳ "+String.valueOf(cartListProduct.getProductPrice())+" × "+String.valueOf(cartListProduct.getProductQuantity()));
@@ -140,7 +140,8 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
     }
 
 
-    private void changeQuantity(int position, int newValue) {
+    private void changeQuantity(int position, int newValue)
+    {
 
         cartActivity.loaderVisible();
 
@@ -172,6 +173,7 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
                 }
                 else
                 {
+                    assert response.errorBody() != null;
                     Toast.makeText(context, response.errorBody().toString(), Toast.LENGTH_SHORT).show();
                     cartActivity.loaderGone();
                 }
@@ -185,64 +187,63 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
         });
     }
 
-    private void onDeleteItem(int position) {
+    private void onDeleteItem(int position)
+    {
         CartListProduct cartListProduct = CartListProducts.get(position);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
         alertDialogBuilder.setMessage("Are you sure you want to remove this item from cart ?");
         alertDialogBuilder.setPositiveButton("yes",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
+                (arg0, arg1) -> {
 
-                        cartActivity.loaderVisible();
+                    cartActivity.loaderVisible();
 
-                        Call<ResponseBody> call = RetrofitClient.getInstance().getApi().delete_product_from_cart(cartListProduct.getProductId(), Prevalent.currentOnlineUser.getMobileNumber());
-                        call.enqueue(new Callback<ResponseBody>() {
-                            @Override
-                            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
-                                if(response.isSuccessful())
+                    Call<ResponseBody> call = RetrofitClient.getInstance().getApi().delete_product_from_cart(cartListProduct.getProductId(), Prevalent.currentOnlineUser.getMobileNumber());
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                            if(response.isSuccessful())
+                            {
+                                CartListProducts.remove(cartListProduct);
+
+                                notifyDataSetChanged();
+
+                                if(CartListProducts.isEmpty())
                                 {
-                                    CartListProducts.remove(cartListProduct);
-
-                                    notifyDataSetChanged();
-
-                                    if(CartListProducts.isEmpty())
-                                    {
-                                        cartActivity.getEmpty_image().setVisibility(View.VISIBLE);
-                                        cartActivity.empty_text_setter("No item in cart");
-                                        cartActivity.getTag4().setVisibility(View.INVISIBLE);
-                                    }
-
-                                    cartActivity.setGrand_total(0.0);
-
-                                    double grand_total = 0.0;
-
-                                    for(CartListProduct cartListProduct : CartListProducts)
-                                    {
-                                        grand_total += cartListProduct.getProductPrice() * cartListProduct.getProductQuantity();
-                                    }
-
-                                    cartActivity.grand_total_updater(String.format("%.2f", grand_total));
-
-                                    cartActivity.loaderGone();
-                                    cartActivity.loaderGone();
+                                    cartActivity.getEmpty_image().setVisibility(View.VISIBLE);
+                                    cartActivity.empty_text_setter("No item in cart");
+                                    cartActivity.getTag4().setVisibility(View.INVISIBLE);
                                 }
-                                else
+
+                                cartActivity.setGrand_total(0.0);
+
+                                double grand_total = 0.0;
+
+                                for(CartListProduct cartListProduct1 : CartListProducts)
                                 {
-                                    Toast.makeText(context, response.errorBody().toString(), Toast.LENGTH_SHORT).show();
-                                    cartActivity.loaderGone();
+                                    grand_total += cartListProduct1.getProductPrice() * cartListProduct1.getProductQuantity();
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-                                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                cartActivity.grand_total_updater(String.format("%.2f", grand_total));
+
+                                cartActivity.loaderGone();
                                 cartActivity.loaderGone();
                             }
-                        });
-                    }
+                            else
+                            {
+                                assert response.errorBody() != null;
+                                Toast.makeText(context, response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                                cartActivity.loaderGone();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                            Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                            cartActivity.loaderGone();
+                        }
+                    });
                 });
 
         alertDialogBuilder.setNegativeButton("No", (dialog, which) -> {

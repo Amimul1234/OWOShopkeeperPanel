@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".shopKeeperPanel.CartActivity">
+    tools:context=".shopCart.CartActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topbar1"
@@ -65,18 +66,18 @@
             android:layout_height="wrap_content"
             android:text="@string/total"
             android:textStyle="bold"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:textSize="15sp"
             android:textColor="@color/blue"
             />
         <TextView
             android:id="@+id/cart_total_amount"
-            android:layout_toRightOf="@+id/total_txt"
+            android:layout_toEndOf="@+id/total_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_00"
             android:textSize="15sp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:textStyle="bold"
             android:textColor="@color/black"
             />
@@ -95,7 +96,7 @@
             android:id="@+id/cart_sub_total_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_below="@+id/cart_vouchar"
             android:text="@string/_00"
             android:layout_marginLeft="10dp"
@@ -106,11 +107,11 @@
 
         <TextView
             android:id="@+id/total_txt2"
-            android:layout_toLeftOf="@+id/cart_sub_total_amount"
+            android:layout_toStartOf="@+id/cart_sub_total_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cart_vouchar"
-            android:text="Discount: "
+            android:text="@string/discount"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/blue"

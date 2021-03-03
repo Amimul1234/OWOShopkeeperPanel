@@ -25,9 +25,7 @@ import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.Objects;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -112,9 +110,9 @@ public class ItemAdapter extends PagedListAdapter<OwoProduct, RecyclerView.ViewH
         public ItemViewHolder(View itemView) {
             super(itemView);
             
-            imageView = (ImageView)itemView.findViewById(R.id.product_image);
-            txtProductName = (TextView)itemView.findViewById(R.id.product_name);
-            txtProductPrice = (TextView)itemView.findViewById(R.id.product_price);
+            imageView = itemView.findViewById(R.id.product_image);
+            txtProductName = itemView.findViewById(R.id.product_name);
+            txtProductPrice = itemView.findViewById(R.id.product_price);
             discounted_percent = itemView.findViewById(R.id.discount_percentage);
             txtProduct_discounted_price = itemView.findViewById(R.id.product_discounted_price);
 

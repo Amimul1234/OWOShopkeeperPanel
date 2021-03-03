@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.shopKeeperPanel;
+package com.owoShopKeeperPanel.welcomeScreens;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.login.LogInActivity;
 
-@SuppressWarnings("deprecation")
 public class SplashScreenActivity extends AppCompatActivity {
 
     private CountAnimationTextView mCountAnimationTextView;
@@ -45,7 +44,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             );
         }
 
-        mCountAnimationTextView = (CountAnimationTextView) findViewById(R.id.count_animation_textView);
+        mCountAnimationTextView = findViewById(R.id.count_animation_textView);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 

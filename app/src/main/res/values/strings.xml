@@ -103,7 +103,6 @@
     <string name="my_orders">My Orders</string>
     <string name="trade_licence">Trade Licence:</string>
     <string name="actual_price">Buying Price:</string>
-    <string name="discount">Discount:</string>
     <string name="price_with_discount">New Price: </string>
     <string name="available_quantity">Available Quantity :</string>
     <string name="quantity">Quantity:</string>
@@ -175,6 +174,8 @@
     <string name="_300">300</string>
     <string name="_900">900</string>
     <string name="_20">20</string>
+    <string name="discount">Discount:</string>
+    <string name="noItem">No Item in Cart</string>
 
 
 </resources>

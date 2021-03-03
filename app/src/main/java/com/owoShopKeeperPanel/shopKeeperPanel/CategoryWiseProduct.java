@@ -28,7 +28,6 @@ import com.owoShopKeeperPanel.adapters.Product_tag;
 import com.owoShopKeeperPanel.adapters.SubCategoryAdapter;
 import com.owoShopKeeperPanel.adapters.SubCategoryTag;
 import com.owoShopKeeperPanel.pagination.category.ItemViewModelCategory;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,20 +62,12 @@ public class CategoryWiseProduct extends AppCompatActivity {
 
         category = getIntent().getStringExtra("category");
 
-        back_to_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        back_to_home.setOnClickListener(v -> onBackPressed());
 
-        search_product.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CategoryWiseProduct.this, SearchActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        search_product.setOnClickListener(v -> {
+            Intent intent = new Intent(CategoryWiseProduct.this, SearchActivity.class);
+            startActivity(intent);
+            finish();
         });
 
 
@@ -107,23 +98,18 @@ public class CategoryWiseProduct extends AppCompatActivity {
         getProducts();
 
         swipeRefreshLayout.setColorSchemeResources(R.color.blue);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                itemViewModelCategory.clear();
-                getProducts();
-            }
+
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            itemViewModelCategory.clear();
+            getProducts();
         });
     }
 
     public void getProducts() {
         itemViewModelCategory = new ItemViewModelCategory(category);
-        itemViewModelCategory.itemPagedList.observe(this, new Observer<PagedList<OwoProduct>>() {
-            @Override
-            public void onChanged(@Nullable PagedList<OwoProduct> items) {
-                adapter.submitList(items);
-                showOnRecyclerView();
-            }
+        itemViewModelCategory.itemPagedList.observe(this, items -> {
+            adapter.submitList(items);
+            showOnRecyclerView();
         });
     }
 

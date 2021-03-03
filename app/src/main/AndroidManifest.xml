@@ -28,13 +28,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity android:name=".login.forgetPin.ForgetPin"/>
-        <activity android:name=".TestImageUploader" />
         <activity android:name=".myShopRelated.debt.AddAUserDebtDetails" />
         <activity android:name=".myShopRelated.debt.DebtDetailsForACustomer" />
         <activity android:name=".myShopRelated.debt.AddAUserDebt" />
         <activity android:name=".myShopRelated.debt.UserDebtDetails" />
         <activity android:name=".shopKeeperPanel.product_related.BrandWiseProduct" />
-        <activity android:name=".shopKeeperPanel.Categories" />
+        <activity android:name=".categoryWiseProducts.Categories" />
         <activity android:name=".shopKeeperPanel.Calculator" />
         <activity android:name=".myShopRelated.AddProductToShop" />
         <activity android:name=".myShopRelated.NewProductAdding" />
@@ -54,7 +53,7 @@
             android:name=".shopKeeperPanel.ChangePin"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.CartActivity"
+            android:name=".shopCart.CartActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -77,7 +76,7 @@
             android:name=".shopKeeperPanel.ConfirmFinalOrderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.SplashScreenActivity"
+            android:name=".welcomeScreens.SplashScreenActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
