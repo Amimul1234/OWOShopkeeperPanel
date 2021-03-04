@@ -1,16 +1,18 @@
 package com.owoShopKeeperPanel.homeComponents.categoryComponents;
 
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import com.owoShopKeeperPanel.R;
 
 public class CategoryFragment extends Fragment {
+
     public CategoryFragment() {
 
     }
@@ -18,7 +20,6 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(getActivity(), "Called category frag", Toast.LENGTH_SHORT).show();
     }
 
     @Override

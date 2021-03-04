@@ -222,13 +222,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     public void getProducts()
     {
+        int size = Prevalent.category_to_display.size();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Lifecycle lifecycle = getLifecycle();
-
-        imageFlipperAdapter = new ImageFlipperAdapter(this, images, fragmentManager, lifecycle);
-
-        int size = Prevalent.category_to_display.size();
+        imageFlipperAdapter = new ImageFlipperAdapter(this, images, fragmentManager, lifecycle, recyclerView);
 
         Long[] categories = new Long[size];
 
