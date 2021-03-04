@@ -11,23 +11,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.owoShopKeeperPanel.R;
+import com.owoShopKeeperPanel.categorySpinner.entity.SubCategoryEntity;
 import com.owoShopKeeperPanel.shopKeeperPanel.product_related.SubCategoryWiseProduct;
-
+import java.util.ArrayList;
 import java.util.List;
 
-public class SubCategoryAdapter extends  RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>{
+public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>{
 
-    private Context mCtx;
-    private List<String> category_names;
-    private List<String> icons;
+    private final Context mCtx;
+    private final List<SubCategoryEntity> subCategoryEntityList = new ArrayList<>();
 
-    public SubCategoryAdapter(Context mCtx, List<String> category_names, List<String> icons) {
+
+    public SubCategoryAdapter(Context mCtx, List<SubCategoryEntity> subCategoryEntityList) {
         this.mCtx = mCtx;
-        this.category_names = category_names;
-        this.icons = icons;
+        this.subCategoryEntityList.addAll(subCategoryEntityList);
     }
 
     @NonNull
@@ -40,13 +40,15 @@ public class SubCategoryAdapter extends  RecyclerView.Adapter<SubCategoryAdapter
 
     @Override
     public void onBindViewHolder(@NonNull SubCategoryAdapter.ViewHolder holder, int position) {
-        Glide.with(mCtx).load(icons.get(position)).into(holder.imageView);
-        holder.textView.setText(category_names.get(position));
+        Glide.with(mCtx).load(subCategoryEntityList.get(position).getSub_category_image())
+                .diskCacheStrategy(DiskCacheStrategy.ALL).timeout(6000).into(holder.imageView);
+
+        holder.textView.setText(subCategoryEntityList.get(position).getSub_category_name());
     }
 
     @Override
     public int getItemCount() {
-        return category_names.size();
+        return subCategoryEntityList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -77,7 +79,7 @@ public class SubCategoryAdapter extends  RecyclerView.Adapter<SubCategoryAdapter
                     //Here we are gonna implement sub category wise product
                     int position = getBindingAdapterPosition();
                     Intent intent = new Intent(mCtx, SubCategoryWiseProduct.class);
-                    intent.putExtra("sub_category", category_names.get(position));
+                    intent.putExtra("sub_category", subCategoryEntityList.get(position));
                     mCtx.startActivity(intent);
                 }
             });

@@ -1,13 +1,12 @@
-package com.owoShopKeeperPanel.adapters;
+package com.owoShopKeeperPanel.homeComponents.tabbedComponents;
 
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import com.owoShopKeeperPanel.shopKeeperPanel.BrandsFragment;
-import com.owoShopKeeperPanel.shopKeeperPanel.CategoryFragment;
+import com.owoShopKeeperPanel.homeComponents.brandsComponent.BrandsFragment;
+import com.owoShopKeeperPanel.homeComponents.categoryComponents.CategoryFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
@@ -19,12 +18,10 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         if (position == 0) {
-            Log.d("pos", String.valueOf(position));
             return new CategoryFragment();
         }
         else
         {
-            Log.d("pos", String.valueOf(position));
             return new BrandsFragment();
         }
     }

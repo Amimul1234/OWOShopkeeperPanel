@@ -15,19 +15,17 @@ import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;
-
 import org.jetbrains.annotations.NotNull;
 
 public class ItemAdapterCategory extends PagedListAdapter<OwoProduct, RecyclerView.ViewHolder>{
 
-    private Context mCtx;
+    private final Context mCtx;
 
     public ItemAdapterCategory(Context mCtx) {
         super(DIFF_CALLBACK);

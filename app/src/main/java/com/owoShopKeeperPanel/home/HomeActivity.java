@@ -35,7 +35,7 @@ import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
-import com.owoShopKeeperPanel.adapters.ImageFlipperAdapter;
+import com.owoShopKeeperPanel.homeComponents.bannerComponents.ImageFlipperAdapter;
 import com.owoShopKeeperPanel.home.productPagination.ItemAdapter;
 import com.owoShopKeeperPanel.adapters.Product_tag;
 import com.owoShopKeeperPanel.configurations.ServiceMobile;
@@ -44,7 +44,7 @@ import com.owoShopKeeperPanel.home.productPagination.ItemViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.owoShopKeeperPanel.shopKeeperPanel.Calculator;
 import com.owoShopKeeperPanel.shopCart.CartActivity;
-import com.owoShopKeeperPanel.categoryWiseProducts.Categories;
+import com.owoShopKeeperPanel.homeComponents.categoryComponents.Categories;
 import com.owoShopKeeperPanel.shopKeeperPanel.Contact_us;
 import com.owoShopKeeperPanel.shopKeeperPanel.MyShopActivity;
 import com.owoShopKeeperPanel.shopKeeperPanel.Order_list;
@@ -178,40 +178,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
 
-            /*
-            switch (item.getItemId()) {
-                case R.id.action_home:
-                {
-                    break;
-                }
-                case R.id.action_categories:
-                {
-                    Intent intent = new Intent(HomeActivity.this, Categories.class);
-                    startActivity(intent);
-                    break;
-                }
-                case R.id.action_calculator:
-                {
-                    Intent intent = new Intent(HomeActivity.this, Calculator.class);
-                    startActivity(intent);
-                    break;
-                }
-                case R.id.action_cart:
-                {
-                    Intent intent = new Intent(HomeActivity.this, CartActivity.class);
-                    startActivity(intent);
-                    break;
-                }
-                case R.id.action_account:
-                {
-                    Intent intent=new Intent(HomeActivity.this, SettingsActivity.class);
-                    startActivity(intent);
-                    break;
-                }
-            }
-
-             */
-
             return true;
         });
 
@@ -259,6 +225,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Lifecycle lifecycle = getLifecycle();
+
         imageFlipperAdapter = new ImageFlipperAdapter(this, images, fragmentManager, lifecycle);
 
         int size = Prevalent.category_to_display.size();
@@ -298,7 +265,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         recyclerView.setLayoutManager(layoutManager);
         Product_tag product_tag = new Product_tag(getApplicationContext());
+
         ConcatAdapter concatAdapter = new ConcatAdapter(imageFlipperAdapter, product_tag, adapter);
+
         recyclerView.setAdapter(concatAdapter);
         adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);

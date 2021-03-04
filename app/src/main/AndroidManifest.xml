@@ -33,7 +33,7 @@
         <activity android:name=".myShopRelated.debt.AddAUserDebt" />
         <activity android:name=".myShopRelated.debt.UserDebtDetails" />
         <activity android:name=".shopKeeperPanel.product_related.BrandWiseProduct" />
-        <activity android:name=".categoryWiseProducts.Categories" />
+        <activity android:name=".homeComponents.categoryComponents.Categories" />
         <activity android:name=".shopKeeperPanel.Calculator" />
         <activity android:name=".myShopRelated.AddProductToShop" />
         <activity android:name=".myShopRelated.NewProductAdding" />
@@ -47,7 +47,7 @@
         <activity android:name=".shopKeeperPanel.Order_list" />
         <activity android:name=".shopKeeperPanel.product_related.SubCategoryWiseProduct" />
         <activity
-            android:name=".shopKeeperPanel.CategoryWiseProduct"
+            android:name=".homeComponents.categoryComponents.CategoryWiseProduct"
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopKeeperPanel.ChangePin"

@@ -1,6 +1,6 @@
 package com.owoShopKeeperPanel.ApiAndClient;
 
-import com.owoShopKeeperPanel.Model.Brands;
+import com.owoShopKeeperPanel.homeComponents.brandsComponent.entity.Brands;
 import com.owoShopKeeperPanel.Model.CartListFromClient;
 import com.owoShopKeeperPanel.Model.CartListProduct;
 import com.owoShopKeeperPanel.Model.OwoProduct;
@@ -10,6 +10,7 @@ import com.owoShopKeeperPanel.Model.UserDebts;
 import com.owoShopKeeperPanel.Model.UserShopKeeper;
 import com.owoShopKeeperPanel.Model.User_debt_details;
 import com.owoShopKeeperPanel.categorySpinner.entity.CategoryEntity;
+import com.owoShopKeeperPanel.categorySpinner.entity.SubCategoryEntity;
 import com.owoShopKeeperPanel.registerRequest.ShopPendingRequest;
 import com.owoShopKeeperPanel.userRegistration.ShopKeeperUser;
 import java.util.List;
@@ -54,9 +55,7 @@ public interface Api {
 
     @GET("/getBrandsViaCategory")
     Call<List<Brands>> getBrandsViaCategory(
-            @Query("page") int page,
-            @Query("product_categories") String[] categories
-    );
+            @Query("number") int number, @Query("categoryIds") List<Long> categoryIds);
 
     @GET("/getAllCategories")
     Call<List<CategoryEntity>> getAllCategories();
@@ -186,4 +185,6 @@ public interface Api {
             @Path("directory") String directory,
             @Part MultipartBody.Part multipartFile);
 
+    @GET("/getAllSubCategories")
+    Call<List<SubCategoryEntity>> getAllSubCategories(@Query("categoryId") Long categoryId);
 }

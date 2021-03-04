@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.adapters;
+package com.owoShopKeeperPanel.homeComponents.bannerComponents;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.tabs.TabLayout;
 import com.owoShopKeeperPanel.R;
+import com.owoShopKeeperPanel.homeComponents.tabbedComponents.ViewPagerAdapter;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,6 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
         public ViewPager2 viewPager2;
         public ViewPagerAdapter viewPagerAdapter;
 
-
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             bannerFlipper = itemView.findViewById(R.id.view_flipper_offer);
@@ -92,7 +92,6 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
                     tabLayout.selectTab(tabLayout.getTabAt(position));
                 }
             });
-
 
             DisplayMetrics displaymetrics = new DisplayMetrics(); //Resizing things dynamically
             ((Activity) mCtx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -135,11 +134,9 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
         viewFlipper.setOutAnimation(mCtx, R.anim.slide_out_left);
     }
 
-    public void updateItems(List<String> newList) {    //this method is for handling async image responses
+    public void updateItems(List<String> newList) {
         images.clear();
         images.addAll(newList);
         notifyDataSetChanged();
     }
-
-
 }

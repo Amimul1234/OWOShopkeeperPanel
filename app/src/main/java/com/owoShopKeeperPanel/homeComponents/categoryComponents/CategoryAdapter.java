@@ -1,33 +1,43 @@
-package com.owoShopKeeperPanel.categoryWiseProducts;
+package com.owoShopKeeperPanel.homeComponents.categoryComponents;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.categorySpinner.entity.CategoryEntity;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.configurations.HostAddress;
-import com.owoShopKeeperPanel.shopKeeperPanel.CategoryWiseProduct;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewHolder>{
 
     private final Context mCtx;
     private final List<CategoryEntity> categoryEntityList = new ArrayList<>();
+    private final ProgressDialog progressDialog;
 
-    public CategoryAdapter(Context mCtx, List<CategoryEntity> categoryEntityList) {
+    public CategoryAdapter(Context mCtx) {
         this.mCtx = mCtx;
-        this.categoryEntityList.addAll(categoryEntityList);
+        progressDialog = new ProgressDialog(mCtx);
+        getData();
     }
 
     @NonNull
@@ -69,7 +79,7 @@ public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewH
             int deviceheight = displaymetrics.heightPixels / 5;
 
             itemView.getLayoutParams().width = devicewidth - 20;
-            itemView.getLayoutParams().height = deviceheight;
+            itemView.getLayoutParams().height = deviceheight + 50;
 
             //imageView.getLayoutParams().width = devicewidth / 2; //setting category images dimensions
             imageView.getLayoutParams().height = devicewidth / 2; //setting category images dimensions
@@ -82,4 +92,39 @@ public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewH
             });
         }
     }
+
+    public void getData() {
+        progressDialog.setTitle("Get categories");
+        progressDialog.setMessage("Please wait while we are getting category data");
+        progressDialog.show();
+
+        RetrofitClient.getInstance().getApi()
+                .getSpecificCategoryData(Prevalent.category_to_display)
+                .enqueue(new Callback<List<CategoryEntity>>() {
+                    @Override
+                    public void onResponse(@NotNull Call<List<CategoryEntity>> call, @NotNull Response<List<CategoryEntity>> response) {
+                        if(response.isSuccessful())
+                        {
+                            progressDialog.dismiss();
+                            categoryEntityList.clear();
+                            assert response.body() != null;
+                            categoryEntityList.addAll(response.body());
+                            notifyDataSetChanged();
+                        }
+                        else
+                        {
+                            progressDialog.dismiss();
+                            Toast.makeText(mCtx, "Can not get category data, please try again", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<List<CategoryEntity>> call, @NotNull Throwable t) {
+                        progressDialog.dismiss();
+                        Log.e("CategoryAdapter", "Error, Error is: "+t.getMessage());
+                        Toast.makeText(mCtx, "Can not get category data, please try again", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 }

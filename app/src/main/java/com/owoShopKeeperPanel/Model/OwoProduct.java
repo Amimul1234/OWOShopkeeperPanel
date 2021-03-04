@@ -1,5 +1,7 @@
 package com.owoShopKeeperPanel.Model;
 
+import com.owoShopKeeperPanel.homeComponents.brandsComponent.entity.Brands;
+
 import java.io.Serializable;
 import java.util.Objects;
 

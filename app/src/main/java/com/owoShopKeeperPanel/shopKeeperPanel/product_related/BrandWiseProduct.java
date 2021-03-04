@@ -12,7 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
-import com.owoShopKeeperPanel.Model.Brands;
+import com.owoShopKeeperPanel.homeComponents.brandsComponent.entity.Brands;
 import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
@@ -64,14 +64,11 @@ public class BrandWiseProduct extends AppCompatActivity {
 
     public void getProducts() {
 
-        ItemViewModelBrands itemViewModelBrands = new ItemViewModelBrands(categories, brands.getBrand_name());
+        ItemViewModelBrands itemViewModelBrands = new ItemViewModelBrands(categories, brands.getBrandName());
 
-        itemViewModelBrands.itemPagedList.observe(this, new Observer<PagedList<OwoProduct>>() {
-            @Override
-            public void onChanged(@Nullable PagedList<OwoProduct> items) {
-                adapter.submitList(items);
-                showOnRecyclerView();
-            }
+        itemViewModelBrands.itemPagedList.observe(this, (Observer<PagedList<OwoProduct>>) items -> {
+            adapter.submitList(items);
+            showOnRecyclerView();
         });
 
         itemViewModelBrands.getNetworkState().observe(this, networkState -> {

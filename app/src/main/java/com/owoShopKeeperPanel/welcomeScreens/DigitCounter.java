@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.shopKeeperPanel;
+package com.owoShopKeeperPanel.welcomeScreens;
 
 import android.animation.Animator;
 import android.content.Context;
@@ -6,14 +6,11 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import com.owoShopKeeperPanel.R;
-
 import java.util.Locale;
 
 public class DigitCounter extends FrameLayout {
 
-    private static int ANIMATION_DURATION = 250;
     TextView currentTextView, nextTextView;
 
     public DigitCounter(Context context, AttributeSet attrs) {
@@ -28,8 +25,8 @@ public class DigitCounter extends FrameLayout {
 
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.digit_text_view, this);
-        currentTextView = (TextView) getRootView().findViewById(R.id.currentTextView);
-        nextTextView = (TextView) getRootView().findViewById(R.id.nextTextView);
+        currentTextView = getRootView().findViewById(R.id.currentTextView);
+        nextTextView = getRootView().findViewById(R.id.nextTextView);
 
         nextTextView.setTranslationY(getHeight());
 
@@ -43,6 +40,7 @@ public class DigitCounter extends FrameLayout {
 
         final int oldValue = Integer.parseInt(currentTextView.getText().toString());
 
+        int ANIMATION_DURATION = 250;
         if (oldValue > desiredValue) {
             nextTextView.setText(String.format(Locale.getDefault(), "%d", oldValue-1));
 
