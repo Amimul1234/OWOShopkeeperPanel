@@ -4,6 +4,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ public class BrandsFragment extends Fragment {
     }
 
     private void updateFragmentData() {
+
         RecyclerView recyclerView = rootView.findViewById(R.id.brandsRecyclerView);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);//Configuring recyclerview to receive two layout manager
         recyclerView.setLayoutManager(layoutManager);
@@ -58,6 +60,7 @@ public class BrandsFragment extends Fragment {
             {
                 Toast.makeText(getActivity(), "No more brands", Toast.LENGTH_SHORT).show();
             }
+
             brandsAdapter.notifyDataSetChanged();
         });
     }

@@ -30,7 +30,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="15dp"
-            android:layout_below="@+id/brands"/>
+            android:layout_below="@+id/brandsRecyclerView"/>
 
     </RelativeLayout>
 

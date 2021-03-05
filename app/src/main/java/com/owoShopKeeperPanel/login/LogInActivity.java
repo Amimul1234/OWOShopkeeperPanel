@@ -142,7 +142,8 @@ public class LogInActivity extends AppCompatActivity {
         }
     }
 
-    private void AllowAccessToAccount(final String phone, final String pin) {
+    private void AllowAccessToAccount(final String phone, final String pin)
+    {
 
         RetrofitClient.getInstance().getApi()
                 .getShopKeeper(phone)
@@ -183,7 +184,8 @@ public class LogInActivity extends AppCompatActivity {
                                                                 permitted.add(shopKeeperPermissions.getPermittedCategoryId());
                                                             }
 
-                                                            Prevalent.category_to_display = permitted;
+                                                            Prevalent.category_to_display.clear();
+                                                            Prevalent.category_to_display.addAll(permitted);
 
                                                             Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
 
