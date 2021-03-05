@@ -49,7 +49,7 @@ import com.owoShopKeeperPanel.shopKeeperPanel.Contact_us;
 import com.owoShopKeeperPanel.shopKeeperPanel.MyShopActivity;
 import com.owoShopKeeperPanel.shopKeeperPanel.Order_list;
 import com.owoShopKeeperPanel.shopKeeperPanel.SearchActivity;
-import com.owoShopKeeperPanel.shopKeeperPanel.SettingsActivity;
+import com.owoShopKeeperPanel.shopKeeperSettings.SettingsActivity;
 import com.owoShopKeeperPanel.shopKeeperPanel.WishList;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;

@@ -106,7 +106,7 @@
             android:name=".shopKeeperPanel.ForgetPinOtpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.SettingsActivity"
+            android:name=".shopKeeperSettings.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopRegistration.AfterUserRegister"

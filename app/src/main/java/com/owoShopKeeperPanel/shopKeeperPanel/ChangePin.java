@@ -4,21 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.owoShopKeeperPanel.Model.UserShopKeeper;
+import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
+import com.owoShopKeeperPanel.home.HomeActivity;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.hashing.hashing_algo;
-import com.owoShopKeeperPanel.login.LogInActivity;
+import com.owoShopKeeperPanel.userRegistration.ShopKeeperUser;
+import org.jetbrains.annotations.NotNull;
 import java.security.NoSuchAlgorithmException;
-import io.paperdb.Paper;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChangePin extends AppCompatActivity {
 
@@ -31,10 +35,14 @@ public class ChangePin extends AppCompatActivity {
     private Boolean isShowPinNewPin = false;
     private Boolean isShowNewPinConfirm = false;
 
+    private ShopKeeperUser shopKeeperUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pin);
+
+        shopKeeperUser = (ShopKeeperUser) getIntent().getSerializableExtra("shopKeeper");
 
         show_current_pin = findViewById(R.id.show_current_pin);
         show_new_pin = findViewById(R.id.show_new_pin);
@@ -128,41 +136,51 @@ public class ChangePin extends AppCompatActivity {
         }
         else
         {
-            changeUserInformation(user_new_pin);
+            String newHashedPin = null;
+            try {
+                newHashedPin = hashing_algo.toHexString(hashing_algo.getSHA(user_new_pin));
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            
+            changeUserInformation(newHashedPin);
         }
     }
 
     private void changeUserInformation(String new_pin) {
-
         progressBar.setVisibility(View.VISIBLE);
 
-        DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("Shopkeeper");
+        shopKeeperUser.setPin(new_pin);
 
-        UserShopKeeper user_shopKeeper = new UserShopKeeper();
+        RetrofitClient.getInstance().getApi()
+                .updateShopKeeperInfo(shopKeeperUser)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                        if(response.isSuccessful())
+                        {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(ChangePin.this, "Pin number updated successfully", Toast.LENGTH_SHORT).show();
 
-        try {
-            String new_hashed_pin = hashing_algo.toHexString(hashing_algo.getSHA(new_pin));
-            user_shopKeeper.setName(Prevalent.currentOnlineUser.getName());
-            user_shopKeeper.setPhone(Prevalent.currentOnlineUser.getMobileNumber());
-            user_shopKeeper.setImage(Prevalent.currentOnlineUser.getImageUri());
-            user_shopKeeper.setPin(new_hashed_pin);
+                            Intent intent = new Intent(ChangePin.this, HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
 
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+                        else
+                        {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(ChangePin.this, "Sorry! Can not update your info. , Please try again", Toast.LENGTH_SHORT).show();
+                        }
 
-        ref.child(Prevalent.currentOnlineUser.getMobileNumber()).setValue(user_shopKeeper).addOnSuccessListener(aVoid -> {
-            Toast.makeText(ChangePin.this, "Pin number updated successfully", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.GONE);
-            Paper.book().destroy();
-            Intent intent=new Intent(ChangePin.this, LogInActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-        }).addOnFailureListener(e -> {
-            Toast.makeText(ChangePin.this, "Can not update pin number", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.GONE);
-        });
+                    }
 
+                    @Override
+                    public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                        progressBar.setVisibility(View.GONE);
+                        Log.e("Settings", "Error occurred, Error is: "+t.getMessage());
+                        Toast.makeText(ChangePin.this, "Sorry! Can not update your info. , Please try again", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

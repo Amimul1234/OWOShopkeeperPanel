@@ -43,6 +43,9 @@ public interface Api {
     @GET("/getShopKeeper")
     Call<ShopKeeperUser> getShopKeeper(@Query("mobileNumber") String mobileNumber);
 
+    @PUT("/updateShopKeeperInfo")
+    Call<ResponseBody> updateShopKeeperInfo(@Body ShopKeeperUser shopKeeperUser);
+
     @GET("/getProductByCategories")
     Call<List<OwoProduct>> getProducts(@Query("page") int page,
                                        @Query("product_categories") Long[] categories);
@@ -184,6 +187,10 @@ public interface Api {
     Call<ResponseBody> uploadImageToServer(
             @Path("directory") String directory,
             @Part MultipartBody.Part multipartFile);
+
+    @DELETE("/getImageFromServer")
+    Call<ResponseBody> deleteImage(@Query("path_of_image") String path_of_image);
+
 
     @GET("/getAllSubCategories")
     Call<List<SubCategoryEntity>> getAllSubCategories(@Query("categoryId") Long categoryId);

@@ -21,7 +21,7 @@ import com.owoShopKeeperPanel.shopCart.CartActivity;
 import com.owoShopKeeperPanel.shopKeeperPanel.Calculator;
 import com.owoShopKeeperPanel.shopKeeperPanel.Contact_us;
 import com.owoShopKeeperPanel.shopKeeperPanel.SearchActivity;
-import com.owoShopKeeperPanel.shopKeeperPanel.SettingsActivity;
+import com.owoShopKeeperPanel.shopKeeperSettings.SettingsActivity;
 
 public class Categories extends AppCompatActivity {
 

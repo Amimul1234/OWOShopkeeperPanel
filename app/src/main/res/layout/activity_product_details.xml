@@ -271,7 +271,7 @@
                     android:layout_margin="10dp"
                     app:initialNumber="1"
                     android:elevation="5dp"
-                    app:textSize="12sp"
+                    app:textSize="10sp"
                     app:backGroundColor="@color/blue"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
