@@ -226,7 +226,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Lifecycle lifecycle = getLifecycle();
-        imageFlipperAdapter = new ImageFlipperAdapter(this, images, fragmentManager, lifecycle, recyclerView);
+        imageFlipperAdapter = new ImageFlipperAdapter(this, images, fragmentManager, lifecycle);
 
         Long[] categories = new Long[size];
 

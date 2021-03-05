@@ -29,7 +29,7 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
     private final FragmentManager fragmentManager;
     private final Lifecycle lifecycle;
 
-    public ImageFlipperAdapter(Context mCtx, List<String> images, FragmentManager fragmentManager, Lifecycle lifecycle, RecyclerView recyclerView) {
+    public ImageFlipperAdapter(Context mCtx, List<String> images, FragmentManager fragmentManager, Lifecycle lifecycle) {
         this.mCtx = mCtx;
         this.images.addAll(images);
         this.fragmentManager = fragmentManager;
@@ -79,6 +79,7 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
 
                 @Override
                 public void onTabUnselected(TabLayout.Tab tab) {
+
                 }
 
                 @Override

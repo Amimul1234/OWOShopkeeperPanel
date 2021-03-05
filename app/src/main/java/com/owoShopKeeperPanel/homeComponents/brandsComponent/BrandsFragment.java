@@ -1,6 +1,5 @@
 package com.owoShopKeeperPanel.homeComponents.brandsComponent;
 
-
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,9 +13,14 @@ import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 
 public class BrandsFragment extends Fragment {
+
     int counter = 1;
 
+    private View rootView;
+    private BrandsAdapter brandsAdapter;
+
     public BrandsFragment() {
+
     }
 
     @Override
@@ -27,16 +31,20 @@ public class BrandsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        rootView = inflater.inflate(R.layout.fragment_brands_fragment, container, false);
+        updateFragmentData();
+        return rootView;
+    }
 
-        View rootView = inflater.inflate(R.layout.fragment_brands_fragment, container, false);
-
-        Button button = rootView.findViewById(R.id.more_button);
-
-        RecyclerView recyclerView = rootView.findViewById(R.id.brands);
+    private void updateFragmentData() {
+        RecyclerView recyclerView = rootView.findViewById(R.id.brandsRecyclerView);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);//Configuring recyclerview to receive two layout manager
         recyclerView.setLayoutManager(layoutManager);
-        BrandsAdapter brandsAdapter = new BrandsAdapter(getActivity());
+
+        brandsAdapter = new BrandsAdapter(getActivity());
         recyclerView.setAdapter(brandsAdapter);
+
+        Button button = rootView.findViewById(R.id.more_button);
 
         brandsAdapter.getItems(1);
 
@@ -50,8 +58,13 @@ public class BrandsFragment extends Fragment {
             {
                 Toast.makeText(getActivity(), "No more brands", Toast.LENGTH_SHORT).show();
             }
+            brandsAdapter.notifyDataSetChanged();
         });
+    }
 
-        return rootView;
+    @Override
+    public void onResume() {
+        super.onResume();
+        brandsAdapter.notifyDataSetChanged();
     }
 }
