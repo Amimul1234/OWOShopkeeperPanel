@@ -14,7 +14,7 @@ public class ItemViewModelCategory extends ViewModel {
     public LiveData<PagedList<OwoProduct>> itemPagedList;
     LiveData<PageKeyedDataSource<Integer, OwoProduct>> liveDataSource;
 
-    public ItemViewModelCategory(String category) {
+    public ItemViewModelCategory(Long category) {
 
         ItemDataSourceFactoryCategory itemDataSourceFactoryCategory = new ItemDataSourceFactoryCategory(category);
         liveDataSource = itemDataSourceFactoryCategory.getItemLiveDataSource();
@@ -27,9 +27,4 @@ public class ItemViewModelCategory extends ViewModel {
 
         itemPagedList = (new LivePagedListBuilder(itemDataSourceFactoryCategory, config)).build();
     }
-
-    public void clear(){
-        liveDataSource.getValue().invalidate();
-    }
-
 }

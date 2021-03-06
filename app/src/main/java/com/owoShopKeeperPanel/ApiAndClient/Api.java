@@ -50,6 +50,10 @@ public interface Api {
     Call<List<OwoProduct>> getProducts(@Query("page") int page,
                                        @Query("product_categories") Long[] categories);
 
+    @GET("/getProductBySpecificCategory")
+    Call<List<OwoProduct>> getProductsViaSpecificCategory(@Query("page") int page,
+                                                          @Query("productCategory") Long productCategory);
+
     @GET("/getProductBySubCategory")
     Call<List<OwoProduct>> getProductsBySubCategory(
             @Query("page") int page,

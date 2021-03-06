@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
-import com.owoShopKeeperPanel.home.HomeActivity;
+import com.owoShopKeeperPanel.homeComponents.HomeActivity;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.hashing.hashing_algo;

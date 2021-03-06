@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,8 +38,6 @@ public class CategoryWiseProduct extends AppCompatActivity {
     private final List<SubCategoryEntity> subCategoryEntityList = new ArrayList<>();
     private CategoryEntity categoryEntity;
 
-    private ItemViewModelCategory itemViewModelCategory;
-
     private SubCategoryAdapter subCategoryAdapter;
 
     @Override
@@ -65,25 +65,24 @@ public class CategoryWiseProduct extends AppCompatActivity {
         });
 
 
-        //getProducts();
-        showOnRecyclerView();
-
         getSubCategories();
+        getProducts();
 
         swipeRefreshLayout.setColorSchemeResources(R.color.blue);
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getSubCategories();
-            swipeRefreshLayout.setRefreshing(false);
-            /*
-            itemViewModelCategory.clear();
             getProducts();
-
-             */
+            swipeRefreshLayout.setRefreshing(false);
         });
     }
 
     private void getSubCategories() {
+
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Sub Categories");
+        progressDialog.setMessage("Please wait while we are fetching sub categories data");
+        progressDialog.show();
 
         RetrofitClient.getInstance().getApi()
                 .getAllSubCategories(categoryEntity.getCategoryId())
@@ -92,20 +91,23 @@ public class CategoryWiseProduct extends AppCompatActivity {
                     public void onResponse(@NotNull Call<List<SubCategoryEntity>> call, @NotNull Response<List<SubCategoryEntity>> response) {
                         if(response.isSuccessful())
                         {
+                            progressDialog.dismiss();
                             subCategoryEntityList.clear();
                             assert response.body() != null;
                             subCategoryEntityList.addAll(response.body());
-                            subCategoryAdapter.notifyDataSetChanged();
+                            subCategoryAdapter.changeList(subCategoryEntityList);
                             showOnRecyclerView();
                         }
                         else
                         {
+                            progressDialog.dismiss();
                             Toast.makeText(CategoryWiseProduct.this, "Can not get sub-categories, please try again", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(@NotNull Call<List<SubCategoryEntity>> call, @NotNull Throwable t) {
+                        progressDialog.dismiss();
                         Log.e("CategoryWise", "Error occurred, Error is: "+t.getMessage());
                         Toast.makeText(CategoryWiseProduct.this, "Can not get sub-categories, please try again", Toast.LENGTH_SHORT).show();
                     }
@@ -113,46 +115,48 @@ public class CategoryWiseProduct extends AppCompatActivity {
     }
 
     public void getProducts() {
-        /*
-        itemViewModelCategory = new ItemViewModelCategory(categoryEntity.getCategoryId());
+
+        ItemViewModelCategory itemViewModelCategory = new ItemViewModelCategory(categoryEntity.getCategoryId());
+
         itemViewModelCategory.itemPagedList.observe(this, items -> {
             adapter.submitList(items);
             showOnRecyclerView();
         });
 
-         */
     }
 
-    private void showOnRecyclerView() {
-
+    private void showOnRecyclerView()
+    {
         recyclerView.setHasFixedSize(true);
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
-
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-
                 if(position == 0)
                 {
                     return 6;
                 }
-                else if(position >=1 && position <= subCategoryEntityList.size())
+                else if(position >=0 && position <= subCategoryEntityList.size())
+                {
                     return 2;
+                }
 
-                else if(position == subCategoryEntityList.size()+1)
+                else if(position == (subCategoryEntityList.size()+1))
                     return 6;
                 else
                     return 3;
             }
         });
 
-        recyclerView.setLayoutManager(layoutManager);
         SubCategoryTag subCategoryTag = new SubCategoryTag(this);
         Product_tag product_tag = new Product_tag(this);
+
         ConcatAdapter concatAdapter = new ConcatAdapter(subCategoryTag, subCategoryAdapter, product_tag, adapter);
+
         recyclerView.setAdapter(concatAdapter);
+        recyclerView.setLayoutManager(layoutManager);
         adapter.notifyDataSetChanged();
-        swipeRefreshLayout.setRefreshing(false);
+        subCategoryAdapter.notifyDataSetChanged();
     }
 }

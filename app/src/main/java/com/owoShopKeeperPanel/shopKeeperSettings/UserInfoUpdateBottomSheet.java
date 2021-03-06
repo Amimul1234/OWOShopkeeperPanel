@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.R;
-import com.owoShopKeeperPanel.home.HomeActivity;
+import com.owoShopKeeperPanel.homeComponents.HomeActivity;
 import com.owoShopKeeperPanel.userRegistration.ShopKeeperUser;
 import org.jetbrains.annotations.NotNull;
 import okhttp3.ResponseBody;

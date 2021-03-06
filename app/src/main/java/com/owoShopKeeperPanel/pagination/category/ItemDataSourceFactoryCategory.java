@@ -10,9 +10,9 @@ import com.owoShopKeeperPanel.Model.OwoProduct;
 public class ItemDataSourceFactoryCategory extends DataSource.Factory {
 
     private MutableLiveData<PageKeyedDataSource<Integer, OwoProduct>> itemLiveDataSource = new MutableLiveData<>();
-    private String category;
+    private Long category;
 
-    public ItemDataSourceFactoryCategory(String category) {
+    public ItemDataSourceFactoryCategory(Long category) {
         this.category = category;
     }
 

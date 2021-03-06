@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.home.productPagination;
+package com.owoShopKeeperPanel.homeComponents.homeProductPagination;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -23,7 +23,7 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, OwoProduct> {
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, OwoProduct> callback) {
 
-        RetrofitClient.getInstance()//Calling the getProductApi
+        RetrofitClient.getInstance()
                 .getApi()
                 .getProducts(FIRST_PAGE, categories)
                 .enqueue(new Callback<List<OwoProduct>>() {

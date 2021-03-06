@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.home;
+package com.owoShopKeeperPanel.homeComponents;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -36,11 +36,11 @@ import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.homeComponents.bannerComponents.ImageFlipperAdapter;
-import com.owoShopKeeperPanel.home.productPagination.ItemAdapter;
+import com.owoShopKeeperPanel.homeComponents.homeProductPagination.ItemAdapter;
 import com.owoShopKeeperPanel.adapters.Product_tag;
 import com.owoShopKeeperPanel.configurations.ServiceMobile;
 import com.owoShopKeeperPanel.login.LogInActivity;
-import com.owoShopKeeperPanel.home.productPagination.ItemViewModel;
+import com.owoShopKeeperPanel.homeComponents.homeProductPagination.ItemViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.owoShopKeeperPanel.shopKeeperPanel.Calculator;
 import com.owoShopKeeperPanel.shopCart.CartActivity;

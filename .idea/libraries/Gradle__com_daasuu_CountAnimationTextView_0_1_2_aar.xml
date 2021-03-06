@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.daasuu:CountAnimationTextView:0.1.2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0480789a1e2fbfe0cb66a919929a993e/jetified-CountAnimationTextView-0.1.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0480789a1e2fbfe0cb66a919929a993e/jetified-CountAnimationTextView-0.1.2/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0480789a1e2fbfe0cb66a919929a993e/jetified-CountAnimationTextView-0.1.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ede13eaf1831f322b0cc4e74652f71b4/jetified-CountAnimationTextView-0.1.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ede13eaf1831f322b0cc4e74652f71b4/jetified-CountAnimationTextView-0.1.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ede13eaf1831f322b0cc4e74652f71b4/jetified-CountAnimationTextView-0.1.2/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.daasuu/CountAnimationTextView/0.1.2/b4e46fdf7c1cc1334ecf83c5022324a0a4e96bdc/CountAnimationTextView-0.1.2-javadoc.jar!/" />

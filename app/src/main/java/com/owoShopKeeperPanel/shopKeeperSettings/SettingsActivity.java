@@ -25,7 +25,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.configurations.HostAddress;
-import com.owoShopKeeperPanel.home.HomeActivity;
+import com.owoShopKeeperPanel.homeComponents.HomeActivity;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.userRegistration.ShopKeeperUser;

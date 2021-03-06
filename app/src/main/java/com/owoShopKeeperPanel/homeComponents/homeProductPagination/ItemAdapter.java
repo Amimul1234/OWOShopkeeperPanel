@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.home.productPagination;
+package com.owoShopKeeperPanel.homeComponents.homeProductPagination;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.home.productPagination;
+package com.owoShopKeeperPanel.homeComponents.homeProductPagination;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

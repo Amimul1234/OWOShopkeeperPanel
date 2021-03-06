@@ -22,7 +22,7 @@ import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.login.forgetPin.ForgetPin;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.hashing.hashing_algo;
-import com.owoShopKeeperPanel.home.HomeActivity;
+import com.owoShopKeeperPanel.homeComponents.HomeActivity;
 import com.owoShopKeeperPanel.shopRegistration.AfterUserRegister;
 import com.owoShopKeeperPanel.shopRegistration.AfterShopRegisterRequest;
 import com.owoShopKeeperPanel.userRegistration.ShopKeeperUser;

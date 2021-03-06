@@ -130,7 +130,7 @@
             android:name=".shopRegistration.ShopRegistrationRequest"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".home.HomeActivity"
+            android:name=".homeComponents.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

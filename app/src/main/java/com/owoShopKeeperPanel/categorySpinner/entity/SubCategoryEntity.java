@@ -1,7 +1,6 @@
 package com.owoShopKeeperPanel.categorySpinner.entity;
 
 import com.owoShopKeeperPanel.homeComponents.brandsComponent.entity.Brands;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

@@ -14,9 +14,9 @@ import retrofit2.Response;
 public class ItemDataSourceCategory extends PageKeyedDataSource<Integer, OwoProduct> {
 
     private static final int FIRST_PAGE = 0;
-    private String category;
+    private final Long category;
 
-    public ItemDataSourceCategory(String category) {
+    public ItemDataSourceCategory(Long category) {
         this.category = category;
     }
 
@@ -25,7 +25,7 @@ public class ItemDataSourceCategory extends PageKeyedDataSource<Integer, OwoProd
 
         RetrofitClient.getInstance()//Calling the getProductApi
                 .getApi()
-                .getProductsByCategory(FIRST_PAGE, category)
+                .getProductsViaSpecificCategory(FIRST_PAGE, category)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
@@ -50,7 +50,7 @@ public class ItemDataSourceCategory extends PageKeyedDataSource<Integer, OwoProd
 
         RetrofitClient.getInstance()
                 .getApi()
-                .getProductsByCategory(params.key, category)
+                .getProductsViaSpecificCategory(params.key, category)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
@@ -77,7 +77,7 @@ public class ItemDataSourceCategory extends PageKeyedDataSource<Integer, OwoProd
 
         RetrofitClient.getInstance()
                 .getApi()
-                .getProductsByCategory(params.key, category)
+                .getProductsViaSpecificCategory(params.key, category)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {

@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.categorySpinner.entity.SubCategoryEntity;
+import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.shopKeeperPanel.product_related.SubCategoryWiseProduct;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,6 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
     private final Context mCtx;
     private final List<SubCategoryEntity> subCategoryEntityList = new ArrayList<>();
-
 
     public SubCategoryAdapter(Context mCtx, List<SubCategoryEntity> subCategoryEntityList) {
         this.mCtx = mCtx;
@@ -40,7 +40,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull SubCategoryAdapter.ViewHolder holder, int position) {
-        Glide.with(mCtx).load(subCategoryEntityList.get(position).getSub_category_image())
+
+        Glide.with(mCtx).load(HostAddress.HOST_ADDRESS.getHostAddress() + subCategoryEntityList.get(position).getSub_category_image())
                 .diskCacheStrategy(DiskCacheStrategy.ALL).timeout(6000).into(holder.imageView);
 
         holder.textView.setText(subCategoryEntityList.get(position).getSub_category_name());
@@ -51,12 +52,21 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         return subCategoryEntityList.size();
     }
 
+    public void changeList(List<SubCategoryEntity> subCategoryEntityList) {
+        this.subCategoryEntityList.clear();
+        this.subCategoryEntityList.addAll(subCategoryEntityList);
+        notifyDataSetChanged();
+    }
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         ImageView imageView;
         TextView textView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             imageView = itemView.findViewById(R.id.imageviewid);
             textView = itemView.findViewById(R.id.textviewid);
 
@@ -73,15 +83,12 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             imageView.getLayoutParams().width = devicewidth / 3; //setting category images dimensions
             imageView.getLayoutParams().height = devicewidth / 3; //setting category images dimensions
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Here we are gonna implement sub category wise product
-                    int position = getBindingAdapterPosition();
-                    Intent intent = new Intent(mCtx, SubCategoryWiseProduct.class);
-                    intent.putExtra("sub_category", subCategoryEntityList.get(position));
-                    mCtx.startActivity(intent);
-                }
+            itemView.setOnClickListener(v -> {
+                //Here we are gonna implement sub category wise product
+                int position = getBindingAdapterPosition();
+                Intent intent = new Intent(mCtx, SubCategoryWiseProduct.class);
+                intent.putExtra("sub_category", subCategoryEntityList.get(position));
+                mCtx.startActivity(intent);
             });
         }
     }
