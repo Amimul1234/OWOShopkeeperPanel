@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.shopKeeperPanel;
+package com.owoShopKeeperPanel.shopKeeperSettings;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;

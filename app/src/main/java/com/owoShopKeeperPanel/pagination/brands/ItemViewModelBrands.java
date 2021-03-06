@@ -19,14 +19,14 @@ public class ItemViewModelBrands extends ViewModel {
     public LiveData itemPagedList;
     LiveData<PageKeyedDataSource<Integer, OwoProduct>> liveDataSource;
 
-    public ItemViewModelBrands(String[] categories, String brand_name) {
+    public ItemViewModelBrands(Long brandId) {
 
         Executor executor = Executors.newFixedThreadPool(5);
 
-        ItemDataSourceFactoryBrand itemDataSourceFactoryBrand = new ItemDataSourceFactoryBrand(categories, brand_name);
+        ItemDataSourceFactoryBrand itemDataSourceFactoryBrand = new ItemDataSourceFactoryBrand(brandId);
 
         networkState = Transformations.switchMap(itemDataSourceFactoryBrand.getMutableLiveData(),
-                (Function<ItemDataSourceBrands, LiveData<NetworkState>>) ItemDataSourceBrands::getNetworkState);
+                ItemDataSourceBrands::getNetworkState);
 
         PagedList.Config config =
                 (new PagedList.Config.Builder())

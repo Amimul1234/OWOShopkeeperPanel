@@ -1,10 +1,12 @@
 package com.owoShopKeeperPanel.adapters;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +20,23 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.pagination.NetworkState;
 import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;
+import org.jetbrains.annotations.NotNull;
+import java.util.Objects;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ItemAdapterBrand extends PagedListAdapter<OwoProduct, RecyclerView.ViewHolder>{
 
     private final Context mCtx;
     private NetworkState networkState;
+
     private static final int TYPE_PROGRESS = 0;
     private static final int TYPE_ITEM = 1;
 
@@ -93,7 +102,7 @@ public class ItemAdapterBrand extends PagedListAdapter<OwoProduct, RecyclerView.
 
     @Override
     public int getItemViewType(int position) {
-        if (hasExtraRow() && position == getItemCount() - 1) {
+        if (hasExtraRow() && position == getItemCount()) {
             return TYPE_PROGRESS;
         } else {
             return TYPE_ITEM;
@@ -109,6 +118,7 @@ public class ItemAdapterBrand extends PagedListAdapter<OwoProduct, RecyclerView.
         boolean previousExtraRow = hasExtraRow();
         this.networkState = newNetworkState;
         boolean newExtraRow = hasExtraRow();
+
         if (previousExtraRow != newExtraRow) {
             if (previousExtraRow) {
                 notifyItemRemoved(getItemCount());
@@ -128,7 +138,7 @@ public class ItemAdapterBrand extends PagedListAdapter<OwoProduct, RecyclerView.
                 }
 
                 @Override
-                public boolean areContentsTheSame(OwoProduct oldItem, OwoProduct newItem) {
+                public boolean areContentsTheSame(OwoProduct oldItem, @NotNull OwoProduct newItem) {
                     return oldItem.equals(newItem);
                 }
             };
@@ -192,10 +202,38 @@ public class ItemAdapterBrand extends PagedListAdapter<OwoProduct, RecyclerView.
 
         @Override
         public void onClick(View v) {
-            OwoProduct owoproduct = getItem(getBindingAdapterPosition());
-            Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
-            intent.putExtra("Products", owoproduct);
-            mCtx.startActivity(intent);
+            ProgressDialog progressDialog = new ProgressDialog(mCtx);
+            progressDialog.setTitle("Product Information");
+            progressDialog.setMessage("Please wait while we are getting product information");
+            progressDialog.show();
+
+            Long id = getItem(getBindingAdapterPosition()).getProductId();
+
+            RetrofitClient.getInstance().getApi()
+                    .getProductById(id)
+                    .enqueue(new Callback<OwoProduct>() {
+                        @Override
+                        public void onResponse(@NotNull Call<OwoProduct> call, @NotNull Response<OwoProduct> response) {
+                            if(response.isSuccessful())
+                            {
+                                progressDialog.dismiss();
+                                Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
+                                intent.putExtra("Products", response.body());
+                                mCtx.startActivity(intent);
+                            }
+                            else
+                            {
+                                progressDialog.dismiss();
+                                Log.e("Error", "Server error occurred");
+                                Toast.makeText(mCtx, "Can not get product data, please try again", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NotNull Call<OwoProduct> call, @NotNull Throwable t) {
+                            Log.e("Error", t.getMessage());
+                            progressDialog.dismiss();
+                        }});
         }
     }
 

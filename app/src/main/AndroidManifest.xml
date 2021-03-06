@@ -50,7 +50,7 @@
             android:name=".homeComponents.categoryComponents.CategoryWiseProduct"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.ChangePin"
+            android:name=".shopKeeperSettings.ChangePin"
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopCart.CartActivity"

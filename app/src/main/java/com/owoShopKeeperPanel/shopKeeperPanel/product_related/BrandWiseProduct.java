@@ -1,6 +1,5 @@
 package com.owoShopKeeperPanel.shopKeeperPanel.product_related;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.lifecycle.Observer;
@@ -14,7 +13,6 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import com.owoShopKeeperPanel.homeComponents.brandsComponent.entity.Brands;
 import com.owoShopKeeperPanel.Model.OwoProduct;
-import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.adapters.ItemAdapterBrand;
 import com.owoShopKeeperPanel.adapters.Product_tag;
@@ -24,21 +22,17 @@ import com.owoShopKeeperPanel.shopKeeperPanel.SearchActivity;
 public class BrandWiseProduct extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private ImageView back_to_home;
-    private AppCompatButton search_product;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Brands brands;
     private ItemAdapterBrand adapter;
-
-    private String[] categories = (String[]) Prevalent.category_to_display.toArray(new String[0]);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_brand_wise_product);
 
-        back_to_home = findViewById(R.id.back_to_home);
-        search_product = findViewById(R.id.search_product);
+        ImageView back_to_home = findViewById(R.id.back_to_home);
+        AppCompatButton search_product = findViewById(R.id.search_product);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
 
         brands = (Brands) getIntent().getSerializableExtra("brand");
@@ -64,32 +58,31 @@ public class BrandWiseProduct extends AppCompatActivity {
 
     public void getProducts() {
 
-        ItemViewModelBrands itemViewModelBrands = new ItemViewModelBrands(categories, brands.getBrandName());
+        ItemViewModelBrands itemViewModelBrands = new ItemViewModelBrands(brands.getBrandId());
 
-        itemViewModelBrands.itemPagedList.observe(this, (Observer<PagedList<OwoProduct>>) items -> {
+        itemViewModelBrands.getItemPagedList().observe(this, items -> {
             adapter.submitList(items);
             showOnRecyclerView();
         });
 
-        itemViewModelBrands.getNetworkState().observe(this, networkState -> {
-            adapter.setNetworkState(networkState);
-        });
+        itemViewModelBrands.getNetworkState().observe(this,
+                networkState -> adapter.setNetworkState(networkState));
     }
 
     private void showOnRecyclerView() {
 
         recyclerView.setHasFixedSize(true);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 if(position == 0)
                 {
-                    return 6;
+                    return 2;
                 }
                 else
-                    return 3;
+                    return 1;
             }
         });
 
@@ -97,7 +90,7 @@ public class BrandWiseProduct extends AppCompatActivity {
         Product_tag product_tag = new Product_tag(this);
         ConcatAdapter concatAdapter = new ConcatAdapter(product_tag, adapter);
         recyclerView.setAdapter(concatAdapter);
-        adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
+        adapter.notifyDataSetChanged();
     }
 }

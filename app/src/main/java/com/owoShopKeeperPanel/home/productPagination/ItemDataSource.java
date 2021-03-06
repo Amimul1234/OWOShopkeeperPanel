@@ -14,7 +14,7 @@ import retrofit2.Response;
 public class ItemDataSource extends PageKeyedDataSource<Integer, OwoProduct> {
 
     private static final int FIRST_PAGE = 0;
-    private Long[] categories;
+    private final Long[] categories;
 
     public ItemDataSource(Long[] categories) {
         this.categories = categories;
@@ -31,7 +31,7 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, OwoProduct> {
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
                         if(response.code() == 200)
                         {
-                            callback.onResult((List<OwoProduct>) response.body(), null, FIRST_PAGE+1);
+                            callback.onResult(response.body(), null, FIRST_PAGE+1);
                         }else
                         {
                             Log.e("Error", "Server error");
@@ -58,7 +58,7 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, OwoProduct> {
                         if(response.code() == 200)
                         {
                             Integer key = (params.key > 0) ? params.key - 1 : null;
-                            callback.onResult((List<OwoProduct>) response.body(), key);
+                            callback.onResult(response.body(), key);
                         }else
                         {
                             Log.e("Error", "Server error");
@@ -86,11 +86,11 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, OwoProduct> {
                             if(params.key < 12)
                             {
                                 Log.d("loadAfter", String.valueOf(params.key));
-                                callback.onResult((List<OwoProduct>) response.body(), params.key+1);
+                                callback.onResult(response.body(), params.key+1);
                             }
                             else
                             {
-                                callback.onResult((List<OwoProduct>) response.body(), null);
+                                callback.onResult(response.body(), null);
                             }
                         }
                         else

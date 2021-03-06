@@ -7,18 +7,16 @@ import org.jetbrains.annotations.NotNull;
 public class ItemDataSourceFactoryBrand extends DataSource.Factory {
 
     private final MutableLiveData<ItemDataSourceBrands> itemLiveDataSource = new MutableLiveData<>();
-    private final String[] categories;
-    private final String brand_name;
+    private final Long brandId;
 
-    public ItemDataSourceFactoryBrand(String[] categories, String brand) {
-        this.categories = categories;
-        this.brand_name = brand;
+    public ItemDataSourceFactoryBrand(Long brandId) {
+        this.brandId = brandId;
     }
 
     @NotNull
     @Override
     public DataSource create() {
-        ItemDataSourceBrands itemDataSourceBrands = new ItemDataSourceBrands(categories, brand_name);
+        ItemDataSourceBrands itemDataSourceBrands = new ItemDataSourceBrands(brandId);
         itemLiveDataSource.postValue(itemDataSourceBrands);
         return itemDataSourceBrands;
     }
