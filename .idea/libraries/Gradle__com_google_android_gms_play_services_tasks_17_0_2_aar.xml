@@ -2,9 +2,10 @@
   <library name="Gradle: com.google.android.gms:play-services-tasks:17.0.2@aar">
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8f35302c6b2bb3a170995817b7f940d6/jetified-play-services-tasks-17.0.2/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fe2620184246053b0484c4dc28e342c3/jetified-play-services-tasks-17.0.2/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fe2620184246053b0484c4dc28e342c3/jetified-play-services-tasks-17.0.2/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fe2620184246053b0484c4dc28e342c3/jetified-play-services-tasks-17.0.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/792be9e8ca9967e7af8fcf51221f089e/jetified-play-services-tasks-17.0.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/792be9e8ca9967e7af8fcf51221f089e/jetified-play-services-tasks-17.0.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/792be9e8ca9967e7af8fcf51221f089e/jetified-play-services-tasks-17.0.2/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.gms/play-services-tasks/17.0.2/351bbec24656496690ebe09be7cdac31549a54fc/play-services-tasks-17.0.2-javadoc.jar!/" />

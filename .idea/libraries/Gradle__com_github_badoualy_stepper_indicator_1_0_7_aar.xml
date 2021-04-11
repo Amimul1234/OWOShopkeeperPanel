@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/216d103a98a2fefe5a21d5cc261da73d/jetified-stepper-indicator-1.0.7/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/216d103a98a2fefe5a21d5cc261da73d/jetified-stepper-indicator-1.0.7/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/216d103a98a2fefe5a21d5cc261da73d/jetified-stepper-indicator-1.0.7/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/19f4d1cf68983167bff77a90faed3b03/jetified-stepper-indicator-1.0.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/19f4d1cf68983167bff77a90faed3b03/jetified-stepper-indicator-1.0.7/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/19f4d1cf68983167bff77a90faed3b03/jetified-stepper-indicator-1.0.7/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.badoualy/stepper-indicator/1.0.7/d4d5f1a1542b3564c73ec3aedb264e23ae126906/stepper-indicator-1.0.7-javadoc.jar!/" />

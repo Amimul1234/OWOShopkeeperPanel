@@ -50,20 +50,14 @@ public class UserDebtDetails extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(userDebtAdapter);
 
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-                finish();
-            }
+        back_button.setOnClickListener(v -> {
+            onBackPressed();
+            finish();
         });
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserDebtDetails.this, AddAUserDebt.class);
-                startActivity(intent);
-            }
+        floatingActionButton.setOnClickListener(v -> {
+            Intent intent = new Intent(UserDebtDetails.this, AddAUserDebt.class);
+            startActivity(intent);
         });
     }
 

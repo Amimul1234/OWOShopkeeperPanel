@@ -1,6 +1,7 @@
 package com.owoShopKeeperPanel.homeComponents.homeProductPagination;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -101,6 +102,7 @@ public class ItemAdapter extends PagedListAdapter<OwoProduct, RecyclerView.ViewH
                     return oldItem.equals(newItem);
                 }
             };
+
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

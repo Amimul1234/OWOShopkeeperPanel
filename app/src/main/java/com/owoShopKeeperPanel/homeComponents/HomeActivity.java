@@ -1,5 +1,6 @@
 package com.owoShopKeeperPanel.homeComponents;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -70,12 +71,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private SwipeRefreshLayout swipeRefreshLayout;
     private ItemViewModel itemViewModel;
     private BottomNavigationView bottomNavigationView;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        progressDialog = new ProgressDialog(this);
 
         recyclerView = findViewById(R.id.recycler_view_for_products);
         AppCompatButton searchBar = findViewById(R.id.search_product);
@@ -239,13 +243,26 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         itemViewModel.itemPagedList.observe(this, items -> {
             adapter.submitList(items);
+
+            /*
+            if(adapter.getCurrentList().isEmpty())
+            {
+                progressDialog.setTitle("Product");
+                progressDialog.setMessage("Please wait while we are getting product data");
+                progressDialog.show();
+            }
+            else{
+                progressDialog.dismiss();
+            }
+
+             */
+
             showOnRecyclerView();
         });
     }
 
     private void showOnRecyclerView()
     {
-
         recyclerView.setHasFixedSize(true);
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager

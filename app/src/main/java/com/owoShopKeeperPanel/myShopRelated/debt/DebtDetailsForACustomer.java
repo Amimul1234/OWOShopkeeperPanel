@@ -10,7 +10,6 @@ import android.Manifest;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -33,6 +32,7 @@ import com.owoShopKeeperPanel.Model.UserDebts;
 import com.owoShopKeeperPanel.Model.User_debt_details;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.adapters.UserDebtRecordForASingleUserAdapter;
+import com.owoShopKeeperPanel.configurations.HostAddress;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import okhttp3.ResponseBody;
@@ -42,13 +42,11 @@ import retrofit2.Response;
 
 public class DebtDetailsForACustomer extends AppCompatActivity {
 
-    private ImageView back_to_home, letter_image_view;
-    private Button clear_all_record_for_a_customer, download_invoice_for_a_user;
-    private FloatingActionButton add_a_new_debt_details;
+    private ImageView letter_image_view;
     private AllianceLoader loader;
     private RecyclerView debt_details_recyclerview;
     private TextView debt_taker_name, debt_taker_mobile_number, debt_taker_total_amount;
-    private int STORAGE_PERMISSION_CODE = 1;
+    private final int STORAGE_PERMISSION_CODE = 1;
     private long downloadId;
     private Long user_id;
     private UserDebts userDebts;
@@ -60,11 +58,11 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_debt_details_for_a_customer);
 
-        back_to_home = findViewById(R.id.back_to_home);
+        ImageView back_to_home = findViewById(R.id.back_to_home);
         letter_image_view = findViewById(R.id.letter_image_view);
-        clear_all_record_for_a_customer = findViewById(R.id.clear_all_record_for_a_customer);
-        download_invoice_for_a_user = findViewById(R.id.download_invoice_for_a_user);
-        add_a_new_debt_details = findViewById(R.id.add_a_new_debt_details);
+        Button clearAllRecordForACustomer = findViewById(R.id.clear_all_record_for_a_customer);
+        Button downloadInvoiceForAUser = findViewById(R.id.download_invoice_for_a_user);
+        FloatingActionButton addANewDebtDetails = findViewById(R.id.add_a_new_debt_details);
         loader = findViewById(R.id.loader);
         debt_details_recyclerview = findViewById(R.id.debt_details_recyclerview);
         debt_taker_name = findViewById(R.id.debt_taker_name);
@@ -73,75 +71,61 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
 
         registerReceiver(onDownloadComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
-        add_a_new_debt_details = findViewById(R.id.add_a_new_debt_details);
+        addANewDebtDetails = findViewById(R.id.add_a_new_debt_details);
 
         user_id = getIntent().getLongExtra("user_id", -1);
 
         loadData(user_id);
 
-        back_to_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DebtDetailsForACustomer.this, UserDebtDetails.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-            }
+        back_to_home.setOnClickListener(v -> {
+            Intent intent = new Intent(DebtDetailsForACustomer.this, UserDebtDetails.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         });
 
-        clear_all_record_for_a_customer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(userDebts!=null)
-                {
-                    RetrofitClient.getInstance().getApi()
-                            .deleteAUserDebtList(userDebts.getUser_id())
-                            .enqueue(new Callback<ResponseBody>() {
-                                @Override
-                                public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
-                                    if(response.code() == 200)
-                                    {
-                                        Toast.makeText(DebtDetailsForACustomer.this, "Debt report deleted successfully", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(DebtDetailsForACustomer .this, UserDebtDetails.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(intent);
-                                    }
-                                    else if(response.code() == 424)
-                                    {
-                                        Toast.makeText(DebtDetailsForACustomer.this, "Failed to delete", Toast.LENGTH_SHORT).show();
-                                    }
-                                    else if(response.code() == 404){
-                                        Toast.makeText(DebtDetailsForACustomer.this, "User not found", Toast.LENGTH_SHORT).show();
-                                    }
+        clearAllRecordForACustomer.setOnClickListener(v -> {
+            if(userDebts!=null)
+            {
+                RetrofitClient.getInstance().getApi()
+                        .deleteAUserDebtList(userDebts.getUser_id())
+                        .enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                                if(response.code() == 200)
+                                {
+                                    Toast.makeText(DebtDetailsForACustomer.this, "Debt report deleted successfully", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(DebtDetailsForACustomer .this, UserDebtDetails.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
                                 }
-
-                                @Override
-                                public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-                                    Log.e("Error", t.getMessage());
+                                else if(response.code() == 424)
+                                {
+                                    Toast.makeText(DebtDetailsForACustomer.this, "Failed to delete", Toast.LENGTH_SHORT).show();
                                 }
-                            });
-                }
-                else
-                {
-                    Toast.makeText(DebtDetailsForACustomer.this, "Please try again", Toast.LENGTH_SHORT).show();
-                }
+                                else if(response.code() == 404){
+                                    Toast.makeText(DebtDetailsForACustomer.this, "User not found", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                                Log.e("Error", t.getMessage());
+                            }
+                        });
+            }
+            else
+            {
+                Toast.makeText(DebtDetailsForACustomer.this, "Please try again", Toast.LENGTH_SHORT).show();
             }
         });
 
-        download_invoice_for_a_user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestStoragePermission();
-            }
-        });
+        downloadInvoiceForAUser.setOnClickListener(v -> requestStoragePermission());
 
-        add_a_new_debt_details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DebtDetailsForACustomer.this, AddAUserDebtDetails.class);
-                intent.putExtra("user_id", user_id);
-                startActivity(intent);
-            }
+        addANewDebtDetails.setOnClickListener(v -> {
+            Intent intent = new Intent(DebtDetailsForACustomer.this, AddAUserDebtDetails.class);
+            intent.putExtra("user_id", user_id);
+            startActivity(intent);
         });
     }
 
@@ -164,7 +148,7 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
                                 ColorGenerator generator = ColorGenerator.MATERIAL;
                                 int color1 = generator.getRandomColor();
 
-                                char c = 0;
+                                char c;
 
                                 c = userDebts.getUser_name().charAt(0);
 
@@ -232,14 +216,14 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
         {
             name = userDebts.getUser_name();
             id = userDebts.getUser_id();
-            query_string = "http://192.168.0.2/getAllDebtDetailsReport?user_id="+String.valueOf(id);
+            query_string = HostAddress.HOST_ADDRESS.getHostAddress() +  "/getAllDebtDetailsReport?user_id="+ id;
         }
 
         DownloadManager.Request request = new DownloadManager.Request(
                 Uri.parse(query_string))
                 .setTitle(name+"'s Invoice")
                 .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
-                .setDescription("Downloading file....")
+                .setDescription("Downloading debt record....")
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 .setAllowedOverMetered(true)
                 .setAllowedOverRoaming(true);
@@ -252,7 +236,7 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
     }
 
 
-    private BroadcastReceiver onDownloadComplete = new BroadcastReceiver() {
+    private final BroadcastReceiver onDownloadComplete = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
@@ -276,19 +260,9 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
             new AlertDialog.Builder(this)
                     .setTitle("Permission needed")
                     .setMessage("This permission is needed because of downloading the invoice pdf")
-                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(DebtDetailsForACustomer.this,
-                                    new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-                        }
-                    })
-                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
+                    .setPositiveButton("ok", (dialog, which) -> ActivityCompat.requestPermissions(DebtDetailsForACustomer.this,
+                            new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE))
+                    .setNegativeButton("cancel", (dialog, which) -> dialog.dismiss())
                     .create().show();
         } else {
             ActivityCompat.requestPermissions(this,
@@ -302,12 +276,7 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
         {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        beginDownload();
-                    }
-                }, 1000);
+                new Handler().postDelayed(this::beginDownload, 1000);
             }
             else {
                 Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();

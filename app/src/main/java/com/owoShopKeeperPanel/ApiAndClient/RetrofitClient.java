@@ -10,6 +10,8 @@ public class RetrofitClient {
     private static RetrofitClient mInstance;
     private final Retrofit retrofit;
 
+
+
     private RetrofitClient()
     {
         retrofit = new Retrofit.Builder()

@@ -1,22 +1,18 @@
 package com.owoShopKeeperPanel.myShopRelated.debt;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
 import com.owoShopKeeperPanel.Model.UserDebts;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
-
 import org.jetbrains.annotations.NotNull;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,12 +33,7 @@ public class AddAUserDebt extends AppCompatActivity {
         Button addDebtRecord = findViewById(R.id.addDebtRecord);
         loader = findViewById(R.id.loader);
 
-        addDebtRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                check();
-            }
-        });
+        addDebtRecord.setOnClickListener(v -> check());
     }
 
     private void check() {
