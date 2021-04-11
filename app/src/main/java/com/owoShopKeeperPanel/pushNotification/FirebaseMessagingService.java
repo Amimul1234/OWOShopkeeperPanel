@@ -43,7 +43,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                             with(this)
                             .asBitmap()
                             .load(remoteMessage.getNotification().getImageUrl().toString())
-                            .into(100, 100). // Width and height
+                            .into(200, 200). // Width and height
                             get())
                     .setAutoCancel(true)
                     .setContentIntent(pendingIntent);
