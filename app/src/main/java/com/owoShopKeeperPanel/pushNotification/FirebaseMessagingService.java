@@ -5,26 +5,24 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import com.bumptech.glide.Glide;
 import com.google.firebase.messaging.RemoteMessage;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.welcomeScreens.SplashScreenActivity;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.ExecutionException;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(@NotNull RemoteMessage remoteMessage) {
+
         super.onMessageReceived(remoteMessage);
 
-        Log.d("msg", "onMessageReceived: " + remoteMessage.getData().get("message"));
+        Log.d("msg", "onMessageReceived: " + remoteMessage.getNotification().getImageUrl());
 
         Intent intent = new Intent(this, SplashScreenActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -32,12 +30,27 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         String channelId = "Default";
 
-        NotificationCompat.Builder builder = new  NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(remoteMessage.getNotification().getTitle())
-                .setContentText(remoteMessage.getNotification().getBody())
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
+
+        NotificationCompat.Builder builder = null;
+
+        try {
+
+            builder = new  NotificationCompat.Builder(this, channelId)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(remoteMessage.getNotification().getTitle())
+                    .setContentText(remoteMessage.getNotification().getBody())
+                    .setLargeIcon(Glide.
+                            with(this)
+                            .asBitmap()
+                            .load(remoteMessage.getNotification().getImageUrl().toString())
+                            .into(100, 100). // Width and height
+                            get())
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingIntent);
+
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
@@ -47,6 +60,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         }
 
         manager.notify(0, builder.build());
+
     }
     @Override
     public void onNewToken(@NonNull String s) {
