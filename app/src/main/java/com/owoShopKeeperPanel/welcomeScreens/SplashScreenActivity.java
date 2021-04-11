@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.login.LogInActivity;
 
@@ -45,6 +46,17 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
 
         mCountAnimationTextView = findViewById(R.id.count_animation_textView);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("e-commerce")
+                .addOnCompleteListener(task -> {
+
+                    String msg = "Subscribed";
+
+                    if (!task.isSuccessful()) {
+                        msg = "Subscription failed";
+                    }
+                    Log.d("FCM", msg);
+                });
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
