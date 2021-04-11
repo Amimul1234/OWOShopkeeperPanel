@@ -32,7 +32,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-@SuppressWarnings("deprecation")
 public class UserRegistrationActivity extends AppCompatActivity {
 
     private EditText merchant_name, regMobile;

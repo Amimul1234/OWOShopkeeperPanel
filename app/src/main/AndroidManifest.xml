@@ -30,13 +30,12 @@
         tools:targetApi="m">
 
         <service
-            android:name=".pushNotification.MyFirebaseMessagingService"
+            android:name=".pushNotification.FirebaseMessagingService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
-
 
         <activity android:name=".login.forgetPin.ForgetPin"/>
         <activity android:name=".myShopRelated.debt.AddAUserDebtDetails" />
