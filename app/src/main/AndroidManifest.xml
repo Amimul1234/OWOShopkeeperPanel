@@ -29,6 +29,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
 
+        <service
+            android:name=".pushNotification.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+
         <activity android:name=".login.forgetPin.ForgetPin"/>
         <activity android:name=".myShopRelated.debt.AddAUserDebtDetails" />
         <activity android:name=".myShopRelated.debt.DebtDetailsForACustomer" />
