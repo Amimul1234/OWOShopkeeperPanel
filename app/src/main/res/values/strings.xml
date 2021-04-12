@@ -176,6 +176,20 @@
     <string name="_20">20</string>
     <string name="discount">Discount:</string>
     <string name="noItem">No Item in Cart</string>
+    <string name="a_user_debt">A User Debt</string>
+    <string name="add_a_debt_record">Add A Debt Record</string>
+    <string name="enter_debt_taker_name">Enter Debt Taker Name</string>
+    <string name="enter_debt_taker_mobile_number">Enter Debt Taker Mobile Number</string>
+    <string name="add_debt_record">Add Debt Record</string>
+    <string name="user_debts">User Debts</string>
+    <string name="total_debt">Total Debt</string>
+    <string name="total_loan">Total Loan</string>
+    <string name="total_paid">Total Paid</string>
+    <string name="_10_000">৳10, 000</string>
+    <string name="_8_000">৳ 8,000</string>
+    <string name="load">Load</string>
+    <string name="loan">Loan</string>
+    <string name="paid">Paid</string>
 
 
 </resources>

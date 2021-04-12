@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.owoShopKeeperPanel.Model.OwoProduct;
@@ -25,7 +24,7 @@ import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;
 
 public class SearchedAdapter extends PagedListAdapter<OwoProduct, RecyclerView.ViewHolder>{
 
-    private Context mCtx;
+    private final Context mCtx;
 
     public SearchedAdapter(Context mCtx) {
         super(DIFF_CALLBACK);
@@ -94,6 +93,7 @@ public class SearchedAdapter extends PagedListAdapter<OwoProduct, RecyclerView.V
 
         public ItemViewHolder(View itemView) {
             super(itemView);
+
             imageView = (ImageView)itemView.findViewById(R.id.product_image);
             txtProductName = (TextView)itemView.findViewById(R.id.product_name);
             txtProductPrice = (TextView)itemView.findViewById(R.id.product_price);

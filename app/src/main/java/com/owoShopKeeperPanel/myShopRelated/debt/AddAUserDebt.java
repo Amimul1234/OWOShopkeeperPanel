@@ -36,7 +36,8 @@ public class AddAUserDebt extends AppCompatActivity {
         addDebtRecord.setOnClickListener(v -> check());
     }
 
-    private void check() {
+    private void check()
+    {
         String name = debt_taker_name.getText().toString();
         String mobile_number = debt_taker_mobile_number.getText().toString();
 

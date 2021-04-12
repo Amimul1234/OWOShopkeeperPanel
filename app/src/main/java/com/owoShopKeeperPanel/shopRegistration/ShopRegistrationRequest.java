@@ -122,6 +122,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
     }
 
     private void enableGps() {
+
         LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER) || !lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {

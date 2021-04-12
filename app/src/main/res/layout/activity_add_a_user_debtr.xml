@@ -18,12 +18,13 @@
             android:layout_height="24dp"
             android:layout_marginEnd="15dp"
             android:src="@drawable/ic_baseline_arrow_back_24"
-            app:tint="@color/white"/>
+            app:tint="@color/white"
+            android:contentDescription="@string/back_to_home_arrow" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="A User Debt"
+            android:text="@string/a_user_debt"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/white"/>
@@ -40,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Add A Debt Record"
+            android:text="@string/add_a_debt_record"
             android:textAlignment="center"
             android:layout_marginTop="20dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
@@ -51,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/heading1"
             android:layout_margin="10dp"
-            android:hint="Enter Debt Taker Name" />
+            android:hint="@string/enter_debt_taker_name" />
 
         <EditText
             android:id="@+id/debt_taker_mobile_number"
@@ -61,7 +62,7 @@
             android:layout_below="@id/debt_taker_name"
             android:maxLength="11"
             android:inputType="numberDecimal"
-            android:hint="Enter Debt Taker Mobile Number" />
+            android:hint="@string/enter_debt_taker_mobile_number" />
 
         <Button
             android:id="@+id/addDebtRecord"
@@ -75,7 +76,7 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_below="@+id/debt_taker_mobile_number"
-            android:text="Add Debt Record" />
+            android:text="@string/add_debt_record" />
 
     </RelativeLayout>
 
