@@ -20,8 +20,10 @@ import com.owoShopKeeperPanel.myShopRelated.debt.DebtDetailsForACustomer;
 
 import org.jetbrains.annotations.NotNull;
 
-public class UserDebtAdapter extends PagedListAdapter<UserDebts, RecyclerView.ViewHolder>{
-    private Context mCtx;
+public class UserDebtAdapter extends PagedListAdapter<UserDebts, RecyclerView.ViewHolder>
+{
+
+    private final Context mCtx;
 
     public UserDebtAdapter(Context mCtx) {
         super(DIFF_CALLBACK);
@@ -89,31 +91,24 @@ public class UserDebtAdapter extends PagedListAdapter<UserDebts, RecyclerView.Vi
             debt_taker_total_amount = itemView.findViewById(R.id.debt_taker_total_amount);
 
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UserDebts userDebts = getItem(getBindingAdapterPosition());
+            itemView.setOnClickListener(v ->
+            {
+                UserDebts userDebts = getItem(getBindingAdapterPosition());
 
-                    Intent intent = new Intent(mCtx, DebtDetailsForACustomer.class);
+                Intent intent = new Intent(mCtx, DebtDetailsForACustomer.class);
 
-                    if (userDebts != null) {
-                        intent.putExtra("user_id", userDebts.getUser_id());
-                    }
-                    else
-                    {
-                        Toast.makeText(mCtx, "Try again", Toast.LENGTH_SHORT).show();
-                    }
-
-                    mCtx.startActivity(intent);
+                if (userDebts != null) {
+                    intent.putExtra("user_id", userDebts.getUser_id());
                 }
+                else
+                {
+                    Toast.makeText(mCtx, "Try again", Toast.LENGTH_SHORT).show();
+                }
+
+                mCtx.startActivity(intent);
             });
 
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    return false;
-                }
-            });
+            itemView.setOnLongClickListener(v -> false);
         }
     }
 }

@@ -190,6 +190,11 @@
     <string name="load">Load</string>
     <string name="loan">Loan</string>
     <string name="paid">Paid</string>
+    <string name="my_shop">My Shop</string>
+    <string name="address">Address:</string>
+    <string name="_55_phase_2_adarsh_palm_retreat_bellandur_bengaluru">#55, Phase 2, Adarsh Palm Retreat, Bellandur, Bengaluru</string>
+    <string name="shop_service_mobile">Service Mobile:</string>
+    <string name="phone_number">Phone Number</string>
 
 
 </resources>
