@@ -83,7 +83,9 @@ public class UserDebtAdapter extends PagedListAdapter<UserDebts, RecyclerView.Vi
         public ImageView letter_image_view;
         public TextView debt_taker_name, debt_taker_mobile_number, debt_taker_total_amount;
 
-        public ItemViewHolder(View itemView) {
+        public ItemViewHolder(View itemView)
+        {
+
             super(itemView);
 
             letter_image_view = itemView.findViewById(R.id.letter_image_view);
