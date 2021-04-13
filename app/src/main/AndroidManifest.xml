@@ -38,10 +38,10 @@
         </service>
 
         <activity android:name=".login.forgetPin.ForgetPin"/>
-        <activity android:name=".myShopRelated.debt.AddAUserDebtDetails" />
-        <activity android:name=".myShopRelated.debt.DebtDetailsForACustomer" />
-        <activity android:name=".myShopRelated.debt.AddAUserDebt" />
-        <activity android:name=".myShopRelated.debt.UserDebtDetails" />
+        <activity android:name=".myShopManagement.userDebts.debt.AddAUserDebtDetails" />
+        <activity android:name=".myShopManagement.userDebts.debt.DebtDetailsForACustomer" />
+        <activity android:name=".myShopManagement.userDebts.debt.AddAUserDebt" />
+        <activity android:name=".myShopManagement.userDebts.debt.DebtDetailsDashBoard" />
         <activity android:name=".shopKeeperPanel.product_related.BrandWiseProduct" />
         <activity android:name=".homeComponents.categoryComponents.Categories" />
         <activity android:name=".shopKeeperPanel.Calculator" />

@@ -1,14 +1,15 @@
-package com.owoShopKeeperPanel.myShopRelated.debt;
+package com.owoShopKeeperPanel.myShopManagement.userDebts.debt;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
-import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
+import com.owoShopKeeperPanel.network.RetrofitClient;
 import com.owoShopKeeperPanel.Model.UserDebts;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
@@ -20,51 +21,58 @@ import retrofit2.Response;
 
 public class AddAUserDebt extends AppCompatActivity {
 
-    private EditText debt_taker_name, debt_taker_mobile_number;
-    private AllianceLoader loader;
+    private EditText debtTakerName, debtTakerMobileNumber;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_a_user_debtr);
 
-        debt_taker_name = findViewById(R.id.debt_taker_name);
-        debt_taker_mobile_number = findViewById(R.id.debt_taker_mobile_number);
-        Button addDebtRecord = findViewById(R.id.addDebtRecord);
-        loader = findViewById(R.id.loader);
+        debtTakerName = findViewById(R.id.debt_taker_name);
+        debtTakerMobileNumber = findViewById(R.id.debt_taker_mobile_number);
+        progressDialog = new ProgressDialog(this);
 
+        progressDialog.setTitle("Add An User Debt Record");
+        progressDialog.setMessage("Please wait while we are adding user record");
+        progressDialog.setCancelable(false);
+
+
+        Button addDebtRecord = findViewById(R.id.addDebtRecord);
         addDebtRecord.setOnClickListener(v -> check());
     }
 
     private void check()
     {
-        String name = debt_taker_name.getText().toString();
-        String mobile_number = debt_taker_mobile_number.getText().toString();
+        String name = debtTakerName.getText().toString();
+        String mobile_number = debtTakerMobileNumber.getText().toString();
 
         if(name.isEmpty())
         {
-            debt_taker_name.setError("Name can not be empty");
-            debt_taker_name.requestFocus();
+            debtTakerName.setError("Name can not be empty");
+            debtTakerName.requestFocus();
         }
         else if(mobile_number.isEmpty())
         {
-            debt_taker_mobile_number.setError("Mobile number can not be empty");
-            debt_taker_mobile_number.requestFocus();
+            debtTakerMobileNumber.setError("Mobile number can not be empty");
+            debtTakerMobileNumber.requestFocus();
         }
         else
         {
-            loader.setVisibility(View.VISIBLE);
+            progressDialog.show();
             saveToDataBase(name, mobile_number);
         }
 
     }
 
-    private void saveToDataBase(String name, String mobile_number) {
+    private void saveToDataBase(String name, String mobile_number)
+    {
         UserDebts userDebts = new UserDebts();
 
-        userDebts.setUser_name(name);
-        userDebts.setUser_mobile_number(mobile_number);
-        userDebts.setUser_total_debt(0.0);
+        userDebts.setUserName(name);
+        userDebts.setUserMobileNumber(mobile_number);
+        userDebts.setUserTotalDebt(0.0);
+        userDebts.setUserPaid(0.0);
 
         RetrofitClient.getInstance().getApi()
                 .addAUserDebt(userDebts, Prevalent.currentOnlineUser.getMobileNumber())
@@ -74,13 +82,15 @@ public class AddAUserDebt extends AppCompatActivity {
                         if(response.code() == 409)
                         {
                             Toast.makeText(AddAUserDebt.this, "User already exists", Toast.LENGTH_SHORT).show();
-                            loader.setVisibility(View.INVISIBLE);
+                            progressDialog.dismiss();
                         }
                         else if(response.code() == 200)
                         {
-                            loader.setVisibility(View.INVISIBLE);
+                            progressDialog.dismiss();
+
                             Toast.makeText(AddAUserDebt.this, "Debt record added successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(AddAUserDebt.this, UserDebtDetails.class);
+
+                            Intent intent = new Intent(AddAUserDebt.this, DebtDetailsDashBoard.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                         }
@@ -88,8 +98,9 @@ public class AddAUserDebt extends AppCompatActivity {
 
                     @Override
                     public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-                        Toast.makeText(AddAUserDebt.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                        loader.setVisibility(View.INVISIBLE);
+                        progressDialog.dismiss();
+                        Log.e("AddAUserDebt", t.getMessage());
+                        Toast.makeText(AddAUserDebt.this, "Can not add user record, please try again", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.Model.add_product_model;
-import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
+import com.owoShopKeeperPanel.network.RetrofitClient;
 import com.owoShopKeeperPanel.R;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;

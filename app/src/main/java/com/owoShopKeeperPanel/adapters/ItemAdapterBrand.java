@@ -20,14 +20,14 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
+import com.owoShopKeeperPanel.network.RetrofitClient;
 import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.pagination.NetworkState;
 import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;
 import org.jetbrains.annotations.NotNull;
-import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

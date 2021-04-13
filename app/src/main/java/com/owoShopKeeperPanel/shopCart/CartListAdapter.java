@@ -1,7 +1,6 @@
 package com.owoShopKeeperPanel.shopCart;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
-import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
+import com.owoShopKeeperPanel.network.RetrofitClient;
 import com.owoShopKeeperPanel.Model.CartListProduct;
 import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.configurations.HostAddress;

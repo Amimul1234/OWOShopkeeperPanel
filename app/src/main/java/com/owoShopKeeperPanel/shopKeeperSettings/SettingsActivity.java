@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
+import com.owoShopKeeperPanel.network.RetrofitClient;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.homeComponents.HomeActivity;
 import com.owoShopKeeperPanel.R;

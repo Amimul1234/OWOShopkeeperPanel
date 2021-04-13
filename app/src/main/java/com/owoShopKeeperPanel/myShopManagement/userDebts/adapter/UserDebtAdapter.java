@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.adapters;
+package com.owoShopKeeperPanel.myShopManagement.userDebts.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,8 +16,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.owoShopKeeperPanel.Model.UserDebts;
 import com.owoShopKeeperPanel.R;
-import com.owoShopKeeperPanel.myShopRelated.debt.DebtDetailsForACustomer;
-
+import com.owoShopKeeperPanel.myShopManagement.userDebts.debt.DebtDetailsForACustomer;
 import org.jetbrains.annotations.NotNull;
 
 public class UserDebtAdapter extends PagedListAdapter<UserDebts, RecyclerView.ViewHolder>
@@ -49,14 +48,16 @@ public class UserDebtAdapter extends PagedListAdapter<UserDebts, RecyclerView.Vi
 
             int color1 = generator.getRandomColor();
 
-            char c = userDebts.getUser_name().charAt(0);
+            char c = userDebts.getUserName().charAt(0);
 
             TextDrawable drawable = TextDrawable.builder().buildRound(String.valueOf(c), color1);
 
+            String amount = "৳ "+userDebts.getUserTotalDebt();
+
             itemViewHolder.letter_image_view.setImageDrawable(drawable);
-            itemViewHolder.debt_taker_name.setText(userDebts.getUser_name());
-            itemViewHolder.debt_taker_mobile_number.setText(userDebts.getUser_mobile_number());
-            itemViewHolder.debt_taker_total_amount.setText("৳ "+String.valueOf(userDebts.getUser_total_debt()));
+            itemViewHolder.debt_taker_name.setText(userDebts.getUserName());
+            itemViewHolder.debt_taker_mobile_number.setText(userDebts.getUserMobileNumber());
+            itemViewHolder.debt_taker_total_amount.setText(amount);
 
         } else {
             Toast.makeText(mCtx, "No record found", Toast.LENGTH_LONG).show();
@@ -68,7 +69,7 @@ public class UserDebtAdapter extends PagedListAdapter<UserDebts, RecyclerView.Vi
             new DiffUtil.ItemCallback<UserDebts>() {
                 @Override
                 public boolean areItemsTheSame(UserDebts oldItem, UserDebts newItem) {
-                    return oldItem.getUser_id() == newItem.getUser_id();
+                    return oldItem.getUserId() == newItem.getUserId();
                 }
 
                 @Override
@@ -98,7 +99,7 @@ public class UserDebtAdapter extends PagedListAdapter<UserDebts, RecyclerView.Vi
                 Intent intent = new Intent(mCtx, DebtDetailsForACustomer.class);
 
                 if (userDebts != null) {
-                    intent.putExtra("user_id", userDebts.getUser_id());
+                    intent.putExtra("user_id", userDebts.getUserId());
                 }
                 else
                 {

@@ -124,8 +124,6 @@
             android:background="@color/grey"
             android:layout_below="@+id/shop_control_options"
             android:layout_marginTop="20dp"/>
-
-
     </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>

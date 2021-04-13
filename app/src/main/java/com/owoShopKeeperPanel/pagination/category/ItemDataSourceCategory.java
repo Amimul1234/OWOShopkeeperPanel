@@ -4,7 +4,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 import com.owoShopKeeperPanel.Model.OwoProduct;
-import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
+import com.owoShopKeeperPanel.network.RetrofitClient;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import retrofit2.Call;

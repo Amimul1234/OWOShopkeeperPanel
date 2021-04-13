@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.myShopRelated.debt;
+package com.owoShopKeeperPanel.myShopManagement.userDebts.debt;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -27,7 +27,7 @@ import com.agrawalsuneet.dotsloader.loaders.AllianceLoader;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
+import com.owoShopKeeperPanel.network.RetrofitClient;
 import com.owoShopKeeperPanel.Model.UserDebts;
 import com.owoShopKeeperPanel.Model.User_debt_details;
 import com.owoShopKeeperPanel.R;
@@ -78,7 +78,7 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
         loadData(user_id);
 
         back_to_home.setOnClickListener(v -> {
-            Intent intent = new Intent(DebtDetailsForACustomer.this, UserDebtDetails.class);
+            Intent intent = new Intent(DebtDetailsForACustomer.this, DebtDetailsDashBoard.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
@@ -88,14 +88,14 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
             if(userDebts!=null)
             {
                 RetrofitClient.getInstance().getApi()
-                        .deleteAUserDebtList(userDebts.getUser_id())
+                        .deleteAUserDebtList(userDebts.getUserId())
                         .enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                                 if(response.code() == 200)
                                 {
                                     Toast.makeText(DebtDetailsForACustomer.this, "Debt report deleted successfully", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(DebtDetailsForACustomer .this, UserDebtDetails.class);
+                                    Intent intent = new Intent(DebtDetailsForACustomer .this, DebtDetailsDashBoard.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                 }
@@ -150,11 +150,11 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
 
                                 char c;
 
-                                c = userDebts.getUser_name().charAt(0);
+                                c = userDebts.getUserName().charAt(0);
 
-                                debt_taker_mobile_number.setText(userDebts.getUser_mobile_number());
-                                debt_taker_name.setText(userDebts.getUser_name());
-                                debt_taker_total_amount.setText("৳ "+String.valueOf(userDebts.getUser_total_debt()));
+                                debt_taker_mobile_number.setText(userDebts.getUserMobileNumber());
+                                debt_taker_name.setText(userDebts.getUserName());
+                                debt_taker_total_amount.setText("৳ "+String.valueOf(userDebts.getUserTotalDebt()));
 
                                 TextDrawable drawable = TextDrawable.builder().buildRound(String.valueOf(c), color1);
 
@@ -214,8 +214,8 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
 
         if(userDebts!=null)
         {
-            name = userDebts.getUser_name();
-            id = userDebts.getUser_id();
+            name = userDebts.getUserName();
+            id = userDebts.getUserId();
             query_string = HostAddress.HOST_ADDRESS.getHostAddress() +  "/getAllDebtDetailsReport?user_id="+ id;
         }
 

@@ -4,54 +4,64 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDebts implements Serializable {
-    private long user_id;
-    private String user_name;
-    private String user_mobile_number;
-    private double user_total_debt;
-    private List<User_debt_details> userDebtDetails = new ArrayList<>();
+public class UserDebts implements Serializable
+{
+    private long userId;
+    private String userName;
+    private String userMobileNumber;
+    private double userTotalDebt;
+    private double userPaid;
+    private final List<User_debt_details> userDebtDetails = new ArrayList<>();
 
     public UserDebts() {
     }
 
-    public UserDebts(long user_id, String user_name, String user_mobile_number,
-                     double user_total_debt) {
-        this.user_id = user_id;
-        this.user_name = user_name;
-        this.user_mobile_number = user_mobile_number;
-        this.user_total_debt = user_total_debt;
+    public UserDebts(long userId, String userName, String userMobileNumber, double userTotalDebt, double userPaid) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userMobileNumber = userMobileNumber;
+        this.userTotalDebt = userTotalDebt;
+        this.userPaid = userPaid;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUser_mobile_number() {
-        return user_mobile_number;
+    public String getUserMobileNumber() {
+        return userMobileNumber;
     }
 
-    public void setUser_mobile_number(String user_mobile_number) {
-        this.user_mobile_number = user_mobile_number;
+    public void setUserMobileNumber(String userMobileNumber) {
+        this.userMobileNumber = userMobileNumber;
     }
 
-    public double getUser_total_debt() {
-        return user_total_debt;
+    public double getUserTotalDebt() {
+        return userTotalDebt;
     }
 
-    public void setUser_total_debt(double user_total_debt) {
-        this.user_total_debt = user_total_debt;
+    public void setUserTotalDebt(double userTotalDebt) {
+        this.userTotalDebt = userTotalDebt;
+    }
+
+    public double getUserPaid() {
+        return userPaid;
+    }
+
+    public void setUserPaid(double userPaid) {
+        this.userPaid = userPaid;
     }
 
     public List<User_debt_details> getUserDebtDetails() {

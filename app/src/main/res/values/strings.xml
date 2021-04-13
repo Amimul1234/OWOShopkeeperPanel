@@ -147,7 +147,6 @@
         <item>Due Records</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="get_current_location">GET Current Location</string>
     <string name="shop_trade_license">Shop Trade License</string>
@@ -195,6 +194,9 @@
     <string name="_55_phase_2_adarsh_palm_retreat_bellandur_bengaluru">#55, Phase 2, Adarsh Palm Retreat, Bellandur, Bengaluru</string>
     <string name="shop_service_mobile">Service Mobile:</string>
     <string name="phone_number">Phone Number</string>
-
+    <string name="enter_debt_description">Enter Debt Description</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="date_dd_mm_yyyy">Date(DD:MM:YYYY)</string>
+    <string name="date_choose">Date Choose</string>
 
 </resources>

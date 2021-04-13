@@ -1,7 +1,6 @@
 package com.owoShopKeeperPanel.adapters;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +12,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
+import com.owoShopKeeperPanel.network.RetrofitClient;
 import com.owoShopKeeperPanel.Model.User_debt_details;
 import com.owoShopKeeperPanel.R;
-import com.owoShopKeeperPanel.myShopRelated.debt.DebtDetailsForACustomer;
-
+import com.owoShopKeeperPanel.myShopManagement.userDebts.debt.DebtDetailsForACustomer;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,9 +25,9 @@ import retrofit2.Response;
 
 public class UserDebtRecordForASingleUserAdapter extends RecyclerView.Adapter<UserDebtRecordForASingleUserAdapter.ItemViewHolder> {
 
-    private Context mCtx;
-    private List<User_debt_details> user_debt_detailsList;
-    private long user_id;
+    private final Context mCtx;
+    private final List<User_debt_details> user_debt_detailsList;
+    private final long user_id;
 
     public UserDebtRecordForASingleUserAdapter(Context mCtx, List<User_debt_details> user_debt_detailsList, long user_id) {
         this.mCtx = mCtx;
@@ -92,68 +88,62 @@ public class UserDebtRecordForASingleUserAdapter extends RecyclerView.Adapter<Us
             debt_taking_date = itemView.findViewById(R.id.debt_taking_date);
             debt_amount = itemView.findViewById(R.id.debt_amount);
 
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
+            itemView.setOnLongClickListener(v -> {
 
-                    CharSequence[] options = new CharSequence[]{"Edit debt report", "Delete debt report"};
+                CharSequence[] options = new CharSequence[]{"Edit debt report", "Delete debt report"};
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mCtx);
+                AlertDialog.Builder builder = new AlertDialog.Builder(mCtx);
 
-                    builder.setTitle("Select Option");
+                builder.setTitle("Select Option");
 
-                    builder.setItems(options, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which) {
-                                case 0:
-                                {
-                                    break;
-                                }
-
-                                case 1:
-                                {
-                                    long record_id = user_debt_detailsList.get(getBindingAdapterPosition()).getId();
-                                    User_debt_details user_debt_details = user_debt_detailsList.get(getBindingAdapterPosition());
-
-                                    RetrofitClient.getInstance().getApi()
-                                            .deleteADebtDetails(record_id, user_id)
-                                            .enqueue(new Callback<ResponseBody>() {
-                                                @Override
-                                                public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
-                                                    if(response.code() == 404)
-                                                    {
-                                                        Toast.makeText(mCtx, "Record not found", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                    else if(response.code() == 200)
-                                                    {
-                                                        user_debt_detailsList.remove(user_debt_details);
-                                                        notifyDataSetChanged();
-                                                        DebtDetailsForACustomer debtDetailsForACustomer = (DebtDetailsForACustomer) mCtx;
-                                                        debtDetailsForACustomer.loadData(user_id);
-                                                    }
-                                                    else
-                                                    {
-                                                        Toast.makeText(mCtx, "Error deleting record", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-                                                    Toast.makeText(mCtx, t.getMessage(), Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-
-                                    break;
-                                }
-                            }
+                builder.setItems(options, (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                        {
+                            break;
                         }
-                    });
 
-                    builder.show();
+                        case 1:
+                        {
+                            long record_id = user_debt_detailsList.get(getBindingAdapterPosition()).getId();
+                            User_debt_details user_debt_details = user_debt_detailsList.get(getBindingAdapterPosition());
 
-                    return true;
-                }
+                            RetrofitClient.getInstance().getApi()
+                                    .deleteADebtDetails(record_id, user_id)
+                                    .enqueue(new Callback<ResponseBody>() {
+                                        @Override
+                                        public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                                            if(response.code() == 404)
+                                            {
+                                                Toast.makeText(mCtx, "Record not found", Toast.LENGTH_SHORT).show();
+                                            }
+                                            else if(response.code() == 200)
+                                            {
+                                                user_debt_detailsList.remove(user_debt_details);
+                                                notifyDataSetChanged();
+                                                DebtDetailsForACustomer debtDetailsForACustomer = (DebtDetailsForACustomer) mCtx;
+                                                debtDetailsForACustomer.loadData(user_id);
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(mCtx, "Error deleting record", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                                            Toast.makeText(mCtx, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                            break;
+                        }
+                    }
+                });
+
+                builder.show();
+
+                return true;
             });
         }
     }

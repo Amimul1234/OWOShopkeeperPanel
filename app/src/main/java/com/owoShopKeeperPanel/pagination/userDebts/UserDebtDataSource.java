@@ -3,7 +3,7 @@ package com.owoShopKeeperPanel.pagination.userDebts;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
-import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
+import com.owoShopKeeperPanel.network.RetrofitClient;
 import com.owoShopKeeperPanel.Model.UserDebts;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import org.jetbrains.annotations.NotNull;

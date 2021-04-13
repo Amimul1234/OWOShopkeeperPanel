@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.owoShopKeeperPanel.ApiAndClient.RetrofitClient;
+import com.owoShopKeeperPanel.network.RetrofitClient;
 import com.owoShopKeeperPanel.Model.Shops;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
@@ -26,7 +26,6 @@ public class MyShopActivity extends AppCompatActivity {
 
     private TextView shopName, shop_address, shop_service_mobile;
     private ImageView shop_image;
-
     private Shops shops = new Shops();
 
     @Override
@@ -37,6 +36,7 @@ public class MyShopActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_shop);
 
         RecyclerView shop_controlling_options = findViewById(R.id.shop_control_options);
+
         shopName = findViewById(R.id.my_shop_name);
         shop_address = findViewById(R.id.my_shop_address);
         shop_service_mobile = findViewById(R.id.my_shop_phone_number);
@@ -89,6 +89,7 @@ public class MyShopActivity extends AppCompatActivity {
 
                             Glide.with(MyShopActivity.this).load(HostAddress.HOST_ADDRESS.getHostAddress() +
                                     shops.getShop_image_uri()).diskCacheStrategy(DiskCacheStrategy.ALL).into(shop_image);
+
                         } else {
                             Toast.makeText(MyShopActivity.this, String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
                         }

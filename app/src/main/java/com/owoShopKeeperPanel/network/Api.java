@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.ApiAndClient;
+package com.owoShopKeeperPanel.network;
 
 import com.owoShopKeeperPanel.homeComponents.brandsComponent.entity.Brands;
 import com.owoShopKeeperPanel.Model.CartListFromClient;
@@ -11,6 +11,7 @@ import com.owoShopKeeperPanel.Model.UserShopKeeper;
 import com.owoShopKeeperPanel.Model.User_debt_details;
 import com.owoShopKeeperPanel.categorySpinner.entity.CategoryEntity;
 import com.owoShopKeeperPanel.categorySpinner.entity.SubCategoryEntity;
+import com.owoShopKeeperPanel.myShopManagement.userDebts.model.DebtDashBoardResponse;
 import com.owoShopKeeperPanel.registerRequest.ShopPendingRequest;
 import com.owoShopKeeperPanel.userRegistration.ShopKeeperUser;
 import java.util.List;
@@ -144,6 +145,9 @@ public interface Api {
             @Query("shop_mobile_number") String mobile_number
     );
 
+    @GET("/getDebtDashBoardEntries")
+    Call<DebtDashBoardResponse> getDebtDashBoardEntries(@Query("mobileNumber") String mobileNumber);
+
     @GET("/getUserDebtLists")
     Call<List<UserDebts>> getUserDebtLists(
             @Query("page") int page,
@@ -156,20 +160,13 @@ public interface Api {
     );
 
     @GET("/getADebtListForAUser")
-    Call<List<User_debt_details>> getDebtListForAnSpecificUser(
-            @Query("user_id") Long user_id
-    );
+    Call<List<User_debt_details>> getDebtListForAnSpecificUser(@Query("user_id") Long user_id);
 
     @DELETE("/clearAllDebtDetails")
-    Call<ResponseBody> deleteAUserDebtList(
-            @Query("user_id") Long user_id
-    );
+    Call<ResponseBody> deleteAUserDebtList(@Query("user_id") Long user_id);
 
     @POST("/addAdebtDetails")
-    Call<ResponseBody> addADebtDetailsForACustomer(
-            @Body User_debt_details user_debt_details,
-            @Query("user_id") Long user_id
-    );
+    Call<ResponseBody> addADebtDetailsForACustomer(@Body User_debt_details user_debt_details, @Query("user_id") Long user_id);
 
     @DELETE("/deleteAdebtDetails")
     Call<ResponseBody> deleteADebtDetails(

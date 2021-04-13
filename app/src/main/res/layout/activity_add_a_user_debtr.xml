@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".myShopRelated.debt.AddAUserDebt">
+    tools:context=".myShopManagement.userDebts.debt.AddAUserDebt">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topbar1"
@@ -24,10 +24,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/a_user_debt"
+            android:text="Add An User "
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/white"/>
+
     </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout

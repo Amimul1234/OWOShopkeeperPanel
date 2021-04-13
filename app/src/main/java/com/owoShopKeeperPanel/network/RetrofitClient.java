@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.ApiAndClient;
+package com.owoShopKeeperPanel.network;
 
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import retrofit2.Retrofit;

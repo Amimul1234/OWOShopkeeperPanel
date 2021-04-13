@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".myShopRelated.debt.UserDebtDetails">
+    tools:context=".myShopManagement.userDebts.debt.DebtDetailsDashBoard">
 
     <RelativeLayout
         android:id="@+id/top_relative_layout"
@@ -91,7 +91,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center|top"
-                    android:text="@string/_10_000"
+                    android:text="@string/total_loan"
                     android:textColor="@color/red"
                     android:textStyle="bold"
                     android:textSize="22sp" />
@@ -101,7 +101,7 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="@string/_8_000"
+                    android:text="@string/total_paid"
                     android:textSize="22sp"
                     android:textStyle="bold"
                     android:textColor="@color/green"
