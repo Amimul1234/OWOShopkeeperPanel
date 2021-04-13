@@ -198,5 +198,14 @@
     <string name="enter_amount">Enter amount</string>
     <string name="date_dd_mm_yyyy">Date(DD:MM:YYYY)</string>
     <string name="date_choose">Date Choose</string>
+    <string name="user_debts_details">User Debts Details</string>
+    <string name="user_mobile_number">User Mobile Number</string>
+    <string name="_500">$500</string>
+    <string name="clear_all_records">Clear All Records</string>
+    <string name="download_invoice">Download Invoice</string>
+    <string name="enter_paid_amount">Enter Paid Amount</string>
+    <string name="add_paid_amount">Add Paid Amount</string>
+    <string name="total_loan_heading">Total Loan:</string>
+    <string name="total_paid_heading">Total paid:</string>
 
 </resources>

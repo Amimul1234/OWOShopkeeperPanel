@@ -192,4 +192,9 @@ public interface Api {
 
     @GET("/getAllSubCategories")
     Call<List<SubCategoryEntity>> getAllSubCategories(@Query("categoryId") Long categoryId);
+
+    @POST("/addPaidAmountForAnUser")
+    Call<ResponseBody> addPaidAmountForAnUser(@Query("userId") Long userId, @Query("paidAmount") Double userPaidAmount);
+
+
 }

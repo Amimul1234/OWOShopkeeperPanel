@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User Debts Details"
+            android:text="@string/user_debts_details"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/white"/>
@@ -34,14 +35,14 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card1"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="180dp"
         android:layout_below="@+id/topbar1"
         app:cardUseCompatPadding="true">
 
         <RelativeLayout
             android:id="@+id/relative1"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             >
 
             <ImageView
@@ -55,7 +56,7 @@
                 android:id="@+id/debt_taker_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User Name"
+                android:text="@string/user_name"
                 android:layout_toEndOf="@+id/letter_image_view"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -68,7 +69,7 @@
                 android:id="@+id/debt_taker_mobile_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User Mobile Number"
+                android:text="@string/user_mobile_number"
                 android:layout_below="@+id/debt_taker_name"
                 android:layout_toEndOf="@+id/letter_image_view"
                 android:layout_marginStart="8dp"
@@ -76,24 +77,77 @@
                 android:textSize="15sp"
                 android:maxLines="1"/>
 
-            <TextView
-                android:id="@+id/debt_taker_total_amount"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/loan_relative_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="$500"
-                android:textColor="@color/red"
-                android:layout_below="@+id/debt_taker_mobile_number"
                 android:layout_toEndOf="@+id/letter_image_view"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="6dp"
-                android:textSize="15sp"
-                android:maxLines="1"/>
+                android:layout_below="@+id/debt_taker_mobile_number">
+
+                <TextView
+                    android:id="@+id/loan_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/total_loan_heading"
+                    android:textColor="@color/red"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/debt_taker_total_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/loan_heading"
+                    android:text="@string/_500"
+                    android:textColor="@color/red"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="6dp"
+                    android:textSize="15sp"
+                    android:maxLines="1"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+
+                android:id="@+id/paid_relative_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/letter_image_view"
+                android:layout_below="@+id/loan_relative_layout">
+
+                <TextView
+                    android:id="@+id/paid_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="6dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/green"
+                    android:text="@string/total_paid_heading"/>
+
+                <TextView
+                    android:id="@+id/paid_total_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/paid_heading"
+                    android:text="@string/_500"
+                    android:textColor="@color/green"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="6dp"
+                    android:textSize="15sp"
+                    android:maxLines="1"/>
+
+            </RelativeLayout>
+
 
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/debtButtonBar"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
             android:layout_gravity="bottom"
             >
 
@@ -103,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:background="@drawable/buttons_red"
-                android:text="Clear All Records"
+                android:text="@string/clear_all_records"
                 android:textColor="@color/white"
                 android:padding="5dp"
                 android:layout_marginStart="10dp"/>
@@ -115,22 +169,54 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/buttons_blue"
-                android:text="Download Invoice"
+                android:text="@string/download_invoice"
                 android:textColor="@color/white"
                 android:padding="5dp"
                 android:layout_marginEnd="10dp"/>
 
         </RelativeLayout>
 
-
     </androidx.cardview.widget.CardView>
 
+    <RelativeLayout
+        android:id="@+id/add_paid_layout"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_below="@+id/card1">
+
+        <EditText
+            android:id="@+id/paid_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:inputType="numberDecimal"
+            android:background="@drawable/edit_text_black"
+            android:hint="@string/enter_paid_amount"/>
+
+
+        <Button
+            android:id="@+id/add_paid_amount_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/paid_edit_text"
+            android:background="@drawable/buttons_blue"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/add_paid_amount"
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/debt_details_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/card1"
+        android:layout_below="@+id/add_paid_layout"
         android:layout_margin="5dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -142,20 +228,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:src="@drawable/ic_baseline_add_24"
-        android:tint="@color/white"/>
-
-    <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
-        android:id="@+id/loader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:alliance_animDuration="500"
-        android:visibility="invisible"
-        app:alliance_distanceMultiplier="4"
-        app:alliance_dotsRadius="20dp"
-        app:alliance_firstDotsColor="@color/red"
-        app:alliance_secondDotsColor="@color/green"
-        app:alliance_strokeWidth="8dp"
-        app:alliance_thirdDotsColor="@color/blue"
-        android:layout_centerInParent="true"/>
+        android:tint="@color/white"
+        android:contentDescription="@string/add_a_debt_record" />
 
 </RelativeLayout>

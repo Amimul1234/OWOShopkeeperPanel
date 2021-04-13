@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.owoShopKeeperPanel.network.RetrofitClient;
 import com.owoShopKeeperPanel.Model.UserDebts;
@@ -37,8 +38,10 @@ public class AddAUserDebt extends AppCompatActivity {
         progressDialog.setMessage("Please wait while we are adding user record");
         progressDialog.setCancelable(false);
 
-
+        ImageView imageView = findViewById(R.id.back_to_home);
         Button addDebtRecord = findViewById(R.id.addDebtRecord);
+
+        imageView.setOnClickListener(v -> onBackPressed());
         addDebtRecord.setOnClickListener(v -> check());
     }
 

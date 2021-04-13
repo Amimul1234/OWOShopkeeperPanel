@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.adapters;
+package com.owoShopKeeperPanel.myShopManagement.userDebts.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -90,54 +90,45 @@ public class UserDebtRecordForASingleUserAdapter extends RecyclerView.Adapter<Us
 
             itemView.setOnLongClickListener(v -> {
 
-                CharSequence[] options = new CharSequence[]{"Edit debt report", "Delete debt report"};
+                CharSequence[] options = new CharSequence[]{"Delete debt report"};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(mCtx);
 
                 builder.setTitle("Select Option");
 
                 builder.setItems(options, (dialog, which) -> {
-                    switch (which) {
-                        case 0:
-                        {
-                            break;
-                        }
+                    if(which == 0)
+                    {
+                        long record_id = user_debt_detailsList.get(getBindingAdapterPosition()).getId();
+                        User_debt_details user_debt_details = user_debt_detailsList.get(getBindingAdapterPosition());
 
-                        case 1:
-                        {
-                            long record_id = user_debt_detailsList.get(getBindingAdapterPosition()).getId();
-                            User_debt_details user_debt_details = user_debt_detailsList.get(getBindingAdapterPosition());
-
-                            RetrofitClient.getInstance().getApi()
-                                    .deleteADebtDetails(record_id, user_id)
-                                    .enqueue(new Callback<ResponseBody>() {
-                                        @Override
-                                        public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
-                                            if(response.code() == 404)
-                                            {
-                                                Toast.makeText(mCtx, "Record not found", Toast.LENGTH_SHORT).show();
-                                            }
-                                            else if(response.code() == 200)
-                                            {
-                                                user_debt_detailsList.remove(user_debt_details);
-                                                notifyDataSetChanged();
-                                                DebtDetailsForACustomer debtDetailsForACustomer = (DebtDetailsForACustomer) mCtx;
-                                                debtDetailsForACustomer.loadData(user_id);
-                                            }
-                                            else
-                                            {
-                                                Toast.makeText(mCtx, "Error deleting record", Toast.LENGTH_SHORT).show();
-                                            }
+                        RetrofitClient.getInstance().getApi()
+                                .deleteADebtDetails(record_id, user_id)
+                                .enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                                        if(response.code() == 404)
+                                        {
+                                            Toast.makeText(mCtx, "Record not found", Toast.LENGTH_SHORT).show();
                                         }
-
-                                        @Override
-                                        public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-                                            Toast.makeText(mCtx, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                        else if(response.code() == 200)
+                                        {
+                                            user_debt_detailsList.remove(user_debt_details);
+                                            notifyDataSetChanged();
+                                            DebtDetailsForACustomer debtDetailsForACustomer = (DebtDetailsForACustomer) mCtx;
+                                            debtDetailsForACustomer.loadData(user_id);
                                         }
-                                    });
+                                        else
+                                        {
+                                            Toast.makeText(mCtx, "Error deleting record", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
 
-                            break;
-                        }
+                                    @Override
+                                    public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                                        Toast.makeText(mCtx, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                     }
                 });
 

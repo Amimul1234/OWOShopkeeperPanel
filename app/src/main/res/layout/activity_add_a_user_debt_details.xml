@@ -114,6 +114,7 @@
             android:textSize="18sp"
             android:layout_below="@+id/date_picker"
             android:text="@string/add_debt_record" />
+
     </RelativeLayout>
 
 </RelativeLayout>
