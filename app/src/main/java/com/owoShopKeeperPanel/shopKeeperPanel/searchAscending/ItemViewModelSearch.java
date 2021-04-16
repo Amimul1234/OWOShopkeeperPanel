@@ -1,22 +1,23 @@
-package com.owoShopKeeperPanel.pagination.search;
+package com.owoShopKeeperPanel.shopKeeperPanel.searchAscending;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PageKeyedDataSource;
 import androidx.paging.PagedList;
-
 import com.owoShopKeeperPanel.Model.OwoProduct;
+import java.util.List;
+import java.util.Objects;
 
 
 public class ItemViewModelSearch extends ViewModel {
 
     public LiveData<PagedList<OwoProduct>> itemPagedList;
-    private LiveData<PageKeyedDataSource<Integer, OwoProduct>> liveDataSource;
+    private final LiveData<PageKeyedDataSource<Integer, OwoProduct>> liveDataSource;
 
-    public ItemViewModelSearch(String[] categories, String searchedProduct) {
+    public ItemViewModelSearch(List<String> subCategories, String searchedProduct) {
 
-        ItemDataSourceFactoryForSearch itemDataSourceFactoryForSearch = new ItemDataSourceFactoryForSearch(categories, searchedProduct);
+        ItemDataSourceFactoryForSearch itemDataSourceFactoryForSearch = new ItemDataSourceFactoryForSearch(subCategories, searchedProduct);
         liveDataSource = itemDataSourceFactoryForSearch.getItemLiveDataSource();
 
         PagedList.Config config =
@@ -30,7 +31,7 @@ public class ItemViewModelSearch extends ViewModel {
     }
 
     public void clear(){
-        liveDataSource.getValue().invalidate();
+        Objects.requireNonNull(liveDataSource.getValue()).invalidate();
     }
 
 }

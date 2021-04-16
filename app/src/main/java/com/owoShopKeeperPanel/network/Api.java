@@ -71,21 +71,6 @@ public interface Api {
     @GET("/getSpecificCategoryData")
     Call<List<CategoryEntity>> getSpecificCategoryData(@Query("categoryIds") List<Long> categoryIds);
 
-
-    @GET("/searchProduct")
-    Call<List<OwoProduct>> searchProduct(
-            @Query("page") int page,
-            @Query("product_categories") String[] product_categories,
-            @Query("product_name") String product_name
-    );
-
-    @GET("/searchProductDesc")
-    Call<List<OwoProduct>> searchProductDesc(
-            @Query("page") int page,
-            @Query("product_categories") String[] product_categories,
-            @Query("product_name") String product_name
-    );
-
     @GET("/getProductById")
     Call<OwoProduct> getProductById(@Query("productId") Long productId);
 
@@ -196,5 +181,23 @@ public interface Api {
     @POST("/addPaidAmountForAnUser")
     Call<ResponseBody> addPaidAmountForAnUser(@Query("userId") Long userId, @Query("paidAmount") Double userPaidAmount);
 
+
+    //Searching and filtering
+    @GET("/getAllSubCategoriesForCategory")
+    Call<List<String>> getAllSubCategoriesForCategory(@Query("categoryId") Long categoryId);
+
+    @GET("/searchProduct")
+    Call<List<OwoProduct>> searchProduct(
+            @Query("page") int page,
+            @Query("subCategories") List<String> subCategories,
+            @Query("product_name") String product_name
+    );
+
+    @GET("/searchProductDesc")
+    Call<List<OwoProduct>> searchProductDesc(
+            @Query("page") int page,
+            @Query("subCategories") List<String> subCategories,
+            @Query("product_name") String product_name
+    );
 
 }

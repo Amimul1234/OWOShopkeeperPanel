@@ -14,11 +14,11 @@ import retrofit2.Response;
 public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, OwoProduct> {
 
     private static final int FIRST_PAGE = 0;
-    private final String[] brands;
+    private final List<String> subCategories;
     private final String searchedProduct;
 
-    public ItemDataSourceForSearchDesc(String[] brands, String searchedProduct) {
-        this.brands = brands;
+    public ItemDataSourceForSearchDesc(List<String> subCategories, String searchedProduct) {
+        this.subCategories = subCategories;
         this.searchedProduct = searchedProduct;
     }
 
@@ -27,13 +27,14 @@ public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, Ow
 
         RetrofitClient.getInstance()//Calling the getProductApi
                 .getApi()
-                .searchProductDesc(FIRST_PAGE, brands, searchedProduct)
+                .searchProductDesc(FIRST_PAGE, subCategories, searchedProduct)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
                         if(response.code() == 200)
                         {
-                            callback.onResult((List<OwoProduct>) response.body(), null, FIRST_PAGE+1);
+                            assert response.body() != null;
+                            callback.onResult(response.body(), null, FIRST_PAGE+1);
                         }
                         else
                         {
@@ -54,14 +55,15 @@ public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, Ow
 
         RetrofitClient.getInstance()
                 .getApi()
-                .searchProductDesc(params.key, brands, searchedProduct)
+                .searchProductDesc(params.key, subCategories, searchedProduct)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
                         if(response.code() == 200)
                         {
                             Integer key = (params.key > 0) ? params.key - 1 : null;
-                            callback.onResult((List<OwoProduct>) response.body(), key);
+                            assert response.body() != null;
+                            callback.onResult(response.body(), key);
                         }
                         else
                         {
@@ -82,19 +84,20 @@ public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, Ow
 
         RetrofitClient.getInstance()
                 .getApi()
-                .searchProductDesc(params.key, brands, searchedProduct)
+                .searchProductDesc(params.key, subCategories, searchedProduct)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
                         if(response.code() == 200)
                         {
+                            assert response.body() != null;
                             if(params.key < 12)
                             {
-                                callback.onResult((List<OwoProduct>) response.body(), params.key+1);
+                                callback.onResult(response.body(), params.key+1);
                             }
                             else
                             {
-                                callback.onResult((List<OwoProduct>) response.body(), null);
+                                callback.onResult(response.body(), null);
                             }
                         }
                         else

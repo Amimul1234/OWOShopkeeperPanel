@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.pagination.search;
+package com.owoShopKeeperPanel.shopKeeperPanel.searchAscending;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -14,11 +14,11 @@ import retrofit2.Response;
 public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, OwoProduct> {
 
     private static final int FIRST_PAGE = 0;
-    private String[] categories;
+    private List<String> subCategories;
     private String searchedProduct;
 
-    public ItemDataSourceForSearch(String[] categories, String searchedProduct) {
-        this.categories = categories;
+    public ItemDataSourceForSearch(List<String> subCategories, String searchedProduct) {
+        this.subCategories = subCategories;
         this.searchedProduct = searchedProduct;
     }
 
@@ -27,7 +27,7 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, OwoPro
 
         RetrofitClient.getInstance()//Calling the getProductApi
                 .getApi()
-                .searchProduct(FIRST_PAGE, categories, searchedProduct)
+                .searchProduct(FIRST_PAGE, subCategories, searchedProduct)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
@@ -55,7 +55,7 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, OwoPro
 
         RetrofitClient.getInstance()
                 .getApi()
-                .searchProduct(params.key, categories, searchedProduct)
+                .searchProduct(params.key, subCategories, searchedProduct)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
@@ -83,7 +83,7 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, OwoPro
 
         RetrofitClient.getInstance()
                 .getApi()
-                .searchProduct(params.key, categories, searchedProduct)
+                .searchProduct(params.key, subCategories, searchedProduct)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
@@ -91,11 +91,11 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, OwoPro
                         {
                             if(params.key < 12)
                             {
-                                callback.onResult((List<OwoProduct>) response.body(), params.key+1);
+                                callback.onResult(response.body(), params.key+1);
                             }
                             else
                             {
-                                callback.onResult((List<OwoProduct>) response.body(), null);
+                                callback.onResult(response.body(), null);
                             }
                         }
                         else

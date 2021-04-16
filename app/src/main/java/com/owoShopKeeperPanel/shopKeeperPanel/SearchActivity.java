@@ -7,236 +7,263 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
-import com.owoShopKeeperPanel.homeComponents.HomeActivity;
-import com.owoShopKeeperPanel.prevalent.Prevalent;
-import com.owoShopKeeperPanel.R;
+import android.widget.Toast;
 import com.owoShopKeeperPanel.adapters.Product_tag;
 import com.owoShopKeeperPanel.adapters.SearchedAdapter;
-import com.owoShopKeeperPanel.pagination.search.ItemViewModelSearch;
+import com.owoShopKeeperPanel.homeComponents.HomeActivity;
+import com.owoShopKeeperPanel.network.RetrofitClient;
 import com.owoShopKeeperPanel.pagination.searchDesc.ItemViewModelSearchDesc;
+import com.owoShopKeeperPanel.prevalent.Prevalent;
+import com.owoShopKeeperPanel.R;
+import com.owoShopKeeperPanel.shopKeeperPanel.searchAscending.ItemViewModelSearch;
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private SearchView search_product;
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private SearchedAdapter adapter;
+      private RecyclerView recyclerView;
+      private SwipeRefreshLayout swipeRefreshLayout;
+      private SearchedAdapter adapter;
 
-    private int search_state = 0;
-    private String search_alphabet = "A";
+      private ProgressDialog progressDialog;
 
-    private ItemViewModelSearch itemViewModelSearch;
-    private ItemViewModelSearchDesc itemViewModelSearchDesc;
+      private ItemViewModelSearch itemViewModelSearch;
+      private ItemViewModelSearchDesc itemViewModelSearchDesc;
 
-    private final boolean[] checkedItems = new boolean[Prevalent.category_to_display.size()];
-    String[] categories = new String[Prevalent.category_to_display.size()];
-    List<String> filtered_categories = new ArrayList<>();
-
-    String query = "";
+      private int searchState = 0;
+//
+//    private int search_state = 0;
+//    private String search_alphabet = "A";
+//
+//    String[] categories = new String[Prevalent.category_to_display.size()];
+//    List<String> filtered_categories = new ArrayList<>();
+//
+    private String searchQuery = "";
+    private final List<String> subCategories = new ArrayList<>();
+    private final List<String> filteredSubCategories = new ArrayList<>();
+    private boolean[] checkedItems;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        search_product = findViewById(R.id.search_product);
-        search_product.setIconifiedByDefault(false);
-        search_product.requestFocus();
+        SearchView searchProduct = findViewById(R.id.search_product);
+        searchProduct.setIconifiedByDefault(false);
+        searchProduct.requestFocus();
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.blue);
         recyclerView = findViewById(R.id.searched_items);
+
+        adapter = new SearchedAdapter(this);
+        progressDialog = new ProgressDialog(this);
+
         Button filter_product = findViewById(R.id.filter_product);
         Button sort_product = findViewById(R.id.sort_product);
 
-        adapter = new SearchedAdapter(this);
+        getAllSubCategories();
 
-        getItem(query, categories);
-
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            if(search_state == 0)
+        swipeRefreshLayout.setOnRefreshListener(() ->
+        {
+            if(searchState == 0)
                 itemViewModelSearch.clear();
-            else
+            else if(searchState == 1)
                 itemViewModelSearchDesc.clear();
 
             adapter.notifyDataSetChanged();
         });
 
-        filter_product.setOnClickListener(v -> {
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
-            builder.setTitle("Choose Categories");
-            builder.setIcon(R.drawable.filter);
-
-            builder.setMultiChoiceItems(categories, checkedItems, (dialog, which, isChecked) -> {
-
-                String value = categories[which];
-
-                if(!isChecked)
-                {
-                    filtered_categories.remove(value);
-                }
-                else
-                {
-                    filtered_categories.add(value);
-                }
-            });
-
-            builder.setPositiveButton("OK", (dialog, which) -> {
-
-                int p = filtered_categories.size();
-
-                String[] cate = new String[p];
-
-                for(int j=0; j<p; j++)
-                    cate[j] = filtered_categories.get(j);
-
-                getItem(query, cate);
-            });
-
-            builder.setNegativeButton("Cancel", null);
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        });
-
-        sort_product.setOnClickListener(v ->
+        searchProduct.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener()
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
-            builder.setTitle("Sort Product");
-            builder.setIcon(R.drawable.sort);
-
-            String[] categories = {"Price Low to High", "Price High to Low", "Alphabetic Order"};
-
-            builder.setSingleChoiceItems(categories, search_state, (dialog, which) ->
-                    search_state = which);
-
-            builder.setPositiveButton("OK", (dialog, which) ->
-            {
-                if(search_state == 0 || search_state == 1)
-                {
-                    if(filtered_categories.isEmpty())
-                    {
-                        int p = Prevalent.category_to_display.size();
-                        String[] searching_on = new String[p];
-                        getItem(query, searching_on);
-                    }
-
-                    else
-                    {
-                        int p = filtered_categories.size();
-                        String[] searching_on = new String[p];
-                        for(int i=0; i<p; i++)
-                            searching_on[i] = filtered_categories.get(i);
-                        getItem(query, searching_on);
-                    }
-                }
-
-                else if(search_state == 2)
-                {
-                    AlertDialog.Builder alphabeticSortBuilder = new AlertDialog.Builder(SearchActivity.this);
-                    alphabeticSortBuilder.setTitle("Sort Product in Alphabetic Order");
-                    alphabeticSortBuilder.setIcon(R.drawable.sort);
-
-                    String[] alphabets = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-                        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-
-                    alphabeticSortBuilder.setSingleChoiceItems(alphabets, 0, (dialog1, which1) -> search_alphabet = alphabets[which1]);
-
-                    alphabeticSortBuilder.setPositiveButton("OK", ((dialog1, which1) -> {
-
-                    }));
-
-                    alphabeticSortBuilder.show();
-
-                }
-
-
-                dialog.dismiss();
-            });
-
-            builder.setNegativeButton("Cancel", null);
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        });
-
-        search_product.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String abcd) {
-                if(filtered_categories.isEmpty())
+            public boolean onQueryTextSubmit(String abcd)
+            {
+                if(filteredSubCategories.isEmpty())
                 {
-                    int p = Prevalent.category_to_display.size();
-
-                    String[] searching_on = new String[p];
-
-                    query = abcd;
-
-                    getItem(query, searching_on);
+                    searchQuery = abcd;
+                    getItem(subCategories);
                 }
-
                 else
                 {
-                    int p = filtered_categories.size();
-
-                    String[] searching_on = new String[p];
-
-                    for(int i=0; i<p; i++)
-                        searching_on[i] = filtered_categories.get(i);
-
-                    query = abcd;
-
-                    getItem(query, searching_on);
+                    searchQuery = abcd;
+                    getItem(filteredSubCategories);
                 }
 
                 return true;
             }
-
             @Override
-            public boolean onQueryTextChange(String newText) {
-                if (search_product.getQuery().length() == 0) {
-
-                    if(filtered_categories.isEmpty())
-                    {
-                        int p = Prevalent.category_to_display.size();
-
-                        String[] searching_on = new String[p];
-
-                        query = "";
-
-                        getItem(query, searching_on);
-                    }
-
-                    else
-                    {
-                        int p = filtered_categories.size();
-
-                        String[] searching_on = new String[p];
-
-                        for(int i=0; i<p; i++)
-                            searching_on[i] = filtered_categories.get(i);
-
-                        query = "";
-
-                        getItem(query, searching_on);
-                    }
-
+            public boolean onQueryTextChange(String newText)
+            {
+                if(filteredSubCategories.isEmpty())
+                {
+                    searchQuery = newText;
+                    getItem(subCategories);
                 }
-                return false;
+                else {
+                    searchQuery = newText;
+                    getItem(filteredSubCategories);
+                }
+
+                return true;
             }
         });
+
+        filter_product.setOnClickListener(v ->
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
+            builder.setTitle("Choose Sub-Categories");
+            builder.setIcon(R.drawable.filter);
+
+            int size = subCategories.size();
+
+            builder.setMultiChoiceItems(subCategories.toArray(new String[size]), checkedItems, (dialog, which, isChecked) -> {
+
+                String value = subCategories.get(which);
+
+                if(!isChecked)
+                {
+                    filteredSubCategories.remove(value);
+                }
+                else
+                {
+                    filteredSubCategories.add(value);
+                }
+            });
+
+            builder.setPositiveButton("OK", (dialog, which) -> getItem(filteredSubCategories));
+
+            builder.setNegativeButton("Cancel", null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+
+
+
     }
 
-    private void getItem(String query, String[] category)
-    {
-        if(search_state == 0)
-        {
+//        sort_product.setOnClickListener(v ->
+//        {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
+//            builder.setTitle("Sort Product");
+//            builder.setIcon(R.drawable.sort);
+//
+//            String[] categories = {"Price Low to High", "Price High to Low", "Alphabetic Order"};
+//
+//            builder.setSingleChoiceItems(categories, search_state, (dialog, which) ->
+//                    search_state = which);
+//
+//            builder.setPositiveButton("OK", (dialog, which) ->
+//            {
+//                if(search_state == 0 || search_state == 1)
+//                {
+//                    if(filtered_categories.isEmpty())
+//                    {
+//                        int p = Prevalent.category_to_display.size();
+//                        String[] searching_on = new String[p];
+//                        getItem(query, searching_on);
+//                    }
+//
+//                    else
+//                    {
+//                        int p = filtered_categories.size();
+//                        String[] searching_on = new String[p];
+//                        for(int i=0; i<p; i++)
+//                            searching_on[i] = filtered_categories.get(i);
+//                        getItem(query, searching_on);
+//                    }
+//                }
+//
+//                else if(search_state == 2)
+//                {
+//                    AlertDialog.Builder alphabeticSortBuilder = new AlertDialog.Builder(SearchActivity.this);
+//                    alphabeticSortBuilder.setTitle("Sort Product in Alphabetic Order");
+//                    alphabeticSortBuilder.setIcon(R.drawable.sort);
+//
+//                    String[] alphabets = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+//                        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+//
+//                    alphabeticSortBuilder.setSingleChoiceItems(alphabets, 0, (dialog1, which1) -> search_alphabet = alphabets[which1]);
+//
+//                    alphabeticSortBuilder.setPositiveButton("OK", ((dialog1, which1) -> {
+//
+//                    }));
+//
+//                    alphabeticSortBuilder.show();
+//
+//                }
+//
+//
+//                dialog.dismiss();
+//            });
+//
+//            builder.setNegativeButton("Cancel", null);
+//
+//            AlertDialog dialog = builder.create();
+//            dialog.show();
+//        });
+//
 
-            itemViewModelSearch = new ItemViewModelSearch(category, query);//Refreshing the model for new filtration
+
+    private void getAllSubCategories()
+    {
+        progressDialog.setTitle("Getting Subcategories");
+        progressDialog.setMessage("Please wait while we are getting sub categories");
+        progressDialog.show();
+
+        RetrofitClient.getInstance().getApi()
+                .getAllSubCategoriesForCategory(Prevalent.category_to_display.get(0))
+                .enqueue(new Callback<List<String>>() {
+                    @Override
+                    public void onResponse(@NotNull Call<List<String>> call, @NotNull Response<List<String>> response) {
+                        if(response.isSuccessful())
+                        {
+                            progressDialog.dismiss();
+                            assert response.body() != null;
+                            subCategories.addAll(response.body());
+
+                            checkedItems = new boolean[subCategories.size()];
+
+                            getItem(subCategories);
+                        }
+                        else
+                        {
+                            Toast.makeText(SearchActivity.this, "Can not get sub-category data, please try again",
+                                    Toast.LENGTH_SHORT).show();
+
+                            progressDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<List<String>> call, @NotNull Throwable t) {
+                        Log.e("SearchActivity", t.getMessage());
+
+                        Toast.makeText(SearchActivity.this, "Can not get sub-category data, please try again",
+                                Toast.LENGTH_SHORT).show();
+
+                        progressDialog.dismiss();
+                    }
+                });
+    }
+
+
+
+    private void getItem(List<String> subCategories)
+    {
+        if(searchState == 0)
+        {
+            itemViewModelSearch = new ItemViewModelSearch(subCategories, searchQuery);//Refreshing the model for new filtration
 
             itemViewModelSearch.itemPagedList.observe(this, items ->
             {
@@ -244,9 +271,9 @@ public class SearchActivity extends AppCompatActivity {
                 showOnRecyclerView();
             });
         }
-        else
+        else if(searchState == 1)
         {
-            itemViewModelSearchDesc = new ItemViewModelSearchDesc(category, query);
+            itemViewModelSearchDesc = new ItemViewModelSearchDesc(subCategories, searchQuery);
 
             itemViewModelSearchDesc.itemPagedList.observe(this, items ->
             {
@@ -254,6 +281,8 @@ public class SearchActivity extends AppCompatActivity {
                 showOnRecyclerView();
             });
         }
+
+        //Here need to add logic for alphabetic sorting
     }
 
 
@@ -261,9 +290,8 @@ public class SearchActivity extends AppCompatActivity {
 
         recyclerView.setHasFixedSize(true);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup()
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup()
         {
             @Override
             public int getSpanSize(int position) {
@@ -276,7 +304,9 @@ public class SearchActivity extends AppCompatActivity {
                     return 1;
             }
         });
-        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setLayoutManager(gridLayoutManager);
+
         Product_tag product_tag = new Product_tag(getApplicationContext());
         ConcatAdapter concatAdapter = new ConcatAdapter(product_tag, adapter);
         recyclerView.setAdapter(concatAdapter);

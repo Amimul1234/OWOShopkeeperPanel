@@ -8,15 +8,18 @@ import androidx.paging.PagedList;
 
 import com.owoShopKeeperPanel.Model.OwoProduct;
 
+import java.util.List;
+import java.util.Objects;
+
 
 public class ItemViewModelSearchDesc extends ViewModel {
 
     public LiveData<PagedList<OwoProduct>> itemPagedList;
-    private LiveData<PageKeyedDataSource<Integer, OwoProduct>> liveDataSource;
+    private final LiveData<PageKeyedDataSource<Integer, OwoProduct>> liveDataSource;
 
-    public ItemViewModelSearchDesc(String[] categories, String searchedProduct) {
+    public ItemViewModelSearchDesc(List<String> subCategories, String searchedProduct) {
 
-        ItemDataSourceFactoryForSearchDesc itemDataSourceFactoryForSearchDesc = new ItemDataSourceFactoryForSearchDesc(categories, searchedProduct);
+        ItemDataSourceFactoryForSearchDesc itemDataSourceFactoryForSearchDesc = new ItemDataSourceFactoryForSearchDesc(subCategories, searchedProduct);
         liveDataSource = itemDataSourceFactoryForSearchDesc.getItemLiveDataSource();
 
         PagedList.Config config =
@@ -30,7 +33,7 @@ public class ItemViewModelSearchDesc extends ViewModel {
     }
 
     public void clear(){
-        liveDataSource.getValue().invalidate();
+        Objects.requireNonNull(liveDataSource.getValue()).invalidate();
     }
 
 }

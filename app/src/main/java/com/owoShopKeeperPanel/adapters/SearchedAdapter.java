@@ -22,6 +22,8 @@ import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;
 
+import org.jetbrains.annotations.NotNull;
+
 public class SearchedAdapter extends PagedListAdapter<OwoProduct, RecyclerView.ViewHolder>{
 
     private final Context mCtx;
@@ -73,7 +75,7 @@ public class SearchedAdapter extends PagedListAdapter<OwoProduct, RecyclerView.V
 
     }
 
-    private static DiffUtil.ItemCallback<OwoProduct> DIFF_CALLBACK =
+    private static final DiffUtil.ItemCallback<OwoProduct> DIFF_CALLBACK =
             new DiffUtil.ItemCallback<OwoProduct>() {
                 @Override
                 public boolean areItemsTheSame(OwoProduct oldItem, OwoProduct newItem) {
@@ -81,7 +83,7 @@ public class SearchedAdapter extends PagedListAdapter<OwoProduct, RecyclerView.V
                 }
 
                 @Override
-                public boolean areContentsTheSame(OwoProduct oldItem, OwoProduct newItem) {
+                public boolean areContentsTheSame(OwoProduct oldItem, @NotNull OwoProduct newItem) {
                     return oldItem.equals(newItem);
                 }
             };
@@ -94,9 +96,9 @@ public class SearchedAdapter extends PagedListAdapter<OwoProduct, RecyclerView.V
         public ItemViewHolder(View itemView) {
             super(itemView);
 
-            imageView = (ImageView)itemView.findViewById(R.id.product_image);
-            txtProductName = (TextView)itemView.findViewById(R.id.product_name);
-            txtProductPrice = (TextView)itemView.findViewById(R.id.product_price);
+            imageView = itemView.findViewById(R.id.product_image);
+            txtProductName = itemView.findViewById(R.id.product_name);
+            txtProductPrice = itemView.findViewById(R.id.product_price);
             discounted_percent = itemView.findViewById(R.id.discount_percentage);
             txtProduct_discounted_price = itemView.findViewById(R.id.product_discounted_price);
 
@@ -114,6 +116,7 @@ public class SearchedAdapter extends PagedListAdapter<OwoProduct, RecyclerView.V
         @Override
         public void onClick(View v) {
             OwoProduct owoproduct = getItem(getBindingAdapterPosition());
+
             Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
             intent.putExtra("Products", owoproduct);
             mCtx.startActivity(intent);
