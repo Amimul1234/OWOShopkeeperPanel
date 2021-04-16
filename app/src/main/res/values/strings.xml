@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OWOShopkeeperPanel</string>
+    <string name="app_name">ShopKPR</string>
 
     <string name="maps_api_key">AIzaSyDX6YQ4dRErpb5muuAg0vtBHIK9o20iDns</string>
     <string name="title_activity_location_from_map">Map</string>
@@ -60,7 +60,7 @@
     <string name="create_shop">Create Shop</string>
     <string name="apply_voucher">Apply voucher</string>
     <string name="please_wait_for_approval">Please Wait For Approval</string>
-    <string name="regards_owo_team">Regards, OWO Team</string>
+    <string name="regards_owo_team">Regards, ShopKPR Team</string>
     <string name="shopping_cart">Shopping Cart</string>
     <string name="total">Total :</string>
     <string name="_00">৳00</string>
@@ -77,7 +77,7 @@
     <string name="delivery_location">Delivery Location</string>
     <string name="city_name">City name</string>
     <string name="confirm">Confirm</string>
-    <string name="owo_support">OWO support</string>
+    <string name="owo_support">ShopKPR support</string>
     <string name="please_enter_the_subject">Please enter the subject :</string>
     <string name="complain_details">Complain Details :</string>
     <string name="submit_complain">Submit Complain</string>
@@ -161,7 +161,7 @@
     <string name="product_price">Product Price</string>
     <string name="_0">0%</string>
     <string name="xxxxxxxxxxx">XXXXXXXXXXX</string>
-    <string name="owo_logo">Owo Logo</string>
+    <string name="owo_logo">ShopKPR Logo</string>
     <string name="see_pin">See Pin</string>
     <string name="category_image">Category Image</string>
     <string name="category_name">Category Name</string>
@@ -189,7 +189,6 @@
     <string name="load">Load</string>
     <string name="loan">Loan</string>
     <string name="paid">Paid</string>
-    <string name="my_shop">My Shop</string>
     <string name="address">Address:</string>
     <string name="_55_phase_2_adarsh_palm_retreat_bellandur_bengaluru">#55, Phase 2, Adarsh Palm Retreat, Bellandur, Bengaluru</string>
     <string name="shop_service_mobile">Service Mobile:</string>
@@ -207,5 +206,15 @@
     <string name="add_paid_amount">Add Paid Amount</string>
     <string name="total_loan_heading">Total Loan:</string>
     <string name="total_paid_heading">Total paid:</string>
+    <string name="my_shop">My Shop</string>
+    <string name="orders">Orders</string>
+    <string name="cart">Cart</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="owo_loan">e-loan Loan</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="profile_settings">Profile Settings</string>
+    <string name="change_language">Change Language</string>
+    <string name="logout">Logout</string>
+    <string name="e_loan">e-loan</string>
 
 </resources>

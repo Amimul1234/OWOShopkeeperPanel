@@ -75,12 +75,15 @@ public class CartActivity extends AppCompatActivity {
         back_from_cart.setOnClickListener(v -> finish());
 
 
-        place_order_button.setOnClickListener(v -> {
+        place_order_button.setOnClickListener(v ->
+        {
             Intent intent = new Intent(getApplicationContext(), ConfirmFinalOrderActivity.class);
+
             intent.putExtra("grand_total", String.valueOf(grand_total));
             intent.putExtra("CartListProducts", CartListProducts);
             intent.putExtra("grand_total_with_discount", String.valueOf(grand_total_with_discount));
             intent.putExtra("discount", String.valueOf(discount));
+
             startActivity(intent);
             finish();
         });
@@ -89,7 +92,9 @@ public class CartActivity extends AppCompatActivity {
     }
 
 
-    public void inflateDialogueForCoupon() {
+    public void inflateDialogueForCoupon()
+    {
+
         LayoutInflater layoutInflater = getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.get_coupon_code, null);
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();

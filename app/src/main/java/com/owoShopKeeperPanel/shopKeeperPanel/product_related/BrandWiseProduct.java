@@ -2,8 +2,6 @@ package com.owoShopKeeperPanel.shopKeeperPanel.product_related;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.lifecycle.Observer;
-import androidx.paging.PagedList;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import com.owoShopKeeperPanel.homeComponents.brandsComponent.entity.Brands;
-import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.adapters.ItemAdapterBrand;
 import com.owoShopKeeperPanel.adapters.Product_tag;

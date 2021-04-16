@@ -71,7 +71,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private SwipeRefreshLayout swipeRefreshLayout;
     private ItemViewModel itemViewModel;
     private BottomNavigationView bottomNavigationView;
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -79,7 +78,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        progressDialog = new ProgressDialog(this);
+        ProgressDialog progressDialog = new ProgressDialog(this);
 
         recyclerView = findViewById(R.id.recycler_view_for_products);
         AppCompatButton searchBar = findViewById(R.id.search_product);
@@ -154,8 +153,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         });
 
-        //offerFetching
-
         getOfferBanners();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item ->
@@ -188,7 +185,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.blue);
 
-        swipeRefreshLayout.setOnRefreshListener(() -> {
+        swipeRefreshLayout.setOnRefreshListener(() ->
+        {
             getOfferBanners();
             itemViewModel.clear();
             getProducts();
@@ -243,20 +241,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         itemViewModel.itemPagedList.observe(this, items -> {
             adapter.submitList(items);
-
-            /*
-            if(adapter.getCurrentList().isEmpty())
-            {
-                progressDialog.setTitle("Product");
-                progressDialog.setMessage("Please wait while we are getting product data");
-                progressDialog.show();
-            }
-            else{
-                progressDialog.dismiss();
-            }
-
-             */
-
             showOnRecyclerView();
         });
     }
@@ -428,10 +412,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public void setLocale(Locale languageToLoad)
     {
         Locale.setDefault(languageToLoad);
+
         Configuration config = new Configuration();
         config.locale = languageToLoad;
+
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
+
         finish();
         startActivity(getIntent());
     }

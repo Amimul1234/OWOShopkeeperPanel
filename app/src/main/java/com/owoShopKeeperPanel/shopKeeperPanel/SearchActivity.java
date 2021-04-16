@@ -20,7 +20,6 @@ import com.owoShopKeeperPanel.pagination.searchDesc.ItemViewModelSearchDesc;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class SearchActivity extends AppCompatActivity {
 
     private SearchView search_product;
@@ -83,7 +82,7 @@ public class SearchActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    filtered_categories.add(value);// Here we need to add value not while initializing
+                    filtered_categories.add(value);
                 }
             });
 

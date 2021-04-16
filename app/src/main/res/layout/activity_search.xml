@@ -39,8 +39,7 @@
             android:text="@string/filter"
             android:drawableStart="@drawable/filter"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:drawableTint="@color/black"/>
+            android:layout_marginEnd="10dp"/>
 
         <Button
             android:id="@+id/sort_product"
@@ -50,8 +49,7 @@
             android:text="@string/sort"
             android:drawableStart="@drawable/sort"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:drawableTint="@color/black"/>
+            android:layout_marginEnd="10dp"/>
     </LinearLayout>
 
     <View

@@ -7,57 +7,48 @@
         <item
             android:id="@+id/nav_shop"
             android:icon="@drawable/myshop"
-            android:title="My Shop"
-            android:iconTint="@android:color/white"
+            android:title="@string/my_shop"
             />
         <item
             android:id="@+id/nav_order"
             android:icon="@drawable/orders"
-            android:title="Orders"
-            android:iconTint="@android:color/white"
+            android:title="@string/orders"
             />
         <item
             android:id="@+id/nav_cart"
             android:icon="@drawable/nav_cart"
-            android:title="Cart"
-            android:iconTint="@android:color/white"
+            android:title="@string/cart"
             />
 
         <item
             android:id="@+id/nav_wishlist"
             android:icon="@drawable/wishlist"
-            android:title="Wishlist"
-            android:iconTint="@android:color/white"/>
+            android:title="@string/wishlist" />
 
         <item
             android:id="@+id/nav_owoLoan"
             android:icon="@drawable/owoloan"
-            android:title="Owo Loan"
-            android:iconTint="@android:color/white"/>
+            android:title="@string/e_loan"/>
 
 
         <item
             android:id="@+id/nav_contact"
             android:icon="@drawable/contactus"
-            android:title="Contact Us"
-            android:iconTint="@android:color/white"/>
+            android:title="@string/contact_us"/>
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/settings"
-            android:title="Profile Settings"
-            android:iconTint="@android:color/white"/>
+            android:title="@string/profile_settings"/>
 
         <item
             android:id="@+id/nav_change_language"
             android:icon="@drawable/ic_baseline_language_24"
-            android:title="Change Language"
-            android:iconTint="@android:color/white"/>
+            android:title="@string/change_language"/>
 
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
-            android:title="Logout"
-            android:iconTint="@android:color/white"/>
+            android:title="@string/logout"/>
 
     </group>
 </menu>
