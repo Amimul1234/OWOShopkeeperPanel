@@ -1,11 +1,9 @@
-package com.owoShopKeeperPanel.pagination.searchDesc;
+package com.owoShopKeeperPanel.shopKeeperPanel.searchDescending;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
 import androidx.paging.PageKeyedDataSource;
-
 import com.owoShopKeeperPanel.Model.OwoProduct;
-
 import java.util.List;
 
 

@@ -17,7 +17,7 @@ import com.owoShopKeeperPanel.adapters.Product_tag;
 import com.owoShopKeeperPanel.adapters.SearchedAdapter;
 import com.owoShopKeeperPanel.homeComponents.HomeActivity;
 import com.owoShopKeeperPanel.network.RetrofitClient;
-import com.owoShopKeeperPanel.pagination.searchDesc.ItemViewModelSearchDesc;
+import com.owoShopKeeperPanel.shopKeeperPanel.searchDescending.ItemViewModelSearchDesc;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.shopKeeperPanel.searchAscending.ItemViewModelSearch;
@@ -268,6 +268,10 @@ public class SearchActivity extends AppCompatActivity {
                 adapter.submitList(items);
                 showOnRecyclerView();
             });
+        }
+
+        else {
+
         }
 
         //Here need to add logic for alphabetic sorting

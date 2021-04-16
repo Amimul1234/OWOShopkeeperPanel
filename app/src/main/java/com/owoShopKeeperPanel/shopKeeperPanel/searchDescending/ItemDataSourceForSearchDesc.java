@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.pagination.searchDesc;
+package com.owoShopKeeperPanel.shopKeeperPanel.searchDescending;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
