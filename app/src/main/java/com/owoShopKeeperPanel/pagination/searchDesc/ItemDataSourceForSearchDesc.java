@@ -14,11 +14,11 @@ import retrofit2.Response;
 public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, OwoProduct> {
 
     private static final int FIRST_PAGE = 0;
-    private String[] categories;
-    private String searchedProduct;
+    private final String[] brands;
+    private final String searchedProduct;
 
-    public ItemDataSourceForSearchDesc(String[] categories, String searchedProduct) {
-        this.categories = categories;
+    public ItemDataSourceForSearchDesc(String[] brands, String searchedProduct) {
+        this.brands = brands;
         this.searchedProduct = searchedProduct;
     }
 
@@ -27,7 +27,7 @@ public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, Ow
 
         RetrofitClient.getInstance()//Calling the getProductApi
                 .getApi()
-                .searchProductDesc(FIRST_PAGE, categories, searchedProduct)
+                .searchProductDesc(FIRST_PAGE, brands, searchedProduct)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
@@ -54,7 +54,7 @@ public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, Ow
 
         RetrofitClient.getInstance()
                 .getApi()
-                .searchProductDesc(params.key, categories, searchedProduct)
+                .searchProductDesc(params.key, brands, searchedProduct)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
@@ -82,7 +82,7 @@ public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, Ow
 
         RetrofitClient.getInstance()
                 .getApi()
-                .searchProductDesc(params.key, categories, searchedProduct)
+                .searchProductDesc(params.key, brands, searchedProduct)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {

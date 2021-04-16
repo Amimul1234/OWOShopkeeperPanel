@@ -28,6 +28,7 @@ public class SearchActivity extends AppCompatActivity {
     private SearchedAdapter adapter;
 
     private int search_state = 0;
+    private String search_alphabet = "A";
 
     private ItemViewModelSearch itemViewModelSearch;
     private ItemViewModelSearchDesc itemViewModelSearchDesc;
@@ -103,37 +104,58 @@ public class SearchActivity extends AppCompatActivity {
             dialog.show();
         });
 
-        sort_product.setOnClickListener(v -> {
+        sort_product.setOnClickListener(v ->
+        {
             AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
             builder.setTitle("Sort Product");
             builder.setIcon(R.drawable.sort);
 
-            String[] categories = {"Price Low to High", "Price High to Low"};
+            String[] categories = {"Price Low to High", "Price High to Low", "Alphabetic Order"};
 
-            builder.setSingleChoiceItems(categories, search_state, (dialog, which) -> search_state = which);
+            builder.setSingleChoiceItems(categories, search_state, (dialog, which) ->
+                    search_state = which);
 
-            builder.setPositiveButton("OK", (dialog, which) -> {
-
-                if(filtered_categories.isEmpty())
+            builder.setPositiveButton("OK", (dialog, which) ->
+            {
+                if(search_state == 0 || search_state == 1)
                 {
-                    int p = Prevalent.category_to_display.size();
+                    if(filtered_categories.isEmpty())
+                    {
+                        int p = Prevalent.category_to_display.size();
+                        String[] searching_on = new String[p];
+                        getItem(query, searching_on);
+                    }
 
-                    String[] searching_on = new String[p];
-
-                    getItem(query, searching_on);
+                    else
+                    {
+                        int p = filtered_categories.size();
+                        String[] searching_on = new String[p];
+                        for(int i=0; i<p; i++)
+                            searching_on[i] = filtered_categories.get(i);
+                        getItem(query, searching_on);
+                    }
                 }
 
-                else
+                else if(search_state == 2)
                 {
-                    int p = filtered_categories.size();
+                    AlertDialog.Builder alphabeticSortBuilder = new AlertDialog.Builder(SearchActivity.this);
+                    alphabeticSortBuilder.setTitle("Sort Product in Alphabetic Order");
+                    alphabeticSortBuilder.setIcon(R.drawable.sort);
 
-                    String[] searching_on = new String[p];
+                    String[] alphabets = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+                        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
-                    for(int i=0; i<p; i++)
-                        searching_on[i] = filtered_categories.get(i);
+                    alphabeticSortBuilder.setSingleChoiceItems(alphabets, 0, (dialog1, which1) -> search_alphabet = alphabets[which1]);
 
-                    getItem(query, searching_on);
+                    alphabeticSortBuilder.setPositiveButton("OK", ((dialog1, which1) -> {
+
+                    }));
+
+                    alphabeticSortBuilder.show();
+
                 }
+
+
                 dialog.dismiss();
             });
 
@@ -209,24 +231,25 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    private void getItem(String query, String[] category) {
+    private void getItem(String query, String[] category)
+    {
         if(search_state == 0)
         {
 
             itemViewModelSearch = new ItemViewModelSearch(category, query);//Refreshing the model for new filtration
 
-            itemViewModelSearch.itemPagedList.observe(this, items -> {
+            itemViewModelSearch.itemPagedList.observe(this, items ->
+            {
                 adapter.submitList(items);
                 showOnRecyclerView();
             });
-
         }
-
         else
         {
             itemViewModelSearchDesc = new ItemViewModelSearchDesc(category, query);
 
-            itemViewModelSearchDesc.itemPagedList.observe(this, items -> {
+            itemViewModelSearchDesc.itemPagedList.observe(this, items ->
+            {
                 adapter.submitList(items);
                 showOnRecyclerView();
             });
