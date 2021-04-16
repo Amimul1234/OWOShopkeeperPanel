@@ -40,14 +40,16 @@ public class SearchActivity extends AppCompatActivity {
       private ItemViewModelSearchDesc itemViewModelSearchDesc;
 
       private int searchState = 0;
+      private String search_alphabet = "A";
+      private String searchQuery = "";
 //
 //    private int search_state = 0;
-//    private String search_alphabet = "A";
+//
 //
 //    String[] categories = new String[Prevalent.category_to_display.size()];
 //    List<String> filtered_categories = new ArrayList<>();
 //
-    private String searchQuery = "";
+
     private final List<String> subCategories = new ArrayList<>();
     private final List<String> filteredSubCategories = new ArrayList<>();
     private boolean[] checkedItems;
@@ -148,71 +150,57 @@ public class SearchActivity extends AppCompatActivity {
             dialog.show();
         });
 
+        sort_product.setOnClickListener(v ->
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
+            builder.setTitle("Sort Product");
+            builder.setIcon(R.drawable.sort);
+
+            String[] categories = {"Price Low to High", "Price High to Low", "Alphabetic Order"};
+
+            builder.setSingleChoiceItems(categories, searchState, (dialog, which) ->
+                    searchState = which);
+
+            builder.setPositiveButton("OK", (dialog, which) ->
+            {
+                if(searchState == 0 || searchState == 1)
+                {
+                    if(filteredSubCategories.isEmpty())
+                        getItem(subCategories);
+                    else
+                        getItem(filteredSubCategories);
+                }
+                else if(searchState == 2)
+                {
+                    AlertDialog.Builder alphabeticSortBuilder = new AlertDialog.Builder(SearchActivity.this);
+                    alphabeticSortBuilder.setTitle("Sort Product in Alphabetic Order");
+                    alphabeticSortBuilder.setIcon(R.drawable.sort);
+
+                    String[] alphabets = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+                        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+
+                    alphabeticSortBuilder.setSingleChoiceItems(alphabets, 0, (dialog1, which1) -> search_alphabet = alphabets[which1]);
+
+                    alphabeticSortBuilder.setPositiveButton("OK", ((dialog1, which1) -> {
+
+                    }));
+
+                    alphabeticSortBuilder.show();
+
+                }
+
+                dialog.dismiss();
+            });
+
+            builder.setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+
 
 
     }
-
-//        sort_product.setOnClickListener(v ->
-//        {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
-//            builder.setTitle("Sort Product");
-//            builder.setIcon(R.drawable.sort);
-//
-//            String[] categories = {"Price Low to High", "Price High to Low", "Alphabetic Order"};
-//
-//            builder.setSingleChoiceItems(categories, search_state, (dialog, which) ->
-//                    search_state = which);
-//
-//            builder.setPositiveButton("OK", (dialog, which) ->
-//            {
-//                if(search_state == 0 || search_state == 1)
-//                {
-//                    if(filtered_categories.isEmpty())
-//                    {
-//                        int p = Prevalent.category_to_display.size();
-//                        String[] searching_on = new String[p];
-//                        getItem(query, searching_on);
-//                    }
-//
-//                    else
-//                    {
-//                        int p = filtered_categories.size();
-//                        String[] searching_on = new String[p];
-//                        for(int i=0; i<p; i++)
-//                            searching_on[i] = filtered_categories.get(i);
-//                        getItem(query, searching_on);
-//                    }
-//                }
-//
-//                else if(search_state == 2)
-//                {
-//                    AlertDialog.Builder alphabeticSortBuilder = new AlertDialog.Builder(SearchActivity.this);
-//                    alphabeticSortBuilder.setTitle("Sort Product in Alphabetic Order");
-//                    alphabeticSortBuilder.setIcon(R.drawable.sort);
-//
-//                    String[] alphabets = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-//                        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-//
-//                    alphabeticSortBuilder.setSingleChoiceItems(alphabets, 0, (dialog1, which1) -> search_alphabet = alphabets[which1]);
-//
-//                    alphabeticSortBuilder.setPositiveButton("OK", ((dialog1, which1) -> {
-//
-//                    }));
-//
-//                    alphabeticSortBuilder.show();
-//
-//                }
-//
-//
-//                dialog.dismiss();
-//            });
-//
-//            builder.setNegativeButton("Cancel", null);
-//
-//            AlertDialog dialog = builder.create();
-//            dialog.show();
-//        });
-//
 
 
     private void getAllSubCategories()
