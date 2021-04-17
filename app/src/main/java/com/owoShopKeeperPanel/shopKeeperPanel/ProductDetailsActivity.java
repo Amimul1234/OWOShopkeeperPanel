@@ -21,7 +21,6 @@ import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,13 +32,10 @@ import retrofit2.Response;
 
 public class ProductDetailsActivity extends AppCompatActivity {
 
-    //private ImageView add_product_to_wishList;
     private ProgressDialog progressDialog;
     private OwoProduct owoproduct;
     private ElegantNumberButton numberButton;
     private TextView product_brand_name;
-
-    //int clickState = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +75,18 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         collapsingToolbarLayout.setTitle(owoproduct.getProductName());
         productDescription.setText(owoproduct.getProductDescription());
-        productPrice.setText(String.valueOf(owoproduct.getProductPrice()));
-        productDiscount.setText(String.valueOf(owoproduct.getProductDiscount()));
+
+        String productPriceText = "৳ "+ owoproduct.getProductPrice();
+        productPrice.setText(productPriceText);
+
+        String productDiscountText = "৳ " + owoproduct.getProductDiscount();
+        productDiscount.setText(productDiscountText);
+
         productQuantity.setText(String.valueOf(owoproduct.getProductQuantity()));
+
         double price_with_discount = owoproduct.getProductPrice() - owoproduct.getProductDiscount();
-        productPriceWithDiscount.setText(String.valueOf(price_with_discount));
+        String productDiscountString = "৳ " + price_with_discount;
+        productPriceWithDiscount.setText(productDiscountString);
 
         productImage.setOnClickListener(v -> {
             Intent intent = new Intent(ProductDetailsActivity.this, ZoomProductImage.class);
@@ -146,7 +149,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     }
 
-    private void getBrand() {
+    private void getBrand()
+    {
         RetrofitClient.getInstance().getApi()
                 .getBrandNameViaProductId(owoproduct.getProductId())
                 .enqueue(new Callback<ResponseBody>() {

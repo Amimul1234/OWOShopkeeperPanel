@@ -102,10 +102,10 @@
     <string name="my_products">My Products</string>
     <string name="my_orders">My Orders</string>
     <string name="trade_licence">Trade Licence:</string>
-    <string name="actual_price">Buying Price:</string>
-    <string name="price_with_discount">New Price: </string>
-    <string name="available_quantity">Available Quantity :</string>
-    <string name="quantity">Quantity:</string>
+    <string name="actual_price">Buying Price</string>
+    <string name="price_with_discount">New Price</string>
+    <string name="available">Available</string>
+    <string name="quantity">Quantity</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="new_account">Register New Account</string>
     <string name="confirm_pin">Confirm Pin</string>
@@ -216,5 +216,6 @@
     <string name="change_language">Change Language</string>
     <string name="logout">Logout</string>
     <string name="e_loan">e-loan</string>
+    <string name="specifications">Specifications</string>
 
 </resources>
