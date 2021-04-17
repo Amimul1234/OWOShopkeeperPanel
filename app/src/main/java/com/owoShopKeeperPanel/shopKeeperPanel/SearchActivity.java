@@ -258,6 +258,7 @@ public class SearchActivity extends AppCompatActivity {
                 adapter.submitList(items);
                 showOnRecyclerView();
             });
+
         }
         else if(searchState == 1)
         {
@@ -298,11 +299,11 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         recyclerView.setLayoutManager(gridLayoutManager);
-
         Product_tag product_tag = new Product_tag(getApplicationContext());
         ConcatAdapter concatAdapter = new ConcatAdapter(product_tag, adapter);
         recyclerView.setAdapter(concatAdapter);
         concatAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
     }
 

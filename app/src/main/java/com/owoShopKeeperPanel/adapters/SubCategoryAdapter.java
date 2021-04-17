@@ -48,7 +48,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return subCategoryEntityList.size();
     }
 
@@ -70,19 +71,18 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             imageView = itemView.findViewById(R.id.imageviewid);
             textView = itemView.findViewById(R.id.textviewid);
 
-            DisplayMetrics displaymetrics = new DisplayMetrics(); //Resizing things dynamically
+            DisplayMetrics displaymetrics = new DisplayMetrics();
             ((Activity) mCtx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
             int devicewidth = displaymetrics.widthPixels / 3;
-
-            int deviceheight = displaymetrics.heightPixels / 5;
+            int deviceheight =  displaymetrics.heightPixels / 5;
 
             itemView.getLayoutParams().width = devicewidth - 20;
             itemView.getLayoutParams().height = deviceheight - 10;
 
             itemView.setOnClickListener(v -> {
-                //Here we are gonna implement sub category wise product
                 int position = getBindingAdapterPosition();
+
                 Intent intent = new Intent(mCtx, SubCategoryWiseProduct.class);
                 intent.putExtra("sub_category", subCategoryEntityList.get(position));
                 mCtx.startActivity(intent);
