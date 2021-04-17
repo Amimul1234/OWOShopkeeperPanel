@@ -78,10 +78,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             int deviceheight = displaymetrics.heightPixels / 5;
 
             itemView.getLayoutParams().width = devicewidth - 20;
-            itemView.getLayoutParams().height = deviceheight;
-
-            imageView.getLayoutParams().width = devicewidth / 3; //setting category images dimensions
-            imageView.getLayoutParams().height = devicewidth / 3; //setting category images dimensions
+            itemView.getLayoutParams().height = deviceheight - 10;
 
             itemView.setOnClickListener(v -> {
                 //Here we are gonna implement sub category wise product

@@ -81,10 +81,7 @@ public class BrandsAdapter extends RecyclerView.Adapter<BrandsAdapter.ViewHolder
             int deviceheight = displaymetrics.heightPixels / 5;
 
             itemView.getLayoutParams().width = devicewidth - 20;
-            itemView.getLayoutParams().height = deviceheight;
-
-            imageView.getLayoutParams().width = devicewidth / 3; //setting category images dimensions
-            imageView.getLayoutParams().height = devicewidth / 3; //setting category images dimensions
+            itemView.getLayoutParams().height = deviceheight - 10;
 
             itemView.setOnClickListener(v -> {
                 int position = getBindingAdapterPosition();

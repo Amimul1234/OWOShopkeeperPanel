@@ -79,7 +79,7 @@ public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewH
             int deviceheight = displaymetrics.heightPixels / 5;
 
             itemView.getLayoutParams().width = devicewidth - 20;
-            itemView.getLayoutParams().height = deviceheight + 50;
+            itemView.getLayoutParams().height = deviceheight - 10;
 
             //imageView.getLayoutParams().width = devicewidth / 2; //setting category images dimensions
             imageView.getLayoutParams().height = devicewidth / 2; //setting category images dimensions
