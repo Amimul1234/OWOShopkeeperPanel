@@ -50,7 +50,8 @@ public class BrandsFragment extends Fragment {
 
         brandsAdapter.getItems(1);
 
-        button.setOnClickListener(v -> {
+        button.setOnClickListener(v ->
+        {
             if(counter < Prevalent.category_to_display.size())
             {
                 counter++;

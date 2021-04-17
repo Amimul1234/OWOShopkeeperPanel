@@ -1,4 +1,4 @@
-package com.owoShopKeeperPanel.homeComponents.homeProductPagination;
+package com.owoShopKeeperPanel.homeComponents.productComponents;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -31,6 +31,7 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, OwoProduct> {
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
                         if(response.code() == 200)
                         {
+                            assert response.body() != null;
                             callback.onResult(response.body(), null, FIRST_PAGE+1);
                         }else
                         {
