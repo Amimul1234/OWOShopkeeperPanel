@@ -17,6 +17,7 @@ import com.owoShopKeeperPanel.adapters.Product_tag;
 import com.owoShopKeeperPanel.adapters.SearchedAdapter;
 import com.owoShopKeeperPanel.homeComponents.HomeActivity;
 import com.owoShopKeeperPanel.network.RetrofitClient;
+import com.owoShopKeeperPanel.shopKeeperPanel.searchAlphabetically.ItemViewModelSearchAlphabetically;
 import com.owoShopKeeperPanel.shopKeeperPanel.searchDescending.ItemViewModelSearchDesc;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
@@ -38,6 +39,7 @@ public class SearchActivity extends AppCompatActivity {
 
       private ItemViewModelSearch itemViewModelSearch;
       private ItemViewModelSearchDesc itemViewModelSearchDesc;
+      private ItemViewModelSearchAlphabetically itemDataSourceForSearchAlphabetically;
 
       private int searchState = 0;
       private String search_alphabet = "A";
@@ -182,13 +184,14 @@ public class SearchActivity extends AppCompatActivity {
                     alphabeticSortBuilder.setSingleChoiceItems(alphabets, 0, (dialog1, which1) -> search_alphabet = alphabets[which1]);
 
                     alphabeticSortBuilder.setPositiveButton("OK", ((dialog1, which1) -> {
-
+                        if(filteredSubCategories.isEmpty())
+                            getItem(subCategories);
+                        else
+                            getItem(filteredSubCategories);
                     }));
 
                     alphabeticSortBuilder.show();
-
                 }
-
                 dialog.dismiss();
             });
 
@@ -273,9 +276,14 @@ public class SearchActivity extends AppCompatActivity {
 
         else {
 
-        }
+            itemDataSourceForSearchAlphabetically = new ItemViewModelSearchAlphabetically(subCategories, search_alphabet);
 
-        //Here need to add logic for alphabetic sorting
+            itemDataSourceForSearchAlphabetically.itemPagedList.observe(this, items ->
+            {
+                adapter.submitList(items);
+                showOnRecyclerView();
+            });
+        }
     }
 
 
@@ -303,7 +311,6 @@ public class SearchActivity extends AppCompatActivity {
         ConcatAdapter concatAdapter = new ConcatAdapter(product_tag, adapter);
         recyclerView.setAdapter(concatAdapter);
         concatAdapter.notifyDataSetChanged();
-        adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
     }
 

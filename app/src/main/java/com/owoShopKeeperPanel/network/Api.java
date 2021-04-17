@@ -200,4 +200,11 @@ public interface Api {
             @Query("product_name") String product_name
     );
 
+    @GET("/sortProductAlphabetically")
+    Call<List<OwoProduct>> sortProductAlphabetically(
+            @Query("page") int page,
+            @Query("subCategories") List<String> subCategories,
+            @Query("alphabet") String alphabet
+    );
+
 }
