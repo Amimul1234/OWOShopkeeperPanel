@@ -216,4 +216,7 @@ public interface Api {
 
     @GET("/getAllWishListProductsId")
     Call<List<Long>> getAllWishListProductsId(@Query("user_id") Long userId);
+
+    @GET("/getAllWishListProducts")
+    Call<List<OwoProduct>> wishListProducts(@Query("user_id") Long userId);
 }
