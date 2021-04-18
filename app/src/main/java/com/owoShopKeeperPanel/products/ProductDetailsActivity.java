@@ -115,6 +115,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
             addingToCartList();
         });
 
+        numberButton.setRange(1, owoproduct.getProductQuantity());
+
 //        add_product_to_wishList.setOnClickListener(v ->
 //        {
 //            if(clickState%2 == 0)
