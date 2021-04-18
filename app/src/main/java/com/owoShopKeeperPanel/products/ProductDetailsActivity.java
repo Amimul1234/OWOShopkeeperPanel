@@ -1,6 +1,7 @@
 package com.owoShopKeeperPanel.products;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
@@ -40,9 +41,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private OwoProduct owoproduct;
     private ElegantNumberButton numberButton;
     private TextView product_brand_name;
+    private ImageView addProductToWishList;
 
     private RecyclerView similarProducts;
     private SimilarProductsAdapter similarProductsAdapter;
+    private int clickState = 0;
 
     private List<OwoProduct> owoProductList;
 
@@ -51,24 +54,20 @@ public class ProductDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
 
-        numberButton = findViewById(R.id.quantity_number_btn);
-        similarProducts = findViewById(R.id.similarProducts);
-
         ImageView back_to_home = findViewById(R.id.back_to_home);
         ImageView productImage = findViewById(R.id.product_image_details);
-
-        TextView productPriceWithDiscount = findViewById(R.id.product_price_with_discount_details);
         TextView productPrice = findViewById(R.id.product_price_details);
         TextView productDiscount = findViewById(R.id.product_discount_details);
         TextView productQuantity = findViewById(R.id.product_quantity_details);
         TextView productDescription = findViewById(R.id.product_description_details);
-
+        TextView productPriceWithDiscount =findViewById(R.id.product_price_with_discount_details);
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.product_name_details);
-        //add_product_to_wishList = findViewById(R.id.add_to_wishList);
-        productPriceWithDiscount =findViewById(R.id.product_price_with_discount_details);
+        addProductToWishList = findViewById(R.id.add_to_wishList);
         Button addToCartBtn = findViewById(R.id.add_to_cart_button);
-        product_brand_name = findViewById(R.id.product_brand_name);
 
+        numberButton = findViewById(R.id.quantity_number_btn);
+        similarProducts = findViewById(R.id.similarProducts);
+        product_brand_name = findViewById(R.id.product_brand_name);
         progressDialog = new ProgressDialog(this);
 
         back_to_home.setOnClickListener(v -> {
@@ -80,6 +79,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         getBrand();
         getSimilarProducts(owoproduct.getProductSubCategoryId());
+        getWishListProducts(Prevalent.currentOnlineUser.getShopKeeperId());
 
         Glide.with(this).load(HostAddress.HOST_ADDRESS.getHostAddress()+owoproduct.getProductImage())
                 .diskCacheStrategy(DiskCacheStrategy.ALL).timeout(6000).into(productImage);
@@ -117,51 +117,145 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         numberButton.setRange(1, owoproduct.getProductQuantity());
 
-//        add_product_to_wishList.setOnClickListener(v ->
-//        {
-//            if(clickState%2 == 0)
-//            {
-//                allianceLoader.setVisibility(View.VISIBLE);
-//                add_product_to_wishList.setColorFilter(ContextCompat.getColor(ProductDetailsActivity.this, R.color.red), android.graphics.PorterDuff.Mode.SRC_IN);
-//                final DatabaseReference wishListRef = FirebaseDatabase.getInstance().getReference();
-//                wishListRef.child("Wish List").child(Prevalent.currentOnlineUser.getMobileNumber()).child(String.valueOf(owoproduct.getProductId())).setValue(owoproduct).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Toast.makeText(ProductDetailsActivity.this, "Added to wish list", Toast.LENGTH_SHORT).show();
-//                        allianceLoader.setVisibility(View.GONE);
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(ProductDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                        allianceLoader.setVisibility(View.GONE);
-//                    }
-//                });
-//
-//                clickState++;
-//            }
-//            else
-//            {
-//                allianceLoader.setVisibility(View.VISIBLE);
-//                add_product_to_wishList.setColorFilter(ContextCompat.getColor(ProductDetailsActivity.this, R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
-//                final DatabaseReference wishListRef = FirebaseDatabase.getInstance().getReference();
-//                wishListRef.child("Wish List").child(Prevalent.currentOnlineUser.getMobileNumber()).child(String.valueOf(owoproduct.getProductId())).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Toast.makeText(ProductDetailsActivity.this, "Removed from wish list", Toast.LENGTH_SHORT).show();
-//                        allianceLoader.setVisibility(View.GONE);
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(ProductDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                        allianceLoader.setVisibility(View.GONE);
-//                    }
-//                });
-//                clickState++;
-//            }
-//        });
+        addProductToWishList.setOnClickListener(v ->
+        {
+            if(clickState % 2 == 0)
+            {
+                progressDialog.setTitle("Add product to wish list");
+                progressDialog.setMessage("Please wait while we are adding product to wish list");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
 
+                addProductToWishList.setColorFilter(ContextCompat.getColor(
+                        ProductDetailsActivity.this, R.color.red), android.graphics.PorterDuff.Mode.SRC_IN);
+
+                addToWishList(owoproduct.getProductId());
+
+                clickState++;
+            }
+            else
+            {
+                progressDialog.setTitle("Add product to wish list");
+                progressDialog.setMessage("Please wait while we are removing product from wish list");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
+                addProductToWishList.setColorFilter(ContextCompat.getColor(
+                        ProductDetailsActivity.this, R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
+
+                removeProductFromWishList(owoproduct.getProductId());
+
+                clickState++;
+            }
+        });
+
+    }
+
+    private void getWishListProducts(Long shopKeeperId)
+    {
+        progressDialog.setTitle("Wish list");
+        progressDialog.setMessage("Please wait while we are fetching products from wish list");
+        progressDialog.show();
+
+        RetrofitClient.getInstance().getApi()
+                .getAllWishListProductsId(shopKeeperId)
+                .enqueue(new Callback<List<Long>>() {
+                    @Override
+                    public void onResponse(@NotNull Call<List<Long>> call, @NotNull Response<List<Long>> response) {
+                        if(response.isSuccessful())
+                        {
+                            progressDialog.dismiss();
+                            List<Long> productsIdList = response.body();
+
+                            assert productsIdList != null;
+                            for(Long productId : productsIdList)
+                            {
+                                if(productId.equals(owoproduct.getProductId()))
+                                {
+                                    addProductToWishList.setColorFilter(ContextCompat.getColor(
+                                            ProductDetailsActivity.this, R.color.red), android.graphics.PorterDuff.Mode.SRC_IN);
+
+                                    clickState = 1;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<List<Long>> call, @NotNull Throwable t)
+                    {
+                        progressDialog.dismiss();
+                        Log.e("WishList", t.getMessage());
+                        Toast.makeText(ProductDetailsActivity.this, "Error while getting wish list", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void removeProductFromWishList(Long productId)
+    {
+        RetrofitClient.getInstance().getApi()
+                .deleteWishListProduct(Prevalent.currentOnlineUser.getShopKeeperId(), productId)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                        if(response.isSuccessful())
+                        {
+                            progressDialog.dismiss();
+
+                            Toast.makeText(ProductDetailsActivity.this, "Product removed from wish list",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            progressDialog.dismiss();
+
+                            Toast.makeText(ProductDetailsActivity.this, "Can not remove product from wish list",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t)
+                    {
+                        progressDialog.dismiss();
+                        Log.e("WishList", t.getMessage());
+                        Toast.makeText(ProductDetailsActivity.this, "Can not remove product from wish list",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void addToWishList(Long productId)
+    {
+        RetrofitClient.getInstance().getApi()
+                .addProductToWishList(Prevalent.currentOnlineUser.getShopKeeperId(), productId)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                        if(response.isSuccessful())
+                        {
+                            progressDialog.dismiss();
+                            Toast.makeText(ProductDetailsActivity.this, "Product added to wish list",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            progressDialog.dismiss();
+                            Toast.makeText(ProductDetailsActivity.this, "Can not add product to wish list",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t)
+                    {
+                        progressDialog.dismiss();
+                        Log.e("WishList", t.getMessage());
+                        Toast.makeText(ProductDetailsActivity.this, "Can not add product to wish list",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void getSimilarProducts(Long productSubCategoryId)

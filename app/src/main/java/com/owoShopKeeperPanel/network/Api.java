@@ -211,4 +211,15 @@ public interface Api {
     @GET("/getSimilarProducts")
     Call<List<OwoProduct>> getSimilarProducts(@Query("product_sub_category_id") Long product_sub_category_id);
 
+    //Add product to wishList
+    @POST("/addProductToWishList")
+    Call<ResponseBody> addProductToWishList(@Query("shop_keeper_id") Long shop_keeper_id,
+                                            @Query("product_id") Long productId);
+
+    @DELETE("/deleteWishListProduct")
+    Call<ResponseBody> deleteWishListProduct(@Query("shop_keeper_id") Long shop_keeper_id,
+                                             @Query("product_id") Long productId);
+
+    @GET("/getAllWishListProductsId")
+    Call<List<Long>> getAllWishListProductsId(@Query("user_id") Long userId);
 }
