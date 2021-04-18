@@ -1,7 +1,6 @@
 package com.owoShopKeeperPanel.prevalent;
 
 import com.owoShopKeeperPanel.userRegistration.ShopKeeperUser;
-
 import java.util.ArrayList;
 import java.util.List;
 

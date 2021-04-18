@@ -103,6 +103,7 @@ public class DebtDetailsDashBoard extends AppCompatActivity {
 
                             DebtDashBoardResponse dashBoardResponse = response.body();
 
+                            assert dashBoardResponse != null;
                             String totalLoanString = "৳" + dashBoardResponse.getTotalLoan();
                             String totalPaidString = "৳" + dashBoardResponse.getTotalPaid();
 

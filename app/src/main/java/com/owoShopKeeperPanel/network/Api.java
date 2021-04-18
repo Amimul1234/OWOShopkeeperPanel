@@ -159,12 +159,6 @@ public interface Api {
             @Query("user_id") long user_id
     );
 
-    @PUT("/updateAdebtDetails")
-    Call<ResponseBody> updateADebtDetails(
-            @Body User_debt_details user_debt_details,
-            @Query("user_id") long user_id
-    );
-
     @Multipart
     @POST("/imageController/{directory}")
     Call<ResponseBody> uploadImageToServer(
