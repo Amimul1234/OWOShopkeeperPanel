@@ -21,12 +21,13 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="enterAlways|scroll"
             android:background="@color/white">
-            
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:src="@drawable/logo_final"/>
+                android:layout_marginEnd="50dp"
+                android:src="@drawable/logo_final_transparent"/>
 
             <ImageView
                 android:id="@+id/contact_us"
