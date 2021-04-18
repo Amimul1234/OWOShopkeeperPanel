@@ -67,11 +67,13 @@ public class SplashScreenActivity extends AppCompatActivity {
                 if(snapshot.exists())
                 {
                     order_count = snapshot.getValue(Integer.class);
+
                     mCountAnimationTextView
                             .setAnimationDuration(1500)
                             .countAnimation(0, order_count);
 
-                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    new Handler(Looper.getMainLooper()).postDelayed(() ->
+                    {
                         Intent mainIntent = new Intent(SplashScreenActivity.this, LogInActivity.class);
                         mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(mainIntent);
@@ -90,8 +92,18 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error)
+            {
                 Log.e("Splash Screen", "Error is: "+error.getDetails());
+
+                new Handler(Looper.getMainLooper()).postDelayed(() ->
+                {
+                    Intent mainIntent = new Intent(SplashScreenActivity.this, LogInActivity.class);
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(mainIntent);
+                    finish();
+                }, 2000);
+
             }
         });
     }

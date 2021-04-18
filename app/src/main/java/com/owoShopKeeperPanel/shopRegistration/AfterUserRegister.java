@@ -15,7 +15,8 @@ public class AfterUserRegister extends AppCompatActivity {
 
         Button button = findViewById(R.id.create_btn);
 
-        button.setOnClickListener(v -> {
+        button.setOnClickListener(v ->
+        {
             Intent intent=new Intent(AfterUserRegister.this, ShopRegistrationRequest.class);
             startActivity(intent);
             finish();
