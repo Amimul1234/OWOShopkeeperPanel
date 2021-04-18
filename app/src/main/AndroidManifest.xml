@@ -134,7 +134,7 @@
             android:name=".userRegistration.UserRegistrationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.ProductDetailsActivity"
+            android:name=".products.ProductDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".shopRegistration.ShopRegistrationRequest"

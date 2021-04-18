@@ -21,6 +21,7 @@ import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.ViewHolder.wishListItemHolder;
+import com.owoShopKeeperPanel.products.ProductDetailsActivity;
 
 public class WishList extends AppCompatActivity {
 

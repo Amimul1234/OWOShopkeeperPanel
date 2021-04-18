@@ -20,7 +20,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.configurations.HostAddress;
-import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;
+import com.owoShopKeeperPanel.products.ProductDetailsActivity;
 
 import org.jetbrains.annotations.NotNull;
 

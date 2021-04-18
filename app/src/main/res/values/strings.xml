@@ -196,5 +196,7 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
     <string name="e_loan">e-loan</string>
     <string name="specifications">Specifications</string>
     <string name="description">Description</string>
+    <string name="buy_product">Buy Product</string>
+    <string name="similar_products">Similar Products</string>
 
 </resources>

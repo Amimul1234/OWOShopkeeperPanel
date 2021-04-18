@@ -1,6 +1,8 @@
-package com.owoShopKeeperPanel.shopKeeperPanel;
+package com.owoShopKeeperPanel.products;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,10 +22,12 @@ import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
+import com.owoShopKeeperPanel.shopKeeperPanel.ZoomProductImage;
 import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -37,12 +41,18 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private ElegantNumberButton numberButton;
     private TextView product_brand_name;
 
+    private RecyclerView similarProducts;
+    private SimilarProductsAdapter similarProductsAdapter;
+
+    private List<OwoProduct> owoProductList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
 
         numberButton = findViewById(R.id.quantity_number_btn);
+        similarProducts = findViewById(R.id.similarProducts);
 
         ImageView back_to_home = findViewById(R.id.back_to_home);
         ImageView productImage = findViewById(R.id.product_image_details);
@@ -69,6 +79,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         owoproduct = (OwoProduct) getIntent().getSerializableExtra("Products");
 
         getBrand();
+        getSimilarProducts(owoproduct.getProductSubCategoryId());
 
         Glide.with(this).load(HostAddress.HOST_ADDRESS.getHostAddress()+owoproduct.getProductImage())
                 .diskCacheStrategy(DiskCacheStrategy.ALL).timeout(6000).into(productImage);
@@ -88,13 +99,15 @@ public class ProductDetailsActivity extends AppCompatActivity {
         String productDiscountString = "৳ " + price_with_discount;
         productPriceWithDiscount.setText(productDiscountString);
 
-        productImage.setOnClickListener(v -> {
+        productImage.setOnClickListener(v ->
+        {
             Intent intent = new Intent(ProductDetailsActivity.this, ZoomProductImage.class);
             intent.putExtra("image", owoproduct.getProductImage());
             startActivity(intent);
         });
 
-        addToCartBtn.setOnClickListener(v -> {
+        addToCartBtn.setOnClickListener(v ->
+        {
             progressDialog.setTitle("Add to Cart");
             progressDialog.setMessage("Please wait while we are adding product to cart");
             progressDialog.show();
@@ -147,6 +160,38 @@ public class ProductDetailsActivity extends AppCompatActivity {
 //            }
 //        });
 
+    }
+
+    private void getSimilarProducts(Long productSubCategoryId)
+    {
+        RetrofitClient.getInstance().getApi()
+                .getSimilarProducts(productSubCategoryId)
+                .enqueue(new Callback<List<OwoProduct>>() {
+                    @Override
+                    public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
+                        if(response.isSuccessful())
+                        {
+                            owoProductList = response.body();
+
+                            GridLayoutManager gridLayoutManager = new GridLayoutManager(ProductDetailsActivity.this, 2);
+                            similarProductsAdapter = new SimilarProductsAdapter(ProductDetailsActivity.this, owoProductList, progressDialog);
+                            similarProducts.setLayoutManager(gridLayoutManager);
+                            similarProducts.setAdapter(similarProductsAdapter);
+                        }
+                        else
+                        {
+                            Toast.makeText(ProductDetailsActivity.this, "Can not get similar products, please try again",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<List<OwoProduct>> call, @NotNull Throwable t) {
+                        Log.e("ProductDetails", t.getMessage());
+                        Toast.makeText(ProductDetailsActivity.this, "Can not get similar products, please try again",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void getBrand()

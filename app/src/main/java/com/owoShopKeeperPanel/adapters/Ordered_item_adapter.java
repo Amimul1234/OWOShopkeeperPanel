@@ -16,7 +16,7 @@ import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.Model.Shop_keeper_ordered_products;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.shopKeeperPanel.Order_list;
-import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;
+import com.owoShopKeeperPanel.products.ProductDetailsActivity;
 import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 import java.util.List;

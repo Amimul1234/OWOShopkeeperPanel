@@ -25,7 +25,7 @@ import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.R;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.pagination.NetworkState;
-import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;
+import com.owoShopKeeperPanel.products.ProductDetailsActivity;
 import org.jetbrains.annotations.NotNull;
 
 import retrofit2.Call;

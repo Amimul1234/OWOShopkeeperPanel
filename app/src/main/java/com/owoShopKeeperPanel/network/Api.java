@@ -207,4 +207,8 @@ public interface Api {
             @Query("alphabet") String alphabet
     );
 
+    //Get similar products based on sub category
+    @GET("/getSimilarProducts")
+    Call<List<OwoProduct>> getSimilarProducts(@Query("product_sub_category_id") Long product_sub_category_id);
+
 }

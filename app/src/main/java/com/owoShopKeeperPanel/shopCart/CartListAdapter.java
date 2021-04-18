@@ -22,7 +22,7 @@ import com.owoShopKeeperPanel.Model.OwoProduct;
 import com.owoShopKeeperPanel.configurations.HostAddress;
 import com.owoShopKeeperPanel.prevalent.Prevalent;
 import com.owoShopKeeperPanel.R;
-import com.owoShopKeeperPanel.shopKeeperPanel.ProductDetailsActivity;
+import com.owoShopKeeperPanel.products.ProductDetailsActivity;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import okhttp3.ResponseBody;
