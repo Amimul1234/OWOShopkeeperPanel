@@ -180,6 +180,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
                                 }
                             }
                         }
+                        else
+                        {
+                            progressDialog.dismiss();
+                        }
                     }
 
                     @Override

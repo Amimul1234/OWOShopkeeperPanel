@@ -2,11 +2,13 @@ package com.owoShopKeeperPanel.wishList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
@@ -86,12 +88,31 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                        if(response.isSuccessful())
+                        {
+                            Toast.makeText(mcTx, "Product removed from wish list", Toast.LENGTH_SHORT).show();
 
+                            for(OwoProduct owoProduct : owoProductList)
+                            {
+                                if(owoProduct.getProductId().equals(productId))
+                                {
+                                    owoProductList.remove(owoProduct);
+                                    break;
+                                }
+                            }
+
+                            notifyDataSetChanged();
+                        }
+                        else
+                        {
+                            Toast.makeText(mcTx, "Can not remove product from wish list, please try again", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-
+                        Log.e("WishListAdapter", t.getMessage());
+                        Toast.makeText(mcTx, "Can not remove product from wish list, please try again", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
