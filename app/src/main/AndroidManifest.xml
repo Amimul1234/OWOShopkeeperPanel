@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.owoShopKeeperPanel">
+    package="com.shopKPR">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,40 +30,40 @@
         tools:targetApi="m">
 
         <service
-            android:name=".pushNotification.FirebaseMessagingService"
+            android:name="com.shopKPR.pushNotification.FirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
-        <activity android:name=".login.forgetPin.ForgetPin"/>
-        <activity android:name=".myShopManagement.userDebts.debt.AddAUserDebtDetails" />
-        <activity android:name=".myShopManagement.userDebts.debt.DebtDetailsForACustomer" />
-        <activity android:name=".myShopManagement.userDebts.debt.AddAUserDebt" />
-        <activity android:name=".myShopManagement.userDebts.debt.DebtDetailsDashBoard" />
-        <activity android:name=".shopKeeperPanel.product_related.BrandWiseProduct" />
-        <activity android:name=".homeComponents.categoryComponents.Categories" />
-        <activity android:name=".shopKeeperPanel.Calculator" />
-        <activity android:name=".myShopRelated.AddProductToShop" />
-        <activity android:name=".myShopRelated.NewProductAdding" />
-        <activity android:name=".myShopRelated.CompletedOrders" />
-        <activity android:name=".myShopRelated.PendingOrders" />
-        <activity android:name=".myShopRelated.ViewOffers" />
-        <activity android:name=".myShopRelated.AddANewOffer" />
-        <activity android:name=".myShopRelated.ViewAvailableProductToSell" />
-        <activity android:name=".myShopRelated.AddProductToMyShop" />
-        <activity android:name=".shopKeeperPanel.Order_details_for_single_item" />
-        <activity android:name=".shopKeeperPanel.Order_list" />
-        <activity android:name=".shopKeeperPanel.product_related.SubCategoryWiseProduct" />
+        <activity android:name="com.shopKPR.login.forgetPin.ForgetPin"/>
+        <activity android:name="com.shopKPR.myShopManagement.userDebts.debt.AddAUserDebtDetails" />
+        <activity android:name="com.shopKPR.myShopManagement.userDebts.debt.DebtDetailsForACustomer" />
+        <activity android:name="com.shopKPR.myShopManagement.userDebts.debt.AddAUserDebt" />
+        <activity android:name="com.shopKPR.myShopManagement.userDebts.debt.DebtDetailsDashBoard" />
+        <activity android:name="com.shopKPR.shopKeeperPanel.product_related.BrandWiseProduct" />
+        <activity android:name="com.shopKPR.homeComponents.categoryComponents.Categories" />
+        <activity android:name="com.shopKPR.shopKeeperPanel.Calculator" />
+        <activity android:name="com.shopKPR.myShopRelated.AddProductToShop" />
+        <activity android:name="com.shopKPR.myShopRelated.NewProductAdding" />
+        <activity android:name="com.shopKPR.myShopRelated.CompletedOrders" />
+        <activity android:name="com.shopKPR.myShopRelated.PendingOrders" />
+        <activity android:name="com.shopKPR.myShopRelated.ViewOffers" />
+        <activity android:name="com.shopKPR.myShopRelated.AddANewOffer" />
+        <activity android:name="com.shopKPR.myShopRelated.ViewAvailableProductToSell" />
+        <activity android:name="com.shopKPR.myShopRelated.AddProductToMyShop" />
+        <activity android:name="com.shopKPR.shopKeeperPanel.Order_details_for_single_item" />
+        <activity android:name="com.shopKPR.shopKeeperPanel.OrdersList" />
+        <activity android:name="com.shopKPR.shopKeeperPanel.product_related.SubCategoryWiseProduct" />
         <activity
-            android:name=".homeComponents.categoryComponents.CategoryWiseProduct"
+            android:name="com.shopKPR.homeComponents.categoryComponents.CategoryWiseProduct"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperSettings.ChangePin"
+            android:name="com.shopKPR.shopKeeperSettings.ChangePin"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopCart.CartActivity"
+            android:name="com.shopKPR.shopCart.CartActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -71,22 +71,22 @@
             android:value="@string/maps_api_key" />
 
         <activity
-            android:name=".shopKeeperPanel.ZoomProductImage"
+            android:name="com.shopKPR.shopKeeperPanel.ZoomProductImage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".wishList.WishList"
+            android:name="com.shopKPR.wishList.WishList"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.SearchActivity"
+            android:name="com.shopKPR.shopKeeperPanel.SearchActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopRegistration.AfterShopRegisterRequest"
+            android:name="com.shopKPR.shopRegistration.AfterShopRegisterRequest"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.ConfirmFinalOrderActivity"
+            android:name="com.shopKPR.shopKeeperPanel.ConfirmFinalOrderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".welcomeScreens.SplashScreenActivity"
+            android:name="com.shopKPR.welcomeScreens.SplashScreenActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -95,52 +95,52 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".shopKeeperPanel.MyProductsActivity"
+            android:name="com.shopKPR.shopKeeperPanel.MyProductsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.StoreSettingsActivity"
+            android:name="com.shopKPR.shopKeeperPanel.StoreSettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.MyShopActivity"
+            android:name="com.shopKPR.shopKeeperPanel.MyShopActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.Contact_us"
+            android:name="com.shopKPR.shopKeeperPanel.Contact_us"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.SetPinActivity"
+            android:name="com.shopKPR.shopKeeperPanel.SetPinActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.ForgetVerifyPhoneActivity"
+            android:name="com.shopKPR.shopKeeperPanel.ForgetVerifyPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.ForgetPinOtpActivity"
+            android:name="com.shopKPR.shopKeeperPanel.ForgetPinOtpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperSettings.SettingsActivity"
+            android:name="com.shopKPR.shopKeeperSettings.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopRegistration.AfterUserRegister"
+            android:name="com.shopKPR.shopRegistration.AfterUserRegister"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".userRegistration.TermsConditionsActivity"
+            android:name="com.shopKPR.userRegistration.TermsConditionsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".login.LogInActivity"
+            android:name="com.shopKPR.login.LogInActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".userRegistration.VerifyPhoneActivity"
+            android:name="com.shopKPR.userRegistration.VerifyPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".userRegistration.UserRegistrationActivity"
+            android:name="com.shopKPR.userRegistration.UserRegistrationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".products.ProductDetailsActivity"
+            android:name="com.shopKPR.products.ProductDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopRegistration.ShopRegistrationRequest"
+            android:name="com.shopKPR.shopRegistration.ShopRegistrationRequest"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeComponents.HomeActivity"
+            android:name="com.shopKPR.homeComponents.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

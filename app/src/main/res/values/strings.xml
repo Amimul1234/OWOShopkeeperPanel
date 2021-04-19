@@ -200,5 +200,9 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
     <string name="similar_products">Similar Products</string>
     <string name="product_thumbnail">Product Thumbnail</string>
     <string name="samsung_a53_new_smartphone">Samsung A53 new Smartphone</string>
+    <string name="order_lists">Order Lists</string>
+    <string name="empty_image_view">Empty Image View</string>
+    <string name="you_have_not_ordered_anything_yet">You have not ordered anything yet</string>
+    <string name="empty_ite">No Item in Cart</string>
 
 </resources>
