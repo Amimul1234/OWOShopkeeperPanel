@@ -5,13 +5,13 @@ import androidx.lifecycle.ViewModel;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PageKeyedDataSource;
 import androidx.paging.PagedList;
-import com.shopKPR.Model.Shop_keeper_orders;
+import com.shopKPR.Model.ShopKeeperOrders;
 
 
 public class OrderItemViewModel extends ViewModel {
 
-    public LiveData<PagedList<Shop_keeper_orders>> itemPagedList;
-    private final LiveData<PageKeyedDataSource<Integer, Shop_keeper_orders>> liveDataSource;
+    public LiveData<PagedList<ShopKeeperOrders>> itemPagedList;
+    private final LiveData<PageKeyedDataSource<Integer, ShopKeeperOrders>> liveDataSource;
 
     public OrderItemViewModel() {
 

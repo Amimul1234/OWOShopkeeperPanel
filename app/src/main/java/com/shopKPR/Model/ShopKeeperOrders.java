@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Shop_keeper_orders implements Serializable {
+public class ShopKeeperOrders implements Serializable {
     private long order_number;
     private String additional_comments;
     private double coupon_discount;
@@ -20,13 +20,13 @@ public class Shop_keeper_orders implements Serializable {
 
     private List<Shop_keeper_ordered_products> shop_keeper_ordered_products = new ArrayList<>();
 
-    public Shop_keeper_orders() {
+    public ShopKeeperOrders() {
     }
 
-    public Shop_keeper_orders(int order_number, String additional_comments, double coupon_discount,
-                              String date, String delivery_address, String method, String receiver_phone,
-                              String shop_phone, String shipping_state, String time_slot, String order_time,
-                              double total_amount, List<Shop_keeper_ordered_products> shop_keeper_ordered_products) {
+    public ShopKeeperOrders(int order_number, String additional_comments, double coupon_discount,
+                            String date, String delivery_address, String method, String receiver_phone,
+                            String shop_phone, String shipping_state, String time_slot, String order_time,
+                            double total_amount, List<Shop_keeper_ordered_products> shop_keeper_ordered_products) {
 
         this.order_number = order_number;
         this.additional_comments = additional_comments;

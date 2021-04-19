@@ -3,14 +3,14 @@ package com.shopKPR.pagination.orders;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
 import androidx.paging.PageKeyedDataSource;
-import com.shopKPR.Model.Shop_keeper_orders;
+import com.shopKPR.Model.ShopKeeperOrders;
 
 import org.jetbrains.annotations.NotNull;
 
 
 public class OrderItemDataSourceFactory extends DataSource.Factory {
 
-    private final MutableLiveData<PageKeyedDataSource<Integer, Shop_keeper_orders>> itemLiveDataSource = new MutableLiveData<>();
+    private final MutableLiveData<PageKeyedDataSource<Integer, ShopKeeperOrders>> itemLiveDataSource = new MutableLiveData<>();
 
     @NotNull
     @Override
@@ -20,7 +20,7 @@ public class OrderItemDataSourceFactory extends DataSource.Factory {
         return orderItemDataSource;
     }
 
-    public MutableLiveData<PageKeyedDataSource<Integer, Shop_keeper_orders>> getItemLiveDataSource() {
+    public MutableLiveData<PageKeyedDataSource<Integer, ShopKeeperOrders>> getItemLiveDataSource() {
         return itemLiveDataSource;
     }
 }

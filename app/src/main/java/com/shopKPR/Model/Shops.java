@@ -1,7 +1,6 @@
 package com.shopKPR.Model;
 
 import com.shopKPR.login.ShopKeeperPermissions;
-
 import java.io.Serializable;
 import java.util.List;
 

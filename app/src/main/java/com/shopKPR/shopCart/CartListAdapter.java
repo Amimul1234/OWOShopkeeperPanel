@@ -1,5 +1,6 @@
 package com.shopKPR.shopCart;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
@@ -25,6 +26,7 @@ import com.shopKPR.R;
 import com.shopKPR.products.ProductDetailsActivity;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
+import java.util.Locale;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,9 +45,11 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
         cartActivity = (CartActivity) context;
     }
 
+    @SuppressLint("InflateParams")
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
+    {
         ViewHolder holder;
 
         if (convertView == null) {
@@ -126,9 +130,14 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
                     .diskCacheStrategy(DiskCacheStrategy.ALL).timeout(6000).into(cart_product_image);
 
             cart_product_name.setText(cartListProduct.getProductName());
-            cart_product_quantity.setText("৳ "+String.valueOf(cartListProduct.getProductPrice())+" × "+String.valueOf(cartListProduct.getProductQuantity()));
+
+            String quantityString = "৳ "+ cartListProduct.getProductPrice() +" × "+ cartListProduct.getProductQuantity();
+            cart_product_quantity.setText(quantityString);
+
             double product_total_price = cartListProduct.getProductPrice() * cartListProduct.getProductQuantity();
-            cart_product_price.setText("৳ "+String.format("%.2f", product_total_price));
+            String totalPriceString = "৳ "+String.format(Locale.ENGLISH, "%.2f", product_total_price);
+            cart_product_price.setText(totalPriceString);
+
             cart_item_change_button.setNumber(String.valueOf(cartListProduct.getProductQuantity()));
 
             delete.setOnClickListener(view -> onDeleteItem(position));
@@ -165,7 +174,7 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
                         grand_total += cartListProduct.getProductPrice() * cartListProduct.getProductQuantity();
                     }
 
-                    cartActivity.grand_total_updater(String.format("%.2f", grand_total));
+                    cartActivity.grand_total_updater(String.format(Locale.ENGLISH, "%.2f", grand_total));
 
                     cartActivity.loaderGone();
                     notifyDataSetChanged();
@@ -224,7 +233,7 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
                                     grand_total += cartListProduct1.getProductPrice() * cartListProduct1.getProductQuantity();
                                 }
 
-                                cartActivity.grand_total_updater(String.format("%.2f", grand_total));
+                                cartActivity.grand_total_updater(String.format(Locale.ENGLISH, "%.2f", grand_total));
 
                                 cartActivity.loaderGone();
                                 cartActivity.loaderGone();

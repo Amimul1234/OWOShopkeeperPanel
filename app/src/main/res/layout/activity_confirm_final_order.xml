@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".shopKeeperPanel.ConfirmFinalOrderActivity">
+    android:background="@color/white"
+    tools:context=".orders.ConfirmFinalOrderActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
         <TextView
             android:id="@+id/txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/write_your_shipment_details"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:textColor="@color/blue"
             android:layout_margin="25dp"
             android:textAlignment="center"
             android:textStyle="bold"
+            />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/shipMentGif"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_below="@id/txt"
+            android:scaleType="fitXY"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/shipment"
             />
 
 
@@ -27,8 +39,8 @@
             android:id="@+id/tag1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mobile Number"
-            android:layout_below="@+id/txt"
+            android:text="@string/mobile_number"
+            android:layout_below="@+id/shipMentGif"
             android:layout_marginTop="60dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -87,7 +99,7 @@
             android:id="@+id/time_slot_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Please select a time slot:"
+            android:text="@string/please_select_a_time_slot"
             android:layout_below="@+id/delivery_address"
             android:layout_marginStart="20dp"
             android:textSize="20sp"
@@ -110,7 +122,7 @@
             android:id="@+id/tag3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Write additional comments"
+            android:text="@string/write_additional_comments"
             android:layout_below="@+id/time_slots"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
@@ -127,7 +139,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:hint="Additional comments"
+            android:hint="@string/additional_comments"
             android:background="@drawable/edit_text_black"
             android:padding="12dp"
             android:textSize="20sp"
@@ -149,7 +161,7 @@
             android:id="@+id/delivery_option_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cash on delivery"
+            android:text="@string/cash_on_delivery"
             android:layout_marginStart="15dp"
             android:checked="true"
             android:textSize="18sp"/>
@@ -158,7 +170,7 @@
             android:id="@+id/delivery_option_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Digital payment"
+            android:text="@string/digital_payment"
             android:layout_gravity="end"
             android:layout_marginEnd="20dp"
             android:textSize="18sp"/>
@@ -182,19 +194,13 @@
             android:padding="8dp"
             />
 
-        <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
+        <ProgressBar
             android:id="@+id/loader"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:alliance_animDuration="500"
-            app:alliance_distanceMultiplier="4"
-            app:alliance_dotsRadius="20dp"
-            app:alliance_firstDotsColor="@color/red"
-            app:alliance_secondDotsColor="@color/green"
-            app:alliance_strokeWidth="8dp"
-            app:alliance_thirdDotsColor="@color/blue"
-            android:layout_centerInParent="true"/>
+            android:indeterminateTint="@color/blue"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 </ScrollView>

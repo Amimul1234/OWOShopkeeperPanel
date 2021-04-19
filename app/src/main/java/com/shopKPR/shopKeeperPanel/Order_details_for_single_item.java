@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.badoualy.stepperindicator.StepperIndicator;
 import com.shopKPR.Model.Shop_keeper_ordered_products;
-import com.shopKPR.Model.Shop_keeper_orders;
+import com.shopKPR.Model.ShopKeeperOrders;
 import com.shopKPR.R;
 import com.shopKPR.adapters.Ordered_item_adapter;
 import java.util.List;
@@ -24,7 +24,7 @@ public class Order_details_for_single_item extends AppCompatActivity {
 
     private ImageView back_button;
 
-    private Shop_keeper_orders shop_keeper_orders;
+    private ShopKeeperOrders shopKeeperOrders;
 
     private List<Shop_keeper_ordered_products> shop_keeper_ordered_products;
 
@@ -35,10 +35,10 @@ public class Order_details_for_single_item extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details_for_single_item);
 
-        shop_keeper_orders = (Shop_keeper_orders) getIntent().getSerializableExtra("Order");
+        shopKeeperOrders = (ShopKeeperOrders) getIntent().getSerializableExtra("Order");
 
-        assert shop_keeper_orders != null;
-        shop_keeper_ordered_products = shop_keeper_orders.getShop_keeper_ordered_products();
+        assert shopKeeperOrders != null;
+        shop_keeper_ordered_products = shopKeeperOrders.getShop_keeper_ordered_products();
 
         order_number = findViewById(R.id.order_number);
         order_date = findViewById(R.id.order_date);
@@ -59,19 +59,19 @@ public class Order_details_for_single_item extends AppCompatActivity {
         ordered_products.setHasFixedSize(true);
         ordered_products.setAdapter(adapter);
 
-        order_number.setText("#"+shop_keeper_orders.getOrder_number());
-        order_date.setText(shop_keeper_orders.getDate());
-        total_taka.setText("৳ "+String.format("%.2f", shop_keeper_orders.getTotal_amount()));
-        discount_taka.setText("৳ "+String.valueOf(shop_keeper_orders.getCoupon_discount()));
+        order_number.setText("#"+ shopKeeperOrders.getOrder_number());
+        order_date.setText(shopKeeperOrders.getDate());
+        total_taka.setText("৳ "+String.format("%.2f", shopKeeperOrders.getTotal_amount()));
+        discount_taka.setText("৳ "+String.valueOf(shopKeeperOrders.getCoupon_discount()));
 
-        Double sub_total_taka = shop_keeper_orders.getTotal_amount() - shop_keeper_orders.getCoupon_discount();
+        Double sub_total_taka = shopKeeperOrders.getTotal_amount() - shopKeeperOrders.getCoupon_discount();
         sub_total.setText("৳ "+String.format("%.2f", sub_total_taka));
 
-        shipping_address.setText(shop_keeper_orders.getDelivery_address());
-        mobile_number.setText(shop_keeper_orders.getReceiver_phone());
+        shipping_address.setText(shopKeeperOrders.getDelivery_address());
+        mobile_number.setText(shopKeeperOrders.getReceiver_phone());
 
-        shipping_method.setText(shop_keeper_orders.getMethod());
-        additonal_comments.setText(shop_keeper_orders.getAdditional_comments());
+        shipping_method.setText(shopKeeperOrders.getMethod());
+        additonal_comments.setText(shopKeeperOrders.getAdditional_comments());
 
         stepperIndicator.setLabels(new String[]{"Pending", "Confirmed", "Processing", "Picked", "Shipped", "Delivered"});
 
@@ -89,7 +89,7 @@ public class Order_details_for_single_item extends AppCompatActivity {
 
         for(int i=0; i<6; i++)
         {
-            if(states[i].equals(shop_keeper_orders.getShipping_state()))
+            if(states[i].equals(shopKeeperOrders.getShipping_state()))
             {
                 stepperIndicator.setCurrentStep(i+1);
                 stepperIndicator.setShowDoneIcon(true);
@@ -97,7 +97,7 @@ public class Order_details_for_single_item extends AppCompatActivity {
             }
         }
 
-        if(states[6].equals(shop_keeper_orders.getShipping_state()))
+        if(states[6].equals(shopKeeperOrders.getShipping_state()))
         {
             stepperIndicator.setCurrentStep(6);
             stepperIndicator.setDoneIcon(getResources().getDrawable(R.drawable.ic_baseline_cancel_24));

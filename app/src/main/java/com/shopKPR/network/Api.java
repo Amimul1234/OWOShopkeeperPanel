@@ -4,7 +4,7 @@ import com.shopKPR.homeComponents.brandsComponent.entity.Brands;
 import com.shopKPR.Model.CartListFromClient;
 import com.shopKPR.Model.CartListProduct;
 import com.shopKPR.Model.OwoProduct;
-import com.shopKPR.Model.Shop_keeper_orders;
+import com.shopKPR.Model.ShopKeeperOrders;
 import com.shopKPR.Model.Shops;
 import com.shopKPR.Model.UserDebts;
 import com.shopKPR.Model.UserShopKeeper;
@@ -12,6 +12,7 @@ import com.shopKPR.Model.User_debt_details;
 import com.shopKPR.categorySpinner.entity.CategoryEntity;
 import com.shopKPR.categorySpinner.entity.SubCategoryEntity;
 import com.shopKPR.myShopManagement.userDebts.model.DebtDashBoardResponse;
+import com.shopKPR.orders.TimeSlot;
 import com.shopKPR.registerRequest.ShopPendingRequest;
 import com.shopKPR.userRegistration.ShopKeeperUser;
 import java.util.List;
@@ -77,12 +78,6 @@ public interface Api {
     @GET("/getBrandNameViaProductId")
     Call<ResponseBody> getBrandNameViaProductId(@Query("productId") Long productId);
 
-    @GET("/getProductByCategory")
-    Call<List<OwoProduct>> getProductsByCategory(
-            @Query("page") int page,
-            @Query("product_category") String product_category
-    );
-
     @GET("/getProductByBrand")
     Call<List<OwoProduct>> getProductViaBrand(
             @Query("page") int page, @Query("brandsId") Long brandsId);
@@ -109,20 +104,18 @@ public interface Api {
 
     @POST("/shop_keeper_order")
     Call<ResponseBody> createOrder(
-            @Body Shop_keeper_orders shop_keeper_orders,
+            @Body ShopKeeperOrders shopKeeperOrders,
             @Query("mobile_number") String mobile_number
     );
 
     @GET("/get_shop_keeper_order")
-    Call<List<Shop_keeper_orders>> getShopKeeperOrders(
+    Call<List<ShopKeeperOrders>> getShopKeeperOrders(
             @Query("page") int page,
             @Query("mobile_number") String mobile_number
     );
 
     @GET("/getShopInfo")
-    Call<Shops> getShopInfo(
-            @Query("shop_phone") String shop_phone
-    );
+    Call<Shops> getShopInfo(@Query("shop_phone") String shop_phone);
 
     @POST("/addUserDebt")
     Call<ResponseBody> addAUserDebt(
@@ -219,4 +212,8 @@ public interface Api {
 
     @GET("/getAllWishListProducts")
     Call<List<OwoProduct>> wishListProducts(@Query("user_id") Long userId);
+
+    //Time Slots
+    @GET("/getAllAvailableTimeSlots")
+    Call<List<TimeSlot>> getAllAvailableTimeSlots();
 }

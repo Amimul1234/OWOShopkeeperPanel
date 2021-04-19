@@ -4,7 +4,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 import com.shopKPR.network.RetrofitClient;
-import com.shopKPR.Model.Shop_keeper_orders;
+import com.shopKPR.Model.ShopKeeperOrders;
 import com.shopKPR.prevalent.Prevalent;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
@@ -12,18 +12,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderItemDataSource extends PageKeyedDataSource<Integer, Shop_keeper_orders> {
+public class OrderItemDataSource extends PageKeyedDataSource<Integer, ShopKeeperOrders> {
 
     private static final int FIRST_PAGE = 0;
 
     @Override
-    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Shop_keeper_orders> callback) {
+    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, ShopKeeperOrders> callback) {
 
         RetrofitClient.getInstance().getApi()
                 .getShopKeeperOrders(FIRST_PAGE, Prevalent.currentOnlineUser.getMobileNumber())
-                .enqueue(new Callback<List<Shop_keeper_orders>>() {
+                .enqueue(new Callback<List<ShopKeeperOrders>>() {
                     @Override
-                    public void onResponse(@NotNull Call<List<Shop_keeper_orders>> call, @NotNull Response<List<Shop_keeper_orders>> response) {
+                    public void onResponse(@NotNull Call<List<ShopKeeperOrders>> call, @NotNull Response<List<ShopKeeperOrders>> response) {
                         if(response.isSuccessful())
                         {
                             callback.onResult(response.body(), null, FIRST_PAGE+1);
@@ -31,21 +31,21 @@ public class OrderItemDataSource extends PageKeyedDataSource<Integer, Shop_keepe
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<List<Shop_keeper_orders>> call, @NotNull Throwable t) {
+                    public void onFailure(@NotNull Call<List<ShopKeeperOrders>> call, @NotNull Throwable t) {
                         Log.e("Error: ", t.getMessage());
                     }
                 });
     }
 
     @Override
-    public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Shop_keeper_orders> callback) {
+    public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, ShopKeeperOrders> callback) {
 
 
         RetrofitClient.getInstance().getApi()
                 .getShopKeeperOrders(params.key, Prevalent.currentOnlineUser.getMobileNumber())
-                .enqueue(new Callback<List<Shop_keeper_orders>>() {
+                .enqueue(new Callback<List<ShopKeeperOrders>>() {
                     @Override
-                    public void onResponse(@NotNull Call<List<Shop_keeper_orders>> call, @NotNull Response<List<Shop_keeper_orders>> response) {
+                    public void onResponse(@NotNull Call<List<ShopKeeperOrders>> call, @NotNull Response<List<ShopKeeperOrders>> response) {
                         if(response.isSuccessful())
                         {
                             if(response.body() != null){
@@ -60,7 +60,7 @@ public class OrderItemDataSource extends PageKeyedDataSource<Integer, Shop_keepe
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<List<Shop_keeper_orders>> call, @NotNull Throwable t) {
+                    public void onFailure(@NotNull Call<List<ShopKeeperOrders>> call, @NotNull Throwable t) {
                         Log.e("Error: ", t.getMessage());
                     }
                 });
@@ -68,13 +68,13 @@ public class OrderItemDataSource extends PageKeyedDataSource<Integer, Shop_keepe
     }
 
     @Override
-    public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Shop_keeper_orders> callback) {
+    public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, ShopKeeperOrders> callback) {
 
         RetrofitClient.getInstance().getApi()
                 .getShopKeeperOrders(params.key, Prevalent.currentOnlineUser.getMobileNumber())
-                .enqueue(new Callback<List<Shop_keeper_orders>>() {
+                .enqueue(new Callback<List<ShopKeeperOrders>>() {
                     @Override
-                    public void onResponse(@NotNull Call<List<Shop_keeper_orders>> call, @NotNull Response<List<Shop_keeper_orders>> response) {
+                    public void onResponse(@NotNull Call<List<ShopKeeperOrders>> call, @NotNull Response<List<ShopKeeperOrders>> response) {
                         if(response.isSuccessful()){
                             if(params.key < 12)
                             {
@@ -93,7 +93,7 @@ public class OrderItemDataSource extends PageKeyedDataSource<Integer, Shop_keepe
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<List<Shop_keeper_orders>> call, @NotNull Throwable t) {
+                    public void onFailure(@NotNull Call<List<ShopKeeperOrders>> call, @NotNull Throwable t) {
                         Log.e("Error: ", t.getMessage());
                     }
                 });

@@ -13,13 +13,13 @@ import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.shopKPR.Model.Shop_keeper_orders;
+import com.shopKPR.Model.ShopKeeperOrders;
 import com.shopKPR.R;
 import com.shopKPR.shopKeeperPanel.Order_details_for_single_item;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ShopOrderAdapter extends PagedListAdapter<Shop_keeper_orders, RecyclerView.ViewHolder> {
+public class ShopOrderAdapter extends PagedListAdapter<ShopKeeperOrders, RecyclerView.ViewHolder> {
 
     private Context mCtx;
 
@@ -41,16 +41,16 @@ public class ShopOrderAdapter extends PagedListAdapter<Shop_keeper_orders, Recyc
 
         ShopOrderAdapter.ItemViewHolder itemViewHolder = (ShopOrderAdapter.ItemViewHolder) holder;
 
-        Shop_keeper_orders shop_keeper_orders = getItem(position);
+        ShopKeeperOrders shopKeeperOrders = getItem(position);
 
-        if (shop_keeper_orders != null) {
-            itemViewHolder.order_number.setText(String.valueOf(shop_keeper_orders.getOrder_number()));
-            itemViewHolder.order_status.setText(shop_keeper_orders.getShipping_state());
+        if (shopKeeperOrders != null) {
+            itemViewHolder.order_number.setText(String.valueOf(shopKeeperOrders.getOrder_number()));
+            itemViewHolder.order_status.setText(shopKeeperOrders.getShipping_state());
 
-            Double total_with_discount = shop_keeper_orders.getTotal_amount() - shop_keeper_orders.getCoupon_discount();
+            Double total_with_discount = shopKeeperOrders.getTotal_amount() - shopKeeperOrders.getCoupon_discount();
 
             itemViewHolder.order_total_price.setText("৳ "+String.format("%.2f",total_with_discount));
-            itemViewHolder.order_date_and_time.setText(shop_keeper_orders.getDate()+", "+shop_keeper_orders.getOrder_time());
+            itemViewHolder.order_date_and_time.setText(shopKeeperOrders.getDate()+", "+ shopKeeperOrders.getOrder_time());
 
         } else {
             Toast.makeText(mCtx, "Item is null", Toast.LENGTH_LONG).show();
@@ -58,15 +58,15 @@ public class ShopOrderAdapter extends PagedListAdapter<Shop_keeper_orders, Recyc
 
     }
 
-    private static final DiffUtil.ItemCallback<Shop_keeper_orders> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<Shop_keeper_orders>() {
+    private static final DiffUtil.ItemCallback<ShopKeeperOrders> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<ShopKeeperOrders>() {
                 @Override
-                public boolean areItemsTheSame(Shop_keeper_orders oldItem, Shop_keeper_orders newItem) {
+                public boolean areItemsTheSame(ShopKeeperOrders oldItem, ShopKeeperOrders newItem) {
                     return oldItem.getOrder_number() == newItem.getOrder_number();
                 }
 
                 @Override
-                public boolean areContentsTheSame(@NotNull Shop_keeper_orders oldItem, @NotNull Shop_keeper_orders newItem) {
+                public boolean areContentsTheSame(@NotNull ShopKeeperOrders oldItem, @NotNull ShopKeeperOrders newItem) {
                     return true;
                 }
             };
@@ -89,9 +89,9 @@ public class ShopOrderAdapter extends PagedListAdapter<Shop_keeper_orders, Recyc
 
         @Override
         public void onClick(View v) {
-            Shop_keeper_orders shop_keeper_orders = getItem(getBindingAdapterPosition());
+            ShopKeeperOrders shopKeeperOrders = getItem(getBindingAdapterPosition());
             Intent intent = new Intent(mCtx, Order_details_for_single_item.class);
-            intent.putExtra("Order", shop_keeper_orders);
+            intent.putExtra("Order", shopKeeperOrders);
             mCtx.startActivity(intent);
         }
     }

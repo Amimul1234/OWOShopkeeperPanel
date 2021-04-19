@@ -83,7 +83,7 @@
             android:name="com.shopKPR.shopRegistration.AfterShopRegisterRequest"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shopKPR.shopKeeperPanel.ConfirmFinalOrderActivity"
+            android:name="com.shopKPR.orders.ConfirmFinalOrderActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.shopKPR.welcomeScreens.SplashScreenActivity"

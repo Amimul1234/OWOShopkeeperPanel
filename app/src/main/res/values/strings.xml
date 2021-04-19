@@ -204,5 +204,10 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
     <string name="empty_image_view">Empty Image View</string>
     <string name="you_have_not_ordered_anything_yet">You have not ordered anything yet</string>
     <string name="empty_ite">No Item in Cart</string>
+    <string name="please_select_a_time_slot">Please select a time slot:</string>
+    <string name="write_additional_comments">Write additional comments</string>
+    <string name="additional_comments">Additional comments</string>
+    <string name="cash_on_delivery">Cash on delivery</string>
+    <string name="digital_payment">Digital payment</string>
 
 </resources>

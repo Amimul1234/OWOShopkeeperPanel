@@ -154,9 +154,9 @@ public class LogInActivity extends AppCompatActivity {
                         {
                             ShopKeeperUser shopKeeperUser = response.body();
 
+                            assert shopKeeperUser != null;
                             if(shopKeeperUser.getAccountEnabled()) //Account blocked checking
                             {
-                                assert shopKeeperUser != null;
                                 if(shopKeeperUser.getPin().equals(pin))
                                 {
                                     if(rememberMe.isChecked())//Writing user data on android storage
