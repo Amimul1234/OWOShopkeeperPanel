@@ -25,12 +25,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CapsuleAdapter extends RecyclerView.Adapter<CapsuleAdapter.ViewHolder>
+public class TabletAdapter extends RecyclerView.Adapter<TabletAdapter.ViewHolder>
 {
     private final Context mctx;
     private final List<OwoProduct> owoProductList;
 
-    public CapsuleAdapter(Context mctx, List<OwoProduct> owoProductList) {
+    public TabletAdapter(Context mctx, List<OwoProduct> owoProductList) {
         this.mctx = mctx;
         this.owoProductList = owoProductList;
     }
@@ -42,7 +42,7 @@ public class CapsuleAdapter extends RecyclerView.Adapter<CapsuleAdapter.ViewHold
         View view = LayoutInflater.from(mctx).inflate(R.layout.horizontal_slider_products,
                 parent, false);
 
-        return new CapsuleAdapter.ViewHolder(view);
+        return new TabletAdapter.ViewHolder(view);
     }
 
     @Override

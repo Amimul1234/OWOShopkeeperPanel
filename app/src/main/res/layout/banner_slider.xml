@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="0dp"
+    android:background="@color/white"
     app:elevation="0dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         >
 
         <ViewFlipper
@@ -194,7 +197,7 @@
 
             <View
                 android:id="@+id/capsule_gap"
-                android:layout_width="6dp"
+                android:layout_width="4dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/black"/>
@@ -235,11 +238,255 @@
 
         </RelativeLayout>
 
+
+        <View
+            android:id="@+id/edge2"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="#FAFAFA"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/capsule_linear"/>
+
+        <RelativeLayout
+            android:id="@+id/pediatric_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F9F9F9"
+            android:layout_below="@id/edge2"
+            >
+
+            <View
+                android:id="@+id/pediatric_gap"
+                android:layout_width="4dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/black"/>
+
+            <TextView
+                android:id="@+id/pediatric_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pediatric_drops"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/pediatric_gap"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/pediatric_show_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/show_more"
+                android:textAllCaps="false"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="7dp"
+                android:layout_marginTop="5dp"
+                android:padding="8dp"
+                app:elevation="0dp"
+                android:background="@drawable/show_more_back_ground"
+                android:textColor="#A6A6A6"
+                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pediatric_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/pediatric_gap"/>
+        </RelativeLayout>
+
+
+        <View
+            android:id="@+id/edge3"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="#FAFAFA"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/pediatric_layout"/>
+
+        <RelativeLayout
+            android:id="@+id/power_of_suspension"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F9F9F9"
+            android:layout_below="@id/edge3"
+            >
+
+            <View
+                android:id="@+id/power_of_suspension_gap"
+                android:layout_width="4dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/black"/>
+
+            <TextView
+                android:id="@+id/power_of_suspension_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/power_of_suspension"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/power_of_suspension_gap"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/power_of_suspension_show_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/show_more"
+                android:textAllCaps="false"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="7dp"
+                android:layout_marginTop="5dp"
+                android:padding="8dp"
+                app:elevation="0dp"
+                android:background="@drawable/show_more_back_ground"
+                android:textColor="#A6A6A6"
+                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/power_of_suspension_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/power_of_suspension_gap"/>
+        </RelativeLayout>
+
+
+        <View
+            android:id="@+id/edge4"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="#FAFAFA"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/power_of_suspension"/>
+
+        <RelativeLayout
+            android:id="@+id/tablet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F9F9F9"
+            android:layout_below="@id/edge4"
+            >
+
+            <View
+                android:id="@+id/tablet_gap"
+                android:layout_width="4dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/black"/>
+
+            <TextView
+                android:id="@+id/tablet_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tablet"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/tablet_gap"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/tablet_show_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/show_more"
+                android:textAllCaps="false"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="7dp"
+                android:layout_marginTop="5dp"
+                android:padding="8dp"
+                app:elevation="0dp"
+                android:background="@drawable/show_more_back_ground"
+                android:textColor="#A6A6A6"
+                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tablet_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/tablet_gap"/>
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/edge5"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="#FAFAFA"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/tablet"/>
+
+        <RelativeLayout
+            android:id="@+id/herbal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F9F9F9"
+            android:layout_below="@id/edge5"
+            >
+
+            <View
+                android:id="@+id/herbal_gap"
+                android:layout_width="4dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/black"/>
+
+            <TextView
+                android:id="@+id/herbal_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/herbals"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/herbal_gap"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/herbal_show_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/show_more"
+                android:textAllCaps="false"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="7dp"
+                android:layout_marginTop="5dp"
+                android:padding="8dp"
+                app:elevation="0dp"
+                android:background="@drawable/show_more_back_ground"
+                android:textColor="#A6A6A6"
+                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/herbal_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/herbal_gap"/>
+        </RelativeLayout>
+
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabbed_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_below="@id/capsule_linear"
+            android:layout_below="@id/herbal"
             app:tabIndicatorColor="@color/blue"
             >
 
@@ -277,4 +524,4 @@
 
 
 
-</androidx.cardview.widget.CardView>
+</ScrollView>

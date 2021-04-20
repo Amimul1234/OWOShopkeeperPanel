@@ -39,8 +39,20 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
     private final FragmentManager fragmentManager;
     private final Lifecycle lifecycle;
 
-    private CapsuleAdapter capsuleAdapter;
-    private List<OwoProduct> owoProductList = new ArrayList<>();
+    private final CapsuleAdapter capsuleAdapter;
+    private final List<OwoProduct> owoCapsuleLists = new ArrayList<>();
+
+    private final PediatricDropAdapter pediatricDropAdapter;
+    private final List<OwoProduct> pediatricDropLists = new ArrayList<>();
+
+    private final PowerOfSuspensionAdapter powerOfSuspensionAdapter;
+    private final List<OwoProduct> powerOfSuspensionList = new ArrayList<>();
+
+    private final TabletAdapter tabletAdapter;
+    private final List<OwoProduct> tabletList = new ArrayList<>();
+
+    private final HerbalAdapter herbalAdapter;
+    private final List<OwoProduct> herbalsList = new ArrayList<>();
 
     public ImageFlipperAdapter(Context mCtx, List<String> images, FragmentManager fragmentManager,
                                Lifecycle lifecycle)
@@ -49,7 +61,12 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
         this.images.addAll(images);
         this.fragmentManager = fragmentManager;
         this.lifecycle = lifecycle;
-        capsuleAdapter = new CapsuleAdapter(mCtx, owoProductList);
+
+        capsuleAdapter = new CapsuleAdapter(mCtx, owoCapsuleLists);
+        pediatricDropAdapter = new PediatricDropAdapter(mCtx, pediatricDropLists);
+        powerOfSuspensionAdapter = new PowerOfSuspensionAdapter(mCtx, powerOfSuspensionList);
+        tabletAdapter = new TabletAdapter(mCtx, tabletList);
+        herbalAdapter = new HerbalAdapter(mCtx, herbalsList);
     }
 
     @NonNull
@@ -75,7 +92,9 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
         public TabLayout tabLayout;
         public ViewPager2 viewPager2;
         public ViewPagerAdapter viewPagerAdapter;
-        public RecyclerView capsulesRecyclerView;
+
+        public RecyclerView capsulesRecyclerView, pediatricDropRecyclerView, powerOfSuspensionRecyclerView,
+                tabletRecyclerView, herbalsRecyclerView;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
@@ -88,11 +107,29 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
 
             capsulesRecyclerView = itemView.findViewById(R.id.capsule_recycler_view);
             capsulesRecyclerView.setAdapter(capsuleAdapter);
-
             capsulesRecyclerView.setLayoutManager(new GridLayoutManager(mCtx, 1,
                     GridLayoutManager.HORIZONTAL, false));
 
-            capsulesRecyclerView.setNestedScrollingEnabled(false);
+            pediatricDropRecyclerView = itemView.findViewById(R.id.pediatric_recycler_view);
+            pediatricDropRecyclerView.setAdapter(capsuleAdapter);
+            pediatricDropRecyclerView.setLayoutManager(new GridLayoutManager(mCtx, 1,
+                    GridLayoutManager.HORIZONTAL, false));
+
+            powerOfSuspensionRecyclerView = itemView.findViewById(R.id.power_of_suspension_recycler_view);
+            powerOfSuspensionRecyclerView.setAdapter(capsuleAdapter);
+            powerOfSuspensionRecyclerView.setLayoutManager(new GridLayoutManager(mCtx, 1,
+                    GridLayoutManager.HORIZONTAL, false));
+
+            tabletRecyclerView = itemView.findViewById(R.id.tablet_recycler_view);
+            tabletRecyclerView.setAdapter(capsuleAdapter);
+            tabletRecyclerView.setLayoutManager(new GridLayoutManager(mCtx, 1,
+                    GridLayoutManager.HORIZONTAL, false));
+
+            herbalsRecyclerView = itemView.findViewById(R.id.herbal_recycler_view);
+            herbalsRecyclerView.setAdapter(capsuleAdapter);
+            herbalsRecyclerView.setLayoutManager(new GridLayoutManager(mCtx, 1,
+                    GridLayoutManager.HORIZONTAL, false));
+
 
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
@@ -146,8 +183,8 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
                         if(response.isSuccessful())
                         {
-                            owoProductList.clear();
-                            owoProductList.addAll(response.body());
+                            owoCapsuleLists.clear();
+                            owoCapsuleLists.addAll(response.body());
                             capsuleAdapter.notifyDataSetChanged();
                         }
                         else
