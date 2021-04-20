@@ -1,4 +1,4 @@
-package com.shopKPR.shopCart;
+package com.shopKPR.cart;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -26,7 +26,7 @@ import com.shopKPR.Model.CartListProduct;
 import com.shopKPR.Model.Qupon;
 import com.shopKPR.prevalent.Prevalent;
 import com.shopKPR.R;
-import com.shopKPR.orders.ConfirmFinalOrderActivity;
+import com.shopKPR.orderConfirmation.ConfirmFinalOrderActivity;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;

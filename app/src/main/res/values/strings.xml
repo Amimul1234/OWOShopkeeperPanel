@@ -209,5 +209,14 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
     <string name="additional_comments">Additional comments</string>
     <string name="cash_on_delivery">Cash on delivery</string>
     <string name="digital_payment">Digital payment</string>
+    <string name="sub_categories">Sub-Categories</string>
+    <string name="gift_card">Gift Card</string>
+    <string name="happy_deals">Happy Deals</string>
+    <string name="deals">Deals</string>
+    <string name="foreign">Foreign</string>
+    <string name="popular">Popular</string>
+    <string name="for_you">For You</string>
+    <string name="capsules">Capsules</string>
+    <string name="show_more">Show More</string>
 
 </resources>

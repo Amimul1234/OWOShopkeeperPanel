@@ -53,8 +53,8 @@
         <activity android:name="com.shopKPR.myShopRelated.AddANewOffer" />
         <activity android:name="com.shopKPR.myShopRelated.ViewAvailableProductToSell" />
         <activity android:name="com.shopKPR.myShopRelated.AddProductToMyShop" />
-        <activity android:name="com.shopKPR.shopKeeperPanel.Order_details_for_single_item" />
-        <activity android:name="com.shopKPR.shopKeeperPanel.OrdersList" />
+        <activity android:name="com.shopKPR.orders.orderItem.OrderedItemDetails" />
+        <activity android:name="com.shopKPR.orders.allOrders.OrdersList" />
         <activity android:name="com.shopKPR.shopKeeperPanel.product_related.SubCategoryWiseProduct" />
         <activity
             android:name="com.shopKPR.homeComponents.categoryComponents.CategoryWiseProduct"
@@ -63,7 +63,7 @@
             android:name="com.shopKPR.shopKeeperSettings.ChangePin"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shopKPR.shopCart.CartActivity"
+            android:name="com.shopKPR.cart.CartActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -83,7 +83,7 @@
             android:name="com.shopKPR.shopRegistration.AfterShopRegisterRequest"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shopKPR.orders.ConfirmFinalOrderActivity"
+            android:name="com.shopKPR.orderConfirmation.ConfirmFinalOrderActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.shopKPR.welcomeScreens.SplashScreenActivity"

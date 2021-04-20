@@ -1,4 +1,4 @@
-package com.shopKPR.shopKeeperPanel.searchAscending;
+package com.shopKPR.search.searchDescending;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -11,13 +11,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, OwoProduct> {
+public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, OwoProduct> {
 
     private static final int FIRST_PAGE = 0;
-    private List<String> subCategories;
-    private String searchedProduct;
+    private final List<String> subCategories;
+    private final String searchedProduct;
 
-    public ItemDataSourceForSearch(List<String> subCategories, String searchedProduct) {
+    public ItemDataSourceForSearchDesc(List<String> subCategories, String searchedProduct) {
         this.subCategories = subCategories;
         this.searchedProduct = searchedProduct;
     }
@@ -27,18 +27,18 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, OwoPro
 
         RetrofitClient.getInstance()//Calling the getProductApi
                 .getApi()
-                .searchProduct(FIRST_PAGE, subCategories, searchedProduct)
+                .searchProductDesc(FIRST_PAGE, subCategories, searchedProduct)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
-
                         if(response.code() == 200)
                         {
-                            callback.onResult((List<OwoProduct>) response.body(), null, FIRST_PAGE+1);
+                            assert response.body() != null;
+                            callback.onResult(response.body(), null, FIRST_PAGE+1);
                         }
                         else
                         {
-                            Log.e("Error", "Error on server");
+                            Log.e("Error", "Server error occurred");
                         }
                     }
 
@@ -55,18 +55,19 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, OwoPro
 
         RetrofitClient.getInstance()
                 .getApi()
-                .searchProduct(params.key, subCategories, searchedProduct)
+                .searchProductDesc(params.key, subCategories, searchedProduct)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
                         if(response.code() == 200)
                         {
                             Integer key = (params.key > 0) ? params.key - 1 : null;
-                            callback.onResult((List<OwoProduct>) response.body(), key);
+                            assert response.body() != null;
+                            callback.onResult(response.body(), key);
                         }
                         else
                         {
-                            Log.e("Error", "Server error");
+                            Log.e("Error", "Server error occurred");
                         }
                     }
 
@@ -83,12 +84,13 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, OwoPro
 
         RetrofitClient.getInstance()
                 .getApi()
-                .searchProduct(params.key, subCategories, searchedProduct)
+                .searchProductDesc(params.key, subCategories, searchedProduct)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
                         if(response.code() == 200)
                         {
+                            assert response.body() != null;
                             if(params.key < 12)
                             {
                                 callback.onResult(response.body(), params.key+1);
@@ -100,7 +102,7 @@ public class ItemDataSourceForSearch extends PageKeyedDataSource<Integer, OwoPro
                         }
                         else
                         {
-                            Log.e("Error", "Error on server");
+                            Log.e("Error", "Server Error occurred");
                         }
                     }
 

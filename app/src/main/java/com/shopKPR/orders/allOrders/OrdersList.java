@@ -1,4 +1,4 @@
-package com.shopKPR.shopKeeperPanel;
+package com.shopKPR.orders.allOrders;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.shopKPR.R;
-import com.shopKPR.adapters.ShopOrderAdapter;
 import com.shopKPR.pagination.orders.OrderItemViewModel;
 
 public class OrdersList extends AppCompatActivity {

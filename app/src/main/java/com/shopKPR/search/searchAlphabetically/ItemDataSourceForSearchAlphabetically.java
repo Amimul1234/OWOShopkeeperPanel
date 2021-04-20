@@ -1,4 +1,4 @@
-package com.shopKPR.shopKeeperPanel.searchDescending;
+package com.shopKPR.search.searchAlphabetically;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -11,34 +11,35 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, OwoProduct> {
+public class ItemDataSourceForSearchAlphabetically extends PageKeyedDataSource<Integer, OwoProduct> {
 
     private static final int FIRST_PAGE = 0;
     private final List<String> subCategories;
-    private final String searchedProduct;
+    private final String searchedAlphabet;
 
-    public ItemDataSourceForSearchDesc(List<String> subCategories, String searchedProduct) {
+    public ItemDataSourceForSearchAlphabetically(List<String> subCategories, String searchedAlphabet) {
         this.subCategories = subCategories;
-        this.searchedProduct = searchedProduct;
+        this.searchedAlphabet = searchedAlphabet;
     }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, OwoProduct> callback) {
 
-        RetrofitClient.getInstance()//Calling the getProductApi
+        RetrofitClient.getInstance()
                 .getApi()
-                .searchProductDesc(FIRST_PAGE, subCategories, searchedProduct)
+                .sortProductAlphabetically(FIRST_PAGE, subCategories, searchedAlphabet)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
-                        if(response.code() == 200)
+
+                        if(response.isSuccessful())
                         {
                             assert response.body() != null;
                             callback.onResult(response.body(), null, FIRST_PAGE+1);
                         }
                         else
                         {
-                            Log.e("Error", "Server error occurred");
+                            Log.e("ItemAlphabetSort", "Error occurred, Error code is:" + response.code());
                         }
                     }
 
@@ -55,11 +56,11 @@ public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, Ow
 
         RetrofitClient.getInstance()
                 .getApi()
-                .searchProductDesc(params.key, subCategories, searchedProduct)
+                .sortProductAlphabetically(params.key, subCategories, searchedAlphabet)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
-                        if(response.code() == 200)
+                        if(response.isSuccessful())
                         {
                             Integer key = (params.key > 0) ? params.key - 1 : null;
                             assert response.body() != null;
@@ -67,13 +68,13 @@ public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, Ow
                         }
                         else
                         {
-                            Log.e("Error", "Server error occurred");
+                            Log.e("AlphabetSort", "Error occurred, error code: "+response.code());
                         }
                     }
 
                     @Override
                     public void onFailure(@NotNull Call<List<OwoProduct>> call, @NotNull Throwable t) {
-                        Log.e("Error", t.getMessage());
+                        Log.e("AlphabetSort", t.getMessage());
                     }
                 });
 
@@ -84,31 +85,32 @@ public class ItemDataSourceForSearchDesc extends PageKeyedDataSource<Integer, Ow
 
         RetrofitClient.getInstance()
                 .getApi()
-                .searchProductDesc(params.key, subCategories, searchedProduct)
+                .sortProductAlphabetically(params.key, subCategories, searchedAlphabet)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
                         if(response.code() == 200)
                         {
-                            assert response.body() != null;
                             if(params.key < 12)
                             {
+                                assert response.body() != null;
                                 callback.onResult(response.body(), params.key+1);
                             }
                             else
                             {
+                                assert response.body() != null;
                                 callback.onResult(response.body(), null);
                             }
                         }
                         else
                         {
-                            Log.e("Error", "Server Error occurred");
+                            Log.e("AlphabetSort", "Error occurred, error code: "+response.code());
                         }
                     }
 
                     @Override
                     public void onFailure(@NotNull Call<List<OwoProduct>> call, @NotNull Throwable t) {
-                        Log.e("Error", t.getMessage());
+                        Log.e("AlphabetSort", t.getMessage());
                     }
                 });
     }

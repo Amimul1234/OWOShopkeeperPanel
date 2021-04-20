@@ -44,11 +44,11 @@ import com.shopKPR.login.LogInActivity;
 import com.shopKPR.homeComponents.productComponents.ItemViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.shopKPR.shopKeeperPanel.Calculator;
-import com.shopKPR.shopCart.CartActivity;
+import com.shopKPR.cart.CartActivity;
 import com.shopKPR.homeComponents.categoryComponents.Categories;
 import com.shopKPR.shopKeeperPanel.Contact_us;
 import com.shopKPR.shopKeeperPanel.MyShopActivity;
-import com.shopKPR.shopKeeperPanel.OrdersList;
+import com.shopKPR.orders.allOrders.OrdersList;
 import com.shopKPR.shopKeeperPanel.SearchActivity;
 import com.shopKPR.shopKeeperSettings.SettingsActivity;
 import com.shopKPR.wishList.WishList;
@@ -72,6 +72,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private ItemViewModel itemViewModel;
     private BottomNavigationView bottomNavigationView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -81,6 +82,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ProgressDialog progressDialog = new ProgressDialog(this);
 
         recyclerView = findViewById(R.id.recycler_view_for_products);
+
         AppCompatButton searchBar = findViewById(R.id.search_product);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);

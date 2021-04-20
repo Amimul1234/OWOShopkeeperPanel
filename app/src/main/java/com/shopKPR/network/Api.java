@@ -12,7 +12,7 @@ import com.shopKPR.Model.User_debt_details;
 import com.shopKPR.categorySpinner.entity.CategoryEntity;
 import com.shopKPR.categorySpinner.entity.SubCategoryEntity;
 import com.shopKPR.myShopManagement.userDebts.model.DebtDashBoardResponse;
-import com.shopKPR.orders.TimeSlot;
+import com.shopKPR.orderConfirmation.TimeSlot;
 import com.shopKPR.registerRequest.ShopPendingRequest;
 import com.shopKPR.userRegistration.ShopKeeperUser;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.shopKPR.shopKeeperPanel.searchAscending;
+package com.shopKPR.search.searchAscending;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".shopCart.CartActivity">
+    tools:context=".cart.CartActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topbar1"

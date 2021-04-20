@@ -1,4 +1,4 @@
-package com.shopKPR.shopKeeperPanel.searchDescending;
+package com.shopKPR.search.searchAlphabetically;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
@@ -7,22 +7,25 @@ import com.shopKPR.Model.OwoProduct;
 import java.util.List;
 
 
-public class ItemDataSourceFactoryForSearchDesc extends DataSource.Factory {
+public class ItemDataSourceFactoryForSearchAlphabetically extends DataSource.Factory {
 
     private final MutableLiveData<PageKeyedDataSource<Integer, OwoProduct>> itemLiveDataSource = new MutableLiveData<>();
     private final List<String> subCategories;
     private final String searchedProduct;
 
-    public ItemDataSourceFactoryForSearchDesc(List<String> subCategories, String searchedProduct) {
+    public ItemDataSourceFactoryForSearchAlphabetically(List<String> subCategories, String searchedProduct) {
         this.subCategories = subCategories;
         this.searchedProduct = searchedProduct;
     }
 
     @Override
-    public DataSource create() {
-        ItemDataSourceForSearchDesc itemDataSourceCategoryDesc = new ItemDataSourceForSearchDesc(subCategories, searchedProduct);
-        itemLiveDataSource.postValue(itemDataSourceCategoryDesc);
-        return itemDataSourceCategoryDesc;
+    public DataSource create()
+    {
+        ItemDataSourceForSearchAlphabetically itemDataSourceCategory =
+                new ItemDataSourceForSearchAlphabetically(subCategories, searchedProduct);
+
+        itemLiveDataSource.postValue(itemDataSourceCategory);
+        return itemDataSourceCategory;
     }
 
     public MutableLiveData<PageKeyedDataSource<Integer, OwoProduct>> getItemLiveDataSource() {

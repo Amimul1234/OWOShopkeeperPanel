@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".shopKeeperPanel.Order_details_for_single_item">
+    tools:context=".orders.orderItem.OrderedItemDetails">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

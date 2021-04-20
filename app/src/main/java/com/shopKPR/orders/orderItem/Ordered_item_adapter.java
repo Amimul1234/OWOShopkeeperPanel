@@ -1,4 +1,4 @@
-package com.shopKPR.adapters;
+package com.shopKPR.orders.orderItem;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.shopKPR.configurations.HostAddress;
 import com.shopKPR.network.RetrofitClient;
 import com.shopKPR.Model.OwoProduct;
 import com.shopKPR.Model.Shop_keeper_ordered_products;
@@ -26,11 +28,11 @@ import retrofit2.Response;
 public class Ordered_item_adapter extends  RecyclerView.Adapter<Ordered_item_adapter.ViewHolder>{
 
     private final Context mCtx;
-    private final List<Shop_keeper_ordered_products> shop_keeper_ordered_products;
+    private final List<Shop_keeper_ordered_products> shopKeeperOrderedProducts;
 
-    public Ordered_item_adapter(Context mCtx, List<Shop_keeper_ordered_products> shop_keeper_ordered_products) {
+    public Ordered_item_adapter(Context mCtx, List<Shop_keeper_ordered_products> shopKeeperOrderedProducts) {
         this.mCtx = mCtx;
-        this.shop_keeper_ordered_products = shop_keeper_ordered_products;
+        this.shopKeeperOrderedProducts = shopKeeperOrderedProducts;
     }
 
     @NonNull
@@ -43,16 +45,29 @@ public class Ordered_item_adapter extends  RecyclerView.Adapter<Ordered_item_ada
 
     @Override
     public void onBindViewHolder(@NonNull Ordered_item_adapter.ViewHolder holder, int position) {
-        Glide.with(mCtx).load(shop_keeper_ordered_products.get(position).getProduct_image()).into(holder.imageView);
-        holder.product_name.setText(shop_keeper_ordered_products.get(position).getProduct_name());
-        holder.product_price_and_quantity.setText('৳'+String.valueOf(shop_keeper_ordered_products.get(position).getProduct_price())+'x'+String.valueOf(shop_keeper_ordered_products.get(position).getProduct_quantity()));
-        Double total = shop_keeper_ordered_products.get(position).getProduct_quantity() * shop_keeper_ordered_products.get(position).getProduct_price();
-        holder.product_total_price.setText('৳'+ String.valueOf(total));
+
+        Glide.with(mCtx).load(HostAddress.HOST_ADDRESS.getHostAddress() +
+                shopKeeperOrderedProducts.get(position).getProduct_image()).diskCacheStrategy(DiskCacheStrategy.ALL)
+                .timeout(6000).into(holder.imageView);
+
+        holder.product_name.setText(shopKeeperOrderedProducts.get(position).getProduct_name());
+
+        String productPriceAndQuantityString = '৳'+
+                String.valueOf(shopKeeperOrderedProducts.get(position).getProduct_price())+
+                'x'+ shopKeeperOrderedProducts.get(position).getProduct_quantity();
+
+        holder.product_price_and_quantity.setText(productPriceAndQuantityString);
+
+        Double total = shopKeeperOrderedProducts.get(position).getProduct_quantity() *
+                shopKeeperOrderedProducts.get(position).getProduct_price();
+
+        String totalString = '৳'+ String.valueOf(total);
+        holder.product_total_price.setText(totalString);
     }
 
     @Override
     public int getItemCount() {
-        return shop_keeper_ordered_products.size();
+        return shopKeeperOrderedProducts.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -71,9 +86,10 @@ public class Ordered_item_adapter extends  RecyclerView.Adapter<Ordered_item_ada
             {
                 int position = getBindingAdapterPosition();
 
-                Shop_keeper_ordered_products shop_keeper_ordered_products1 = shop_keeper_ordered_products.get(position);
+                Shop_keeper_ordered_products shop_keeper_ordered_products1 = shopKeeperOrderedProducts.get(position);
 
-                Call<OwoProduct> call = RetrofitClient.getInstance().getApi().getProductById(shop_keeper_ordered_products1.getProduct_id());
+                Call<OwoProduct> call = RetrofitClient.getInstance().getApi().
+                        getProductById(shop_keeper_ordered_products1.getProduct_id());
 
                 call.enqueue(new Callback<OwoProduct>() {
                     @Override

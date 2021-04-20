@@ -17,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.shopKPR.configurations.ServiceMobile;
 import com.shopKPR.prevalent.Prevalent;
 import com.shopKPR.R;
-import com.shopKPR.shopCart.CartActivity;
+import com.shopKPR.cart.CartActivity;
 import com.shopKPR.shopKeeperPanel.Calculator;
 import com.shopKPR.shopKeeperPanel.Contact_us;
 import com.shopKPR.shopKeeperPanel.SearchActivity;

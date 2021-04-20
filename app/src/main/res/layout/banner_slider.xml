@@ -14,40 +14,245 @@
 
         <ViewFlipper
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="120dp"
             android:id="@+id/view_flipper_offer"
             android:layout_marginTop="10dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="10dp"/>
 
+
+        <LinearLayout
+            android:id="@+id/roundCard"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:weightSum="5"
+            android:layout_below="@id/view_flipper_offer"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                >
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/gift_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="#F1F3F4"
+                    app:borderWidth="0dp"
+                    app:elevation="0dp"
+                    android:src="@drawable/ic_baseline_card_giftcard_24"
+                    android:contentDescription="@string/gift_card"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="@string/gift_card"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="7dp"
+                android:orientation="vertical"
+                >
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/happy_deals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="#F1F3F4"
+                    app:borderWidth="0dp"
+                    app:elevation="0dp"
+                    android:src="@drawable/hot_sale"
+                    android:contentDescription="@string/gift_card"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="@string/deals"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="7dp"
+                android:orientation="vertical"
+                >
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/foreign_medicine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="#F1F3F4"
+                    app:borderWidth="0dp"
+                    app:elevation="0dp"
+                    android:src="@drawable/medicine"
+                    android:contentDescription="@string/gift_card"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="@string/foreign"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="7dp"
+                android:orientation="vertical"
+                >
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/offer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="#F1F3F4"
+                    app:borderWidth="0dp"
+                    app:elevation="0dp"
+                    android:src="@drawable/offer"
+                    android:contentDescription="@string/gift_card"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="Offers"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="7dp"
+                android:orientation="vertical"
+                >
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/for_you"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="#F1F3F4"
+                    app:borderWidth="0dp"
+                    app:elevation="0dp"
+                    android:src="@drawable/for_you"
+                    android:contentDescription="@string/gift_card"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="@string/for_you"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
         <View
             android:id="@+id/edge1"
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="6dp"
             android:background="#FAFAFA"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:layout_below="@+id/view_flipper_offer"/>
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/roundCard"/>
+
+        <RelativeLayout
+            android:id="@+id/capsule_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F9F9F9"
+            android:layout_below="@id/edge1"
+            >
+
+            <View
+                android:id="@+id/capsule_gap"
+                android:layout_width="6dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/black"/>
+
+            <TextView
+                android:id="@+id/capsule_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/capsules"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/capsule_gap"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/capsule_show_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/show_more"
+                android:textAllCaps="false"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="7dp"
+                android:layout_marginTop="5dp"
+                android:padding="8dp"
+                app:elevation="0dp"
+                android:background="@drawable/show_more_back_ground"
+                android:textColor="#A6A6A6"
+                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/capsule_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/capsule_gap"/>
+
+        </RelativeLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabbed_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_below="@id/edge1"
+            android:layout_below="@id/capsule_linear"
             app:tabIndicatorColor="@color/blue"
             >
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Categories"/>
+                android:text="@string/categories"/>
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/brands"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Brands"/>
+                android:text="@string/sub_categories"/>
 
         </com.google.android.material.tabs.TabLayout>
 
@@ -67,14 +272,6 @@
             android:fitsSystemWindows="true"
             android:background="#FAFAFA"
             android:layout_below="@+id/divider5"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="#FAFAFA"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_below="@+id/edge2"/>
 
     </RelativeLayout>
 

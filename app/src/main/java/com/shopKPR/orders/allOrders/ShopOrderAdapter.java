@@ -1,4 +1,4 @@
-package com.shopKPR.adapters;
+package com.shopKPR.orders.allOrders;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,21 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.shopKPR.Model.ShopKeeperOrders;
 import com.shopKPR.R;
-import com.shopKPR.shopKeeperPanel.Order_details_for_single_item;
-
+import com.shopKPR.orders.orderItem.OrderedItemDetails;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Locale;
 
 public class ShopOrderAdapter extends PagedListAdapter<ShopKeeperOrders, RecyclerView.ViewHolder> {
 
-    private Context mCtx;
+    private final Context mCtx;
 
     public ShopOrderAdapter(Context mCtx) {
         super(DIFF_CALLBACK);
@@ -43,14 +42,18 @@ public class ShopOrderAdapter extends PagedListAdapter<ShopKeeperOrders, Recycle
 
         ShopKeeperOrders shopKeeperOrders = getItem(position);
 
-        if (shopKeeperOrders != null) {
+        if (shopKeeperOrders != null)
+        {
             itemViewHolder.order_number.setText(String.valueOf(shopKeeperOrders.getOrder_number()));
             itemViewHolder.order_status.setText(shopKeeperOrders.getShipping_state());
 
             Double total_with_discount = shopKeeperOrders.getTotal_amount() - shopKeeperOrders.getCoupon_discount();
 
-            itemViewHolder.order_total_price.setText("৳ "+String.format("%.2f",total_with_discount));
-            itemViewHolder.order_date_and_time.setText(shopKeeperOrders.getDate()+", "+ shopKeeperOrders.getOrder_time());
+            String totalWithDiscountString =  "৳ "+String.format(Locale.ENGLISH, "%.2f",total_with_discount);
+            String orderDateAndTimeString = shopKeeperOrders.getDate()+", "+ shopKeeperOrders.getOrder_time();
+
+            itemViewHolder.order_total_price.setText(totalWithDiscountString);
+            itemViewHolder.order_date_and_time.setText(orderDateAndTimeString);
 
         } else {
             Toast.makeText(mCtx, "Item is null", Toast.LENGTH_LONG).show();
@@ -88,9 +91,11 @@ public class ShopOrderAdapter extends PagedListAdapter<ShopKeeperOrders, Recycle
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View v)
+        {
             ShopKeeperOrders shopKeeperOrders = getItem(getBindingAdapterPosition());
-            Intent intent = new Intent(mCtx, Order_details_for_single_item.class);
+
+            Intent intent = new Intent(mCtx, OrderedItemDetails.class);
             intent.putExtra("Order", shopKeeperOrders);
             mCtx.startActivity(intent);
         }

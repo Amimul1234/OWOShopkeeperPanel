@@ -1,4 +1,4 @@
-package com.shopKPR.shopKeeperPanel.searchAlphabetically;
+package com.shopKPR.search.searchDescending;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -10,16 +10,15 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class ItemViewModelSearchAlphabetically extends ViewModel
-{
+public class ItemViewModelSearchDesc extends ViewModel {
 
     public LiveData<PagedList<OwoProduct>> itemPagedList;
     private final LiveData<PageKeyedDataSource<Integer, OwoProduct>> liveDataSource;
 
-    public ItemViewModelSearchAlphabetically(List<String> subCategories, String searchedProduct) {
+    public ItemViewModelSearchDesc(List<String> subCategories, String searchedProduct) {
 
-        ItemDataSourceFactoryForSearchAlphabetically itemDataSourceFactoryForSearch = new ItemDataSourceFactoryForSearchAlphabetically(subCategories, searchedProduct);
-        liveDataSource = itemDataSourceFactoryForSearch.getItemLiveDataSource();
+        ItemDataSourceFactoryForSearchDesc itemDataSourceFactoryForSearchDesc = new ItemDataSourceFactoryForSearchDesc(subCategories, searchedProduct);
+        liveDataSource = itemDataSourceFactoryForSearchDesc.getItemLiveDataSource();
 
         PagedList.Config config =
                 (new PagedList.Config.Builder())
@@ -28,11 +27,10 @@ public class ItemViewModelSearchAlphabetically extends ViewModel
                         .build();
 
 
-        itemPagedList = (new LivePagedListBuilder(itemDataSourceFactoryForSearch, config)).build();
+        itemPagedList = (new LivePagedListBuilder(itemDataSourceFactoryForSearchDesc, config)).build();
     }
 
-    public void clear()
-    {
+    public void clear(){
         Objects.requireNonNull(liveDataSource.getValue()).invalidate();
     }
 

@@ -1,4 +1,4 @@
-package com.shopKPR.orders;
+package com.shopKPR.orderConfirmation;
 
 public class TimeSlot
 {
