@@ -110,25 +110,35 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
             capsulesRecyclerView.setLayoutManager(new GridLayoutManager(mCtx, 1,
                     GridLayoutManager.HORIZONTAL, false));
 
+            getCapsules("Capsules");
+
             pediatricDropRecyclerView = itemView.findViewById(R.id.pediatric_recycler_view);
-            pediatricDropRecyclerView.setAdapter(capsuleAdapter);
+            pediatricDropRecyclerView.setAdapter(pediatricDropAdapter);
             pediatricDropRecyclerView.setLayoutManager(new GridLayoutManager(mCtx, 1,
                     GridLayoutManager.HORIZONTAL, false));
 
+            getCapsules("Pediatric Drops");
+
             powerOfSuspensionRecyclerView = itemView.findViewById(R.id.power_of_suspension_recycler_view);
-            powerOfSuspensionRecyclerView.setAdapter(capsuleAdapter);
+            powerOfSuspensionRecyclerView.setAdapter(powerOfSuspensionAdapter);
             powerOfSuspensionRecyclerView.setLayoutManager(new GridLayoutManager(mCtx, 1,
                     GridLayoutManager.HORIZONTAL, false));
 
+            getCapsules("Power of suspensions");
+
             tabletRecyclerView = itemView.findViewById(R.id.tablet_recycler_view);
-            tabletRecyclerView.setAdapter(capsuleAdapter);
+            tabletRecyclerView.setAdapter(tabletAdapter);
             tabletRecyclerView.setLayoutManager(new GridLayoutManager(mCtx, 1,
                     GridLayoutManager.HORIZONTAL, false));
 
+            getCapsules("Tablets");
+
             herbalsRecyclerView = itemView.findViewById(R.id.herbal_recycler_view);
-            herbalsRecyclerView.setAdapter(capsuleAdapter);
+            herbalsRecyclerView.setAdapter(herbalAdapter);
             herbalsRecyclerView.setLayoutManager(new GridLayoutManager(mCtx, 1,
                     GridLayoutManager.HORIZONTAL, false));
+
+            getCapsules("Herbals");
 
 
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -163,8 +173,6 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
 
     private void fliptheView(ViewFlipper banner) {
 
-        getCapsules();
-
         int size = images.size();
 
         for(int i=0; i<size; i++)
@@ -174,18 +182,55 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
 
     }
 
-    private void getCapsules()
+    private void getCapsules(String subcategoryName)
     {
         RetrofitClient.getInstance().getApi()
-                .getProductsViaSpecificCategory(0, Prevalent.category_to_display.get(0))
-                .enqueue(new Callback<List<OwoProduct>>() {
+                .getProductBySubcategory(Prevalent.category_to_display, subcategoryName)
+                .enqueue(new Callback<List<OwoProduct>>()
+                {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
                         if(response.isSuccessful())
                         {
-                            owoCapsuleLists.clear();
-                            owoCapsuleLists.addAll(response.body());
-                            capsuleAdapter.notifyDataSetChanged();
+                            switch (subcategoryName)
+                            {
+                                case "Capsules" :
+                                {
+                                    owoCapsuleLists.clear();
+                                    owoCapsuleLists.addAll(response.body());
+                                    capsuleAdapter.notifyDataSetChanged();
+                                    break;
+                                }
+                                case "Pediatric Drops":
+                                {
+                                    pediatricDropLists.clear();
+                                    pediatricDropLists.addAll(response.body());
+                                    pediatricDropAdapter.notifyDataSetChanged();
+                                    break;
+                                }
+                                case "Power of suspensions":
+                                {
+                                    powerOfSuspensionList.clear();
+                                    powerOfSuspensionList.addAll(response.body());
+                                    powerOfSuspensionAdapter.notifyDataSetChanged();
+                                    break;
+                                }
+                                case "Tablets" :
+                                {
+                                    tabletList.clear();
+                                    tabletList.addAll(response.body());
+                                    tabletAdapter.notifyDataSetChanged();
+                                    break;
+                                }
+                                case "Herbals" :
+                                {
+                                    herbalsList.clear();
+                                    herbalsList.addAll(response.body());
+                                    herbalAdapter.notifyDataSetChanged();
+                                    break;
+                                }
+                            }
+
                         }
                         else
                         {

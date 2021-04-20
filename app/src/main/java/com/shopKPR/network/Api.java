@@ -82,6 +82,10 @@ public interface Api {
     Call<List<OwoProduct>> getProductViaBrand(
             @Query("page") int page, @Query("brandsId") Long brandsId);
 
+    @GET("/getProductBySubCategory")
+    Call<List<OwoProduct>> getProductBySubcategory(@Query("categoryIds") List<Long> categoryIds,
+                                                   @Query("subCategoryName") String subCategoryName);
+
     @POST("/shopKeeperCart")
     Call<ResponseBody> cartListItems(@Body CartListFromClient cartList);
 
