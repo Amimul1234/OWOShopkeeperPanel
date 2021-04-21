@@ -3,164 +3,90 @@ package com.shopKPR.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.paging.PagedListAdapter;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.shopKPR.network.RetrofitClient;
-import com.shopKPR.Model.OwoProduct;
 import com.shopKPR.R;
+import com.shopKPR.categorySpinner.entity.SubCategoryEntity;
 import com.shopKPR.configurations.HostAddress;
-import com.shopKPR.products.ProductDetailsActivity;
-import org.jetbrains.annotations.NotNull;
-import java.util.Objects;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.shopKPR.shopKeeperPanel.product_related.SubCategoryWiseProduct;
+import java.util.ArrayList;
+import java.util.List;
 
-public class SubCategoryAdapter extends PagedListAdapter<OwoProduct, RecyclerView.ViewHolder>{
+public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>{
 
     private final Context mCtx;
-    private final ProgressBar progressBar;
+    private final List<SubCategoryEntity> subCategoryEntityList = new ArrayList<>();
 
-    public SubCategoryAdapter(Context mCtx, ProgressBar progressBar) {
-        super(DIFF_CALLBACK);
+    public SubCategoryAdapter(Context mCtx, List<SubCategoryEntity> subCategoryEntityList) {
         this.mCtx = mCtx;
-        this.progressBar = progressBar;
+        this.subCategoryEntityList.addAll(subCategoryEntityList);
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mCtx).inflate(R.layout.product_availability_sample, parent, false);
-        return new ItemViewHolder(view);
+    public SubCategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(mCtx);
+        View view = inflater.inflate(R.layout.add_product_sample, parent,false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+    public void onBindViewHolder(@NonNull SubCategoryAdapter.ViewHolder holder, int position) {
 
-        OwoProduct item = getItem(position);
+        Glide.with(mCtx).load(HostAddress.HOST_ADDRESS.getHostAddress() + subCategoryEntityList.get(position).getSub_category_image())
+                .diskCacheStrategy(DiskCacheStrategy.ALL).timeout(6000).into(holder.imageView);
 
-        if (item != null) {
-
-            Glide.with(mCtx).load(HostAddress.HOST_ADDRESS.getHostAddress()+item.getProductImage())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL).timeout(6000).into(itemViewHolder.imageView);
-
-            itemViewHolder.txtProductName.setText(item.getProductName());
-
-            String price = "৳ "+ item.getProductPrice();
-
-            itemViewHolder.txtProductPrice.setText(price);
-
-            itemViewHolder.txtProductPrice.setPaintFlags(itemViewHolder.txtProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            itemViewHolder.txtProductPrice.setVisibility(View.VISIBLE);
-
-            double discounted_price = item.getProductPrice() - item.getProductDiscount();
-
-            String discount = "৳ "+ discounted_price;
-
-            itemViewHolder.txtProduct_discounted_price.setText(discount);
-
-
-            double percentage = (item.getProductDiscount() / item.getProductPrice()) * 100.00;
-
-            int val = (int) percentage;
-            String percent = val + " % ";
-            itemViewHolder.discounted_percent.setText(percent);
-
-
-
-        } else {
-            Toast.makeText(mCtx, "No Product Available", Toast.LENGTH_LONG).show();
-        }
+        holder.textView.setText(subCategoryEntityList.get(position).getSub_category_name());
     }
 
-    private static final DiffUtil.ItemCallback<OwoProduct> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<OwoProduct>() {
-                @Override
-                public boolean areItemsTheSame(OwoProduct oldItem, OwoProduct newItem) {
-                    return oldItem.getProductId().equals(newItem.getProductId());
-                }
+    @Override
+    public int getItemCount()
+    {
+        return subCategoryEntityList.size();
+    }
 
-                @Override
-                public boolean areContentsTheSame(OwoProduct oldItem, @NotNull OwoProduct newItem) {
-                    return oldItem.equals(newItem);
-                }
-            };
+    public void changeList(List<SubCategoryEntity> subCategoryEntityList) {
+        this.subCategoryEntityList.clear();
+        this.subCategoryEntityList.addAll(subCategoryEntityList);
+        notifyDataSetChanged();
+    }
 
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView txtProductName, txtProductPrice, txtProduct_discounted_price, discounted_percent;
-        public ImageView imageView;
+        ImageView imageView;
+        TextView textView;
 
-        public ItemViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imageView = itemView.findViewById(R.id.product_image);
-            txtProductName = itemView.findViewById(R.id.product_name);
-            txtProductPrice = itemView.findViewById(R.id.product_price);
-            discounted_percent = itemView.findViewById(R.id.discount_percentage);
-            txtProduct_discounted_price = itemView.findViewById(R.id.product_discounted_price);
+            imageView = itemView.findViewById(R.id.imageviewid);
+            textView = itemView.findViewById(R.id.textviewid);
 
-            DisplayMetrics displaymetrics = new DisplayMetrics(); //Setting things dynamically
+            DisplayMetrics displaymetrics = new DisplayMetrics();
             ((Activity) mCtx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
-            int devicewidth = displaymetrics.widthPixels / 2;
+            int devicewidth = displaymetrics.widthPixels / 3;
+            int deviceheight =  displaymetrics.heightPixels / 5;
 
-            itemView.getLayoutParams().width = devicewidth - 15;
+            itemView.getLayoutParams().width = devicewidth - 20;
+            itemView.getLayoutParams().height = deviceheight - 10;
 
-            itemView.setOnClickListener(this);
-        }
+            itemView.setOnClickListener(v -> {
+                int position = getBindingAdapterPosition();
 
-        @Override
-        public void onClick(View v)
-        {
-
-            Long id = Objects.requireNonNull(getItem(getBindingAdapterPosition())).getProductId();
-
-            progressBar.setVisibility(View.VISIBLE);
-
-            RetrofitClient.getInstance().getApi()
-                    .getProductById(id)
-                    .enqueue(new Callback<OwoProduct>() {
-                        @Override
-                        public void onResponse(@NotNull Call<OwoProduct> call, @NotNull Response<OwoProduct> response) {
-                            if(response.isSuccessful())
-                            {
-                                progressBar.setVisibility(View.INVISIBLE);
-
-                                Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
-                                intent.putExtra("Products", response.body());
-                                mCtx.startActivity(intent);
-                            }
-                            else
-                            {
-                                progressBar.setVisibility(View.INVISIBLE);
-                                Log.e("Error", "Server error occurred");
-                                Toast.makeText(mCtx, "Can not get product data, please try again", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(@NotNull Call<OwoProduct> call, @NotNull Throwable t) {
-                            Log.e("Error", t.getMessage());
-                            progressBar.setVisibility(View.INVISIBLE);
-                        }});
+                Intent intent = new Intent(mCtx, SubCategoryWiseProduct.class);
+                intent.putExtra("sub_category", subCategoryEntityList.get(position));
+                mCtx.startActivity(intent);
+            });
         }
     }
-
 }

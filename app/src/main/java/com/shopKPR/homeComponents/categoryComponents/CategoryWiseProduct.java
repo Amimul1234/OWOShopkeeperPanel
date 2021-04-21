@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;

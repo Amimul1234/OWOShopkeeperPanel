@@ -251,6 +251,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         recyclerView.setHasFixedSize(true);
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 6);//Configuring recyclerview to receive two layout manager
+
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {

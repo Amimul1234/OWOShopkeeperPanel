@@ -81,9 +81,8 @@ public class SubCategoryProductsAdapter extends PagedListAdapter<OwoProduct, Rec
             String percent = val + " % ";
             itemViewHolder.discounted_percent.setText(percent);
 
-
-
         } else {
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(mCtx, "No Product Available", Toast.LENGTH_LONG).show();
         }
     }

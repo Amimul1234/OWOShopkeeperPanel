@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.shopKPR.R;
 import com.shopKPR.adapters.Product_tag;
-import com.shopKPR.adapters.SubCategoryAdapter;
 import com.shopKPR.network.RetrofitClient;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
@@ -24,7 +23,7 @@ import retrofit2.Response;
 public class ShowSubCategoryProducts extends AppCompatActivity {
 
     private String subCategoryName;
-    private SubCategoryAdapter subCategoryAdapter;
+    private SubCategoryProductsAdapter subCategoryProductsAdapter;
     private SubCategoryProductsViewModel subCategoryProductsViewModel;
     private ProgressBar progressBar;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -47,7 +46,7 @@ public class ShowSubCategoryProducts extends AppCompatActivity {
 
         getSubCategoryId(subCategoryName);
 
-        subCategoryAdapter = new SubCategoryAdapter(this, progressBar);
+        subCategoryProductsAdapter = new SubCategoryProductsAdapter(this, progressBar);
 
         ImageView backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> onBackPressed());
@@ -66,11 +65,12 @@ public class ShowSubCategoryProducts extends AppCompatActivity {
                     public void onResponse(@NotNull Call<Long> call, @NotNull Response<Long> response) {
                         if(response.isSuccessful())
                         {
+                            progressBar.setVisibility(View.GONE);
                             subCategoryProductsViewModel = new SubCategoryProductsViewModel(response.body());
 
                             subCategoryProductsViewModel.itemPagedList.observe(ShowSubCategoryProducts.this, items ->
                             {
-                                subCategoryAdapter.submitList(items);
+                                subCategoryProductsAdapter.submitList(items);
                                 showOnRecyclerView();
                             });
                         }
@@ -98,15 +98,27 @@ public class ShowSubCategoryProducts extends AppCompatActivity {
     {
         productsRecyclerView.setHasFixedSize(true);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);
+
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if(position == 0)
+                {
+                    return 6;
+                }
+                else
+                    return 3;
+            }
+        });
 
         productsRecyclerView.setLayoutManager(layoutManager);
         Product_tag product_tag = new Product_tag(getApplicationContext());
 
-        ConcatAdapter concatAdapter = new ConcatAdapter(product_tag, subCategoryAdapter);
+        ConcatAdapter concatAdapter = new ConcatAdapter(product_tag, subCategoryProductsAdapter);
 
         productsRecyclerView.setAdapter(concatAdapter);
-        subCategoryAdapter.notifyDataSetChanged();
+        subCategoryProductsAdapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
     }
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
@@ -108,11 +109,11 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
             viewPagerAdapter = new ViewPagerAdapter(fragmentManager, lifecycle);
             viewPager2.setAdapter(viewPagerAdapter);
 
-            Button capsuleShowMore = itemView.findViewById(R.id.capsule_show_more);
-            Button pediatricShowMore = itemView.findViewById(R.id.pediatric_show_more);
-            Button powerOfSuspensionShowMore = itemView.findViewById(R.id.power_of_suspension_show_more);
-            Button tabletShowMore = itemView.findViewById(R.id.tablet_show_more);
-            Button herbalShowMore = itemView.findViewById(R.id.herbal_show_more);
+            TextView capsuleShowMore = itemView.findViewById(R.id.capsule_show_more);
+            TextView pediatricShowMore = itemView.findViewById(R.id.pediatric_show_more);
+            TextView powerOfSuspensionShowMore = itemView.findViewById(R.id.power_of_suspension_show_more);
+            TextView tabletShowMore = itemView.findViewById(R.id.tablet_show_more);
+            TextView herbalShowMore = itemView.findViewById(R.id.herbal_show_more);
 
             capsulesRecyclerView = itemView.findViewById(R.id.capsule_recycler_view);
             capsulesRecyclerView.setAdapter(capsuleAdapter);
