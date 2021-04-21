@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".homeComponents.brandsComponent.SubCategoryFragment">
+    tools:context=".homeComponents.tabbedComponents.subCategories.SubCategoryFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

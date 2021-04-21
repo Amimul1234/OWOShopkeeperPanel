@@ -1,4 +1,4 @@
-package com.shopKPR.homeComponents.brandsComponent;
+package com.shopKPR.homeComponents.tabbedComponents.subCategories;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -8,14 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
-import com.shopKPR.prevalent.Prevalent;
 import com.shopKPR.R;
 
 public class SubCategoryFragment extends Fragment {
 
     int counter = 1;
-
     private View rootView;
     private SubCategoryAdapter subCategoryAdapter;
 
@@ -51,16 +48,8 @@ public class SubCategoryFragment extends Fragment {
 
         button.setOnClickListener(v ->
         {
-            if(counter < Prevalent.category_to_display.size())
-            {
-                counter++;
-                subCategoryAdapter.getItems(counter);
-            }
-            else
-            {
-                Toast.makeText(getActivity(), "No more sub-categories", Toast.LENGTH_SHORT).show();
-            }
-
+            counter++;
+            subCategoryAdapter.getItems(counter);
             subCategoryAdapter.notifyDataSetChanged();
 
         });

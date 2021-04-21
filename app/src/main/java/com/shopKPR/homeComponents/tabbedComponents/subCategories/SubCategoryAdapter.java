@@ -1,4 +1,4 @@
-package com.shopKPR.homeComponents.brandsComponent;
+package com.shopKPR.homeComponents.tabbedComponents.subCategories;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -108,6 +108,9 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                     public void onResponse(@NotNull Call<List<SubCategoryEntity>> call, @NotNull Response<List<SubCategoryEntity>> response) {
                         if(response.isSuccessful())
                         {
+                            if(response.body().size() == 0)
+                                Toast.makeText(mCtx, "No more brands", Toast.LENGTH_SHORT).show();
+
                             progressDialog.dismiss();
                             subCategoryEntityList.addAll(response.body());
                             notifyDataSetChanged();

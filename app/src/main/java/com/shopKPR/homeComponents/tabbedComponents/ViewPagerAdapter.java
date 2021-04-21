@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import com.shopKPR.homeComponents.brandsComponent.SubCategoryFragment;
+import com.shopKPR.homeComponents.tabbedComponents.subCategories.SubCategoryFragment;
 import com.shopKPR.homeComponents.categoryComponents.CategoryFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter
@@ -37,13 +37,5 @@ public class ViewPagerAdapter extends FragmentStateAdapter
     @Override
     public int getItemCount() {
         return 2;
-    }
-
-    public CategoryFragment getCategoryFragment() {
-        return categoryFragment;
-    }
-
-    public SubCategoryFragment getSubCategoryFragment() {
-        return subCategoryFragment;
     }
 }
