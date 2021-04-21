@@ -72,7 +72,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private ItemViewModel itemViewModel;
     private BottomNavigationView bottomNavigationView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

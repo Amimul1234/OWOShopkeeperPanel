@@ -1,4 +1,4 @@
-package com.shopKPR.adapters;
+package com.shopKPR.homeComponents.homeProductsPaging;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,12 +30,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SubCategoryAdapter extends PagedListAdapter<OwoProduct, RecyclerView.ViewHolder>{
+public class SubCategoryProductsAdapter extends PagedListAdapter<OwoProduct, RecyclerView.ViewHolder>{
 
     private final Context mCtx;
     private final ProgressBar progressBar;
 
-    public SubCategoryAdapter(Context mCtx, ProgressBar progressBar) {
+    public SubCategoryProductsAdapter(Context mCtx, ProgressBar progressBar) {
         super(DIFF_CALLBACK);
         this.mCtx = mCtx;
         this.progressBar = progressBar;

@@ -2,6 +2,7 @@ package com.shopKPR.homeComponents.bannerComponents;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.tabs.TabLayout;
 import com.shopKPR.Model.OwoProduct;
 import com.shopKPR.R;
+import com.shopKPR.homeComponents.homeProductsPaging.ShowSubCategoryProducts;
 import com.shopKPR.homeComponents.tabbedComponents.ViewPagerAdapter;
 import com.shopKPR.configurations.HostAddress;
 import com.shopKPR.network.RetrofitClient;
@@ -187,7 +189,9 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
 
     private void showMoreProducts(String subCategoryName)
     {
-
+        Intent intent = new Intent(mCtx, ShowSubCategoryProducts.class);
+        intent.putExtra("subCategoryName", subCategoryName);
+        mCtx.startActivity(intent);
     }
 
     private void fliptheView(ViewFlipper banner) {

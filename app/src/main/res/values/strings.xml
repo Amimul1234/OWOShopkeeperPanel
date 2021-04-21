@@ -222,5 +222,6 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
     <string name="power_of_suspension">Power of suspensions</string>
     <string name="tablet">Tablets</string>
     <string name="herbals">Herbals</string>
+    <string name="sub_category_name">Sub Category Name</string>
 
 </resources>

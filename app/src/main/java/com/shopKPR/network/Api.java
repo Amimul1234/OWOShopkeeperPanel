@@ -202,6 +202,14 @@ public interface Api {
     @GET("/getSimilarProducts")
     Call<List<OwoProduct>> getSimilarProducts(@Query("product_sub_category_id") Long product_sub_category_id);
 
+
+    @GET("/getSubCategoryIdViaName")
+    Call<Long> getSubcategoryId(@Query("subCategoryName") String subCategoryName);
+
+    @GET("/getProductsBySubCategory")
+    Call<List<OwoProduct>> getSubCategoryBasedProducts(@Query("page") int page,
+                                                       @Query("subCategoryId") Long subCategoryId);
+
     //Add product to wishList
     @POST("/addProductToWishList")
     Call<ResponseBody> addProductToWishList(@Query("shop_keeper_id") Long shop_keeper_id,
