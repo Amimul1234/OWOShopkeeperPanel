@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -105,6 +106,12 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
             viewPagerAdapter = new ViewPagerAdapter(fragmentManager, lifecycle);
             viewPager2.setAdapter(viewPagerAdapter);
 
+            Button capsuleShowMore = itemView.findViewById(R.id.capsule_show_more);
+            Button pediatricShowMore = itemView.findViewById(R.id.pediatric_show_more);
+            Button powerOfSuspensionShowMore = itemView.findViewById(R.id.power_of_suspension_show_more);
+            Button tabletShowMore = itemView.findViewById(R.id.tablet_show_more);
+            Button herbalShowMore = itemView.findViewById(R.id.herbal_show_more);
+
             capsulesRecyclerView = itemView.findViewById(R.id.capsule_recycler_view);
             capsulesRecyclerView.setAdapter(capsuleAdapter);
             capsulesRecyclerView.setLayoutManager(new GridLayoutManager(mCtx, 1,
@@ -140,6 +147,12 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
 
             getCapsules("Herbals");
 
+            capsuleShowMore.setOnClickListener(v -> showMoreProducts("Capsules"));
+            pediatricShowMore.setOnClickListener(v -> showMoreProducts("Pediatric Drops"));
+            powerOfSuspensionShowMore.setOnClickListener(v -> showMoreProducts("Power of suspensions"));
+            tabletShowMore.setOnClickListener(v -> showMoreProducts("Tablets"));
+            herbalShowMore.setOnClickListener(v -> showMoreProducts("Herbals"));
+
 
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
@@ -157,7 +170,8 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
                 }
             });
 
-            viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback()
+            {
                 @Override
                 public void onPageSelected(int position) {
                     tabLayout.selectTab(tabLayout.getTabAt(position));
@@ -169,6 +183,11 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
 
             bannerFlipper.getLayoutParams().width = displaymetrics.widthPixels;
         }
+    }
+
+    private void showMoreProducts(String subCategoryName)
+    {
+
     }
 
     private void fliptheView(ViewFlipper banner) {
