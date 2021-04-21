@@ -4,7 +4,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +12,14 @@ import android.widget.Toast;
 import com.shopKPR.prevalent.Prevalent;
 import com.shopKPR.R;
 
-public class BrandsFragment extends Fragment {
+public class SubCategoryFragment extends Fragment {
 
     int counter = 1;
 
     private View rootView;
-    private BrandsAdapter brandsAdapter;
+    private SubCategoryAdapter subCategoryAdapter;
 
-    public BrandsFragment() {
+    public SubCategoryFragment() {
 
     }
 
@@ -43,32 +42,33 @@ public class BrandsFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);//Configuring recyclerview to receive two layout manager
         recyclerView.setLayoutManager(layoutManager);
 
-        brandsAdapter = new BrandsAdapter(getActivity());
-        recyclerView.setAdapter(brandsAdapter);
+        subCategoryAdapter = new SubCategoryAdapter(getActivity());
+        recyclerView.setAdapter(subCategoryAdapter);
 
         Button button = rootView.findViewById(R.id.more_button);
 
-        brandsAdapter.getItems(1);
+        subCategoryAdapter.getItems(1);
 
         button.setOnClickListener(v ->
         {
             if(counter < Prevalent.category_to_display.size())
             {
                 counter++;
-                brandsAdapter.getItems(counter);
+                subCategoryAdapter.getItems(counter);
             }
             else
             {
-                Toast.makeText(getActivity(), "No more brands", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "No more sub-categories", Toast.LENGTH_SHORT).show();
             }
 
-            brandsAdapter.notifyDataSetChanged();
+            subCategoryAdapter.notifyDataSetChanged();
+
         });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        brandsAdapter.notifyDataSetChanged();
+        subCategoryAdapter.notifyDataSetChanged();
     }
 }

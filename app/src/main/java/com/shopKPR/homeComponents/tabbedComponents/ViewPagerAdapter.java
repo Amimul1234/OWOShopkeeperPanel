@@ -5,19 +5,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import com.shopKPR.homeComponents.brandsComponent.BrandsFragment;
+import com.shopKPR.homeComponents.brandsComponent.SubCategoryFragment;
 import com.shopKPR.homeComponents.categoryComponents.CategoryFragment;
 
-public class ViewPagerAdapter extends FragmentStateAdapter {
+public class ViewPagerAdapter extends FragmentStateAdapter
+{
 
     private final CategoryFragment categoryFragment;
-    private final BrandsFragment brandsFragment;
+    private final SubCategoryFragment subCategoryFragment;
 
     public ViewPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
 
         categoryFragment = new CategoryFragment();
-        brandsFragment = new BrandsFragment();
+        subCategoryFragment = new SubCategoryFragment();
     }
 
     @NonNull
@@ -28,7 +29,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         }
         else
         {
-            return brandsFragment;
+            return subCategoryFragment;
         }
 
     }
@@ -42,7 +43,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         return categoryFragment;
     }
 
-    public BrandsFragment getBrandsFragment() {
-        return brandsFragment;
+    public SubCategoryFragment getSubCategoryFragment() {
+        return subCategoryFragment;
     }
 }

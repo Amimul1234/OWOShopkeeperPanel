@@ -35,6 +35,9 @@ public interface Api {
     @GET("/getBannerForSelectedCategories")
     Call<List<String>> bannerImages(@Query("categoryIds") List<Long> categoryIds);
 
+    @GET("/getSubCategoriesPaging")
+    Call<List<SubCategoryEntity>> getSubCategoriesPaging(@Query("page") int page,
+                                                      @Query("categoryIds") List<Long> categoryIds);
     //Shop Registration
     @POST("/shopRegisterRequest")
     Call<ResponseBody> shopRegisterRequest(@Body ShopPendingRequest shopPendingRequest);
