@@ -3,6 +3,7 @@ package com.shopKPR.homeComponents.tabbedComponents.subCategories;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ import com.shopKPR.network.RetrofitClient;
 import com.shopKPR.configurations.HostAddress;
 import com.shopKPR.R;
 import com.shopKPR.prevalent.Prevalent;
+import com.shopKPR.shopKeeperPanel.product_related.SubCategoryWiseProduct;
+
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,12 +88,10 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
                 SubCategoryEntity subCategoryEntity = subCategoryEntityList.get(position);
 
-                /*
-                Intent intent = new Intent(mCtx, BrandWiseProduct.class);
-                intent.putExtra("brand", brands);
+                Intent intent = new Intent(mCtx, SubCategoryWiseProduct.class);
+                intent.putExtra("sub_category", subCategoryEntity);
                 mCtx.startActivity(intent);
 
-                 */
             });
         }
     }

@@ -2,6 +2,7 @@ package com.shopKPR.homeComponents.tabbedComponents.subCategories;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.shopKPR.R;
 import com.shopKPR.configurations.HostAddress;
 import com.shopKPR.homeComponents.brandsComponent.entity.Brands;
+import com.shopKPR.shopKeeperPanel.product_related.BrandWiseProduct;
 import java.util.List;
 
 public class BrandsAdapter extends RecyclerView.Adapter<BrandsAdapter.ViewHolder> {
@@ -71,10 +73,11 @@ public class BrandsAdapter extends RecyclerView.Adapter<BrandsAdapter.ViewHolder
 
             itemView.setOnClickListener(v ->
             {
-//                int position = getBindingAdapterPosition();
-//                Intent intent = new Intent(mCtx, CategoryWiseProduct.class);
-//                intent.putExtra("category", categoryEntityList.get(position));
-//                mCtx.startActivity(intent);
+                int position = getBindingAdapterPosition();
+
+                Intent intent = new Intent(mCtx, BrandWiseProduct.class);
+                intent.putExtra("brand", brandsList.get(position));
+                mCtx.startActivity(intent);
             });
         }
     }

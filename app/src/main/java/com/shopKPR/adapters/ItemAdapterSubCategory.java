@@ -1,10 +1,12 @@
 package com.shopKPR.adapters;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,16 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.shopKPR.Model.OwoProduct;
 import com.shopKPR.R;
 import com.shopKPR.configurations.HostAddress;
+import com.shopKPR.network.RetrofitClient;
 import com.shopKPR.products.ProductDetailsActivity;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ItemAdapterSubCategory extends PagedListAdapter<OwoProduct, RecyclerView.ViewHolder>{
 
@@ -118,10 +129,38 @@ public class ItemAdapterSubCategory extends PagedListAdapter<OwoProduct, Recycle
 
         @Override
         public void onClick(View v) {
-            OwoProduct owoproduct = getItem(getBindingAdapterPosition());
-            Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
-            intent.putExtra("Products", owoproduct);
-            mCtx.startActivity(intent);
+            ProgressDialog progressDialog = new ProgressDialog(mCtx);
+            progressDialog.setTitle("Product Information");
+            progressDialog.setMessage("Please wait while we are getting product information");
+            progressDialog.show();
+
+            Long id = Objects.requireNonNull(getItem(getBindingAdapterPosition())).getProductId();
+
+            RetrofitClient.getInstance().getApi()
+                    .getProductById(id)
+                    .enqueue(new Callback<OwoProduct>() {
+                        @Override
+                        public void onResponse(@NotNull Call<OwoProduct> call, @NotNull Response<OwoProduct> response) {
+                            if(response.isSuccessful())
+                            {
+                                progressDialog.dismiss();
+                                Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
+                                intent.putExtra("Products", response.body());
+                                mCtx.startActivity(intent);
+                            }
+                            else
+                            {
+                                progressDialog.dismiss();
+                                Log.e("Error", "Server error occurred");
+                                Toast.makeText(mCtx, "Can not get product data, please try again", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NotNull Call<OwoProduct> call, @NotNull Throwable t) {
+                            Log.e("Error", t.getMessage());
+                            progressDialog.dismiss();
+                        }});
         }
     }
 

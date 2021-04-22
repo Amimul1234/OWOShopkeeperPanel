@@ -88,6 +88,8 @@ public class OrderedItemDetails extends AppCompatActivity {
         if(states[6].equals(shopKeeperOrders.getShipping_state()))
         {
             stepperIndicator.setCurrentStep(6);
+            stepperIndicator.setShowDoneIcon(true);
+            stepperIndicator.setAnimCheckRadius(0);
             stepperIndicator.setDoneIcon(getResources().getDrawable(R.drawable.ic_baseline_cancel_24));
         }
 
