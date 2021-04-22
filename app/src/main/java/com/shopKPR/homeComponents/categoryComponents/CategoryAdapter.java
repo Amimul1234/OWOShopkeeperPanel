@@ -74,15 +74,11 @@ public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewH
             DisplayMetrics displaymetrics = new DisplayMetrics(); //Resizing things dynamically
             ((Activity) mCtx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
-            int devicewidth = displaymetrics.widthPixels / 3;
+            int deviceWidth = displaymetrics.widthPixels / 3;
+            int deviceHeight = displaymetrics.heightPixels / 5;
 
-            int deviceheight = displaymetrics.heightPixels / 5;
-
-            itemView.getLayoutParams().width = devicewidth - 20;
-            itemView.getLayoutParams().height = deviceheight - 10;
-
-            //imageView.getLayoutParams().width = devicewidth / 2; //setting category images dimensions
-            imageView.getLayoutParams().height = devicewidth / 2; //setting category images dimensions
+            itemView.getLayoutParams().width = deviceWidth - 20;
+            itemView.getLayoutParams().height = deviceHeight - 10;
 
             itemView.setOnClickListener(v -> {
                 int position = getBindingAdapterPosition();

@@ -10,15 +10,15 @@ import com.shopKPR.Model.OwoProduct;
 public class ItemDataSourceFactorySubCategory extends DataSource.Factory {
 
     private MutableLiveData<PageKeyedDataSource<Integer, OwoProduct>> itemLiveDataSource = new MutableLiveData<>();
-    private String category;
+    private Long subCategoryId;
 
-    public ItemDataSourceFactorySubCategory(String category) {
-        this.category = category;
+    public ItemDataSourceFactorySubCategory(Long subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 
     @Override
     public DataSource create() {
-        ItemDataSourceSubCategory itemDataSource = new ItemDataSourceSubCategory(category);
+        ItemDataSourceSubCategory itemDataSource = new ItemDataSourceSubCategory(subCategoryId);
         itemLiveDataSource.postValue(itemDataSource);
         return itemDataSource;
     }

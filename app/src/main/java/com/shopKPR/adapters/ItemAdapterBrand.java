@@ -27,7 +27,7 @@ import com.shopKPR.configurations.HostAddress;
 import com.shopKPR.pagination.NetworkState;
 import com.shopKPR.products.ProductDetailsActivity;
 import org.jetbrains.annotations.NotNull;
-
+import java.util.Objects;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -143,7 +143,7 @@ public class ItemAdapterBrand extends PagedListAdapter<OwoProduct, RecyclerView.
                 }
             };
 
-    public class NetworkStateItemViewHolder extends RecyclerView.ViewHolder {
+    public static class NetworkStateItemViewHolder extends RecyclerView.ViewHolder {
 
         private final ProgressBar progressBar;
         private final TextView errorMsg;
@@ -184,17 +184,13 @@ public class ItemAdapterBrand extends PagedListAdapter<OwoProduct, RecyclerView.
             discounted_percent = itemView.findViewById(R.id.discount_percentage);
             txtProduct_discounted_price = itemView.findViewById(R.id.product_discounted_price);
 
-            DisplayMetrics displaymetrics = new DisplayMetrics(); //Setting things dynamically
+            DisplayMetrics displaymetrics = new DisplayMetrics();
             ((Activity) mCtx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-            //if you need three fix imageView in width
-            int devicewidth = displaymetrics.widthPixels / 2;
 
-            //if you need 4-5-6 anything fix imageview in height
+            int devicewidth = displaymetrics.widthPixels / 2;
             int deviceheight = displaymetrics.heightPixels / 3;
 
             itemView.getLayoutParams().width = devicewidth;
-
-            //if you need same height as width you can set devicewidth in holder.image_view.getLayoutParams().height
             itemView.getLayoutParams().height = deviceheight;
 
             itemView.setOnClickListener(this);
@@ -207,7 +203,7 @@ public class ItemAdapterBrand extends PagedListAdapter<OwoProduct, RecyclerView.
             progressDialog.setMessage("Please wait while we are getting product information");
             progressDialog.show();
 
-            Long id = getItem(getBindingAdapterPosition()).getProductId();
+            Long id = Objects.requireNonNull(getItem(getBindingAdapterPosition())).getProductId();
 
             RetrofitClient.getInstance().getApi()
                     .getProductById(id)

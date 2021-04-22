@@ -1,4 +1,4 @@
-package com.shopKPR.adapters;
+package com.shopKPR.homeComponents.tabbedComponents.subCategories;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,24 +8,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.shopKPR.R;
 
-public class Product_tag extends RecyclerView.Adapter<Product_tag.ViewHolder> {
+public class BrandsTag extends RecyclerView.Adapter<BrandsTag.ViewHolder>{
 
     private final Context mCtx;
 
-    public Product_tag(Context mCtx) {
+    public BrandsTag(Context mCtx) {
         this.mCtx = mCtx;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mCtx).inflate(R.layout.products_starting_badge, parent, false);
-        return new Product_tag.ViewHolder(view);
+    public BrandsTag.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mCtx).inflate(R.layout.brands_tag, parent, false);
+        return new BrandsTag.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
     }
+
 
     @Override
     public int getItemCount() {
@@ -37,5 +39,4 @@ public class Product_tag extends RecyclerView.Adapter<Product_tag.ViewHolder> {
             super(itemView);
         }
     }
-
 }

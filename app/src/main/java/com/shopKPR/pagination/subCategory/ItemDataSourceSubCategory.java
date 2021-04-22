@@ -14,24 +14,25 @@ import retrofit2.Response;
 public class ItemDataSourceSubCategory extends PageKeyedDataSource<Integer, OwoProduct> {
 
     private static final int FIRST_PAGE = 0;
-    private String category;
+    private final Long subCategoryId;
 
-    public ItemDataSourceSubCategory(String category) {
-        this.category = category;
+    public ItemDataSourceSubCategory(Long subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, OwoProduct> callback) {
 
-        RetrofitClient.getInstance()//Calling the getProductApi
+        RetrofitClient.getInstance()
                 .getApi()
-                .getProductsBySubCategory(FIRST_PAGE, category)
+                .getProductsBySubCategory(FIRST_PAGE, subCategoryId)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
-                        if(response.code() == 200)
+                        if(response.isSuccessful())
                         {
-                            callback.onResult((List<OwoProduct>) response.body(), null, FIRST_PAGE+1);
+                            assert response.body() != null;
+                            callback.onResult(response.body(), null, FIRST_PAGE+1);
                         }
                         else
                         {
@@ -52,21 +53,22 @@ public class ItemDataSourceSubCategory extends PageKeyedDataSource<Integer, OwoP
 
         RetrofitClient.getInstance()
                 .getApi()
-                .getProductsBySubCategory(params.key, category)
+                .getProductsBySubCategory(params.key, subCategoryId)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
-                        if(response.code() == 200)
+                        if(response.isSuccessful())
                         {
                             Integer key = (params.key > 0) ? params.key - 1 : null;
-                            callback.onResult((List<OwoProduct>) response.body(), key);
+
+                            assert response.body() != null;
+                            callback.onResult(response.body(), key);
                         }
                         else
                         {
                             Log.e("Error", "Server error occurred");
                         }
                     }
-
                     @Override
                     public void onFailure(@NotNull Call<List<OwoProduct>> call, @NotNull Throwable t) {
                         Log.e("Error", t.getMessage());
@@ -80,7 +82,7 @@ public class ItemDataSourceSubCategory extends PageKeyedDataSource<Integer, OwoP
 
         RetrofitClient.getInstance()
                 .getApi()
-                .getProductsBySubCategory(params.key, category)
+                .getProductsBySubCategory(params.key, subCategoryId)
                 .enqueue(new Callback<List<OwoProduct>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<OwoProduct>> call, @NotNull Response<List<OwoProduct>> response) {
@@ -89,11 +91,13 @@ public class ItemDataSourceSubCategory extends PageKeyedDataSource<Integer, OwoP
                             if(params.key < 15)
                             {
                                 Log.d("loadAfter", String.valueOf(params.key));
-                                callback.onResult((List<OwoProduct>) response.body(), params.key+1);
+                                assert response.body() != null;
+                                callback.onResult(response.body(), params.key+1);
                             }
                             else
                             {
-                                callback.onResult((List<OwoProduct>) response.body(), null);
+                                assert response.body() != null;
+                                callback.onResult(response.body(), null);
                             }
                         }
                         else

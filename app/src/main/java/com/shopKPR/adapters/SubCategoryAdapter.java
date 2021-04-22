@@ -86,6 +86,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                 Intent intent = new Intent(mCtx, SubCategoryWiseProduct.class);
                 intent.putExtra("sub_category", subCategoryEntityList.get(position));
                 mCtx.startActivity(intent);
+
             });
         }
     }

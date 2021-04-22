@@ -59,11 +59,8 @@ public interface Api {
     Call<List<OwoProduct>> getProductsViaSpecificCategory(@Query("page") int page,
                                                           @Query("productCategory") Long productCategory);
 
-    @GET("/getProductBySubCategory")
-    Call<List<OwoProduct>> getProductsBySubCategory(
-            @Query("page") int page,
-            @Query("product_sub_category") String categories
-    );
+    @GET("/getProductsBySubCategory")
+    Call<List<OwoProduct>> getProductsBySubCategory(@Query("page") int page, @Query("subCategoryId") Long subCategoryId);
 
     @GET("/getBrandsViaCategory")
     Call<List<Brands>> getBrandsViaCategory(
@@ -231,4 +228,7 @@ public interface Api {
     //Time Slots
     @GET("/getAllAvailableTimeSlots")
     Call<List<TimeSlot>> getAllAvailableTimeSlots();
+
+    @GET("/getAllBrands")
+    Call<List<Brands>> getAllBrandsViaSubCategory(@Query("subCategoryId") Long subCategoryId);
 }

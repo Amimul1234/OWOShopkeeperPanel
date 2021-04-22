@@ -13,9 +13,9 @@ public class ItemViewModelSubCategory extends ViewModel {
     public LiveData<PagedList<OwoProduct>> itemPagedList;
     LiveData<PageKeyedDataSource<Integer, OwoProduct>> liveDataSource;
 
-    public ItemViewModelSubCategory(String category) {
+    public ItemViewModelSubCategory(Long subCategoryId) {
 
-        ItemDataSourceFactorySubCategory itemDataSourceFactory = new ItemDataSourceFactorySubCategory(category);
+        ItemDataSourceFactorySubCategory itemDataSourceFactory = new ItemDataSourceFactorySubCategory(subCategoryId);
         liveDataSource = itemDataSourceFactory.getItemLiveDataSource();
 
         PagedList.Config config =
