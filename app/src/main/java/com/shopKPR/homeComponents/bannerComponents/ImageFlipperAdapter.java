@@ -21,9 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.shopKPR.Model.OwoProduct;
 import com.shopKPR.R;
+import com.shopKPR.homeComponents.floatingComponents.deals.AllDealsActivity;
+import com.shopKPR.homeComponents.floatingComponents.gifts.AllGifts;
 import com.shopKPR.homeComponents.homeProductsPaging.ShowSubCategoryProducts;
 import com.shopKPR.homeComponents.tabbedComponents.ViewPagerAdapter;
 import com.shopKPR.configurations.HostAddress;
@@ -100,12 +103,22 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
         public RecyclerView capsulesRecyclerView, pediatricDropRecyclerView, powerOfSuspensionRecyclerView,
                 tabletRecyclerView, herbalsRecyclerView;
 
+        private FloatingActionButton giftCard, deals, foreign, offers, forYou;
+
         public ViewHolder(@NonNull View itemView){
             super(itemView);
 
             bannerFlipper = itemView.findViewById(R.id.view_flipper_offer);
             tabLayout = itemView.findViewById(R.id.tabbed_layout);
             viewPager2 = itemView.findViewById(R.id.category_and_brand_showing);
+
+            giftCard = itemView.findViewById(R.id.gift_card);
+            deals = itemView.findViewById(R.id.happy_deals);
+            foreign = itemView.findViewById(R.id.foreign_medicine);
+            offers = itemView.findViewById(R.id.offer);
+            forYou = itemView.findViewById(R.id.for_you);
+
+
             viewPagerAdapter = new ViewPagerAdapter(fragmentManager, lifecycle);
             viewPager2.setAdapter(viewPagerAdapter);
 
@@ -156,6 +169,31 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
             tabletShowMore.setOnClickListener(v -> showMoreProducts("Tablets"));
             herbalShowMore.setOnClickListener(v -> showMoreProducts("Herbals"));
 
+
+            giftCard.setOnClickListener(v -> {
+                Intent intent = new Intent(mCtx, AllGifts.class);
+                mCtx.startActivity(intent);
+            });
+
+            deals.setOnClickListener(v -> {
+                Intent intent = new Intent(mCtx, AllDealsActivity.class);
+                mCtx.startActivity(intent);
+            });
+
+            foreign.setOnClickListener(v -> {
+                Intent intent = new Intent();
+                mCtx.startActivity(intent);
+            });
+
+            offers.setOnClickListener(v -> {
+                Intent intent = new Intent();
+                mCtx.startActivity(intent);
+            });
+
+            forYou.setOnClickListener(v -> {
+                Intent intent = new Intent();
+                mCtx.startActivity(intent);
+            });
 
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override

@@ -11,6 +11,8 @@ import com.shopKPR.Model.UserShopKeeper;
 import com.shopKPR.Model.User_debt_details;
 import com.shopKPR.categorySpinner.entity.CategoryEntity;
 import com.shopKPR.categorySpinner.entity.SubCategoryEntity;
+import com.shopKPR.homeComponents.floatingComponents.entities.Deals;
+import com.shopKPR.homeComponents.floatingComponents.entities.Gifts;
 import com.shopKPR.myShopManagement.userDebts.model.DebtDashBoardResponse;
 import com.shopKPR.orderConfirmation.TimeSlot;
 import com.shopKPR.registerRequest.ShopPendingRequest;
@@ -231,4 +233,10 @@ public interface Api {
 
     @GET("/getAllBrands")
     Call<List<Brands>> getAllBrandsViaSubCategory(@Query("subCategoryId") Long subCategoryId);
+
+    @GET("/getAllDeals")
+    Call<List<Deals>> getAllDeals();
+
+    @GET("/getAllGiftCards")
+    Call<List<Gifts>> getGistsCardList();
 }
