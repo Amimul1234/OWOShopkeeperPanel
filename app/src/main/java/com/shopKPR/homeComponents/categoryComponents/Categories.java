@@ -97,34 +97,23 @@ public class Categories extends AppCompatActivity {
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item ->
         {
-            switch (item.getItemId()) {
-                case R.id.action_home:
-                {
-                    onBackPressed();
-                    break;
-                }
-                case R.id.action_categories: {
-                    break;
-                }
-                case R.id.action_calculator:
-                {
-                    Intent intent = new Intent(Categories.this, Calculator.class);
-                    startActivity(intent);
-                    break;
-                }
-                case R.id.action_cart:
-                {
-                    Intent intent = new Intent(Categories.this, CartActivity.class);
-                    startActivity(intent);
-                    break;
-                }
-                case R.id.action_account:
-                {
-                    Intent intent=new Intent(Categories.this, SettingsActivity.class);
-                    startActivity(intent);
-                    break;
-                }
+            if (item.getItemId() == R.id.action_home)
+                onBackPressed();
+            else if (item.getItemId() == R.id.action_calculator)
+            {
+                Intent intent = new Intent(Categories.this, Calculator.class);
+                startActivity(intent);
             }
+            else if (item.getItemId() == R.id.action_cart)
+            {
+                Intent intent = new Intent(Categories.this, CartActivity.class);
+                startActivity(intent);
+            } else if (item.getItemId() == R.id.action_account)
+            {
+                Intent intent = new Intent(Categories.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+
             return true;
         });
     }

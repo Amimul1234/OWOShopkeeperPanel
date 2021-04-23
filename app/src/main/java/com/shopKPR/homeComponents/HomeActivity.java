@@ -229,6 +229,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Lifecycle lifecycle = getLifecycle();
+
         imageFlipperAdapter = new ImageFlipperAdapter(this, images, fragmentManager, lifecycle);
 
         Long[] categories = new Long[size];
@@ -295,7 +296,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             final AlertDialog alertDialog = builder.create();
             alertDialog.show();
 
-            yes.setOnClickListener(v -> {
+            yes.setOnClickListener(v ->
+            {
                 alertDialog.dismiss();
                 finish();
             });

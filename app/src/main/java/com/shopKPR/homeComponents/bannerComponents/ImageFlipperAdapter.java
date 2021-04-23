@@ -180,10 +180,7 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
                 mCtx.startActivity(intent);
             });
 
-            foreign.setOnClickListener(v -> {
-                Intent intent = new Intent();
-                mCtx.startActivity(intent);
-            });
+            foreign.setOnClickListener(v -> showMoreProducts("Foreign Medicines"));
 
             offers.setOnClickListener(v -> {
                 Intent intent = new Intent();
@@ -191,8 +188,8 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
             });
 
             forYou.setOnClickListener(v -> {
-                Intent intent = new Intent();
-                mCtx.startActivity(intent);
+                //This needs to implemented later.
+                Toast.makeText(mCtx, "Coming soon...", Toast.LENGTH_SHORT).show();
             });
 
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

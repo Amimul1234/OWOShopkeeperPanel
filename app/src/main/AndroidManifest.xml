@@ -27,8 +27,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-
-        <activity android:name=".homeComponents.homeProductsPaging.ShowSubCategoryProducts"/>
+        <activity android:name=".homeComponents.floatingComponents.offers.OffersActivity"></activity>
+        <activity android:name=".homeComponents.homeProductsPaging.ShowSubCategoryProducts" />
 
         <service
             android:name=".pushNotification.FirebaseMessagingService"
@@ -59,7 +59,6 @@
         <activity android:name=".shopKeeperPanel.product_related.SubCategoryWiseProduct" />
         <activity android:name=".homeComponents.floatingComponents.deals.AllDealsActivity" />
         <activity android:name=".homeComponents.floatingComponents.gifts.AllGifts" />
-
         <activity
             android:name=".homeComponents.categoryComponents.CategoryWiseProduct"
             android:screenOrientation="portrait" />

@@ -2,13 +2,13 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="125dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="0dp"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="10dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp"
@@ -18,7 +18,7 @@
             android:id="@+id/product_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="start"
             android:src="@drawable/product_dummy_image"
             android:scaleType="fitXY"
             android:contentDescription="@string/product_image" />
@@ -28,13 +28,13 @@
             android:id="@+id/product_name"
             android:layout_width="match_parent"
             android:layout_height="36dp"
-            android:text="@string/product_name"
-            android:maxLines="2"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/product_image"
             android:ellipsize="end"
-            android:layout_marginTop="10dp"
+            android:maxLines="2"
+            android:text="@string/product_name"
             android:textColor="@color/black"
-            android:gravity="center_vertical"
-            android:textSize="15sp"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/product_price"
@@ -43,7 +43,11 @@
             android:text="@string/product_price"
             android:textAlignment="textStart"
             android:layout_marginTop="10dp"
-            android:textSize="13sp"
+            android:textSize="16sp"
+            android:layout_toStartOf="@+id/discounted_percent"
+            android:layout_toEndOf="@+id/product_image"
+            android:layout_below="@+id/product_name"
+            android:layout_marginStart="5dp"
             android:textColor="@color/quantum_grey"/>
 
         <TextView
@@ -52,34 +56,27 @@
             android:layout_height="20dp"
             android:text="@string/discount"
             android:textAlignment="textStart"
-            android:textSize="13sp"
+            android:textSize="16sp"
             android:textColor="@color/red"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toStartOf="@+id/discounted_percent"
+            android:layout_toEndOf="@+id/product_image"
+            android:layout_below="@+id/product_price"
             android:layout_marginBottom="10dp"/>
-    </LinearLayout>
-
-
-    <RelativeLayout
-        android:layout_width="65dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/discount_percentage"
-        android:layout_gravity="end"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="2dp"
-        >
 
         <TextView
-            android:id="@+id/discount_percentage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/_0"
-            android:textSize="18sp"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:id="@+id/discounted_percent"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="@drawable/side_ribbon"
+            android:layout_alignParentEnd="true"
+            android:rotation="-90"
+            android:text="Save"
+            android:textColor="@color/white"
+            android:paddingTop="10dp"
+            android:paddingStart="25dp"/>
 
     </RelativeLayout>
-
 
 </androidx.cardview.widget.CardView>
 

@@ -294,7 +294,6 @@ public class SettingsActivity extends AppCompatActivity{
                                 previousImagePath = shopKeeperUser.getImageUri();
                                 shopKeeperUser.setImageUri(path);
                                 updateToDatabaseImageHandling(shopKeeperUser, progressDialog);
-
                             } catch (IOException e) {
                                 e.printStackTrace();
                                 progressDialog.dismiss();
