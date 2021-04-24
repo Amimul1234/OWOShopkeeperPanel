@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: io.paperdb:paperdb:2.7.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bae4ab3defb818fa4b58ad1885d971fa/jetified-paperdb-2.7.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bae4ab3defb818fa4b58ad1885d971fa/jetified-paperdb-2.7.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bae4ab3defb818fa4b58ad1885d971fa/jetified-paperdb-2.7.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/209ffea08a73130809c73b524d343f03/jetified-paperdb-2.7.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/209ffea08a73130809c73b524d343f03/jetified-paperdb-2.7.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/209ffea08a73130809c73b524d343f03/jetified-paperdb-2.7.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.paperdb/paperdb/2.7.1/4803adae053e755c540bcef061b0d52268f10dcd/paperdb-2.7.1-javadoc.jar!/" />
