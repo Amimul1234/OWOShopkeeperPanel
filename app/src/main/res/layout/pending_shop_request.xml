@@ -38,13 +38,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/shopImage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/create_shop"
+                android:layout_height="250dp"
+                android:src="@drawable/shop_animation"
                 android:scaleType="centerCrop"
-                android:contentDescription="@string/shop_image" />
+                android:contentDescription="@string/shop_image"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -224,8 +224,8 @@
             <ImageView
                 android:id="@+id/shopOwnerNid"
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:src="@drawable/nid"
+                android:layout_height="250dp"
+                android:src="@drawable/id_card_illustration"
                 android:scaleType="centerCrop"
                 android:layout_marginTop="20dp"
                 android:contentDescription="@string/shop_keeper_nid" />

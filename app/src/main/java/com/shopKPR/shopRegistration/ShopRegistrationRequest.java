@@ -52,6 +52,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import pl.droidsonroids.gif.GifImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -65,7 +66,8 @@ public class ShopRegistrationRequest extends AppCompatActivity {
     private Double latitude, longitude;
     private String shopImageUri, shopKeeperNidUri, shopTradeLicenseUri;
 
-    private ImageView shopImage, shopOwnerNid,shopTradeLicense;
+    private GifImageView shopImage;
+    private ImageView shopOwnerNid,shopTradeLicense;
     private EditText shopName, shopAddress, shopOwnerName, shopServiceMobile;
     private CheckBox checkBox1, checkBox2, checkBox3;
     private Spinner requestedCategory1, requestedCategory2, requestedCategory3;
@@ -182,7 +184,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
     private void validateInputs()
     {
         if(shopImage.getDrawable().getConstantState() == Objects.requireNonNull(ContextCompat.getDrawable(
-                ShopRegistrationRequest.this, R.drawable.create_shop)).getConstantState())
+                ShopRegistrationRequest.this, R.drawable.shop_animation)).getConstantState())
         {
             Toast.makeText(this, "Please select shop image", Toast.LENGTH_SHORT).show();
         }
@@ -217,7 +219,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
             shopServiceMobile.requestFocus();
         }
         else if(shopOwnerNid.getDrawable().getConstantState() == Objects.requireNonNull(ContextCompat.getDrawable(
-                ShopRegistrationRequest.this, R.drawable.nid)).getConstantState())
+                ShopRegistrationRequest.this, R.drawable.id_card_illustration)).getConstantState())
         {
             Toast.makeText(this, "Must provide NID front picture", Toast.LENGTH_SHORT).show();
         }
