@@ -1,0 +1,237 @@
+<resources>
+    <string name="app_name">ShopKPR</string>
+
+    <string name="maps_api_key">AIzaSyDX6YQ4dRErpb5muuAg0vtBHIK9o20iDns</string>
+    <string name="title_activity_location_from_map">মানচিত্র</string>
+
+    <string name="title_activity_home">হোমঅ্যাক্টিভিটি</string>
+    <string name="navigation_drawer_open">নেভিগেশন ড্রয়ার খুলুন</string>
+    <string name="navigation_drawer_close">নেভিগেশন ড্রয়ারটি বন্ধ করুন</string>
+    <string name="nav_header_title">অ্যান্ড্রয়েড স্টুডিও</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">নেভিগেশন শিরোনাম</string>
+    <string name="action_settings">সেটিংস</string>
+
+    <string name="menu_home">বাড়ি</string>
+    <string name="menu_gallery">গ্যালারী</string>
+    <string name="menu_slideshow">স্লাইডশো</string>
+
+    <string name="complain">অভিযোগ দাও</string>
+    <string name="call">এখন আমাদের কল</string>
+
+
+    <string name="mobile_description">
+        করোনাভাইরাস রোগের নিয়ন্ত্রণের মূল ভিত্তি 2019 (কোভিড -১৯) মহামারীটি মারাত্মক তীব্র শ্বাসযন্ত্রের সিন্ড্রোম করোনভাইরাস 2 (সারস-কোভি -2) এর বিরুদ্ধে টিকা দেওয়া। এক বছরের মধ্যে বেশ কয়েকটি ভ্যাকসিন তৈরি করা হয়েছে এবং কয়েক মিলিয়ন ডোজ সরবরাহ করা হয়েছে। প্রতিকূল ইভেন্টগুলির প্রতিবেদন করা একটি সমালোচনামূলক পোস্ট মার্কেটিং ক্রিয়াকলাপ।
+
+ChAdOx1 nCoV-19 ভ্যাকসিনের (অ্যাস্ট্রাজেনেকা) প্রথম ডোজ পাওয়ার পরে আমরা ২৩ জন রোগীর মধ্যে থ্রোমোবসিস এবং থ্রোমোসাইটোপেনিয়া উপস্থাপনের ক্ষেত্রে ফলাফলগুলি প্রতিবেদন করি। তাদের ক্লিনিকাল এবং পরীক্ষাগার বৈশিষ্ট্যের ভিত্তিতে আমরা একটি উপন্যাস অন্তর্নিহিত প্রক্রিয়া সনাক্ত করি এবং থেরাপিউটিক প্রভাবগুলিকে সম্বোধন করি।
+    </string>
+
+    <string name="mobile_number">মোবাইল নম্বর</string>
+    <string name="pin_number">পিন নাম্বার</string>
+    <string name="remember_me">আমাকে মনে কর</string>
+    <string name="forget_pin">পিন ভুলে গেছেন</string>
+    <string name="log_in">প্রবেশ করুন</string>
+    <string name="are_you_not_registered">আপনি নিবন্ধিত না?</string>
+    <string name="sign_up">নিবন্ধন করুন</string>
+    <string name="voucher">ভাউচার</string>
+    <string name="please_register_your_shop_with_us">আমাদের সাথে আপনার দোকান নিবন্ধন করুন।</string>
+    <string name="create_shop">দোকান তৈরি করুন</string>
+    <string name="apply_voucher">ভাউচার প্রয়োগ করুন</string>
+    <string name="please_wait_for_approval">অনুমোদনের জন্য অপেক্ষা করুন</string>
+    <string name="regards_owo_team">শুভেচ্ছা, ShopKPR টিম</string>
+    <string name="shopping_cart">বাজারের ব্যাগ</string>
+    <string name="total">মোট :</string>
+    <string name="_00">৳ 00</string>
+    <string name="do_you_have_a_vouchar">আপনার কি কুপন আছে?</string>
+    <string name="sub_total">উপ মোট:</string>
+    <string name="place_order">স্থান অর্ডার</string>
+    <string name="you_have_not_added_anything_to_cart">আপনি কার্টে কিছু যোগ করেন নি</string>
+    <string name="change_pin">পিন পরিবর্তন করুন</string>
+    <string name="current_pin">বর্তমান পিন</string>
+    <string name="new_pin">নতুন পিন</string>
+    <string name="confirm_new_pin">নতুন পিনটি নিশ্চিত করুন</string>
+    <string name="write_your_shipment_details">আপনার চালানের বিশদ লিখুন</string>
+    <string name="name">নাম</string>
+    <string name="delivery_location">ডেলিভারির ঠিকানা</string>
+    <string name="city_name">শহরের নাম</string>
+    <string name="confirm">নিশ্চিত করা</string>
+    <string name="owo_support">ShopKPR সমর্থন</string>
+    <string name="please_enter_the_subject">বিষয় লিখুন:</string>
+    <string name="complain_details">অভিযোগের বিবরণ:</string>
+    <string name="submit_complain">অভিযোগ জমা দিন</string>
+    <string name="create_a_new_shop">একটি নতুন শপ তৈরি করুন</string>
+    <string name="click_to_upload_shop_image">(শপ ইমেজ আপলোড করতে ক্লিক করুন)</string>
+    <string name="shop_name">শপের নাম</string>
+    <string name="shop_address">দোকান ঠিকানা</string>
+    <string name="validate_address">ঠিকানা বৈধ করুন</string>
+    <string name="please_select_a_category">দয়া করে একটি বিভাগ নির্বাচন করুন:</string>
+    <string name="max_3_can_be_selected">(সর্বোচ্চ 3 টি নির্বাচন করা যেতে পারে)</string>
+    <string name="shop_owner_name">দোকানের মালিকের নাম</string>
+    <string name="service_mobile">মোবাইল পরিষেবা</string>
+    <string name="click_to_upload_nid_front">(এনআইডি ফ্রন্ট আপলোড করতে ক্লিক করুন)</string>
+    <string name="click_to_upload_trade_license">(ট্রেড লাইসেন্স আপলোড করতে ক্লিক করুন)</string>
+    <string name="optional">ঐচ্ছিক</string>
+    <string name="enter_your_mobile_number_again">আপনার মোবাইল নম্বরটি আবার লিখুন।</string>
+    <string name="send_otp">ওটিপি প্রেরণ করুন</string>
+    <string name="please_enter_verification_code">দয়া করে, যাচাইকরণ কোড লিখুন</string>
+    <string name="enter_code">কোড লিখুন</string>
+    <string name="continueI">চালিয়ে যান</string>
+    <string name="validate_location">অবস্থান যাচাই করুন</string>
+    <string name="my_products">আমার পণ্য</string>
+    <string name="my_orders">আমার আদেশ</string>
+    <string name="trade_licence">বাণিজ্য লাইসেন্স:</string>
+    <string name="actual_price">কেনা দাম</string>
+    <string name="price_with_discount">নতুন মূল্য</string>
+    <string name="available">উপলব্ধ</string>
+    <string name="quantity">পরিমাণ</string>
+    <string name="add_to_cart">কার্ট যোগ করুন</string>
+    <string name="new_account">নতুন অ্যাকাউন্ট নিবন্ধন করুন</string>
+    <string name="confirm_pin">পিন নিশ্চিত করুন</string>
+    <string name="i_accept_all_the">আমি সব গ্রহণ</string>
+    <string name="terms_and_conditions">শর্তাবলী</string>
+    <string name="create_account">তৈরি কর</string>
+    <string name="owoproduct">পণ্য</string>
+    <string name="full_name">পুরো নাম</string>
+    <string name="update_information">হালনাগাদ তথ্য</string>
+    <string name="do_you_really_want_to_leave">আপনি কি সত্যিই চলে যেতে চান?</string>
+    <string name="no">না</string>
+    <string name="yes">হ্যাঁ</string>
+    <string name="call_us_now">এখন আমাদের কল</string>
+    <string name="issue_a_complain">একটি অভিযোগ জারি করুন</string>
+    <string name="categories">বিভাগসমূহ</string>
+    <string name="search_products">পণ্য অনুসন্ধান করুন</string>
+    <string name="wish_list">ইচ্ছেতালিকা</string>
+    <string name="you_have_not_added_anything_to_wish_list">আপনি ইচ্ছার তালিকায় কিছু যোগ করেন নি</string>
+    <string name="change_your_picture">আপনার ছবি পরিবর্তন করুন</string>
+    <string name="profile_picture">প্রোফাইল ছবি</string>
+    <string name="change_user_information">ব্যবহারকারীর তথ্য পরিবর্তন করুন</string>
+    <string name="edit">সম্পাদনা করুন</string>
+    <string name="user_name">ব্যবহারকারীর নাম</string>
+    <string name="change_your_pin_number">আপনার পিন নম্বর পরিবর্তন করুন</string>
+    <string name="please_enter_new_pin">দয়া করে, নতুন পিন প্রবেশ করুন</string>
+    <string name="new_pin_number">নতুন পিন নম্বর</string>
+    <string name="set_new_pin">নতুন পিন সেট করুন</string>
+    <string name="filter">ছাঁকনি</string>
+    <string name="sort">সাজান</string>
+
+    <string-array name="shop_management">
+        <item>Shop Statistics</item>
+        <item>Add a new product</item>
+        <item>View products</item>
+        <item>Add a new offer</item>
+        <item>View offers</item>
+        <item>Pending Orders</item>
+        <item>All Completed Orders</item>
+        <item>Due Records</item>
+        <item>Bakir Khata</item>
+    </string-array>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="get_current_location">GET Current Location</string>
+    <string name="shop_trade_license">Shop Trade License</string>
+    <string name="shop_image">Shop Image</string>
+    <string name="shop_keeper_nid">Shop Keeper NID</string>
+    <string name="logo">logo</string>
+    <string name="send_verification_code_again">Send Verification Code Again</string>
+    <string name="next">Next</string>
+    <string name="send_verification_code">Send Verification Code</string>
+    <string name="product_image">Product Image</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_price">Product Price</string>
+    <string name="_0">0%</string>
+    <string name="xxxxxxxxxxx">XXXXXXXXXXX</string>
+    <string name="owo_logo">ShopKPR Logo</string>
+    <string name="see_pin">See Pin</string>
+    <string name="category_image">Category Image</string>
+    <string name="category_name">Category Name</string>
+    <string name="back_to_home_arrow">Back To Home Arrow</string>
+    <string name="add_to_wishlist">Add to WishList</string>
+    <string name="apple">Apple</string>
+    <string name="brand">Brand</string>
+    <string name="_1200">1200</string>
+    <string name="_300">300</string>
+    <string name="_900">900</string>
+    <string name="_20">20</string>
+    <string name="discount">Discount:</string>
+    <string name="noItem">No Item in Cart</string>
+    <string name="a_user_debt">A User Debt</string>
+    <string name="add_a_debt_record">Add A Debt Record</string>
+    <string name="enter_debt_taker_name">Enter Debt Taker Name</string>
+    <string name="enter_debt_taker_mobile_number">Enter Debt Taker Mobile Number</string>
+    <string name="add_debt_record">Add Debt Record</string>
+    <string name="user_debts">User Debts</string>
+    <string name="total_debt">Total Debt</string>
+    <string name="total_loan">Total Loan</string>
+    <string name="total_paid">Total Paid</string>
+    <string name="_10_000">৳10, 000</string>
+    <string name="_8_000">৳ 8,000</string>
+    <string name="load">Load</string>
+    <string name="loan">Loan</string>
+    <string name="paid">Paid</string>
+    <string name="address">Address:</string>
+    <string name="_55_phase_2_adarsh_palm_retreat_bellandur_bengaluru">#55, Phase 2, Adarsh Palm Retreat, Bellandur, Bengaluru</string>
+    <string name="shop_service_mobile">Service Mobile:</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="enter_debt_description">Enter Debt Description</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="date_dd_mm_yyyy">Date(DD:MM:YYYY)</string>
+    <string name="date_choose">Date Choose</string>
+    <string name="user_debts_details">User Debts Details</string>
+    <string name="user_mobile_number">User Mobile Number</string>
+    <string name="_500">$500</string>
+    <string name="clear_all_records">Clear All Records</string>
+    <string name="download_invoice">Download Invoice</string>
+    <string name="enter_paid_amount">Enter Paid Amount</string>
+    <string name="add_paid_amount">Add Paid Amount</string>
+    <string name="total_loan_heading">Total Loan:</string>
+    <string name="total_paid_heading">Total paid:</string>
+    <string name="my_shop">My Shop</string>
+    <string name="orders">Orders</string>
+    <string name="cart">Cart</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="owo_loan">e-loan Loan</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="profile_settings">Profile Settings</string>
+    <string name="change_language">Change Language</string>
+    <string name="logout">Logout</string>
+    <string name="e_loan">e-loan</string>
+    <string name="specifications">Specifications</string>
+    <string name="description">Description</string>
+    <string name="buy_product">পণ্য কিনুন</string>
+    <string name="similar_products">একই পণ্য</string>
+    <string name="product_thumbnail">পণ্য থাম্বনেল</string>
+    <string name="samsung_a53_new_smartphone">স্যামসাং এ 53 নতুন স্মার্টফোন</string>
+    <string name="order_lists">অর্ডার তালিকা</string>
+    <string name="empty_image_view">খালি চিত্র দেখুন</string>
+    <string name="you_have_not_ordered_anything_yet">আপনি এখনও কিছু আদেশ করেন নি</string>
+    <string name="empty_ite">কার্টে কোনও আইটেম নেই</string>
+    <string name="please_select_a_time_slot">একটি সময় স্লট নির্বাচন করুন:</string>
+    <string name="write_additional_comments">অতিরিক্ত মন্তব্য লিখুন</string>
+    <string name="additional_comments">অতিরিক্ত মন্তব্যগুলি</string>
+    <string name="cash_on_delivery">প্রদানোত্তর পরিশোধ</string>
+    <string name="digital_payment">ডিজিটাল পেমেন্ট</string>
+    <string name="sub_categories">উপ-বিভাগসমূহ</string>
+    <string name="gift_card">উপহার কার্ড</string>
+    <string name="happy_deals">শুভ চুক্তি</string>
+    <string name="deals">ডিলস</string>
+    <string name="foreign">বিদেশী</string>
+    <string name="popular">জনপ্রিয়</string>
+    <string name="for_you">তোমার জন্য</string>
+    <string name="capsules">ক্যাপসুল</string>
+    <string name="show_more">আরো দেখুন</string>
+    <string name="pediatric_drops">পেডিয়াট্রিক ড্রপস</string>
+    <string name="power_of_suspension">স্থগিতের ক্ষমতা</string>
+    <string name="tablet">ট্যাবলেট</string>
+    <string name="herbals">ভেষজ</string>
+    <string name="sub_category_name">উপ বিভাগের নাম</string>
+    <string name="more">আরও</string>
+    <string name="brands">ব্র্যান্ডগুলি</string>
+    <string name="deals_image">ডিল ইমেজ</string>
+    <string name="deals_name">ডিল নাম</string>
+    <string name="all_deals">সমস্ত ডিল</string>
+    <string name="all_gifts">সমস্ত উপহার কার্ড</string>
+    <string name="time_count">সময় গণনা</string>
+    <string name="resend_code">পুনরায় কোড পাঠানো</string>
+    <string name="resend_otp_in">ওটিপি পুনরায় পাঠান:</string>
+
+</resources>
