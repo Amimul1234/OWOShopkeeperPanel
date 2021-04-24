@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.shopKPR.R;
 
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends Fragment
+{
 
     private View rootView;
     private CategoryAdapter categoryAdapter;
 
-    public CategoryFragment() {
+    public CategoryFragment()
+    {
 
     }
 
@@ -37,7 +39,7 @@ public class CategoryFragment extends Fragment {
 
         categoryAdapter = new CategoryAdapter(getActivity());
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);//Configuring recyclerview to receive two layout manager
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(categoryAdapter);
     }

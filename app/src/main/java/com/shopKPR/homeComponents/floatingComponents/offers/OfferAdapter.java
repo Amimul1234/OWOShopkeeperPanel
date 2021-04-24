@@ -33,18 +33,16 @@ import retrofit2.Response;
 public class OfferAdapter extends PagedListAdapter<OwoProduct, RecyclerView.ViewHolder>{
 
     private final Context mCtx;
-    private final ProgressBar progressBar;
 
-    public OfferAdapter(Context mCtx, ProgressBar progressBar) {
+    public OfferAdapter(Context mCtx) {
         super(DIFF_CALLBACK);
         this.mCtx = mCtx;
-        this.progressBar = progressBar;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mCtx).inflate(R.layout.product_availability_sample, parent, false);
+        View view = LayoutInflater.from(mCtx).inflate(R.layout.product_availability_sample_vertical, parent, false);
         return new ItemViewHolder(view);
     }
 
@@ -116,13 +114,6 @@ public class OfferAdapter extends PagedListAdapter<OwoProduct, RecyclerView.View
             discounted_percent = itemView.findViewById(R.id.discount_percentage);
             txtProduct_discounted_price = itemView.findViewById(R.id.product_discounted_price);
 
-            DisplayMetrics displaymetrics = new DisplayMetrics(); //Setting things dynamically
-            ((Activity) mCtx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-
-            int devicewidth = displaymetrics.widthPixels / 2;
-
-            itemView.getLayoutParams().width = devicewidth - 15;
-
             itemView.setOnClickListener(this);
         }
 
@@ -132,8 +123,6 @@ public class OfferAdapter extends PagedListAdapter<OwoProduct, RecyclerView.View
 
             Long id = Objects.requireNonNull(getItem(getBindingAdapterPosition())).getProductId();
 
-            progressBar.setVisibility(View.VISIBLE);
-
             RetrofitClient.getInstance().getApi()
                     .getProductById(id)
                     .enqueue(new Callback<OwoProduct>() {
@@ -141,15 +130,12 @@ public class OfferAdapter extends PagedListAdapter<OwoProduct, RecyclerView.View
                         public void onResponse(@NotNull Call<OwoProduct> call, @NotNull Response<OwoProduct> response) {
                             if(response.isSuccessful())
                             {
-                                progressBar.setVisibility(View.INVISIBLE);
-
                                 Intent intent = new Intent(mCtx, ProductDetailsActivity.class);
                                 intent.putExtra("Products", response.body());
                                 mCtx.startActivity(intent);
                             }
                             else
                             {
-                                progressBar.setVisibility(View.INVISIBLE);
                                 Log.e("Error", "Server error occurred");
                                 Toast.makeText(mCtx, "Can not get product data, please try again", Toast.LENGTH_SHORT).show();
                             }
@@ -158,7 +144,6 @@ public class OfferAdapter extends PagedListAdapter<OwoProduct, RecyclerView.View
                         @Override
                         public void onFailure(@NotNull Call<OwoProduct> call, @NotNull Throwable t) {
                             Log.e("Error", t.getMessage());
-                            progressBar.setVisibility(View.INVISIBLE);
                         }});
         }
     }

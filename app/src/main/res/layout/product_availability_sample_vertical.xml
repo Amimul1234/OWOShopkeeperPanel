@@ -59,13 +59,13 @@
             android:textSize="16sp"
             android:textColor="@color/red"
             android:layout_marginStart="5dp"
-            android:layout_toStartOf="@+id/discounted_percent"
+            android:layout_toStartOf="@+id/discount_percentage"
             android:layout_toEndOf="@+id/product_image"
             android:layout_below="@+id/product_price"
             android:layout_marginBottom="10dp"/>
 
         <TextView
-            android:id="@+id/discounted_percent"
+            android:id="@+id/discount_percentage"
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:background="@drawable/side_ribbon"

@@ -28,8 +28,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewHolder>{
-
+public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewHolder>
+{
     private final Context mCtx;
     private final List<CategoryEntity> categoryEntityList = new ArrayList<>();
     private final ProgressDialog progressDialog;

@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +26,7 @@ import com.shopKPR.Model.OwoProduct;
 import com.shopKPR.R;
 import com.shopKPR.homeComponents.floatingComponents.deals.AllDealsActivity;
 import com.shopKPR.homeComponents.floatingComponents.gifts.AllGifts;
+import com.shopKPR.homeComponents.floatingComponents.offers.OffersActivity;
 import com.shopKPR.homeComponents.homeProductsPaging.ShowSubCategoryProducts;
 import com.shopKPR.homeComponents.tabbedComponents.ViewPagerAdapter;
 import com.shopKPR.configurations.HostAddress;
@@ -103,8 +103,6 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
         public RecyclerView capsulesRecyclerView, pediatricDropRecyclerView, powerOfSuspensionRecyclerView,
                 tabletRecyclerView, herbalsRecyclerView;
 
-        private FloatingActionButton giftCard, deals, foreign, offers, forYou;
-
         public ViewHolder(@NonNull View itemView){
             super(itemView);
 
@@ -112,11 +110,11 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
             tabLayout = itemView.findViewById(R.id.tabbed_layout);
             viewPager2 = itemView.findViewById(R.id.category_and_brand_showing);
 
-            giftCard = itemView.findViewById(R.id.gift_card);
-            deals = itemView.findViewById(R.id.happy_deals);
-            foreign = itemView.findViewById(R.id.foreign_medicine);
-            offers = itemView.findViewById(R.id.offer);
-            forYou = itemView.findViewById(R.id.for_you);
+            FloatingActionButton giftCard = itemView.findViewById(R.id.gift_card);
+            FloatingActionButton deals = itemView.findViewById(R.id.happy_deals);
+            FloatingActionButton foreign = itemView.findViewById(R.id.foreign_medicine);
+            FloatingActionButton offers = itemView.findViewById(R.id.offer);
+            FloatingActionButton forYou = itemView.findViewById(R.id.for_you);
 
 
             viewPagerAdapter = new ViewPagerAdapter(fragmentManager, lifecycle);
@@ -183,7 +181,7 @@ public class ImageFlipperAdapter extends RecyclerView.Adapter<ImageFlipperAdapte
             foreign.setOnClickListener(v -> showMoreProducts("Foreign Medicines"));
 
             offers.setOnClickListener(v -> {
-                Intent intent = new Intent();
+                Intent intent = new Intent(mCtx, OffersActivity.class);
                 mCtx.startActivity(intent);
             });
 
