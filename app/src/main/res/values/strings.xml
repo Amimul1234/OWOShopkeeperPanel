@@ -229,5 +229,8 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
     <string name="deals_name">Deals Name</string>
     <string name="all_deals">All Deals</string>
     <string name="all_gifts">All Gift Cards</string>
+    <string name="time_count">Time Count</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="resend_otp_in">Resend OTP in:</string>
 
 </resources>

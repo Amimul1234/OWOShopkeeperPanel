@@ -73,7 +73,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
         checkBox = findViewById(R.id.terms);
         loader = findViewById(R.id.loader);
 
-        //for showing the terms and conditions
         term_condition.setOnClickListener(v -> {
             Intent intent=new Intent(UserRegistrationActivity.this, TermsConditionsActivity.class);
             startActivity(intent);
@@ -159,8 +158,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(@NotNull Call<ShopKeeperUser> call, @NotNull Throwable t) {
                                 Log.e("User Registration", "Error is: "+t.getMessage());
-                                Toast.makeText(UserRegistrationActivity.this, "Error occurred, please try again", Toast.LENGTH_SHORT).show();
                                 loader.setVisibility(View.GONE);
+                                Toast.makeText(UserRegistrationActivity.this, "Error occurred, please try again", Toast.LENGTH_SHORT).show();
                             }
                         });
             }
@@ -171,7 +170,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
     private void sendOtpToUser(String phoneNumberWithCountryCode)
     {
-        loader.setVisibility(View.VISIBLE);
         sendOTP.setVisibility(View.INVISIBLE);
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -196,15 +194,17 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
                     @Override
                     public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+
                         loader.setVisibility(View.GONE);
                         sendOTP.setVisibility(View.VISIBLE);
 
                         Intent intent = new Intent(UserRegistrationActivity.this, VerifyPhoneActivity.class);
-                        intent.putExtra("phoneNumberWithCountryCode", phoneNumberWithCountryCode);
+
                         intent.putExtra("mobileNumber", regMobile.getText().toString());
                         intent.putExtra("verificationId", verificationId);
-                        intent.putExtra("name", merchant_name.getText().toString());
                         intent.putExtra("hashed_pin", verification());
+                        intent.putExtra("force_resend_token", forceResendingToken);
+
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
