@@ -123,6 +123,7 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
         <item>Pending Orders</item>
         <item>All Completed Orders</item>
         <item>Due Records</item>
+        <item>Bakir Khata</item>
     </string-array>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>

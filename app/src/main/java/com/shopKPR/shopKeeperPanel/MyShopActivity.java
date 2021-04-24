@@ -88,7 +88,7 @@ public class MyShopActivity extends AppCompatActivity {
                             shopName.setText(shops.getShop_name());
 
                             Glide.with(MyShopActivity.this).load(HostAddress.HOST_ADDRESS.getHostAddress() +
-                                    shops.getShop_image_uri()).diskCacheStrategy(DiskCacheStrategy.ALL).into(shop_image);
+                                    shops.getShop_image_uri()).diskCacheStrategy(DiskCacheStrategy.ALL).timeout(6000).into(shop_image);
 
                         } else {
                             Toast.makeText(MyShopActivity.this, String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
