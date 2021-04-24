@@ -34,7 +34,7 @@
             android:maxLines="2"
             android:text="@string/product_name"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/product_price"
