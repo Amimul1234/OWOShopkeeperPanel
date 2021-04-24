@@ -70,7 +70,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
         new CountDownTimer(65000, 1000){
             public void onTick(long millisUntilFinished){
-                countDownTimer.setText(String.valueOf(counter));
+                countDownTimer.setText(String.valueOf(65000 - counter));
                 counter++;
             }
             public  void onFinish(){
