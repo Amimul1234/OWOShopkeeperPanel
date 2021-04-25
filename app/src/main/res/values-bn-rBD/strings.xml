@@ -115,88 +115,88 @@ ChAdOx1 nCoV-19 ভ্যাকসিনের (অ্যাস্ট্রা�
     <string name="sort">সাজান</string>
 
     <string-array name="shop_management">
-        <item>Shop Statistics</item>
-        <item>Add a new product</item>
-        <item>View products</item>
-        <item>Add a new offer</item>
-        <item>View offers</item>
-        <item>Pending Orders</item>
-        <item>All Completed Orders</item>
-        <item>Due Records</item>
-        <item>Bakir Khata</item>
+        <item>দোকান পরিসংখ্যান</item>
+        <item>একটি নতুন পণ্য যুক্ত করুন</item>
+        <item>পণ্যগূলো দেখেন</item>
+        <item>একটি নতুন অফার যুক্ত করুন</item>
+        <item>অফার দেখুন</item>
+        <item>মুলতুবি আদেশ</item>
+        <item>সমস্ত সম্পূর্ণ আদেশ</item>
+        <item>কারণে রেকর্ডস</item>
+        <item>বাকি হিসাব</item>
     </string-array>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="get_current_location">GET Current Location</string>
-    <string name="shop_trade_license">Shop Trade License</string>
-    <string name="shop_image">Shop Image</string>
-    <string name="shop_keeper_nid">Shop Keeper NID</string>
-    <string name="logo">logo</string>
-    <string name="send_verification_code_again">Send Verification Code Again</string>
-    <string name="next">Next</string>
-    <string name="send_verification_code">Send Verification Code</string>
-    <string name="product_image">Product Image</string>
-    <string name="product_name">Product Name</string>
-    <string name="product_price">Product Price</string>
+    <string name="hello_blank_fragment">হ্যালো ফাঁকা খণ্ড</string>
+    <string name="get_current_location">বর্তমান অবস্থান পান</string>
+    <string name="shop_trade_license">শপ ট্রেড লাইসেন্স</string>
+    <string name="shop_image">শপ ইমেজ</string>
+    <string name="shop_keeper_nid">শপ কিপার এনআইডি</string>
+    <string name="logo">লোগো</string>
+    <string name="send_verification_code_again">আবার যাচাইকরণ কোড প্রেরণ করুন</string>
+    <string name="next">পরবর্তী</string>
+    <string name="send_verification_code">যাচাইকরণ কোড প্রেরণ করুন</string>
+    <string name="product_image">পণ্যের ছবি</string>
+    <string name="product_name">পণ্যের নাম</string>
+    <string name="product_price">পণ্যের দাম</string>
     <string name="_0">0%</string>
     <string name="xxxxxxxxxxx">XXXXXXXXXXX</string>
-    <string name="owo_logo">ShopKPR Logo</string>
-    <string name="see_pin">See Pin</string>
-    <string name="category_image">Category Image</string>
-    <string name="category_name">Category Name</string>
-    <string name="back_to_home_arrow">Back To Home Arrow</string>
-    <string name="add_to_wishlist">Add to WishList</string>
-    <string name="apple">Apple</string>
-    <string name="brand">Brand</string>
+    <string name="owo_logo">ShopKPR লোগো</string>
+    <string name="see_pin">পিন দেখুন</string>
+    <string name="category_image">বিভাগের চিত্র</string>
+    <string name="category_name">বিভাগ নাম</string>
+    <string name="back_to_home_arrow">হোম তীর ফিরে যান</string>
+    <string name="add_to_wishlist">চাহিদাপত্রে যোগ করা</string>
+    <string name="apple">আপেল</string>
+    <string name="brand">ব্র্যান্ড</string>
     <string name="_1200">1200</string>
     <string name="_300">300</string>
     <string name="_900">900</string>
     <string name="_20">20</string>
-    <string name="discount">Discount:</string>
-    <string name="noItem">No Item in Cart</string>
-    <string name="a_user_debt">A User Debt</string>
-    <string name="add_a_debt_record">Add A Debt Record</string>
-    <string name="enter_debt_taker_name">Enter Debt Taker Name</string>
-    <string name="enter_debt_taker_mobile_number">Enter Debt Taker Mobile Number</string>
-    <string name="add_debt_record">Add Debt Record</string>
-    <string name="user_debts">User Debts</string>
-    <string name="total_debt">Total Debt</string>
-    <string name="total_loan">Total Loan</string>
-    <string name="total_paid">Total Paid</string>
+    <string name="discount">ছাড়:</string>
+    <string name="noItem">কার্টে কোনও আইটেম নেই</string>
+    <string name="a_user_debt">একটি ব্যবহারকারী ঋণ</string>
+    <string name="add_a_debt_record">একটি ঋণ রেকর্ড যোগ করুন</string>
+    <string name="enter_debt_taker_name">ঋণ গ্রহণের নাম প্রবেশ করান</string>
+    <string name="enter_debt_taker_mobile_number">ঋণ গ্রহণের মোবাইল নম্বর প্রবেশ করান</string>
+    <string name="add_debt_record">ঋণ রেকর্ড যোগ করুন</string>
+    <string name="user_debts">ব্যবহারকারী ঋণ</string>
+    <string name="total_debt">মোট ঋণ</string>
+    <string name="total_loan">মোট ঋণ</string>
+    <string name="total_paid">পুরাপুরি পরিশোধিত</string>
     <string name="_10_000">৳10, 000</string>
     <string name="_8_000">৳ 8,000</string>
-    <string name="load">Load</string>
-    <string name="loan">Loan</string>
-    <string name="paid">Paid</string>
-    <string name="address">Address:</string>
-    <string name="_55_phase_2_adarsh_palm_retreat_bellandur_bengaluru">#55, Phase 2, Adarsh Palm Retreat, Bellandur, Bengaluru</string>
-    <string name="shop_service_mobile">Service Mobile:</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="enter_debt_description">Enter Debt Description</string>
-    <string name="enter_amount">Enter amount</string>
-    <string name="date_dd_mm_yyyy">Date(DD:MM:YYYY)</string>
-    <string name="date_choose">Date Choose</string>
-    <string name="user_debts_details">User Debts Details</string>
-    <string name="user_mobile_number">User Mobile Number</string>
+    <string name="load">ভার</string>
+    <string name="loan">ঋণ</string>
+    <string name="paid">প্রদত্ত</string>
+    <string name="address">ঠিকানা:</string>
+    <string name="_55_phase_2_adarsh_palm_retreat_bellandur_bengaluru"># 55, দ্বিতীয় ধাপ, আদর্শ পাম রিট্রিট, বেল্যান্ডুর, বেঙ্গালুরু</string>
+    <string name="shop_service_mobile">পরিষেবা মোবাইল:</string>
+    <string name="phone_number">ফোন নম্বর</string>
+    <string name="enter_debt_description">Tণের বিবরণ লিখুন</string>
+    <string name="enter_amount">পরিমান লিখুন</string>
+    <string name="date_dd_mm_yyyy">তারিখ (ডিডি: এমএম: ওয়াইওয়াইওয়াই)</string>
+    <string name="date_choose">তারিখ চয়ন করুন</string>
+    <string name="user_debts_details">ব্যবহারকারী ঋণ বিবরণ</string>
+    <string name="user_mobile_number">ব্যবহারকারী মোবাইল নম্বর</string>
     <string name="_500">$500</string>
-    <string name="clear_all_records">Clear All Records</string>
-    <string name="download_invoice">Download Invoice</string>
-    <string name="enter_paid_amount">Enter Paid Amount</string>
-    <string name="add_paid_amount">Add Paid Amount</string>
-    <string name="total_loan_heading">Total Loan:</string>
-    <string name="total_paid_heading">Total paid:</string>
-    <string name="my_shop">My Shop</string>
-    <string name="orders">Orders</string>
-    <string name="cart">Cart</string>
-    <string name="wishlist">Wishlist</string>
-    <string name="owo_loan">e-loan Loan</string>
-    <string name="contact_us">Contact Us</string>
-    <string name="profile_settings">Profile Settings</string>
-    <string name="change_language">Change Language</string>
-    <string name="logout">Logout</string>
-    <string name="e_loan">e-loan</string>
-    <string name="specifications">Specifications</string>
-    <string name="description">Description</string>
+    <string name="clear_all_records">সমস্ত রেকর্ড সাফ করুন</string>
+    <string name="download_invoice">চালান ডাউনলোড করুন</string>
+    <string name="enter_paid_amount">প্রদত্ত পরিমাণ প্রবেশ করান</string>
+    <string name="add_paid_amount">প্রদত্ত পরিমাণ যুক্ত করুন</string>
+    <string name="total_loan_heading">মোট anণ:</string>
+    <string name="total_paid_heading">পুরাপুরি পরিশোধিত:</string>
+    <string name="my_shop">আমার দোকান</string>
+    <string name="orders">অর্ডার</string>
+    <string name="cart">কার্ট</string>
+    <string name="wishlist">ইচ্ছেতালিকা</string>
+    <string name="owo_loan">ই-Loণ .ণ</string>
+    <string name="contact_us">যোগাযোগ করুন</string>
+    <string name="profile_settings">প্রোফাইল সেটিংস</string>
+    <string name="change_language">ভাষা পরিবর্তন করুন</string>
+    <string name="logout">প্রস্থান</string>
+    <string name="e_loan">ই-ঋণ</string>
+    <string name="specifications">বিশেষ উল্লেখ</string>
+    <string name="description">বর্ণনা</string>
     <string name="buy_product">পণ্য কিনুন</string>
     <string name="similar_products">একই পণ্য</string>
     <string name="product_thumbnail">পণ্য থাম্বনেল</string>
