@@ -1,6 +1,5 @@
 package com.shopKPR.cart;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -16,21 +15,17 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.shopKPR.network.RetrofitClient;
 import com.shopKPR.Model.CartListProduct;
-import com.shopKPR.Model.Qupon;
 import com.shopKPR.prevalent.Prevalent;
 import com.shopKPR.R;
 import com.shopKPR.orderConfirmation.ConfirmFinalOrderActivity;
+import com.shopKPR.qupon.Qupon;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,7 +34,7 @@ public class CartActivity extends AppCompatActivity {
 
     private ListView listView;
     private TextView totalAmount;
-    private TextView subTotalAmount;
+    private TextView discountText;
     private double grandTotal = 0.0;
     private double discount = 0.0, grand_total_with_discount = 0.0;
     private ImageView empty_image;
@@ -61,7 +56,7 @@ public class CartActivity extends AppCompatActivity {
         Button place_order_button = findViewById(R.id.place_order_btn);
         TextView vouchartxt = findViewById(R.id.cart_vouchar);
         totalAmount = findViewById(R.id.cart_total_amount);
-        subTotalAmount = findViewById(R.id.cart_sub_total_amount);
+        discountText = findViewById(R.id.cart_discount);
         ImageView back_from_cart = findViewById(R.id.back_arrow_from_cart);
         empty_image = findViewById(R.id.empty_image);
         empty_text = findViewById(R.id.empty_text);
@@ -173,8 +168,8 @@ public class CartActivity extends AppCompatActivity {
 
         if(coupon_code.isEmpty())
         {
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(this, "Please enter coupon code", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.INVISIBLE);
         }
         else {
             Toast.makeText(CartActivity.this, "Please wait while we are checking coupon code", Toast.LENGTH_SHORT).show();
@@ -184,60 +179,102 @@ public class CartActivity extends AppCompatActivity {
 
     private void checkValidation(String voucher) {
 
-        DatabaseReference databaseReference  = FirebaseDatabase.getInstance().getReference();
+        String head = voucher.substring(0, 8);
+        String code = voucher.substring(8);
 
-        databaseReference.child("Qupon").addListenerForSingleValueEvent(new ValueEventListener() {
-            int state = 0;
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
-                    for(DataSnapshot snapshot1 : snapshot.getChildren())
-                    {
-                        Qupon qupon = snapshot1.getValue(Qupon.class);
+        progressBar.setVisibility(View.VISIBLE);
 
-                        assert qupon != null;
-                        String coupon_code_b = qupon.getQupon_code();
-
-                        if(voucher.equals(coupon_code_b))
-                        {
-                            progressBar.setVisibility(View.INVISIBLE);
-                            state = 1;
-                            discount = Double.parseDouble(qupon.getQupon_discount());
-                            Toast.makeText(CartActivity.this, "Congratulation! You got "+qupon.getQupon_discount()+" taka discount", Toast.LENGTH_LONG).show();
-
-                            if(grandTotal !=0)
+        if(!head.equalsIgnoreCase("ShopKPR#"))
+        {
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(this, "Please provide correct coupon code", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            RetrofitClient.getInstance().getApi()
+                    .getQupon(Long.parseLong(code))
+                    .enqueue(new Callback<Qupon>() {
+                        @Override
+                        public void onResponse(@NotNull Call<Qupon> call, @NotNull Response<Qupon> response) {
+                            if(response.isSuccessful())
                             {
-                                grand_total_with_discount = grandTotal - discount;
-                                if(grand_total_with_discount < 0)
+                                Qupon qupon = response.body();
+                                assert qupon != null;
+
+                                if(grandTotal < qupon.getDiscount())
                                 {
-                                    Toast.makeText(CartActivity.this, "Purchase amount must be greater than discount", Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(CartActivity.this, "Please order minimum :"+ qupon.getDiscount() + "to get coupon discount", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-                                else
-                                {
-                                    subTotalAmount.setText("৳ "+discount);
-                                }
-                            }
 
-                            break;
+                                checkUserAlreadyTakenCouponOrNot(qupon);
+                            }
+                            else
+                            {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(CartActivity.this, "Wrong coupon code, please try with correct coupon code", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NotNull Call<Qupon> call, @NotNull Throwable t) {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(CartActivity.this, "Can not get coupon code, please try again", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
+    private void checkUserAlreadyTakenCouponOrNot(Qupon qupon) {
+        RetrofitClient.getInstance().getApi()
+                .checkUserAlreadyTakenCoupon(Prevalent.currentOnlineUser.getMobileNumber(), qupon.getQuponId())
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                        if(response.isSuccessful())
+                        {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(CartActivity.this, "Sorry! Multiple time coupon taking is not allowed", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            RetrofitClient.getInstance().getApi()
+                                    .addNewCouponToUser(Prevalent.currentOnlineUser.getMobileNumber(), qupon)
+                                    .enqueue(new Callback<ResponseBody>() {
+                                        @Override
+                                        public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                                            if(response.isSuccessful())
+                                            {
+                                                progressBar.setVisibility(View.GONE);
+                                                discount = qupon.getDiscount();
+                                                Toast.makeText(CartActivity.this, "Congrats you got discount", Toast.LENGTH_SHORT).show();
+                                                discountText.setText(String.valueOf(qupon.getDiscount()));
+                                            }
+                                            else
+                                            {
+                                                progressBar.setVisibility(View.GONE);
+                                                Toast.makeText(CartActivity.this, "Try again", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                                            progressBar.setVisibility(View.GONE);
+                                            Log.e("CartActivity", t.getMessage());
+                                            Toast.makeText(CartActivity.this, "Try again", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                         }
                     }
-                    if(state == 0)
-                    {
-                        Toast.makeText(CartActivity.this, "Coupon does not exists", Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.INVISIBLE);
+
+                    @Override
+                    public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                        Log.e("CartActivity", t.getMessage());
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(CartActivity.this, "Can not get data, please try again", Toast.LENGTH_SHORT).show();
                     }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(CartActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                loaderGone();
-            }
-        });
+                });
     }
 
 

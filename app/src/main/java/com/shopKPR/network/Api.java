@@ -15,6 +15,7 @@ import com.shopKPR.homeComponents.floatingComponents.entities.Deals;
 import com.shopKPR.homeComponents.floatingComponents.entities.Gifts;
 import com.shopKPR.myShopManagement.userDebts.model.DebtDashBoardResponse;
 import com.shopKPR.orderConfirmation.TimeSlot;
+import com.shopKPR.qupon.Qupon;
 import com.shopKPR.registerRequest.ShopPendingRequest;
 import com.shopKPR.userRegistration.ShopKeeperUser;
 import java.util.List;
@@ -239,4 +240,13 @@ public interface Api {
 
     @GET("/getAllGiftCards")
     Call<List<Gifts>> getGistsCardList();
+
+    @GET("/getAQupon")
+    Call<Qupon> getQupon(@Query("quponId") Long quponId);
+
+    @GET("/checkUserAlreadyTakenCouponOrNot")
+    Call<ResponseBody> checkUserAlreadyTakenCoupon(@Query("mobileNumber") String mobileNumber, @Query("quponId") Long quponId);
+
+    @POST("/addQuponToAnUser")
+    Call<ResponseBody> addNewCouponToUser(@Query("mobileNumber") String mobileNumber, @Body Qupon qupon);
 }

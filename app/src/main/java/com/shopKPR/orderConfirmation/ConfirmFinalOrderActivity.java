@@ -59,7 +59,6 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
         grand_total_price = Double.parseDouble(getIntent().getStringExtra("grand_total"));
         CartListProducts = (ArrayList<CartListProduct>) getIntent().getSerializableExtra("CartListProducts");
         discount = Double.parseDouble(getIntent().getStringExtra("discount"));
-        double grand_total_with_discount = Double.parseDouble(getIntent().getStringExtra("grand_total_with_discount"));
 
         getTimeSlots();
         getDefaultAddress();
@@ -78,6 +77,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
                         if(response.isSuccessful())
                         {
                             Shops shops = response.body();
+                            assert shops != null;
                             delivery_address.setText(shops.getShop_address());
                         }
                     }
