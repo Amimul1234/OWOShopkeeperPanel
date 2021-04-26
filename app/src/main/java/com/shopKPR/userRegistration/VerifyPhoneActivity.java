@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.shopKPR.network.RetrofitClient;
 import com.shopKPR.Model.UserShopKeeper;
 import com.shopKPR.R;
@@ -69,8 +71,9 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         resendOtp.setVisibility(View.GONE);
 
         new CountDownTimer(65000, 1000){
-            public void onTick(long millisUntilFinished){
-                countDownTimer.setText(String.valueOf(65000 - counter));
+            public void onTick(long millisUntilFinished)
+            {
+                countDownTimer.setText(String.valueOf(65 - counter));
                 counter++;
             }
             public  void onFinish(){
@@ -122,9 +125,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                                     progressBar.setVisibility(View.GONE);
                                     Toast.makeText(getApplicationContext(), "Congratulations ! Your account created successfully", Toast.LENGTH_SHORT).show();
                                     FirebaseAuth.getInstance().signOut();
-                                    Intent intent = new Intent(VerifyPhoneActivity.this, LogInActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    getDynamicLinks();
                                 }
                                 else
                                 {
@@ -144,6 +145,46 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                 Toast.makeText(VerifyPhoneActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void getDynamicLinks()
+    {
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, pendingDynamicLinkData ->
+                {
+                    Uri deepLink;
+                    if (pendingDynamicLinkData != null) {
+                        deepLink = pendingDynamicLinkData.getLink();
+                        String queryParam = deepLink.getQueryParameter("customerMobileNumber");
+
+                        creditToReferrer(queryParam);
+                    }
+
+                })
+                .addOnFailureListener(this, e -> Log.w("Splash", "getDynamicLink:onFailure", e));
+    }
+
+    private void creditToReferrer(String queryParam) {
+        RetrofitClient.getInstance().getApi()
+                .addReferralPointForUser(queryParam)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                        Intent intent = new Intent(VerifyPhoneActivity.this, LogInActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                        Log.e("Verify phone", t.getMessage());
+
+                        Intent intent = new Intent(VerifyPhoneActivity.this, LogInActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
     }
 
     private void sendOtpToUser(String phoneNumberWithCountryCode)

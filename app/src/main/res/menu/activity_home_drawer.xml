@@ -4,6 +4,7 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_shop"
             android:icon="@drawable/myshop"
@@ -39,6 +40,11 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/settings"
             android:title="@string/profile_settings"/>
+
+        <item
+            android:id="@+id/share_app"
+            android:icon="@drawable/ic_baseline_share_24"
+            android:title="@string/share_and_earn"/>
 
         <item
             android:id="@+id/nav_change_language"

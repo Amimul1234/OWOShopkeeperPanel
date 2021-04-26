@@ -27,7 +27,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".homeComponents.floatingComponents.offers.OffersActivity"></activity>
+        <activity android:name=".homeComponents.floatingComponents.offers.OffersActivity" />
         <activity android:name=".homeComponents.homeProductsPaging.ShowSubCategoryProducts" />
 
         <service
@@ -96,6 +96,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="shopkpradmin.page.link"
+                    android:scheme="https"/>
+            </intent-filter>
+
         </activity>
         <activity
             android:name=".shopKeeperPanel.MyProductsActivity"
@@ -144,7 +154,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".homeComponents.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

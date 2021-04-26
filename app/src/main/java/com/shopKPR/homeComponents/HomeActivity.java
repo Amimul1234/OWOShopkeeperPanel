@@ -31,7 +31,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.shopKPR.network.RetrofitClient;
 import com.shopKPR.R;
 import com.shopKPR.configurations.HostAddress;
@@ -241,7 +246,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         itemViewModel = new ItemViewModel(categories);
 
-        itemViewModel.itemPagedList.observe(this, items -> {
+        itemViewModel.itemPagedList.observe(this, items ->
+        {
             adapter.submitList(items);
             showOnRecyclerView();
         });
@@ -313,7 +319,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item)
+    {
+
         int id=item.getItemId();
 
         if(id==R.id.nav_shop)
@@ -380,6 +388,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             finish();
         }
 
+        else if(id == R.id.share_app)
+        {
+            createDynamicLink();
+        }
+
         else if(id == R.id.nav_change_language)
         {
             Locale locale;
@@ -411,6 +424,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void createDynamicLink()
+    {
+        String link = "link=http://www.shopkpr.xyz"+ "?customerMobileNumber="+Prevalent.currentOnlineUser.getMobileNumber();
+
+        String shareLinkText  = "https://shopkpradmin.page.link/?"+
+                link+
+                "&apn="+ getPackageName()+
+                "&st="+"MyReferLink"+
+                "&sd="+"RewardCoins20"+
+                "&si="+"https://firebasestorage.googleapis.com/v0/b/shopkpr-4af8c.appspot.com/o/Icon%20Logo.jpg?alt=media&token=bb96df70-8f6d-4291-ac97-269536a7566d";
+
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT,  shareLinkText);
+        intent.setType("text/plain");
+        startActivity(intent);
+
     }
 
     public void setLocale(Locale languageToLoad)

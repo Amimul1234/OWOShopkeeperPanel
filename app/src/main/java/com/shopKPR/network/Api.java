@@ -249,4 +249,7 @@ public interface Api {
 
     @POST("/addQuponToAnUser")
     Call<ResponseBody> addNewCouponToUser(@Query("mobileNumber") String mobileNumber, @Body Qupon qupon);
+
+    @POST("/addReferralPoint")
+    Call<ResponseBody> addReferralPointForUser(@Query("mobileNumber") String mobileNumber);
 }
