@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class MyShopActivity extends AppCompatActivity {
 
     private TextView shopName, shop_address, shop_service_mobile;
     private ImageView shop_image;
+    private TextView referralPoint;
     private Shops shops = new Shops();
 
     @Override
@@ -41,8 +43,10 @@ public class MyShopActivity extends AppCompatActivity {
         shop_address = findViewById(R.id.my_shop_address);
         shop_service_mobile = findViewById(R.id.my_shop_phone_number);
         shop_image = findViewById(R.id.my_shop_image);
+        referralPoint = findViewById(R.id.referral_point);
 
         fetchFromDatabase();
+        getReferralPoint();
 
         MyShopManagementAdapter myShopManagementAdapter = new MyShopManagementAdapter(MyShopActivity.this);
 
@@ -71,6 +75,30 @@ public class MyShopActivity extends AppCompatActivity {
         ImageView back_button = findViewById(R.id.back_to_home);
 
         back_button.setOnClickListener(v -> onBackPressed());
+    }
+
+    private void getReferralPoint() {
+        RetrofitClient.getInstance().getApi()
+                .getReferral(Prevalent.currentOnlineUser.getMobileNumber())
+                .enqueue(new Callback<Referral>() {
+                    @Override
+                    public void onResponse(@NotNull Call<Referral> call, @NotNull Response<Referral> response) {
+                        if(response.isSuccessful())
+                        {
+                            referralPoint.setText(String.valueOf(response.body().getReferPoint()));
+                        }
+                        else
+                        {
+                            Toast.makeText(MyShopActivity.this, "You have not referred anyone yet", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<Referral> call, @NotNull Throwable t) {
+                        Log.e("Referr", t.getMessage());
+                        Toast.makeText(MyShopActivity.this, "Can not get referral point", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 

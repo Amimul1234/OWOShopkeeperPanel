@@ -17,6 +17,7 @@ import com.shopKPR.myShopManagement.userDebts.model.DebtDashBoardResponse;
 import com.shopKPR.orderConfirmation.TimeSlot;
 import com.shopKPR.qupon.Qupon;
 import com.shopKPR.registerRequest.ShopPendingRequest;
+import com.shopKPR.shopKeeperPanel.Referral;
 import com.shopKPR.userRegistration.ShopKeeperUser;
 import java.util.List;
 import okhttp3.MultipartBody;
@@ -252,4 +253,7 @@ public interface Api {
 
     @POST("/addReferralPoint")
     Call<ResponseBody> addReferralPointForUser(@Query("mobileNumber") String mobileNumber);
+
+    @GET("/getReferralPoint")
+    Call<Referral> getReferral(@Query("mobileNumber") String mobileNumber);
 }

@@ -234,5 +234,8 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
     <string name="resend_code">Resend Code</string>
     <string name="resend_otp_in">Resend OTP in:</string>
     <string name="share_and_earn">Share and Earn</string>
+    <string name="referral_point">Referral Point : </string>
+    <string name="_100">100</string>
+    <string name="point_zero">00</string>
 
 </resources>
