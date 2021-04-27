@@ -1,6 +1,5 @@
 package com.shopKPR.homeComponents;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -31,12 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.dynamiclinks.DynamicLink;
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
-import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.shopKPR.network.RetrofitClient;
 import com.shopKPR.R;
 import com.shopKPR.configurations.HostAddress;
@@ -82,8 +76,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        ProgressDialog progressDialog = new ProgressDialog(this);
 
         recyclerView = findViewById(R.id.recycler_view_for_products);
 
@@ -144,8 +136,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             alertDialog.getWindow().setLayout(950, 800);
 
             call_us_now.setOnClickListener(v1 -> {
-                Intent intent = new Intent(Intent.ACTION_DIAL); //calling activity
-                intent.setData(Uri.parse("tel:"+ ServiceMobile.SERVICE_MOBILE.getServiceMobile())); //Configurable Service Mobile
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+ ServiceMobile.SERVICE_MOBILE.getServiceMobile()));
                 startActivity(intent);
                 alertDialog.cancel();
             });
@@ -405,6 +397,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             {
                 locale = new Locale("en");
             }
+
             Prevalent.locale++;
             setLocale(locale);
 

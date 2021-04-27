@@ -45,7 +45,8 @@ public class LogInActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
@@ -189,29 +190,32 @@ public class LogInActivity extends AppCompatActivity {
 
                                                             Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
 
-                                                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                                                            Prevalent.currentOnlineUser = shopKeeperUser;
                                                             progressDialog.dismiss();
+                                                            Prevalent.currentOnlineUser = shopKeeperUser;
+
+                                                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                             startActivity(intent);
                                                         }
 
                                                         else//Requested shop creation. But not approved.
                                                         {
+                                                            progressDialog.dismiss();
                                                             Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
+
                                                             Intent intent = new Intent(getApplicationContext(), AfterShopRegisterRequest.class);
                                                             Prevalent.currentOnlineUser = shopKeeperUser;
-                                                            progressDialog.dismiss();
                                                             startActivity(intent);
                                                         }
 
                                                     }
                                                     else //Didn't requested for register yet
                                                     {
+                                                        progressDialog.dismiss();
                                                         Toast.makeText(getApplicationContext(), "Log in successful", Toast.LENGTH_SHORT).show();
+
                                                         Intent intent = new Intent(getApplicationContext(), AfterUserRegister.class);
                                                         Prevalent.currentOnlineUser = shopKeeperUser;
-                                                        progressDialog.dismiss();
                                                         startActivity(intent);
                                                     }
                                                     finish();
@@ -219,12 +223,17 @@ public class LogInActivity extends AppCompatActivity {
 
                                                 @Override
                                                 public void onFailure(@NotNull Call<Shops> call, @NotNull Throwable t) {
+                                                    progressDialog.dismiss();
                                                     Toast.makeText(LogInActivity.this, "Please try again abcd", Toast.LENGTH_SHORT).show();
                                                     Log.error("Log in activity", "Error is: "+t.getMessage());
-                                                    progressDialog.dismiss();
                                                 }
                                             });
 
+                                }
+                                else
+                                {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(LogInActivity.this, "Wrong pin number!!!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                             else
@@ -235,16 +244,16 @@ public class LogInActivity extends AppCompatActivity {
                         }
                         else
                         {
-                            Toast.makeText(LogInActivity.this, "No such account", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
+                            Toast.makeText(LogInActivity.this, "No such account", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(@NotNull Call<ShopKeeperUser> call, @NotNull Throwable t) {
+                        progressDialog.dismiss();
                         Toast.makeText(LogInActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
                         Log.error("Log in activity", "Error is: "+t.getMessage());
-                        progressDialog.dismiss();
                     }
                 });
     }

@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.shopKPR.R;
 import com.shopKPR.myShopManagement.userDebts.debt.DebtDetailsDashBoard;
+import com.shopKPR.shopKeeperSettings.RequestForChangingStoreInfo;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class MyShopManagementAdapter extends RecyclerView.Adapter<MyShopManageme
     private final List<String> names;
 
     private final int[] images = {R.drawable.shop_statictics, R.drawable.add_new_product_to_shop, R.drawable.view_shop_products, R.drawable.add_offer,
-            R.drawable.view_offers, R.drawable.shop_management_order, R.drawable.completed_orders, R.drawable.due_record, R.drawable.loan_khata};
+            R.drawable.view_offers, R.drawable.shop_management_order, R.drawable.completed_orders, R.drawable.due_record, R.drawable.sales, R.drawable.shop_info_change};
 
     public MyShopManagementAdapter(Context mCtx) {
         this.mCtx = mCtx;
@@ -40,7 +41,8 @@ public class MyShopManagementAdapter extends RecyclerView.Adapter<MyShopManageme
         holder.management_image.setImageResource(images[position]);
         holder.management_name.setText(names.get(position));
 
-        holder.itemView.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v ->
+        {
             if(position == 0)
             {
                 Toast.makeText(mCtx, "Feature coming soon...", Toast.LENGTH_SHORT).show();
@@ -87,7 +89,8 @@ public class MyShopManagementAdapter extends RecyclerView.Adapter<MyShopManageme
             }
             else
             {
-
+                Intent intent = new Intent(mCtx, RequestForChangingStoreInfo.class);
+                mCtx.startActivity(intent);
             }
         });
     }

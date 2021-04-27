@@ -123,7 +123,8 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
         <item>Pending Orders</item>
         <item>All Completed Orders</item>
         <item>Due Records</item>
-        <item>Bakir Khata</item>
+        <item>Sales Record</item>
+        <item>Change Store Information</item>
     </string-array>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -237,5 +238,8 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
     <string name="referral_point">Referral Point : </string>
     <string name="_100">100</string>
     <string name="point_zero">00</string>
+    <string name="chat_now">Chat Now</string>
+    <string name="change_shop_information">Change Shop Information</string>
+    <string name="update_shop_info">Update Shop Info</string>
 
 </resources>

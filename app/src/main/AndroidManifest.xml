@@ -27,8 +27,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".homeComponents.floatingComponents.offers.OffersActivity" />
-        <activity android:name=".homeComponents.homeProductsPaging.ShowSubCategoryProducts" />
+        <activity android:name=".shopKeeperSettings.RequestForChangingStoreInfo"></activity>
+
+        <meta-data
+            android:name="firebase_performance_logcat_enabled"
+            android:value="true" />
+
+        <activity
+            android:name=".homeComponents.floatingComponents.offers.OffersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".homeComponents.homeProductsPaging.ShowSubCategoryProducts"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".pushNotification.FirebaseMessagingService"
@@ -38,27 +48,69 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".login.forgetPin.ForgetPin" />
-        <activity android:name=".myShopManagement.userDebts.debt.AddAUserDebtDetails" />
-        <activity android:name=".myShopManagement.userDebts.debt.DebtDetailsForACustomer" />
-        <activity android:name=".myShopManagement.userDebts.debt.AddAUserDebt" />
-        <activity android:name=".myShopManagement.userDebts.debt.DebtDetailsDashBoard" />
-        <activity android:name=".shopKeeperPanel.product_related.BrandWiseProduct" />
-        <activity android:name=".homeComponents.categoryComponents.Categories" />
-        <activity android:name=".shopKeeperPanel.Calculator" />
-        <activity android:name=".myShopRelated.AddProductToShop" />
-        <activity android:name=".myShopRelated.NewProductAdding" />
-        <activity android:name=".myShopRelated.CompletedOrders" />
-        <activity android:name=".myShopRelated.PendingOrders" />
-        <activity android:name=".myShopRelated.ViewOffers" />
-        <activity android:name=".myShopRelated.AddANewOffer" />
-        <activity android:name=".myShopRelated.ViewAvailableProductToSell" />
-        <activity android:name=".myShopRelated.AddProductToMyShop" />
-        <activity android:name=".orders.orderItem.OrderedItemDetails" />
-        <activity android:name=".orders.allOrders.OrdersList" />
-        <activity android:name=".shopKeeperPanel.product_related.SubCategoryWiseProduct" />
-        <activity android:name=".homeComponents.floatingComponents.deals.AllDealsActivity" />
-        <activity android:name=".homeComponents.floatingComponents.gifts.AllGifts" />
+        <activity
+            android:name=".login.forgetPin.ForgetPin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myShopManagement.userDebts.debt.AddAUserDebtDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myShopManagement.userDebts.debt.DebtDetailsForACustomer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myShopManagement.userDebts.debt.AddAUserDebt"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myShopManagement.userDebts.debt.DebtDetailsDashBoard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".shopKeeperPanel.product_related.BrandWiseProduct"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".homeComponents.categoryComponents.Categories"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".shopKeeperPanel.Calculator"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myShopRelated.AddProductToShop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myShopRelated.NewProductAdding"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myShopRelated.CompletedOrders"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myShopRelated.PendingOrders"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myShopRelated.ViewOffers"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myShopRelated.AddANewOffer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myShopRelated.ViewAvailableProductToSell"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myShopRelated.AddProductToMyShop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".orders.orderItem.OrderedItemDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".orders.allOrders.OrdersList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".shopKeeperPanel.product_related.SubCategoryWiseProduct"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".homeComponents.floatingComponents.deals.AllDealsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".homeComponents.floatingComponents.gifts.AllGifts"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".homeComponents.categoryComponents.CategoryWiseProduct"
             android:screenOrientation="portrait" />
@@ -96,16 +148,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="shopkpradmin.page.link"
-                    android:scheme="https"/>
+                    android:scheme="https" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".shopKeeperPanel.MyProductsActivity"
@@ -154,8 +206,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".homeComponents.HomeActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
