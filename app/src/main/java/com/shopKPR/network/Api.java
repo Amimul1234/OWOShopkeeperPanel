@@ -258,6 +258,6 @@ public interface Api {
     @GET("/getReferralPoint")
     Call<Referral> getReferral(@Query("mobileNumber") String mobileNumber);
 
-    @POST("/saveChangedShopInfo")
-    Call<ResponseBody> saveChangedShopInfoToDatabase(@Body ChangeShopInfo changeShopInfo);
+    @POST("/makeShopInfoChangeRequest")
+    Call<ResponseBody> makeShopInfoChangeRequest(@Body ChangeShopInfo changeShopInfo);
 }

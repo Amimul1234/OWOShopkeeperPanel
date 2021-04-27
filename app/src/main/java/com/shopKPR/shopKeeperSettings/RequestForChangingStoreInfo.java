@@ -310,7 +310,7 @@ public class RequestForChangingStoreInfo extends AppCompatActivity
 
     private void saveToDatabase(ChangeShopInfo changeShopInfo) {
         RetrofitClient.getInstance().getApi()
-                .saveChangedShopInfoToDatabase(changeShopInfo)
+                .makeShopInfoChangeRequest(changeShopInfo)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
