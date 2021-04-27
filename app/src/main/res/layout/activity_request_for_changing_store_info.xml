@@ -92,22 +92,6 @@
                 android:drawablePadding="8dp"
                 android:autofillHints="address" />
 
-            <Button
-                android:id="@+id/shopLocationButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:padding="15dp"
-                android:text="@string/validate_address"
-                android:maxLines="1"
-                android:background="@drawable/buttons_blue"
-                android:textColor="@color/white"
-                android:drawableEnd="@drawable/ic_baseline_place_24"
-                android:drawableTint="@color/white"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                />
-
             <EditText
                 android:id="@+id/shopOwnerName"
                 android:layout_width="match_parent"

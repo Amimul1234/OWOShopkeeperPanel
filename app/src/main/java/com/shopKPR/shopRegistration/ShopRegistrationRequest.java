@@ -108,8 +108,8 @@ public class ShopRegistrationRequest extends AppCompatActivity {
         shopTradeLicense.setOnClickListener(v -> requestStoragePermission(3));
         createShopButton.setOnClickListener(v -> validateInputs());
 
-        shopLocationButton.setOnClickListener(v -> {
-
+        shopLocationButton.setOnClickListener(v ->
+        {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
                     PackageManager.PERMISSION_GRANTED) {
 
@@ -157,6 +157,7 @@ public class ShopRegistrationRequest extends AppCompatActivity {
                         if(response.isSuccessful())
                         {
                             progressDialog.dismiss();
+                            
                             CategoryCustomSpinnerAdapter categoryCustomSpinnerAdapter = new CategoryCustomSpinnerAdapter(ShopRegistrationRequest.this,
                                     response.body());
 
@@ -271,7 +272,6 @@ public class ShopRegistrationRequest extends AppCompatActivity {
                                 assert response.body() != null;
                                 shopImageUri = response.body().string();
 
-                                //Scope Variables for local operations
                                 {
                                     Bitmap bitmap = ((BitmapDrawable) shopOwnerNid.getDrawable()).getBitmap();
                                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
