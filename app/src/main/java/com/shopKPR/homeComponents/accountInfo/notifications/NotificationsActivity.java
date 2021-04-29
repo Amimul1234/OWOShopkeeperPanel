@@ -28,7 +28,7 @@ public class NotificationsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_deals);
+        setContentView(R.layout.activity_notifications);
 
         ImageView backButton = findViewById(R.id.back_button);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);

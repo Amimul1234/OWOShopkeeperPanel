@@ -44,13 +44,6 @@ public class SearchActivity extends AppCompatActivity {
       private int searchState = 0;
       private String search_alphabet = "A";
       private String searchQuery = "";
-//
-//    private int search_state = 0;
-//
-//
-//    String[] categories = new String[Prevalent.category_to_display.size()];
-//    List<String> filtered_categories = new ArrayList<>();
-//
 
     private final List<String> subCategories = new ArrayList<>();
     private final List<String> filteredSubCategories = new ArrayList<>();

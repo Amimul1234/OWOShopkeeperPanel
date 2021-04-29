@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.shopKPR.homeComponents.accountInfo.notifications.NotificationsActivity;
 import com.shopKPR.network.RetrofitClient;
 import com.shopKPR.configurations.HostAddress;
 import com.shopKPR.homeComponents.HomeActivity;
@@ -53,7 +54,6 @@ public class AccountInfo extends AppCompatActivity{
     private TextView userMobile;
     private TextView userName;
     private CollapsingToolbarLayout collapsingToolbarLayout;
-
     private String previousImagePath;
     private ShopKeeperUser shopKeeperUser;
     private final int STORAGE_PERMISSION_CODE = 1;
@@ -127,6 +127,9 @@ public class AccountInfo extends AppCompatActivity{
                 Toast.makeText(this, "Coming soon...", Toast.LENGTH_SHORT).show());
 
         notificationsLayout.setOnClickListener(v -> {
+
+            Intent intent = new Intent(AccountInfo.this, NotificationsActivity.class);
+            startActivity(intent);
 
         });
 
