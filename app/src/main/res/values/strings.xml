@@ -241,5 +241,12 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
     <string name="chat_now">Chat Now</string>
     <string name="change_shop_information">Change Shop Information</string>
     <string name="update_shop_info">Update Shop Info</string>
+    <string name="my_service">My Service</string>
+    <string name="payment_options">Payment Options</string>
+    <string name="payment_options_for_user">Payment Options for user</string>
+    <string name="my_reviews">My Reviews</string>
+    <string name="notifications">Notifications</string>
+    <string name="payment">Payment</string>
+    <string name="promos">Promos</string>
 
 </resources>

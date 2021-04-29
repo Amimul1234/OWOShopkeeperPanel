@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.shopKPR.configurations.ServiceMobile;
+import com.shopKPR.homeComponents.accountInfo.AccountInfo;
 import com.shopKPR.prevalent.Prevalent;
 import com.shopKPR.R;
 import com.shopKPR.cart.CartActivity;
@@ -110,7 +111,7 @@ public class Categories extends AppCompatActivity {
                 startActivity(intent);
             } else if (item.getItemId() == R.id.action_account)
             {
-                Intent intent = new Intent(Categories.this, SettingsActivity.class);
+                Intent intent = new Intent(Categories.this, AccountInfo.class);
                 startActivity(intent);
             }
 

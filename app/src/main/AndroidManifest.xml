@@ -27,7 +27,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".shopKeeperSettings.RequestForChangingStoreInfo"></activity>
+        <activity android:name=".homeComponents.accountInfo.AccountInfo"></activity>
+        <activity android:name=".shopKeeperSettings.RequestForChangingStoreInfo" />
 
         <meta-data
             android:name="firebase_performance_logcat_enabled"

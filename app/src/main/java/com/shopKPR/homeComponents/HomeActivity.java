@@ -31,6 +31,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.shopKPR.homeComponents.accountInfo.AccountInfo;
 import com.shopKPR.network.RetrofitClient;
 import com.shopKPR.R;
 import com.shopKPR.configurations.HostAddress;
@@ -177,7 +178,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
             else if(item.getItemId() == R.id.action_account)
             {
-                Intent intent=new Intent(HomeActivity.this, SettingsActivity.class);
+                Intent intent=new Intent(HomeActivity.this, AccountInfo.class);
                 startActivity(intent);
             }
 

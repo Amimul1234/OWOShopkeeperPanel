@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".homeComponents.accountInfo.AccountInfo">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:background="@color/blue"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/settings_full_name_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="true"
+            app:title="User Name"
+            app:scrimAnimationDuration="10"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/blue"
+            app:expandedTitleMarginBottom="20dp"
+            app:expandedTitleGravity="bottom|center"
+            app:collapsedTitleGravity="start"
+            app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyleWhite"
+            app:collapsedTitleTextAppearance="@style/CollapsingToolbarLayoutCollapsedTextStyle"
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/settings_profile_image"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/white"
+                android:src="@drawable/person"/>
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/z_toolbar"
+                android:background="@android:color/transparent"
+                android:paddingEnd = "15dp"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin">
+
+                <ImageView
+                    android:id="@+id/back_to_home"
+                    android:background="@drawable/round_back_ground"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    android:contentDescription="@string/back_to_home_arrow" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:background="#E4EAEF"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/my_service_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_service"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="15dp"
+                android:textSize="15sp"
+                android:textColor="@color/black"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/my_service_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="5dp"
+                app:cardUseCompatPadding="true"
+                android:layout_below="@+id/my_service_tag"
+                app:cardCornerRadius="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <LinearLayout
+                        android:id="@+id/payment_layout"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/payment"
+                            android:contentDescription="@string/payment_options_for_user" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/payment"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/review_layout"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/review"
+                            android:contentDescription="@string/payment_options_for_user" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/my_reviews"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/notification_layout"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/notification"
+                            android:contentDescription="@string/payment_options_for_user" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/notifications"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/promos_layout"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/marketing"
+                            android:contentDescription="@string/payment_options_for_user" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/promos"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/pic_change_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/change_your_picture"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/my_service_card_view"
+                android:layout_marginStart="5dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/profile_pic_card"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@+id/pic_change_text"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="15dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/settings_profile_image_small"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="@color/black"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:src="@drawable/person"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_picture"
+                        android:layout_centerVertical="true"
+                        android:textSize="15sp"
+                        android:layout_toEndOf="@+id/settings_profile_image_small"
+                        android:layout_marginStart="15dp"/>
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:id="@+id/linear_dummy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_below="@+id/profile_pic_card"
+                >
+
+                <TextView
+                    android:id="@+id/user_information_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_user_information"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/edit_user_information"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/edit"
+                    android:textColor="@color/blue"
+                    android:textSize="15sp"
+                    android:drawableTint="@color/blue"
+                    android:layout_alignParentEnd="true"
+                    app:drawableStartCompat="@drawable/ic_baseline_create_24" />
+
+            </RelativeLayout>
+
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/user_information_card"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_below="@+id/linear_dummy"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="15dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="2"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:id="@+id/user_name_change_layout"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        >
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/person"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"/>
+
+                        <TextView
+                            android:id="@+id/user_information_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_name"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:ellipsize="end"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/grey"/>
+
+                    <LinearLayout
+                        android:id="@+id/user_mobile_number_change_layout"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        >
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/mobile_logo"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"/>
+
+                        <TextView
+                            android:id="@+id/user_information_mobile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/xxxxxxxxxxx"
+                            android:maxLength="11"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/pin_change_tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/change_pin"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_below="@+id/user_information_card"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="5dp"/>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/pin_change_card"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@+id/pin_change_tag"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="15dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="5dp">
+
+                <RelativeLayout
+                    android:id="@+id/change_pin_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+
+                    <ImageView
+                        android:id="@+id/pin_image"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/pin_number"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/change_your_pin_number"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/pin_image"
+                        android:textSize="15sp"
+                        android:layout_marginStart="10dp"/>
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
