@@ -1,5 +1,6 @@
 package com.shopKPR.network;
 
+import com.shopKPR.homeComponents.accountInfo.notifications.Notifications;
 import com.shopKPR.homeComponents.brandsComponent.entity.Brands;
 import com.shopKPR.Model.CartListFromClient;
 import com.shopKPR.Model.CartListProduct;
@@ -262,4 +263,7 @@ public interface Api {
 
     @POST("/makeShopInfoChangeRequest")
     Call<ResponseBody> makeShopInfoChangeRequest(@Body ChangeShopInfo changeShopInfo);
+
+    @GET("/getAllNotifications")
+    Call<List<Notifications>> getAllNotifications();
 }

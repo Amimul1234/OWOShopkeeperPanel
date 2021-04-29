@@ -27,7 +27,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".homeComponents.accountInfo.AccountInfo"></activity>
+        <activity android:name=".homeComponents.accountInfo.notifications.NotificationsActivity"></activity>
+        <activity android:name=".homeComponents.accountInfo.AccountInfo" />
         <activity android:name=".shopKeeperSettings.RequestForChangingStoreInfo" />
 
         <meta-data

@@ -1,4 +1,4 @@
-package com.shopKPR.homeComponents.floatingComponents.deals;
+package com.shopKPR.homeComponents.accountInfo.notifications;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.shopKPR.R;
-import com.shopKPR.homeComponents.floatingComponents.entities.Deals;
 import com.shopKPR.network.RetrofitClient;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
@@ -18,16 +17,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AllDealsActivity extends AppCompatActivity {
+public class NotificationsActivity extends AppCompatActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView dealsRecyclerView;
-
-    private final List<Deals> dealsList = new ArrayList<>();
-    private DealsAdapter dealsAdapter;
+    private final List<Notifications> notificationsList = new ArrayList<>();
+    private NotificationsAdapter notificationsAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_deals);
 
@@ -37,8 +36,9 @@ public class AllDealsActivity extends AppCompatActivity {
 
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.blue));
 
-        swipeRefreshLayout.setOnRefreshListener(()->{
-            fetChDealItems();
+        swipeRefreshLayout.setOnRefreshListener(()->
+        {
+            fetchNotifications();
             showRecycler();
         });
 
@@ -47,47 +47,49 @@ public class AllDealsActivity extends AppCompatActivity {
         backButton.setOnClickListener(v -> onBackPressed());
     }
 
-    private void fetChDealItems()
+    private void fetchNotifications()
     {
         RetrofitClient.getInstance().getApi()
-                .getAllDeals()
-                .enqueue(new Callback<List<Deals>>() {
+                .getAllNotifications()
+                .enqueue(new Callback<List<Notifications>>() {
                     @Override
-                    public void onResponse(@NotNull Call<List<Deals>> call, @NotNull Response<List<Deals>> response) {
+                    public void onResponse(@NotNull Call<List<Notifications>> call,
+                                           @NotNull Response<List<Notifications>> response)
+                    {
                         if(response.isSuccessful())
                         {
-                            dealsList.clear();
+                            notificationsList.clear();
                             assert response.body() != null;
-                            dealsList.addAll(response.body());
-                            dealsAdapter.notifyDataSetChanged();
+                            notificationsList.addAll(response.body());
+                            notificationsAdapter.notifyDataSetChanged();
                         }
                         else
                         {
-                            Toast.makeText(AllDealsActivity.this, "No deals available", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(NotificationsActivity.this, "No notifications available", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<List<Deals>> call, @NotNull Throwable t) {
-                        Log.e("AllDeals", t.getMessage());
-                        Toast.makeText(AllDealsActivity.this, "Can not get deals, please try again", Toast.LENGTH_SHORT).show();
+                    public void onFailure(@NotNull Call<List<Notifications>> call, @NotNull Throwable t) {
+                        Log.e("AllNotifications", t.getMessage());
+                        Toast.makeText(NotificationsActivity.this, "Can not get notifications, please try again", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
 
     private void showRecycler() {
-        dealsAdapter = new DealsAdapter(AllDealsActivity.this, dealsList);
-        dealsRecyclerView.setAdapter(dealsAdapter);
+        notificationsAdapter = new NotificationsAdapter(NotificationsActivity.this, notificationsList);
+        dealsRecyclerView.setAdapter(notificationsAdapter);
         dealsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         dealsRecyclerView.setHasFixedSize(true);
-        dealsAdapter.notifyDataSetChanged();
+        notificationsAdapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        fetChDealItems();
+        fetchNotifications();
     }
 }
