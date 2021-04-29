@@ -52,9 +52,7 @@ public class SettingsActivity extends AppCompatActivity{
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
     private String previousImagePath;
-
     private ShopKeeperUser shopKeeperUser;
-
     private final int STORAGE_PERMISSION_CODE = 1;
 
     @Override
@@ -92,16 +90,14 @@ public class SettingsActivity extends AppCompatActivity{
 
             CharSequence[] options =new CharSequence[]{"Yes","No"};
             AlertDialog.Builder builder=new AlertDialog.Builder(SettingsActivity.this);
-
             builder.setTitle("Are you sure you want to update your profile picture?");
-
             builder.setCancelable(true);
 
-            builder.setItems(options, (dialog, i) -> {
+            builder.setItems(options, (dialog, i) ->
+            {
                 if (i==0)
                 {
                     requestStoragePermission();
-
                 }
             });
             builder.show();
@@ -260,6 +256,7 @@ public class SettingsActivity extends AppCompatActivity{
 
         progressDialog.setTitle("Update Profile Picture");
         progressDialog.setMessage("Please wait while we are updating your profile image");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
         Bitmap bitmap = ((BitmapDrawable) profileImageView.getDrawable()).getBitmap();
@@ -290,6 +287,7 @@ public class SettingsActivity extends AppCompatActivity{
                         if(response.isSuccessful())
                         {
                             try {
+                                assert response.body() != null;
                                 String path = response.body().string();
                                 previousImagePath = shopKeeperUser.getImageUri();
                                 shopKeeperUser.setImageUri(path);
@@ -346,8 +344,8 @@ public class SettingsActivity extends AppCompatActivity{
 
                                             @Override
                                             public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-                                                Log.e("Settings", "Error occurred, Error is:" + t.getMessage());
                                                 progressDialog.dismiss();
+                                                Log.e("Settings", "Error occurred, Error is:" + t.getMessage());
                                                 Toast.makeText(SettingsActivity.this, "Updated your image successfully", Toast.LENGTH_SHORT).show();
 
 

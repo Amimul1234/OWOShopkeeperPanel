@@ -16,7 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.shopKPR.R;
 import com.shopKPR.configurations.HostAddress;
 import com.shopKPR.homeComponents.brandsComponent.entity.Brands;
-import com.shopKPR.shopKeeperPanel.product_related.BrandWiseProduct;
+import com.shopKPR.shopKeeperPanel.productRelated.BrandWiseProduct;
 import java.util.List;
 
 public class BrandsAdapter extends RecyclerView.Adapter<BrandsAdapter.ViewHolder> {

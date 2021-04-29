@@ -106,7 +106,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        toggle.getDrawerArrowDrawable().setColor(Color.BLACK);//Changing navigation drawer color
+        toggle.getDrawerArrowDrawable().setColor(Color.BLACK);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -133,7 +133,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             final AlertDialog alertDialog = builder.create();
             alertDialog.show();
-            alertDialog.getWindow().setLayout(950, 800);
+
+            int width = (int)(getResources().getDisplayMetrics().widthPixels);
+            int height = (int)(getResources().getDisplayMetrics().heightPixels*0.4);
+
+            alertDialog.getWindow().setLayout(width, height);
 
             call_us_now.setOnClickListener(v1 -> {
                 Intent intent = new Intent(Intent.ACTION_DIAL);

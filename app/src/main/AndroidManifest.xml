@@ -64,7 +64,7 @@
             android:name=".myShopManagement.userDebts.debt.DebtDetailsDashBoard"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.product_related.BrandWiseProduct"
+            android:name=".shopKeeperPanel.productRelated.BrandWiseProduct"
             android:screenOrientation="portrait" />
         <activity
             android:name=".homeComponents.categoryComponents.Categories"
@@ -103,7 +103,7 @@
             android:name=".orders.allOrders.OrdersList"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".shopKeeperPanel.product_related.SubCategoryWiseProduct"
+            android:name=".shopKeeperPanel.productRelated.SubCategoryWiseProduct"
             android:screenOrientation="portrait" />
         <activity
             android:name=".homeComponents.floatingComponents.deals.AllDealsActivity"

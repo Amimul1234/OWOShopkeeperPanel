@@ -85,6 +85,7 @@ public class MyShopActivity extends AppCompatActivity {
                     public void onResponse(@NotNull Call<Referral> call, @NotNull Response<Referral> response) {
                         if(response.isSuccessful())
                         {
+                            assert response.body() != null;
                             referralPoint.setText(String.valueOf(response.body().getReferPoint()));
                         }
                         else

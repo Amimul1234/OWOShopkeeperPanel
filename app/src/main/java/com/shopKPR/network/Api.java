@@ -153,7 +153,8 @@ public interface Api {
     Call<ResponseBody> deleteAUserDebtList(@Query("user_id") Long user_id);
 
     @POST("/addAdebtDetails")
-    Call<ResponseBody> addADebtDetailsForACustomer(@Body User_debt_details user_debt_details, @Query("user_id") Long user_id);
+    Call<ResponseBody> addADebtDetailsForACustomer(@Body User_debt_details user_debt_details,
+                                                   @Query("user_id") Long user_id);
 
     @DELETE("/deleteAdebtDetails")
     Call<ResponseBody> deleteADebtDetails(
@@ -247,7 +248,8 @@ public interface Api {
     Call<Qupon> getQupon(@Query("quponId") Long quponId);
 
     @GET("/checkUserAlreadyTakenCouponOrNot")
-    Call<ResponseBody> checkUserAlreadyTakenCoupon(@Query("mobileNumber") String mobileNumber, @Query("quponId") Long quponId);
+    Call<ResponseBody> checkUserAlreadyTakenCoupon(@Query("mobileNumber") String mobileNumber,
+                                                   @Query("quponId") Long quponId);
 
     @POST("/addQuponToAnUser")
     Call<ResponseBody> addNewCouponToUser(@Query("mobileNumber") String mobileNumber, @Body Qupon qupon);

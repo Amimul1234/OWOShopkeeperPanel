@@ -1,7 +1,6 @@
 package com.shopKPR.myShopManagement.userDebts.debt;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;

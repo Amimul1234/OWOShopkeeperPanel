@@ -16,7 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.shopKPR.R;
 import com.shopKPR.categorySpinner.entity.SubCategoryEntity;
 import com.shopKPR.configurations.HostAddress;
-import com.shopKPR.shopKeeperPanel.product_related.SubCategoryWiseProduct;
+import com.shopKPR.shopKeeperPanel.productRelated.SubCategoryWiseProduct;
 import java.util.ArrayList;
 import java.util.List;
 

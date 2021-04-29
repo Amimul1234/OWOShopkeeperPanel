@@ -1,4 +1,4 @@
-package com.shopKPR.shopKeeperPanel.product_related;
+package com.shopKPR.shopKeeperPanel.productRelated;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;

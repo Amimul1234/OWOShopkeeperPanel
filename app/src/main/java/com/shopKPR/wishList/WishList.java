@@ -85,6 +85,11 @@ public class WishList extends AppCompatActivity {
                                 wishListAdapter.notifyDataSetChanged();
                             }
                         }
+                        else
+                        {
+                            progressDialog.dismiss();
+                            Toast.makeText(WishList.this, "Can not get wish list products", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override

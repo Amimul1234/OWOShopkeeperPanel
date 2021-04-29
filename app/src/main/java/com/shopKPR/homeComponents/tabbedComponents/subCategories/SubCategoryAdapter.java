@@ -21,7 +21,7 @@ import com.shopKPR.network.RetrofitClient;
 import com.shopKPR.configurations.HostAddress;
 import com.shopKPR.R;
 import com.shopKPR.prevalent.Prevalent;
-import com.shopKPR.shopKeeperPanel.product_related.SubCategoryWiseProduct;
+import com.shopKPR.shopKeeperPanel.productRelated.SubCategoryWiseProduct;
 
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
