@@ -26,8 +26,7 @@ import static com.google.firebase.auth.PhoneAuthProvider.*;
 
 public class EnterNewPasswordActivity extends AppCompatActivity {
 
-    private String mobileNumber, verificationId;
-    private ForceResendingToken forceResendingToken;
+    private String mobileNumber;
     private Boolean isShowPin = false, isShowConfirmPin = false;
 
     private EditText shopKeeperNewPin, shopKeeperConfirmPin;
@@ -47,8 +46,8 @@ public class EnterNewPasswordActivity extends AppCompatActivity {
         confirmShowPinImage = findViewById(R.id.show_confirmed_pin);
 
         mobileNumber = getIntent().getStringExtra("mobileNumber");
-        verificationId = getIntent().getStringExtra("verificationId");
-        forceResendingToken = getIntent().getParcelableExtra("force_resend_token");
+        String verificationId = getIntent().getStringExtra("verificationId");
+        ForceResendingToken forceResendingToken = getIntent().getParcelableExtra("force_resend_token");
 
         showPinImage.setOnClickListener(v ->
         {

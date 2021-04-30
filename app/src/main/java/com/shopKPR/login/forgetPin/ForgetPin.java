@@ -73,7 +73,7 @@ public class ForgetPin extends AppCompatActivity {
 
                         progressBar.setVisibility(View.GONE);
 
-                        Intent intent = new Intent(ForgetPin.this, VerifyPhoneActivity.class);
+                        Intent intent = new Intent(ForgetPin.this, VerifyPhoneWithOTP.class);
 
                         intent.putExtra("mobileNumber", mobileNumber.getText().toString());
                         intent.putExtra("verificationId", verificationId);
