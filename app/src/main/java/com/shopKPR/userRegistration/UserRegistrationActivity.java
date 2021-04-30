@@ -73,13 +73,14 @@ public class UserRegistrationActivity extends AppCompatActivity {
         checkBox = findViewById(R.id.terms);
         loader = findViewById(R.id.loader);
 
-        term_condition.setOnClickListener(v -> {
+        term_condition.setOnClickListener(v ->
+        {
             Intent intent=new Intent(UserRegistrationActivity.this, TermsConditionsActivity.class);
             startActivity(intent);
         });
 
-        showPin.setOnClickListener(v -> {
-
+        showPin.setOnClickListener(v ->
+        {
             if (isShowPin) {
                 newShopkeeperPin.setTransformationMethod(new PasswordTransformationMethod());
                 showPin.setImageResource(R.drawable.ic_visibility_off);
@@ -92,8 +93,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
             }
         });
 
-        showConfirmPin.setOnClickListener(v -> {
-
+        showConfirmPin.setOnClickListener(v ->
+        {
             if (isShowConfirmPin) {
                 newShopkeeperConfirmPin.setTransformationMethod(new PasswordTransformationMethod());
                 showConfirmPin.setImageResource(R.drawable.ic_visibility_off);
@@ -107,8 +108,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
         });
 
 
-        sendOTP.setOnClickListener(v -> {
-
+        sendOTP.setOnClickListener(v ->
+        {
             final String number = regMobile.getText().toString();
 
             if (number.isEmpty() || number.length() < 11) {

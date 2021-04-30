@@ -249,5 +249,11 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
     <string name="payment">Payment</string>
     <string name="promos">Promos</string>
     <string name="all_notifications">All Notifications</string>
+    <string name="please_enter_mobile_number">Please Enter Mobile Number:</string>
+    <string name="enter_new_pin">Enter New Pin</string>
+    <string name="new_pin_prompt">Please Enter New Pin</string>
+    <string name="show_pin_number">Show Pin Number</string>
+    <string name="confirm_pin_number">Confirm Pin Number</string>
+    <string name="change_pin_number">Change Pin Number</string>
 
 </resources>

@@ -266,4 +266,7 @@ public interface Api {
 
     @GET("/getAllNotifications")
     Call<List<Notifications>> getAllNotifications();
+
+    @PUT("/updateShopKeeperPin")
+    Call<ResponseBody> changeShopKeeperPin(@Body UserShopKeeper userShopKeeper);
 }

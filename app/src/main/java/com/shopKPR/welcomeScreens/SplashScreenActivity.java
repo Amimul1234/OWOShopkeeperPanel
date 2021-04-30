@@ -82,7 +82,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                     }, 2000);
                 }
                 else {
-
                     new Handler(Looper.getMainLooper()).postDelayed(() -> {
                         Intent mainIntent = new Intent(SplashScreenActivity.this, LogInActivity.class);
                         mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

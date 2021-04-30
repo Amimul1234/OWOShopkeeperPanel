@@ -84,13 +84,15 @@ public class LogInActivity extends AppCompatActivity {
             AllowAccessToAccount(Paper.book().read(Prevalent.UserPhoneKey), Paper.book().read(Prevalent.UserPinKey));
         }
 
-        forgetPin.setOnClickListener(v -> {
+        forgetPin.setOnClickListener(v ->
+        {
             Intent intent=new Intent(LogInActivity.this, ForgetPin.class);
             startActivity(intent);
             finish();
         });
 
-        signUp.setOnClickListener(v -> {
+        signUp.setOnClickListener(v ->
+        {
             Intent intent=new Intent(LogInActivity.this, UserRegistrationActivity.class);
             startActivity(intent);
             finish();
