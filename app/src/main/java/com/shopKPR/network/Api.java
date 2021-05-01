@@ -37,6 +37,10 @@ import retrofit2.http.Query;
 
 public interface Api {
 
+    //Time Slots
+    @GET("/getAllAvailableTimeSlots")
+    Call<List<TimeSlot>> getAllAvailableTimeSlots();
+
     //Offer Banner
     @GET("/getBannerForSelectedCategories")
     Call<List<String>> bannerImages(@Query("categoryIds") List<Long> categoryIds);
@@ -57,6 +61,8 @@ public interface Api {
     @PUT("/updateShopKeeperInfo")
     Call<ResponseBody> updateShopKeeperInfo(@Body ShopKeeperUser shopKeeperUser);
 
+
+    //Products Management
     @GET("/getProductByCategories")
     Call<List<OwoProduct>> getProducts(@Query("page") int page,
                                        @Query("product_categories") Long[] categories);
@@ -124,6 +130,7 @@ public interface Api {
             @Query("mobile_number") String mobile_number
     );
 
+    //Shop Management
     @GET("/getShopInfo")
     Call<Shops> getShopInfo(@Query("shop_phone") String shop_phone);
 
@@ -173,9 +180,6 @@ public interface Api {
     Call<ResponseBody> deleteImage(@Query("path_of_image") String path_of_image);
 
 
-    @GET("/getAllSubCategories")
-    Call<List<SubCategoryEntity>> getAllSubCategories(@Query("categoryId") Long categoryId);
-
     @POST("/addPaidAmountForAnUser")
     Call<ResponseBody> addPaidAmountForAnUser(@Query("userId") Long userId, @Query("paidAmount") Double userPaidAmount);
 
@@ -183,6 +187,9 @@ public interface Api {
     //Searching and filtering
     @GET("/getAllSubCategoriesForCategory")
     Call<List<String>> getAllSubCategoriesForCategory(@Query("categoryId") Long categoryId);
+
+    @GET("/getAllSubCategories")
+    Call<List<SubCategoryEntity>> getAllSubCategories(@Query("categoryId") Long categoryId);
 
     @GET("/searchProduct")
     Call<List<OwoProduct>> searchProduct(
@@ -231,10 +238,6 @@ public interface Api {
 
     @GET("/getAllWishListProducts")
     Call<List<OwoProduct>> wishListProducts(@Query("user_id") Long userId);
-
-    //Time Slots
-    @GET("/getAllAvailableTimeSlots")
-    Call<List<TimeSlot>> getAllAvailableTimeSlots();
 
     @GET("/getAllBrands")
     Call<List<Brands>> getAllBrandsViaSubCategory(@Query("subCategoryId") Long subCategoryId);

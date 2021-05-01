@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ShopKPR</string>
+    <string name="app_name">ShopKpr</string>
 
     <string name="maps_api_key">AIzaSyDX6YQ4dRErpb5muuAg0vtBHIK9o20iDns</string>
     <string name="title_activity_location_from_map">Map</string>

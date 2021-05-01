@@ -293,6 +293,7 @@ public class DebtDetailsForACustomer extends AppCompatActivity {
 
         DownloadManager.Request request = new DownloadManager.Request(
                 Uri.parse(query_string))
+                .addRequestHeader("Authorization", "Basic " + "dXNlck9mU2hvcEtwcjpTaG9wS3ByVXNlcjIwMjE=")
                 .setTitle(name+"'s Invoice")
                 .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
                 .setDescription("Downloading debt record....")

@@ -14,7 +14,6 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.shopKPR.R;
-import com.shopKPR.userRegistration.VerifyPhoneActivity;
 import java.util.concurrent.TimeUnit;
 
 public class ForgetPin extends AppCompatActivity {
