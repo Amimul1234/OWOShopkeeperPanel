@@ -122,7 +122,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
         return owoProductList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder
+    public static class ViewHolder extends RecyclerView.ViewHolder
     {
         ImageView wishListProductImage, deleteProductFromWishList;
         TextView wishListProductName, wishListProductPrice;

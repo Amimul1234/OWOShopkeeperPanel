@@ -70,7 +70,6 @@ public class CartActivity extends AppCompatActivity {
 
         back_from_cart.setOnClickListener(v -> finish());
 
-
         place_order_button.setOnClickListener(v ->
         {
             Intent intent = new Intent(getApplicationContext(), ConfirmFinalOrderActivity.class);
@@ -93,21 +92,25 @@ public class CartActivity extends AppCompatActivity {
 
         LayoutInflater layoutInflater = getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.get_coupon_code, null);
+
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("Coupon Code");
-
         alertDialog.setCancelable(false);
 
         EditText coupon_code = view.findViewById(R.id.coupon_code);
 
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", (dialog, which) -> {
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", (dialog, which) ->
+        {
             loaderVisible();
+
             couponCodeString = coupon_code.getText().toString();
             check(couponCodeString);
             dialog.dismiss();
         });
 
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", (dialog, which) -> dialog.dismiss());
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", (dialog, which) ->
+                dialog.dismiss());
+
         alertDialog.setView(view);
         alertDialog.show();
     }
@@ -142,9 +145,10 @@ public class CartActivity extends AppCompatActivity {
 
                             loaderGone();
 
+                            grand_total_with_discount = grandTotal;
+
                             CartListAdapter cartListAdapter = new CartListAdapter(CartActivity.this, CartListProducts);
                             listView.setAdapter(cartListAdapter);
-
                         }
                         else{
                             empty_image.setVisibility(View.VISIBLE);
@@ -184,7 +188,7 @@ public class CartActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        if(!head.equalsIgnoreCase("ShopKPR#"))
+        if(!head.equalsIgnoreCase("ShopKpr#"))
         {
             progressBar.setVisibility(View.GONE);
             Toast.makeText(this, "Please provide correct coupon code", Toast.LENGTH_SHORT).show();
@@ -201,10 +205,13 @@ public class CartActivity extends AppCompatActivity {
                                 Qupon qupon = response.body();
                                 assert qupon != null;
 
-                                if(grandTotal < qupon.getDiscount())
+                                if(grand_total_with_discount < qupon.getDiscount())
                                 {
                                     progressBar.setVisibility(View.GONE);
-                                    Toast.makeText(CartActivity.this, "Please order minimum :"+ qupon.getDiscount() + "to get coupon discount", Toast.LENGTH_SHORT).show();
+
+                                    Toast.makeText(CartActivity.this, "Please order minimum :"+ qupon.getDiscount() +
+                                            "to get coupon discount", Toast.LENGTH_SHORT).show();
+
                                     return;
                                 }
 
@@ -235,7 +242,7 @@ public class CartActivity extends AppCompatActivity {
                         if(response.isSuccessful())
                         {
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(CartActivity.this, "Sorry! Multiple time coupon taking is not allowed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CartActivity.this, "Sorry !! Multiple time coupon taking is not allowed", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
@@ -294,8 +301,10 @@ public class CartActivity extends AppCompatActivity {
         grand_total_with_discount = grandTotal - discount;
     }
 
-    public void setGrandTotal(double grandTotal) {
+    public void setGrandTotal(double grandTotal)
+    {
         this.grandTotal = grandTotal;
+        grand_total_with_discount = grandTotal - discount;
     }
 
     public ImageView getEmpty_image() {

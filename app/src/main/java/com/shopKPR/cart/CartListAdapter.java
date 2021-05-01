@@ -55,6 +55,7 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
         if (convertView == null) {
             LayoutInflater inflater= context.getLayoutInflater();
             convertView = inflater.inflate(R.layout.cart_items_sample,null,true);
+
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         }
@@ -74,7 +75,7 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
             call.enqueue(new Callback<OwoProduct>() {
                 @Override
                 public void onResponse(@NotNull Call<OwoProduct> call, @NotNull Response<OwoProduct> response) {
-                    if(response.code() == 200)
+                    if(response.isSuccessful())
                     {
                         cartActivity.loaderGone();
                         Intent intent = new Intent(context, ProductDetailsActivity.class);
@@ -137,8 +138,8 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
             double product_total_price = cartListProduct.getProductPrice() * cartListProduct.getProductQuantity();
             String totalPriceString = "৳ "+String.format(Locale.ENGLISH, "%.2f", product_total_price);
             cart_product_price.setText(totalPriceString);
-
             cart_item_change_button.setNumber(String.valueOf(cartListProduct.getProductQuantity()));
+
 
             delete.setOnClickListener(view -> onDeleteItem(position));
 
@@ -150,15 +151,17 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
 
     private void changeQuantity(int position, int newValue)
     {
-
         cartActivity.loaderVisible();
 
         CartListProducts.get(position).setProductQuantity(newValue);
         CartListProduct cartListProduct = CartListProducts.get(position);
 
-        Call<CartListProduct> call = RetrofitClient.getInstance().getApi().updateCartList(cartListProduct, Prevalent.currentOnlineUser.getMobileNumber());
+        Call<CartListProduct> call = RetrofitClient.getInstance().getApi()
+                .updateCartList(cartListProduct,
+                Prevalent.currentOnlineUser.getMobileNumber());
 
-        call.enqueue(new Callback<CartListProduct>() {
+        call.enqueue(new Callback<CartListProduct>()
+        {
             @Override
             public void onResponse(@NotNull Call<CartListProduct> call, @NotNull Response<CartListProduct> response) {
                 if(response.isSuccessful())
@@ -175,6 +178,8 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
                     }
 
                     cartActivity.grand_total_updater(String.format(Locale.ENGLISH, "%.2f", grand_total));
+
+                    cartActivity.setGrandTotal(grand_total);
 
                     cartActivity.loaderGone();
                     notifyDataSetChanged();
@@ -234,6 +239,7 @@ public class CartListAdapter extends ArrayAdapter<CartListProduct> {
                                 }
 
                                 cartActivity.grand_total_updater(String.format(Locale.ENGLISH, "%.2f", grand_total));
+                                cartActivity.setGrandTotal(grand_total);
 
                                 cartActivity.loaderGone();
                                 cartActivity.loaderGone();
