@@ -62,15 +62,16 @@ public class ProductDetailsActivity extends AppCompatActivity {
         TextView productDescription = findViewById(R.id.product_description_details);
         TextView productPriceWithDiscount =findViewById(R.id.product_price_with_discount_details);
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.product_name_details);
-        addProductToWishList = findViewById(R.id.add_to_wishList);
         Button addToCartBtn = findViewById(R.id.add_to_cart_button);
 
+        addProductToWishList = findViewById(R.id.add_to_wishList);
         numberButton = findViewById(R.id.quantity_number_btn);
         similarProducts = findViewById(R.id.similarProducts);
         product_brand_name = findViewById(R.id.product_brand_name);
         progressDialog = new ProgressDialog(this);
 
-        back_to_home.setOnClickListener(v -> {
+        back_to_home.setOnClickListener(v ->
+        {
             onBackPressed();
             finish();
         });

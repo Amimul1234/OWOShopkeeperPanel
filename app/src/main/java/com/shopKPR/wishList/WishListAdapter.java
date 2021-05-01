@@ -60,9 +60,30 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
 
         holder.itemView.setOnClickListener(v ->
         {
-            Intent intent = new Intent(mcTx, ProductDetailsActivity.class);
-            intent.putExtra("Products", owoProductList.get(position));
-            mcTx.startActivity(intent);
+
+            RetrofitClient.getInstance().getApi()
+                    .getProductById(owoProductList.get(position).getProductId())
+                    .enqueue(new Callback<OwoProduct>() {
+                        @Override
+                        public void onResponse(@NotNull Call<OwoProduct> call, @NotNull Response<OwoProduct> response) {
+                            if(response.isSuccessful())
+                            {
+                                Intent intent = new Intent(mcTx, ProductDetailsActivity.class);
+                                intent.putExtra("Products", response.body());
+                                mcTx.startActivity(intent);
+                            }
+                            else
+                            {
+                                Log.e("Error", "Server error occurred");
+                                Toast.makeText(mcTx, "Can not get product data, please try again", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NotNull Call<OwoProduct> call, @NotNull Throwable t) {
+                            Log.e("Error", t.getMessage());
+                            Toast.makeText(mcTx, "Can not get product data, please try again", Toast.LENGTH_SHORT).show();
+                        }});
         });
     }
 
