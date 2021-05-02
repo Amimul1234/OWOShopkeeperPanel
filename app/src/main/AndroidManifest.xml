@@ -27,7 +27,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".login.forgetPin.EnterNewPasswordActivity"></activity>
+        <activity android:name=".bakirKhata.BakirKhataDashBoard"></activity>
+        <activity android:name=".login.forgetPin.EnterNewPasswordActivity" />
         <activity android:name=".login.forgetPin.TakeNewPin" />
         <activity android:name=".login.forgetPin.VerifyPhoneWithOTP" />
         <activity android:name=".homeComponents.accountInfo.notifications.NotificationsActivity" />

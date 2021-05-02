@@ -255,5 +255,6 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
     <string name="show_pin_number">Show Pin Number</string>
     <string name="confirm_pin_number">Confirm Pin Number</string>
     <string name="change_pin_number">Change Pin Number</string>
+    <string name="bakir_khata">Bakir Khata</string>
 
 </resources>
