@@ -127,6 +127,11 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
         <item>Change Store Information</item>
     </string-array>
 
+    <string-array name="payment_method">
+        <item>Cash</item>
+        <item>Digital Payment</item>
+    </string-array>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="get_current_location">GET Current Location</string>
     <string name="shop_trade_license">Shop Trade License</string>
@@ -256,5 +261,11 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
     <string name="confirm_pin_number">Confirm Pin Number</string>
     <string name="change_pin_number">Change Pin Number</string>
     <string name="bakir_khata">Bakir Khata</string>
+    <string name="add_a_new_record">Add A New Record</string>
+    <string name="add_new_record">Add New Record</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="date">Date</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="becha_bikri">Becha Bikri</string>
 
 </resources>

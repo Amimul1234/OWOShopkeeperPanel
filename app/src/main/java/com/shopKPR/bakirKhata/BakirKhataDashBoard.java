@@ -10,120 +10,96 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shopKPR.R;
-import com.shopKPR.myShopManagement.userDebts.adapter.UserDebtAdapter;
-import com.shopKPR.myShopManagement.userDebts.model.DebtDashBoardResponse;
 import com.shopKPR.network.RetrofitClient;
-import com.shopKPR.pagination.userDebts.UserDebtViewModel;
 import com.shopKPR.prevalent.Prevalent;
 import org.jetbrains.annotations.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BakirKhataDashBoard extends AppCompatActivity {
-
-    private UserDebtAdapter userDebtAdapter;
-    private TextView totalLoan, totalPaid;
+public class BakirKhataDashBoard extends AppCompatActivity
+{
+    private BakirKhataAdapter bakirKhataAdapter;
     private ProgressBar progressBar;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView recyclerView;
+
+    private final List<BakirRecord> bakirRecordList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_debt_details);
+        setContentView(R.layout.activity_bakir_khata_dash_board);
 
-        recyclerView = findViewById(R.id.userDebtDetails);
         FloatingActionButton floatingActionButton = findViewById(R.id.add_a_new_debt);
         ImageView back_button = findViewById(R.id.back_to_home);
 
+        RecyclerView recyclerView = findViewById(R.id.bakirRecords);
         progressBar = findViewById(R.id.addDebtRecordProgressbar);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
-        userDebtAdapter = new UserDebtAdapter(this);
+        bakirKhataAdapter = new BakirKhataAdapter(this, bakirRecordList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(bakirKhataAdapter);
 
-        totalLoan = findViewById(R.id.total_loan);
-        totalPaid = findViewById(R.id.total_paid);
-
-        getTotalPaidAndTotalLoan();
         getDebtDetails();
 
-        back_button.setOnClickListener(v -> {
+        back_button.setOnClickListener(v ->
+        {
             onBackPressed();
             finish();
         });
 
         floatingActionButton.setOnClickListener(v ->
         {
-            Intent intent = new Intent(BakirKhataDashBoard.this, AddAUserDebt.class);
+            Intent intent = new Intent(BakirKhataDashBoard.this, BakirRecordAddActivity.class);
             startActivity(intent);
         });
 
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            getTotalPaidAndTotalLoan();
-            getDebtDetails();
-        });
+        swipeRefreshLayout.setOnRefreshListener(this::getDebtDetails);
+
     }
 
     private void getDebtDetails()
     {
-        UserDebtViewModel userDebtViewModel = new UserDebtViewModel();
-
-        userDebtViewModel.itemPagedList.observe(this, userDebts ->
-        {
-            userDebtAdapter.submitList(userDebts);
-            userDebtAdapter.notifyDataSetChanged();
-        });
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(userDebtAdapter);
-        userDebtAdapter.notifyDataSetChanged();
-
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
-
-    private void getTotalPaidAndTotalLoan()
-    {
-
         progressBar.setVisibility(View.VISIBLE);
 
         RetrofitClient.getInstance().getApi()
-                .getDebtDashBoardEntries(Prevalent.currentOnlineUser.getMobileNumber())
-                .enqueue(new Callback<DebtDashBoardResponse>() {
+                .bakirRecordList(Prevalent.currentOnlineUser.getMobileNumber())
+                .enqueue(new Callback<List<BakirRecord>>() {
                     @Override
-                    public void onResponse(@NotNull Call<DebtDashBoardResponse> call, @NotNull Response<DebtDashBoardResponse> response) {
+                    public void onResponse(@NotNull Call<List<BakirRecord>> call, @NotNull Response<List<BakirRecord>> response) {
                         if(response.isSuccessful())
                         {
                             progressBar.setVisibility(View.GONE);
-
-                            DebtDashBoardResponse dashBoardResponse = response.body();
-
-                            assert dashBoardResponse != null;
-                            String totalLoanString = "৳" + dashBoardResponse.getTotalLoan();
-                            String totalPaidString = "৳" + dashBoardResponse.getTotalPaid();
-
-                            totalLoan.setText(totalLoanString);
-                            totalPaid.setText(totalPaidString);
+                            bakirRecordList.clear();
+                            bakirRecordList.addAll(response.body());
+                            bakirKhataAdapter.notifyDataSetChanged();
+                            swipeRefreshLayout.setRefreshing(false);
                         }
                         else
                         {
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(BakirKhataDashBoard.this, "Can not get total, please try again", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BakirKhataDashBoard.this, "Can not get bakir record, please try again", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<DebtDashBoardResponse> call, @NotNull Throwable t) {
+                    public void onFailure(@NotNull Call<List<BakirRecord>> call, @NotNull Throwable t) {
                         progressBar.setVisibility(View.GONE);
-                        Log.e("DebtDash", "Error occurred, Error is: "+t.getMessage());
-                        Toast.makeText(BakirKhataDashBoard.this, "Can not get total, please try again", Toast.LENGTH_SHORT).show();
+                        Log.e("Bakir Khata", t.getMessage());
+                        Toast.makeText(BakirKhataDashBoard.this, "Can not get bakir record, please try again", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        getDebtDetails();
+    }
 }

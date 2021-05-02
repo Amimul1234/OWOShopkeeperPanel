@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.shopKPR.R;
+import com.shopKPR.bakirKhata.BakirKhataDashBoard;
 import com.shopKPR.myShopManagement.userDebts.debt.DebtDetailsDashBoard;
 import com.shopKPR.shopKeeperSettings.RequestForChangingStoreInfo;
 import java.util.Arrays;
@@ -87,6 +88,11 @@ public class MyShopManagementAdapter extends RecyclerView.Adapter<MyShopManageme
                 Intent intent = new Intent(mCtx, DebtDetailsDashBoard.class);
                 mCtx.startActivity(intent);
             }
+            else if(position == 8)
+            {
+                Intent intent = new Intent(mCtx, BakirKhataDashBoard.class);
+                mCtx.startActivity(intent);
+            }
             else
             {
                 Intent intent = new Intent(mCtx, RequestForChangingStoreInfo.class);
@@ -100,7 +106,7 @@ public class MyShopManagementAdapter extends RecyclerView.Adapter<MyShopManageme
         return names.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder
+    public static class ViewHolder extends RecyclerView.ViewHolder
     {
         private final ImageView management_image;
         private final TextView management_name;

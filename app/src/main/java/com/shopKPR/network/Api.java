@@ -1,5 +1,6 @@
 package com.shopKPR.network;
 
+import com.shopKPR.bakirKhata.BakirRecord;
 import com.shopKPR.homeComponents.accountInfo.notifications.Notifications;
 import com.shopKPR.homeComponents.brandsComponent.entity.Brands;
 import com.shopKPR.Model.CartListFromClient;
@@ -272,4 +273,15 @@ public interface Api {
 
     @PUT("/updateShopKeeperPin")
     Call<ResponseBody> changeShopKeeperPin(@Body UserShopKeeper userShopKeeper);
+
+
+    //Bakir Khata Controller
+    @POST("/addNewRecord")
+    Call<ResponseBody> addNewBakirRecord(@Body BakirRecord bakirRecord);
+
+    @DELETE("/deleteRecord")
+    Call<ResponseBody> deleteRecord(@Query("recordId") Long recordId);
+
+    @GET("/getAllBakirRecord")
+    Call<List<BakirRecord>> bakirRecordList(@Query("mobileNumber") String mobileNumber);
 }

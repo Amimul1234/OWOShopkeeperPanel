@@ -7,160 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".bakirKhata.BakirKhataDashBoard">
 
-    <RelativeLayout
-        android:id="@+id/top_relative_layout"
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/topbar1"
         android:background="@color/blue"
-        android:layout_height="235dp">
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/topbar1"
-            android:background="@color/blue"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-            <ImageView
-                android:id="@+id/back_to_home"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/ic_baseline_arrow_back_24"
-                app:tint="@color/white"
-                android:contentDescription="@string/back_to_home_arrow" />
+        <ImageView
+            android:id="@+id/back_to_home"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:tint="@color/white"
+            android:contentDescription="@string/back_to_home_arrow" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bakir_khata"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/becha_bikri"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
 
-        </androidx.appcompat.widget.Toolbar>
-
-        <RelativeLayout
-            android:id="@+id/top_calculation_bar"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_below="@id/topbar1"
-            android:background="@drawable/dena_paona"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="80dp"
-                android:layout_centerInParent="true"
-                android:background="#918B8B"/>
-
-
-            <LinearLayout
-                android:id="@+id/headings1"
-                android:weightSum="2"
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="40dp">
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/total_loan"
-                    android:textSize="20sp"
-                    android:gravity="center|bottom"/>
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/total_paid"
-                    android:textSize="20sp"
-                    android:gravity="center|bottom"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_below="@id/headings1"
-                android:weightSum="2"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-
-                <TextView
-                    android:id="@+id/total_loan"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center|top"
-                    android:text="@string/total_loan"
-                    android:textColor="@color/red"
-                    android:textStyle="bold"
-                    android:textSize="22sp" />
-
-                <TextView
-                    android:id="@+id/total_paid"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/total_paid"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/green"
-                    android:gravity="center|top"/>
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:weightSum="2"
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/top_calculation_bar"
-            android:layout_height="55dp">
-
-            <TextView
-                android:id="@+id/total_load_up_arrow"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/red_corner_cutted"
-                android:gravity="center"
-                android:text="@string/loan"
-                android:textStyle="bold"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/white"
-                android:textSize="25sp"
-                android:paddingStart="50dp"
-                android:drawablePadding="-55dp"
-                app:drawableStartCompat="@drawable/ic_baseline_arrow_upward_24"
-                tools:ignore="RtlSymmetry" />
-
-            <TextView
-                android:id="@+id/total_paid_down_arrow"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="@string/paid"
-                android:background="@drawable/green_corner_cutted"
-                android:textStyle="bold"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/white"
-                android:textSize="25sp"
-                android:paddingStart="50dp"
-                android:drawablePadding="-60dp"
-                android:gravity="center"
-                app:drawableStartCompat="@drawable/ic_baseline_arrow_downward_24"
-                tools:ignore="RtlSymmetry" />
-
-        </LinearLayout>
-
-
-    </RelativeLayout>
-
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -171,10 +41,10 @@
         android:layout_marginEnd="10dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/top_relative_layout">
+        android:layout_below="@id/topbar1">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/userDebtDetails"
+            android:id="@+id/bakirRecords"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

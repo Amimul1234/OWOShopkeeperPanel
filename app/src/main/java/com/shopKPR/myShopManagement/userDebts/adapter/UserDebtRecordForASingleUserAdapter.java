@@ -45,8 +45,6 @@ public class UserDebtRecordForASingleUserAdapter extends RecyclerView.Adapter<Us
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
 
-        UserDebtRecordForASingleUserAdapter.ItemViewHolder itemViewHolder = (UserDebtRecordForASingleUserAdapter.ItemViewHolder) holder;
-
         User_debt_details user_debt_details = user_debt_detailsList.get(position);
 
         if (user_debt_details != null) {
@@ -59,10 +57,10 @@ public class UserDebtRecordForASingleUserAdapter extends RecyclerView.Adapter<Us
 
             TextDrawable drawable = TextDrawable.builder().buildRound(String.valueOf(c), color1);
 
-            itemViewHolder.letter_image_view.setImageDrawable(drawable);
-            itemViewHolder.debt_description.setText(user_debt_details.getDescription());
-            itemViewHolder.debt_taking_date.setText(user_debt_details.getDate());
-            itemViewHolder.debt_amount.setText("৳ "+String.valueOf(user_debt_details.getTaka()));
+            holder.letter_image_view.setImageDrawable(drawable);
+            holder.debt_description.setText(user_debt_details.getDescription());
+            holder.debt_taking_date.setText(user_debt_details.getDate());
+            holder.debt_amount.setText("৳ "+String.valueOf(user_debt_details.getTaka()));
 
         } else {
             Toast.makeText(mCtx, "No record found", Toast.LENGTH_LONG).show();

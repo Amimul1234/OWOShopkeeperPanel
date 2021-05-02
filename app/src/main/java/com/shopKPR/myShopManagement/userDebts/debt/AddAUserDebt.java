@@ -86,7 +86,7 @@ public class AddAUserDebt extends AppCompatActivity {
                             Toast.makeText(AddAUserDebt.this, "User already exists", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
-                        else if(response.code() == 200)
+                        else if(response.isSuccessful())
                         {
                             progressDialog.dismiss();
 

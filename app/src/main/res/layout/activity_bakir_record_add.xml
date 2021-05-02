@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".bakirKhata.BakirRecordAddActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/topbar1"
+        android:background="@color/blue"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:id="@+id/back_to_home"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:tint="@color/white"
+            android:contentDescription="@string/back_to_home_arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_a_new_record"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/topbar1"
+        >
+
+        <TextView
+            android:id="@+id/heading1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@string/add_new_record"
+            android:textAlignment="center"
+            android:layout_marginTop="20dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/heading1"
+            android:hint="@string/enter_name"
+            android:layout_margin="10dp"
+            android:autofillHints="Name" />
+
+        <EditText
+            android:id="@+id/product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_below="@id/name"
+            android:hint="@string/product_name"
+            android:autofillHints="Product Name"/>
+
+        <EditText
+            android:id="@+id/product_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_below="@id/product_name"
+            android:hint="@string/product_price"
+            android:autofillHints="Product Name"
+            android:inputType="numberDecimal" />
+
+
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_below="@id/product_price"
+            android:hint="@string/date"
+            android:autofillHints="Product Name"
+            android:inputType="date" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/payment_method_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/date"
+            android:layout_margin="10dp"
+            android:entries="@array/payment_method"/>
+
+
+        <Button
+            android:id="@+id/addBakirRecord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:padding="10dp"
+            android:background="@drawable/buttons_blue"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_below="@+id/payment_method_spinner"
+            android:text="@string/add_a_new_record" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
