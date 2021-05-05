@@ -123,7 +123,8 @@ ChAdOx1 nCoV-19 ভ্যাকসিনের (অ্যাস্ট্রা�
         <item>মুলতুবি আদেশ</item>
         <item>সমস্ত সম্পূর্ণ আদেশ</item>
         <item>কারণে রেকর্ডস</item>
-        <item>বাকি হিসাব</item>
+        <item>বিক্রয় রেকর্ড</item>
+        <item>স্টোরের তথ্য পরিবর্তন করুন</item>
     </string-array>
 
     <string name="hello_blank_fragment">হ্যালো ফাঁকা খণ্ড</string>
@@ -233,5 +234,35 @@ ChAdOx1 nCoV-19 ভ্যাকসিনের (অ্যাস্ট্রা�
     <string name="time_count">সময় গণনা</string>
     <string name="resend_code">পুনরায় কোড পাঠানো</string>
     <string name="resend_otp_in">ওটিপি পুনরায় পাঠান:</string>
+
+    <string name="share_and_earn">ভাগ করুন এবং উপার্জন করুন</string>
+    <string name="referral_point">রেফারেল পয়েন্ট: </string>
+    <string name="_100">100</string>
+    <string name="point_zero">00</string>
+    <string name="chat_now">এখন চ্যাট করুন</string>
+    <string name="change_shop_information">দোকান তথ্য পরিবর্তন করুন</string>
+    <string name="update_shop_info">দোকান তথ্য আপডেট করুন</string>
+    <string name="my_service">আমার পরিষেবা</string>
+    <string name="payment_options">অর্থ প্রদানের বিকল্পগুলি</string>
+    <string name="payment_options_for_user">ব্যবহারকারীর জন্য অর্থ প্রদানের বিকল্পগুলি</string>
+    <string name="my_reviews">আমার পর্যালোচনা</string>
+    <string name="notifications">বিজ্ঞপ্তি</string>
+    <string name="payment">পেমেন্ট</string>
+    <string name="promos">প্রচার</string>
+    <string name="all_notifications">সমস্ত বিজ্ঞপ্তি</string>
+    <string name="please_enter_mobile_number">মোবাইল নম্বর লিখুন:</string>
+    <string name="enter_new_pin">নতুন পিন প্রবেশ করুন</string>
+    <string name="new_pin_prompt">দয়া করে নতুন পিন প্রবেশ করুন</string>
+    <string name="show_pin_number">পিন নম্বর দেখান</string>
+    <string name="confirm_pin_number">পিন নম্বর নিশ্চিত করুন</string>
+    <string name="change_pin_number">পিন নম্বর পরিবর্তন করুন</string>
+    <string name="bakir_khata">বকির খাতা</string>
+    <string name="add_a_new_record">একটি নতুন রেকর্ড যুক্ত করুন</string>
+    <string name="add_new_record">নতুন রেকর্ড যুক্ত করুন</string>
+    <string name="enter_name">রত</string>
+    <string name="date">তারিখ</string>
+    <string name="payment_method">মূল্যপরিশোধ পদ্ধতি</string>
+    <string name="becha_bikri">বেচা বিক্রি</string>
+    <string name="please_select_date">দয়া করে তারিখটি নির্বাচন করুন</string>
 
 </resources>
