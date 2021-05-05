@@ -124,6 +124,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                                 {
                                     progressBar.setVisibility(View.GONE);
                                     Toast.makeText(getApplicationContext(), "Congratulations ! Your account created successfully", Toast.LENGTH_SHORT).show();
+
                                     FirebaseAuth.getInstance().signOut();
                                     getDynamicLinks();
                                 }
@@ -157,10 +158,14 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     if (pendingDynamicLinkData != null) {
                         deepLink = pendingDynamicLinkData.getLink();
                         String queryParam = deepLink.getQueryParameter("customerMobileNumber");
-
                         creditToReferrer(queryParam);
                     }
-
+                    else
+                    {
+                        Intent intent = new Intent(VerifyPhoneActivity.this, LogInActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 })
                 .addOnFailureListener(this, e -> Log.w("Splash", "getDynamicLink:onFailure", e));
     }
@@ -198,9 +203,9 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber(phoneNumberWithCountryCode)       // Phone number to verify
-                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity(this)                 // Activity (for callback binding)
+                        .setPhoneNumber(phoneNumberWithCountryCode)
+                        .setTimeout(60L, TimeUnit.SECONDS)
+                        .setActivity(this)
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {

@@ -48,7 +48,8 @@ public class Categories extends AppCompatActivity {
         categoryAdapter.getData();
         attachToRecyclerView();
 
-        swipeRefreshLayout.setOnRefreshListener(()->{
+        swipeRefreshLayout.setOnRefreshListener(()->
+        {
             categoryAdapter.getData();
             attachToRecyclerView();
             swipeRefreshLayout.setRefreshing(false);
@@ -76,7 +77,11 @@ public class Categories extends AppCompatActivity {
 
             final AlertDialog alertDialog = builder.create();
             alertDialog.show();
-            alertDialog.getWindow().setLayout(950, 800);
+
+            int width = (int)(getResources().getDisplayMetrics().widthPixels);
+            int height = (int)(getResources().getDisplayMetrics().heightPixels*0.4);
+
+            alertDialog.getWindow().setLayout(width, height);
 
             call_us_now.setOnClickListener(v12 -> {
                 Intent intent = new Intent(Intent.ACTION_DIAL); //calling activity
@@ -86,7 +91,8 @@ public class Categories extends AppCompatActivity {
 
             });
 
-            issue_a_complain.setOnClickListener(v1 -> {
+            issue_a_complain.setOnClickListener(v1 ->
+            {
                 Intent intent = new Intent(Categories.this, Contact_us.class);
                 intent.putExtra("mobileNumber", Prevalent.currentOnlineUser.getMobileNumber());
                 startActivity(intent);

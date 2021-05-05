@@ -71,7 +71,7 @@ public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewH
             imageView = itemView.findViewById(R.id.imageviewid);
             textView = itemView.findViewById(R.id.textviewid);
 
-            DisplayMetrics displaymetrics = new DisplayMetrics(); //Resizing things dynamically
+            DisplayMetrics displaymetrics = new DisplayMetrics();
             ((Activity) mCtx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
             int deviceWidth = displaymetrics.widthPixels / 3;
@@ -89,7 +89,8 @@ public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewH
         }
     }
 
-    public void getData() {
+    public void getData()
+    {
         progressDialog.setTitle("Get categories");
         progressDialog.setMessage("Please wait while we are getting category data");
         progressDialog.show();

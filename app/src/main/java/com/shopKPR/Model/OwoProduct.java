@@ -1,7 +1,6 @@
 package com.shopKPR.Model;
 
 import com.shopKPR.homeComponents.brandsComponent.entity.Brands;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -18,15 +17,15 @@ public class OwoProduct implements Serializable {
     private String productCreationTime;
     private String productImage;
     private Brands brands;
+    private String productExpireDate;
 
     public OwoProduct() {
     }
 
     public OwoProduct(Long productId, String productName, Long productCategoryId,
-                      Long productSubCategoryId, Double productPrice,
-                      Double productDiscount, Integer productQuantity,
-                      String productDescription, String productCreationDate,
-                      String productCreationTime, String productImage, Brands brands) {
+                      Long productSubCategoryId, Double productPrice, Double productDiscount,
+                      Integer productQuantity, String productDescription, String productCreationDate,
+                      String productCreationTime, String productImage, Brands brands, String productExpireDate) {
         this.productId = productId;
         this.productName = productName;
         this.productCategoryId = productCategoryId;
@@ -39,6 +38,15 @@ public class OwoProduct implements Serializable {
         this.productCreationTime = productCreationTime;
         this.productImage = productImage;
         this.brands = brands;
+        this.productExpireDate = productExpireDate;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {
@@ -129,12 +137,12 @@ public class OwoProduct implements Serializable {
         this.brands = brands;
     }
 
-    public Long getProductId() {
-        return productId;
+    public String getProductExpireDate() {
+        return productExpireDate;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setProductExpireDate(String productExpireDate) {
+        this.productExpireDate = productExpireDate;
     }
 
     @Override
@@ -166,7 +174,8 @@ public class OwoProduct implements Serializable {
             return false;
         if (!Objects.equals(productImage, that.productImage))
             return false;
-        return Objects.equals(brands, that.brands);
+        if (!Objects.equals(brands, that.brands)) return false;
+        return Objects.equals(productExpireDate, that.productExpireDate);
     }
 
     @Override
@@ -183,6 +192,7 @@ public class OwoProduct implements Serializable {
         result = 31 * result + (productCreationTime != null ? productCreationTime.hashCode() : 0);
         result = 31 * result + (productImage != null ? productImage.hashCode() : 0);
         result = 31 * result + (brands != null ? brands.hashCode() : 0);
+        result = 31 * result + (productExpireDate != null ? productExpireDate.hashCode() : 0);
         return result;
     }
 }

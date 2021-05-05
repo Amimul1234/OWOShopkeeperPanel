@@ -20,9 +20,11 @@ import com.shopKPR.Model.ShopKeeperOrders;
 import com.shopKPR.prevalent.Prevalent;
 import com.shopKPR.R;
 import org.jetbrains.annotations.NotNull;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import okhttp3.ResponseBody;
@@ -38,7 +40,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
     private double discount;
     private ProgressBar loader;
     private ArrayList<CartListProduct> CartListProducts;
-    private Spinner timeSlotSelector;
+    private Spinner timeSlotSelector, dateSpinner;
     private final List<String> availableTimeSlots = new ArrayList<>();
 
     @Override
@@ -48,12 +50,27 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
         setContentView(R.layout.activity_confirm_final_order);
 
         timeSlotSelector = findViewById(R.id.time_slots);
+        dateSpinner = findViewById(R.id.date_spinner);
         Button confirmOrderButton = findViewById(R.id.confirm_final_order_btn);
         phoneEditText = findViewById(R.id.shipment_phone_number);
         delivery_address = findViewById(R.id.delivery_address);
         additional_comments = findViewById(R.id.additional_comments);
         radioGroup = findViewById(R.id.radio_group);
         loader = findViewById(R.id.loader);
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        Date today = new Date();
+        Date tomorrow = new Date(today.getTime() + ( 2 * 1000 * 60 * 60 * 24));
+
+        List<String> spinnerArray = new ArrayList<>();
+        spinnerArray.add("Today");
+        spinnerArray.add("Tomorrow");
+        spinnerArray.add(dateFormat.format(tomorrow));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, spinnerArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dateSpinner.setAdapter(adapter);
 
 
         grand_total_price = Double.parseDouble(getIntent().getStringExtra("grand_total"));
@@ -73,7 +90,8 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
                 .getShopInfo(Prevalent.currentOnlineUser.getMobileNumber())
                 .enqueue(new Callback<Shops>() {
                     @Override
-                    public void onResponse(@NotNull Call<Shops> call, @NotNull Response<Shops> response) {
+                    public void onResponse(@NotNull Call<Shops> call, @NotNull Response<Shops> response)
+                    {
                         if(response.isSuccessful())
                         {
                             Shops shops = response.body();
@@ -110,11 +128,10 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
                                 availableTimeSlots.add(timeSlot.getTimeSlotString());
                             }
 
-                            ArrayAdapter<String> availableTimeSlotsAdapter =
-                                    new ArrayAdapter<>(ConfirmFinalOrderActivity.this,
-                                            android.R.layout.simple_spinner_item, availableTimeSlots);
-
-                            timeSlotSelector.setAdapter(availableTimeSlotsAdapter);
+                            ArrayAdapter<String> timeSlotAdapter = new ArrayAdapter<>(
+                                    ConfirmFinalOrderActivity.this, android.R.layout.simple_spinner_item, availableTimeSlots);
+                            timeSlotAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            timeSlotSelector.setAdapter(timeSlotAdapter);
                         }
                         else
                         {
@@ -160,7 +177,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
         saveCurrentDate = currentDate.format(callForDate.getTime());
 
 
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm::ss a", Locale.ENGLISH);
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a", Locale.ENGLISH);
         saveCurrentTime = currentTime.format(callForDate.getTime());
 
         ShopKeeperOrders shopKeeperOrders = new ShopKeeperOrders();
@@ -182,7 +199,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
         shopKeeperOrders.setReceiver_phone(phoneEditText.getText().toString());
         shopKeeperOrders.setShop_phone(Prevalent.currentOnlineUser.getMobileNumber());
         shopKeeperOrders.setShipping_state("Pending");
-        shopKeeperOrders.setTime_slot(timeSlotSelector.getSelectedItem().toString());
+        shopKeeperOrders.setTime_slot(dateSpinner.getSelectedItem().toString() + " - " +timeSlotSelector.getSelectedItem().toString());
         shopKeeperOrders.setOrder_time(saveCurrentTime);
         shopKeeperOrders.setTotal_amount(grand_total_price);
 

@@ -267,5 +267,6 @@ We report findings in 23 patients who presented with thrombosis and thrombocytop
     <string name="date">Date</string>
     <string name="payment_method">Payment Method</string>
     <string name="becha_bikri">Becha Bikri</string>
+    <string name="please_select_date">Please Select Date</string>
 
 </resources>

@@ -356,6 +356,16 @@ public class SettingsActivity extends AppCompatActivity{
                                             }
                                         });
                             }
+                            else
+                            {
+                                progressDialog.dismiss();
+                                Toast.makeText(SettingsActivity.this, "Updated your image successfully", Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(SettingsActivity.this, HomeActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
+                            }
 
                         }
 
