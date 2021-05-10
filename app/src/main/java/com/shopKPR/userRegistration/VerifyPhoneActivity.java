@@ -89,16 +89,19 @@ public class VerifyPhoneActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             String code = inputOtp.getText().toString().trim();
 
-            if (code.isEmpty() || code.length() < 6) {
+            if (code.isEmpty() || code.length() < 6)
+            {
                 progressBar.setVisibility(View.GONE);
                 inputOtp.setError("Please Enter Code...");
                 inputOtp.requestFocus();
                 return;
             }
+
             verifyCode(code);
         });
 
-        resendOtp.setOnClickListener(v -> sendOtpToUser("+88" + mobileNumber));
+        resendOtp.setOnClickListener(v ->
+                sendOtpToUser("+88" + mobileNumber));
     }
 
     private void verifyCode(String code)

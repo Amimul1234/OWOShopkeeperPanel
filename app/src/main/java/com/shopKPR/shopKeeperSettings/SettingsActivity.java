@@ -50,7 +50,6 @@ public class SettingsActivity extends AppCompatActivity{
     private TextView userMobile;
     private TextView userName;
     private CollapsingToolbarLayout collapsingToolbarLayout;
-
     private String previousImagePath;
     private ShopKeeperUser shopKeeperUser;
     private final int STORAGE_PERMISSION_CODE = 1;
@@ -74,20 +73,22 @@ public class SettingsActivity extends AppCompatActivity{
 
         userInfoDisplay();
 
-        back_to_home.setOnClickListener(v -> {
+        back_to_home.setOnClickListener(v ->
+        {
             Intent intent = new Intent(SettingsActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         });
 
-        changePinLayout.setOnClickListener(v -> {
+        changePinLayout.setOnClickListener(v ->
+        {
             Intent intent = new Intent(SettingsActivity.this, ChangePin.class);
             intent.putExtra("shopKeeper", shopKeeperUser);
             startActivity(intent);
         });
 
-        profile_pic_card.setOnClickListener(v -> {
-
+        profile_pic_card.setOnClickListener(v ->
+        {
             CharSequence[] options =new CharSequence[]{"Yes","No"};
             AlertDialog.Builder builder=new AlertDialog.Builder(SettingsActivity.this);
             builder.setTitle("Are you sure you want to update your profile picture?");
@@ -113,6 +114,7 @@ public class SettingsActivity extends AppCompatActivity{
     {
 
         ProgressDialog progressDialog = new ProgressDialog(this);
+
         progressDialog.setTitle("User Information");
         progressDialog.setMessage("Please wait while we are getting your information");
         progressDialog.show();

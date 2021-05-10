@@ -31,6 +31,7 @@ import com.shopKPR.homeComponents.HomeActivity;
 import com.shopKPR.R;
 import com.shopKPR.prevalent.Prevalent;
 import com.shopKPR.shopKeeperSettings.ChangePin;
+import com.shopKPR.shopKeeperSettings.SettingsActivity;
 import com.shopKPR.shopKeeperSettings.UserInfoUpdateBottomSheet;
 import com.shopKPR.userRegistration.ShopKeeperUser;
 import org.jetbrains.annotations.NotNull;
@@ -384,9 +385,17 @@ public class AccountInfo extends AppCompatActivity{
                                             }
                                         });
                             }
+                            else
+                            {
+                                progressDialog.dismiss();
+                                Toast.makeText(AccountInfo.this, "Updated your image successfully", Toast.LENGTH_SHORT).show();
 
+                                Intent intent = new Intent(AccountInfo.this, HomeActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
+                            }
                         }
-
                         else
                         {
                             progressDialog.dismiss();

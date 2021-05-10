@@ -15,7 +15,6 @@ import com.shopKPR.pagination.category.ItemViewModelCategory;
 import com.shopKPR.prevalent.Prevalent;
 import com.shopKPR.shopKeeperPanel.SearchActivity;
 
-
 public class OffersActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;

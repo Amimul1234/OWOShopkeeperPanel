@@ -1,12 +1,9 @@
 package com.shopKPR.network;
 
 import com.shopKPR.configurations.HostAddress;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
