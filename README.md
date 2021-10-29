@@ -134,7 +134,7 @@ An Owo Dokan customer can either : </br>
     <img src="images/Screenshot_1607505645.png?raw=true" width="25%"/>
   </p>
 
-  <h1>Exiting app:</h1>
+  <h1>Exiting from app:</h1>
   <p align="center">
     <img src="images/Screenshot_1607505677.png?raw=true" width="25%"/>
   </p>
