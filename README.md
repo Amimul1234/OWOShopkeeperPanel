@@ -142,7 +142,7 @@ An Owo Dokan customer can either : </br>
 </br>
 </br>
 <h1><b><u>Spring boot backend from owo dokan :</u></b><h1> 
-    <a href = "https://github.com/Amimul1234/Spring-backend.git">Backend Link</a>
+    <a href = "https://github.com/Amimul1234/OwoDokan-Backend.git">Backend Link</a>
     
 </br>
 </br>
